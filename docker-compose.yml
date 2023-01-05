@@ -1,0 +1,18 @@
+version: '3'
+services:
+  user-parking-control-service:
+    image: fain1995/user-parking-control-service:back
+    #specifies the build configuration for creating container image
+    build:
+      #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
+      context: ./user-parking-control-service
+      #the "dockerfile" is necessary otherwise it will generate an error
+      #we specific the dockerfile name
+      dockerfile: Dockerfile
+    #ports (running:listening)
+    ports:
+      - "5002:5002"
+    #name of image instance (container)
+    container_name: user-parking-control-service
+    volumes:
+      - ./user-parking-control-service:/usr/src/app/user-parking-control-service
