@@ -15,4 +15,10 @@ services:
     #name of image instance (container)
     container_name: user-parking-control-service
     volumes:
-      - ./user-parking-control-service:/usr/src/app/user-parking-control-service
+      #- ./user-parking-control-service:/app/user-parking-control-service
+      #se guardarà un volumen en el host de la computadora relacionado al container user-parking, 
+      #este volumen esta dentro de esta misma carpeta
+      - ./user-parking-control-service:/user-parking-control-service
+volumes:
+  #nombre para el volumen
+  user_parking_control_service_app:
