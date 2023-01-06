@@ -14,8 +14,8 @@
 
 
 -- Volcando estructura de base de datos para userparkingcontrol
-CREATE DATABASE IF NOT EXISTS `userparkingcontro` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `userparkingcontro`;
+CREATE DATABASE IF NOT EXISTS `userparkingcontrol` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `userparkingcontrol`;
 
 -- Volcando estructura para tabla userparkingcontrol.tarjeta
 CREATE TABLE IF NOT EXISTS `tarjeta` (
