@@ -3,9 +3,12 @@ from flask import Flask, jsonify, request
 import re
 import jwt
 from functools import wraps
+
+
 from database_conexion import obtener_conexion
 from controller import signup
 from controller import signin
+from controller import rol
 
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
@@ -72,36 +75,12 @@ def login():
     return signin.login(request.form, mysql, app)
 
 
-@app.route('/asignarRol')
-def getUsers():
+@app.route('/asignarRol/<username>/<rolAsignado>', methods=["PUT"])
+def getUsers(username, rolAsignado):
+    rol.asignarRolUsuario(username, rolAsignado, mysql)
+    return rol.asignarRolUsuario(username, rolAsignado, mysql)
 
-    return 'asignar rol admin o tarjetero'
 
-
-"""
-@app.route('/users')
-def getUsers():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM usuario')
-    user = cursor.fetchone()
-
-    cursor.close()
-
-    return jsonify(user)
-"""
-
-"""
-@app.route('/users')
-def user():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM usuario')
-    user = cursor.fetchone()
-
-    cursor.close()
-
-    return jsonify(user)
-
-"""
 # main driver function
 if __name__ == "__main__":
     app.run(debug=True)
