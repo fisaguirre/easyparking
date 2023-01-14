@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 import re
 import jwt
 from functools import wraps
+from flask_cors import CORS, cross_origin
 
 
 from database_conexion import obtener_conexion
@@ -26,6 +27,7 @@ app.config['MYSQL_PASSWORD'] = 'Fernandoroot2023.'
 app.config['MYSQL_DB'] = 'userparkingcontrol'
 """
 mysql = MySQL(app)
+CORS(app)
 
 #SECRET_KEY = 'your secret key'
 
@@ -64,6 +66,7 @@ def index():
     return 'a sfffss!'
 
 
+@cross_origin()
 @app.route('/signup', methods=['POST'])
 def register():
     return signup.register(request, mysql, app)
@@ -82,6 +85,8 @@ def getUsers(username, rolAsignado):
 
 # Obtener usuario
 
+
+"""
 
 @app.route('/user', methods=["GET"])
 def getUsers(username, rolAsignado):
@@ -138,7 +143,7 @@ def getUsers(username, rolAsignado):
 def getUsers(username, rolAsignado):
     rol.asignarRolUsuario(username, rolAsignado, mysql)
     return rol.asignarRolUsuario(username, rolAsignado, mysql)
-
+"""
 
 # main driver function
 if __name__ == "__main__":

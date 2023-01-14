@@ -62,7 +62,7 @@ services:
       dockerfile: Dockerfile
     #ports (running:listening)
     ports:
-      - "3001:3000"
+      - "3000:3000"
     #name of image instance (container)
     container_name: frontend
     volumes:

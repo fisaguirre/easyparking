@@ -22,20 +22,11 @@ from flask import make_response
 
 
 def register(request, mysql, app):
-    print("asd")
-
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-        user_signup_data = request.form
+    if request.method == 'POST' and request.json['username'] and request.json['password'] and request.json['email']:
+        user_signup_data = request.json
 
         new_password = generate_password_hash(user_signup_data.get('password'))
-        new_password2 = generate_password_hash(
-            user_signup_data.get('password'))
-        new_password3 = generate_password_hash(
-            user_signup_data.get('password'))
 
-        print("1: ", new_password)
-        print("2: ", new_password2)
-        print("3: ", new_password3)
         new_user = User(str(uuid.uuid4()), user_signup_data.get('username'),  new_password,
                         user_signup_data.get('nombre'), user_signup_data.get('apellido'), user_signup_data.get('email'), 'NULL')
 
