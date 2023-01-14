@@ -1,72 +1,141 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 
-export default function SignUp() {
+const API = process.env.REACT_APP_API_USER;
 
-    const { register, formState: { errors }, watch, handleSubmit } = useForm({
-        defaultValues: {
-            email: 'Ejemplo@gmail.com'
-        }
-    });
+const SignUp = () => {
+    //Guardo los datos que se envian por handleSubmit al darle click al boton submit
 
-    const onSubmit = (data) => {
-        console.log(data);
-    }
+    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
+    const [lastname, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [rol, setRol] = useState('');
 
-    const incluirTelefono = watch('incluirTelefono');
+    const [editing, setEditing] = useState(false);
+    const [id, setId] = useState("");
 
-    return <div className="form-text">
-        <h2>Ingrese los datos</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <label>Nombre</label>
-                <input type="text" {...register('nombre', {
-                    required: true,
-                    maxLength: 10
-                })} />
-                {errors.nombre?.type === 'required' && <p>El campo nombre es requerido</p>}
-                {errors.nombre?.type === 'maxLength' && <p>El campo nombre debe tener menos de 10 caracteres</p>}
-            </div>
-            <div>
-                <label>Apellido</label>
-                <input type="text" {...register('nombre', {
-                    maxLength: 15
-                })} />
-            </div>
-            <div>
-                <label>Username   </label>
-                <input type="text" {...register('username', {
-                })} />
-            </div>
-            <div>
-                <label>Email   </label>
-                <input type="text" {...register('email', {
-                    required: true,
-                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i
-                })} />
-                {errors.email?.type === 'required' && <p>Ingre un correo electrònico</p>}
-                {errors.email?.type === 'pattern' && <p>El formato del email es incorrecto</p>}
-            </div>
-            <div>
-                <label>Rol   </label>
-                <select {...register('rol')}>
-                    <option value="null">sin asignar</option>
-                    <option value="tarj">tarjetero</option>
-                    <option value="adm">administrador</option>
-                </select>
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" {...register('password', {
-                    required: true
-                })} />
-                {errors.password?.type === 'required' && <p> Ingrese una contraseña</p>}
-            </div>
-            <p></p>
-            <input type="submit" value="Registrar usuario" />
-        </form>
+    const usernameInput = useRef(null);
+    const lastNameInput = useRef(null);
+    const nameInput = useRef(null);
 
-    </div>
-    console.log("asd")
-}
+    let [users, setUsers] = useState([]);
 
+    //Se coloca el mètodo como async para que no se quede colgado el navegador
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const res = await fetch(`${API}/signup`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username,
+                name,
+                lastname,
+                email,
+                password,
+                rol
+            }),
+        });
+        await res.json();
+
+        setUsername("");
+        setName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setRol("");
+        usernameInput.current.focus();
+    };
+
+    //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado
+    /*
+        useEffect(() => {
+            getUsers();
+        }, []);
+    */
+
+    return (
+        <div id="form-text" className="row">
+            <div className="col-md-4">
+
+            </div>
+            <div className="col-md-4">
+                <form onSubmit={handleSubmit} className="card card-body">
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
+                            className="form-control"
+                            placeholder="Username"
+                            ref={usernameInput}
+                            autoFocus
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                            className="form-control"
+                            placeholder="name"
+                            ref={nameInput}
+                            autoFocus
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            onChange={(e) => setLastName(e.target.value)}
+                            value={lastname}
+                            className="form-control"
+                            placeholder="lastname"
+                            ref={lastNameInput}
+                            autoFocus
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            className="form-control"
+                            placeholder="User's Email"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            className="form-control"
+                            placeholder="User's Password"
+                        />
+                    </div>
+                    <p></p>
+                    <div className="form-group">
+                        <label>Rol </label>
+                        <select value={rol} onChange={(e) => setRol(e.target.value)}>
+                            <option value="">--Choose a rol--</option>
+                            <option value="sin asignar">Sin asignar</option>
+                            <option value="tarjetero">Tarjetero</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <p>
+                    </p>
+                    <button className="btn btn-primary btn-block">Sign Up
+                    </button>
+                </form>
+            </div>
+            <div className="col-md-4"></div>
+        </div>
+    );
+};
+
+export default SignUp;

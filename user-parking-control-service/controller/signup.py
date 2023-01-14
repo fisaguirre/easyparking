@@ -28,7 +28,7 @@ def register(request, mysql, app):
         new_password = generate_password_hash(user_signup_data.get('password'))
 
         new_user = User(str(uuid.uuid4()), user_signup_data.get('username'),  new_password,
-                        user_signup_data.get('nombre'), user_signup_data.get('apellido'), user_signup_data.get('email'), 'NULL')
+                        user_signup_data.get('nombre'), user_signup_data.get('apellido'), user_signup_data.get('email'), user_signup_data.get('rol'))
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 

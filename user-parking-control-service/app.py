@@ -69,6 +69,7 @@ def index():
 @cross_origin()
 @app.route('/signup', methods=['POST'])
 def register():
+    # print(request.json)
     return signup.register(request, mysql, app)
 
 
