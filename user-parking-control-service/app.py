@@ -96,6 +96,50 @@ def getUsers(username, rolAsignado):
     return rol.asignarRolUsuario(username, rolAsignado, mysql)
 
 
+# Eliminar usuario
+@app.route('/users', methods=["DELETE"])
+def getUsers(username, rolAsignado):
+    rol.asignarRolUsuario(username, rolAsignado, mysql)
+    return rol.asignarRolUsuario(username, rolAsignado, mysql)
+
+
+# Crear tarjeta
+@app.route('/tarjeta', methods=["POST"])
+def getUsers(username, rolAsignado):
+    rol.asignarRolUsuario(username, rolAsignado, mysql)
+    return rol.asignarRolUsuario(username, rolAsignado, mysql)
+
+# Get tarjeta
+
+
+@app.route('/tarjeta', methods=["GET"])
+def getUsers(username, rolAsignado):
+    rol.asignarRolUsuario(username, rolAsignado, mysql)
+    return rol.asignarRolUsuario(username, rolAsignado, mysql)
+
+# Get tarjetas
+
+
+@app.route('/tarjetas', methods=["GET"])
+def getUsers(username, rolAsignado):
+    rol.asignarRolUsuario(username, rolAsignado, mysql)
+    return rol.asignarRolUsuario(username, rolAsignado, mysql)
+
+
+# ACtualizar tarjeta
+@app.route('/users', methods=["UPDATE"])
+def getUsers(username, rolAsignado):
+    rol.asignarRolUsuario(username, rolAsignado, mysql)
+    return rol.asignarRolUsuario(username, rolAsignado, mysql)
+
+
+# Eliminar tarjeta
+@app.route('/tarjeta', methods=["DELETE"])
+def getUsers(username, rolAsignado):
+    rol.asignarRolUsuario(username, rolAsignado, mysql)
+    return rol.asignarRolUsuario(username, rolAsignado, mysql)
+
+
 # main driver function
 if __name__ == "__main__":
     app.run(debug=True)
