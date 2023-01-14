@@ -1,0 +1,39 @@
+div {
+    font-size: 1, 5em;
+}
+
+a {
+    text-decoration: none;
+    background-color: blue;
+    padding: 10px 20px;
+    font-size: 24px;
+}
+
+.nav-text {
+    color: white;
+}
+
+.activado {
+    color: gold;
+    background-color: crimson;
+}
+
+
+errors {
+    color: blue
+}
+
+.ml-auto {
+    text-align: right;
+    color: white;
+
+}
+
+.form-text {
+    text-align: center;
+}
+
+
+#hola {
+    text-align: center;
+}

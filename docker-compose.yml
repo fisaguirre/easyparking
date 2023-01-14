@@ -51,12 +51,12 @@ services:
     networks:
       - user_parking_control
 
-  eparking-pwa:
-    image: fain1995/eparking-pwa:front
+  frontend:
+    image: fain1995/frontend:front
     #specifies the build configuration for creating container image
     build:
       #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
-      context: ./eparking-pwa
+      context: ./frontend
       #the "dockerfile" is necessary otherwise it will generate an error
       #we specific the dockerfile name
       dockerfile: Dockerfile
@@ -64,10 +64,10 @@ services:
     ports:
       - "3001:3000"
     #name of image instance (container)
-    container_name: eparking-pwa
+    container_name: frontend
     volumes:
-      - ./eparking-pwa:/app/
-      - /app/eparking-pwa/node_modules
+      - ./frontend:/app/
+      - /app/frontend/node_modules
 
 networks:
   user_parking_control:
@@ -77,4 +77,4 @@ volumes:
   #nombre para el volumen
   user_parking_control_service_app:
   db_user_parking_control_service:
-  eparking-pwa:
+  frontend:

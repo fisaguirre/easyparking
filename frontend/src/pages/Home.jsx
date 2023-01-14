@@ -1,9 +1,15 @@
 import React from "react";
-import UserNavbar from "../components/user-parking-control/UserNavbar";
+import UserNavbar from "../components/parking-control/UserNavbar";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import UserHome from "../components/user-parking-control/UserHome";
-import UserAbout from "../components/user-parking-control/UserAbout";
+import UserHome from "../components/parking-control/UserHome";
+import UserAbout from "../components/parking-control/UserAbout";
 
+export default function Home() {
+    return (
+        <div>Esto es el HOME</div>
+    )
+}
+{/*
 export default function Home() {
     return (
         <BrowserRouter>
@@ -17,3 +23,4 @@ export default function Home() {
         </BrowserRouter>
     )
 }
+*/}
