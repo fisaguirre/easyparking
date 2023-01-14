@@ -1,0 +1,20 @@
+div {
+  font-size: 1, 5em;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  padding: 10px 20px;
+  font-size: 24px;
+}
+
+.activado {
+  color: gold;
+  background-color: crimson;
+}
+
+errors {
+  color: blue
+}
