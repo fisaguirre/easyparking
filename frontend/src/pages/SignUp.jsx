@@ -15,7 +15,7 @@ export default function SignUp() {
 
     const incluirTelefono = watch('incluirTelefono');
 
-    return <div>
+    return <div className="form-text">
         <h2>Ingrese los datos</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>

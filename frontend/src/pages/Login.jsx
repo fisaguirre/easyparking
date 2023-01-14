@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
+{/*export = exporta el componente para llarmalo en otro script*/ }
+{/*function = const - puedo usar cualquiera de los 2 para el componente*/ }
 export default function Login() {
 
     const { register, formState: { errors }, watch, handleSubmit } = useForm({
@@ -11,12 +13,12 @@ export default function Login() {
         console.log(data);
     }
 
-    return <div>
+    return <div className="form-text">
         <h2>Ingrese su cuenta</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <label>Email</label>
-                <input type="text" {...register('email', {
+                <input placeholder="email" type="text" {...register('email', {
                     required: true,
                     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i
                 })} />
@@ -25,12 +27,13 @@ export default function Login() {
             </div>
             <div>
                 <label>Password</label>
-                <input type="password" {...register('password', {
+                <input placeholder="password" type="password" {...register('password', {
                     required: true
                 })} />
                 {errors.password?.type === 'required' && <p> Ingrese una contraseña</p>}
             </div>
             <p></p>
+
             <input type="submit" value="Iniciar sesiòn" />
         </form>
     </div>

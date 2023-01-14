@@ -13,7 +13,7 @@ services:
       - db_user_parking_control_service
     #ports (running:listening)
     ports:
-      - "5002:5002"
+      - "5000:5000"
     #name of image instance (container)
     container_name: user-parking-control-service
     volumes:

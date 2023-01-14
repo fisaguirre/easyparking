@@ -80,6 +80,21 @@ def getUsers(username, rolAsignado):
     rol.asignarRolUsuario(username, rolAsignado, mysql)
     return rol.asignarRolUsuario(username, rolAsignado, mysql)
 
+# Obtener usuario
+
+
+@app.route('/user', methods=["GET"])
+def getUsers(username, rolAsignado):
+    rol.asignarRolUsuario(username, rolAsignado, mysql)
+    return rol.asignarRolUsuario(username, rolAsignado, mysql)
+
+
+# Obtener varios usuarios
+@app.route('/users', methods=["GET"])
+def getUsers(username, rolAsignado):
+    rol.asignarRolUsuario(username, rolAsignado, mysql)
+    return rol.asignarRolUsuario(username, rolAsignado, mysql)
+
 
 # main driver function
 if __name__ == "__main__":

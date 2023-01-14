@@ -16,7 +16,7 @@ COPY . .
 # The EXPOSE instruction indicates the ports on which a container 
 # will listen for connections
 # Since Flask apps listen to port 5000  by default, we expose it
-EXPOSE 5000
+EXPOSE 5002
 # Run app.py when the container launches
 #CMD python3 app.py
-CMD [ "flask", "run","--host","0.0.0.0","--port","5000"]
+CMD [ "flask", "run","--host","0.0.0.0","--port","5002"]
