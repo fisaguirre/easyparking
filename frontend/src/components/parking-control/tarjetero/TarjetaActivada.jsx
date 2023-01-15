@@ -18,32 +18,32 @@ export default function TarjetaActivada() {
 
     let [tarjetas, setTarjetas] = useState([]);
 
-
+    const userProvisorio = 1
     const getTarjetasActivadas = async () => {
-        const res = await fetch(`${API}/tarjeta`);
+        const res = await fetch(`${API}/tarjetas/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
         console.log(data)
     };
-
-    const showCard = async (tarjetaId) => {
-
-        const res = await fetch(`${API}/tarjeta`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                tarjetaId,
-                cardsQuantity
-            }),
-        });
-
-        setEditing(true);
-        setTarjetaInstanciaId(tarjetaInstanciaId);
-
-    };
-
+    /*
+        const showCard = async (tarjetaId) => {
+    
+            const res = await fetch(`${API}/tarjetas`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tarjetaId,
+                    cardsQuantity
+                }),
+            });
+    
+            setEditing(true);
+            setTarjetaInstanciaId(tarjetaInstanciaId);
+    
+        };
+    */
     useEffect(() => {
         getTarjetasActivadas();
     }, []);
@@ -53,7 +53,7 @@ export default function TarjetaActivada() {
             <h1>Aca van todas las tarjetas que se encuentran activas, agendadas con datos del vehiculo, fecha, etc</h1>
 
             <div id="form-text" className="row">
-                <h1>This is admin mode</h1>
+                <h1>This is Tarjetero mode</h1>
                 <div className="col-md-6">
                     <table className="table table-striped">
                         <thead>
@@ -83,20 +83,18 @@ export default function TarjetaActivada() {
                                     </td>
                                     <td>
                                         <button className="btn btn-primary btn-block"
-                                            onClick={(e) => showCard(tarjeta_instancia.tarjeta_instancia_id)}
-                                        >Acreditar
+                                        //onClick={(e) => showCard(tarjeta_instancia.tarjeta_instancia_id)}
+                                        >Mostrar tiempo
                                         </button>
+                                    </td>
+                                    <td>
+                                        <Link id="signup-link" to="/tarjeta/disenio">
+                                            <button type="button" id="signup-button" className="btn btn-info">Desplegar tarjeta</button>
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
-
-                        <p></p>
-                        <div>
-                            <Link id="signup-link" to="/auth/signup">
-                                <button type="button" id="signup-button" className="btn btn-info">Desplegar imagen tarjeta</button>
-                            </Link>
-                        </div>
                     </table>
                 </div>
             </div>

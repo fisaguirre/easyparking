@@ -38,21 +38,22 @@ const Tarjeta = () => {
         <div >
             <h1>This is admin mode</h1>
             <p></p>
-            <div>
-                <Link id="signup-link" to="/tarjeta/disenio">
-                    <button type="button" id="signup-button" className="btn btn-primary btn-block">Usar 1 tarjeta</button>
-                </Link>
+            <div className="row">
+                <div className="col-md-2">
+                </div>
+                <div className="col-md-3">
+                    <Link id="signup-link" to="/tarjeta/disenio">
+                        <button type="button" id="signup-button" className="btn btn-primary btn-block">Usar 1 tarjeta</button>
+                    </Link>
+                </div>
+                <div className="col-md-3">
+                </div>
+                <div className="col-md-4">
+                    <Link id="signup-link" to="/tarjeta/activada">
+                        <button type="button" id="signup-button" className="btn btn-primary btn-block">Mis tarjetas activas</button>
+                    </Link>
+                </div>
             </div>
-            <div></div>
-            <p></p>
-            <div>
-                <Link id="signup-link" to="/tarjeta/activada">
-                    <button type="button" id="signup-button" className="btn btn-primary btn-block">Ir a tarjetas en uso</button>
-                </Link>
-            </div>
-            <p></p>
-
-
         </div >
     );
 };

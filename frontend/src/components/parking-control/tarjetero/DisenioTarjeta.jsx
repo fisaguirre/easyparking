@@ -8,11 +8,7 @@ export default function DisenioTarjeta() {
                 <p></p>
                 <h3>Aca va la imagen de la tarjeta con botones y sus funciones</h3>
                 <p></p>
-                <button type="button" id="signup-button" className="btn btn-info">Usar tarjeta</button>
-            </div>
-            <div>
-                <p></p>
-                <button type="button" id="signup-button" className="btn btn-info">Volver</button>
+                <button type="button" id="signup-button" className="btn btn-info">Activar tarjeta</button>
             </div>
             <div>
                 <p></p>
@@ -25,6 +21,14 @@ export default function DisenioTarjeta() {
             <div>
                 <p></p>
                 <button type="button" id="signup-button" className="btn btn-info">Usar otra tarjeta para el mismo vehiculo</button>
+            </div>
+            <div>
+                <p></p>
+                <button type="button" id="signup-button" className="btn btn-info">Mis tarjetas activas</button>
+            </div>
+            <div>
+                <p></p>
+                <button type="button" id="signup-button" className="btn btn-info">Volver</button>
             </div>
         </div>
     )
