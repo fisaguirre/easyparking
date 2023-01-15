@@ -13,6 +13,10 @@ export default function Navbar() {
                 to="/login">Login</NavLink>
             <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                 to="/signup">SignUp</NavLink>
+            <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
+                to="/users">Users</NavLink>
+            <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
+                to="/acreditar">AcreditarTarjeta</NavLink>
         </nav>
     )
 }
