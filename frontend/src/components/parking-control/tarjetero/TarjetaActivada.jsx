@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { AmountCardsByUser, Prueba2 } from "./TarjetaService";
+
 const API = process.env.REACT_APP_API_USER;
 
 export default function TarjetaActivada() {
@@ -20,7 +22,7 @@ export default function TarjetaActivada() {
 
     const userProvisorio = 1
     const getTarjetasActivadas = async () => {
-        const res = await fetch(`${API}/tarjetas/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjetas_instancia/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
         console.log(data)
@@ -54,6 +56,11 @@ export default function TarjetaActivada() {
 
             <div id="form-text" className="row">
                 <h1>This is Tarjetero mode</h1>
+                <div>
+                    <h3>
+                        <AmountCardsByUser />
+                    </h3>
+                </div>
                 <div className="col-md-6">
                     <table className="table table-striped">
                         <thead>
@@ -86,6 +93,11 @@ export default function TarjetaActivada() {
                                         //onClick={(e) => showCard(tarjeta_instancia.tarjeta_instancia_id)}
                                         >Mostrar tiempo
                                         </button>
+                                    </td>
+                                    <td>
+                                        <Link id="signup-link" to="/tarjeta/disenio">
+                                            <button type="button" id="signup-button" className="btn btn-info">Finalizar tarjeta</button>
+                                        </Link>
                                     </td>
                                     <td>
                                         <Link id="signup-link" to="/tarjeta/disenio">
