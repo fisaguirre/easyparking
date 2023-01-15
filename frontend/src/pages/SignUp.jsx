@@ -85,7 +85,6 @@ const SignUp = () => {
                             className="form-control"
                             placeholder="name"
                             ref={nameInput}
-                            autoFocus
                         />
                     </div>
                     <div className="form-group">
@@ -96,7 +95,6 @@ const SignUp = () => {
                             className="form-control"
                             placeholder="lastname"
                             ref={lastNameInput}
-                            autoFocus
                         />
                     </div>
                     <div className="form-group">

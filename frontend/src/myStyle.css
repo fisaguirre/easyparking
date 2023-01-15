@@ -38,3 +38,14 @@ errors {
 #hola {
     text-align: center;
 }
+
+#signup-button {
+    background-color: black;
+    color: white;
+}
+
+#signup-link {
+    background-color: black;
+    color: white;
+    padding: 20px 30px;
+}

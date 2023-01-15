@@ -6,7 +6,9 @@ import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import Users from "./components/parking-control/Users";
 import Navbar from "./pages/Navbar";
-import AcreditarTarjeta from "./components/parking-control/admin/AcreditarTarjeta"
+import Tarjeta from './components/parking-control/tarjetero/Tarjeta';
+import DisenioTarjeta from './components/parking-control/tarjetero/DisenioTarjeta';
+import TarjetaActivada from './components/parking-control/tarjetero/TarjetaActivada';
 
 function App() {
   return (
@@ -17,10 +19,12 @@ function App() {
         <div className="container p-4">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/signup" element={<SignUp />} />
             <Route path="/users" className="auto" element={<Users />} />
-            <Route path="/acreditar" className="auto" element={<AcreditarTarjeta />} />
+            <Route path="/tarjeta" className="auto" element={<Tarjeta />} />
+            <Route path="/tarjeta/disenio" className="auto" element={<DisenioTarjeta />} />
+            <Route path="/tarjeta/activada" className="auto" element={<TarjetaActivada />} />
           </Routes>
         </div>
       </BrowserRouter>
