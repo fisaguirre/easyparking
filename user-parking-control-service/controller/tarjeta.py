@@ -110,3 +110,14 @@ def getAllCardsByUserId(usuario_id, mysql):
 
     cursor.close()
     return jsonify(cardsActivates)
+
+
+def countCardsByUserId(usuario_id, mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute(
+        'SELECT cantidad_tarjeta FROM tarjeta WHERE tarjeta.usuario_id = %s', (usuario_id,))
+    cardsQuantity = cursor.fetchone()
+
+    cursor.close()
+    return jsonify(cardsQuantity)

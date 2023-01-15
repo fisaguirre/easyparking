@@ -102,15 +102,21 @@ def addCards():
     return 'acreditar tarjetas'
 
 
+# Count all cards from user
+@app.route('/tarjetas/<usuario_id>', methods=["GET"])
+def countCardsByUserId(usuario_id):
+    return tarjeta.countCardsByUserId(usuario_id, mysql)
+
+
 # Activar 1 tarjeta
-@app.route('/tarjeta/activar', methods=["POST"])
+@app.route('/tarjeta_instancia/activar', methods=["POST"])
 def activateCard():
     tarjeta.activateCard(request, mysql)
     return 'acreditar tarjetas'
 
 
-# Get all card from user
-@app.route('/tarjetas/<usuarioId>', methods=["GET"])
+# Get all cards from user
+@app.route('/tarjetas_instancia/<usuarioId>', methods=["GET"])
 def getAllCardsByUserId(usuarioId):
     print("esto:", usuarioId)
 
