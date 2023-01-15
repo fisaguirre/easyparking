@@ -10,6 +10,8 @@ from database_conexion import obtener_conexion
 from controller import signup
 from controller import signin
 from controller import rol
+from controller import users
+from controller import tarjeta
 
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
@@ -87,20 +89,25 @@ def getUsers(username, rolAsignado):
 # Obtener usuario
 
 
+# Obtener varios usuarios
+@app.route('/users', methods=["GET"])
+def getAllUsers():
+    return users.getAllUsers(mysql)
+
+
+# Acreditar tarjetas
+@app.route('/tarjeta', methods=["POST"])
+def addCards():
+    tarjeta.addCardsToUser(request, mysql)
+    return 'acreditar tarjetas'
+
+
 """
 
 @app.route('/user', methods=["GET"])
 def getUsers(username, rolAsignado):
     rol.asignarRolUsuario(username, rolAsignado, mysql)
     return rol.asignarRolUsuario(username, rolAsignado, mysql)
-
-
-# Obtener varios usuarios
-@app.route('/users', methods=["GET"])
-def getUsers(username, rolAsignado):
-    rol.asignarRolUsuario(username, rolAsignado, mysql)
-    return rol.asignarRolUsuario(username, rolAsignado, mysql)
-
 
 # Eliminar usuario
 @app.route('/users', methods=["DELETE"])
