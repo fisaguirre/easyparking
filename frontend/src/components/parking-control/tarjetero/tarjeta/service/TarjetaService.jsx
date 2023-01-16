@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 const API = process.env.REACT_APP_API_USER;
 
 export const AmountCardsByUser = () => {
+
     let [amountCards, setAmountCards] = useState([]);
 
-    const userProvisorio = 1
+
+    const userProvisorio = 3
     const getAmountCards = async () => {
         const res = await fetch(`${API}/tarjetas/${userProvisorio}`);
         const data = await res.json();
@@ -34,12 +36,12 @@ export const AmountCardsByUser = () => {
 };
 
 
-export const Prueba2 = () => {
+export const AmountActivateCardsByUser = () => {
     let [amountCards, setAmountCards] = useState([]);
 
     const userProvisorio = 1
     const getAmountCards = async () => {
-        const res = await fetch(`${API}/tarjetas/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjetas_instancia/cantidad/${userProvisorio}`);
         const data = await res.json();
         setAmountCards(data);
     };
