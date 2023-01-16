@@ -141,6 +141,13 @@ def getAllFinishedCardsByUserId(contar, usuarioId):
 
 
 """
+# Get all finished cards from user
+@app.route('/tarjeta_instancia/<finalizada>/<usuarioId>', methods=["GET"])
+def getAllFinishedCardsByUserId(finalizada, usuarioId):
+    return tarjetaInstancia.getAllFinishedCardsByUserId(finalizada, usuarioId, mysql)
+"""
+
+"""
 
 @app.route('/user', methods=["GET"])
 def getUsers(username, rolAsignado):

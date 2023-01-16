@@ -109,9 +109,11 @@ def getAllFinishedCardsByUserId(contar, usuario_id, mysql):
     if contar == "si":
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
-            'SELECT COUNT(*) FROM tarjeta_instancia WHERE tarjeta_instancia.finalizada = %s AND tarjeta_instancia.usuario_id = %s', (finalizada, usuario_id,))
-        finishedCards = cursor.fetchall()
+            'SELECT COUNT(*) AS "cantidad_tarjetas_finalizadas" FROM tarjeta_instancia WHERE tarjeta_instancia.finalizada = %s AND tarjeta_instancia.usuario_id = %s', (finalizada, usuario_id,))
+        finishedCards = cursor.fetchone()
 
         if finishedCards:
             cursor.close()
+            print(finishedCards)
+
             return jsonify(finishedCards)

@@ -28,6 +28,8 @@ export default function TarjetaPendienteDePago() {
         const data = await res.json();
         setTarjetas(data);
         console.log(data)
+        console.log("esto")
+        console.log(data.length)
     };
 
     useEffect(() => {
@@ -37,13 +39,13 @@ export default function TarjetaPendienteDePago() {
     return (
         <div>
             <div id="form-text" className="row">
-                <h1>This is Tarjetero mode</h1>
                 <div>
+                </div>
+                <div className="col-md-6">
                     <h3>
                         <AmountFinishedCardsByUser />
                     </h3>
-                </div>
-                <div className="col-md-6"><h3>Tarjetas pendientes por pagar</h3>
+
                     <table className="table table-striped">
                         <thead>
                             <tr>

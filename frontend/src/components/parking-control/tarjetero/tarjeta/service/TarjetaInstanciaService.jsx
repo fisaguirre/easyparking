@@ -34,17 +34,20 @@ export const AmountActivateCardsByUser = () => {
 };
 
 export const AmountFinishedCardsByUser = () => {
+
     let [amountFinishedCards, setAmountFinishedCards] = useState([]);
 
+    const contar = 'si'
     const userProvisorio = 3
-    const contar = "si"
-
     const getAmountFinishedCards = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/${contar}/${userProvisorio}`);
         const data = await res.json();
-        setAmountFinishedCards(data);
-    };
 
+
+        setAmountFinishedCards(data);
+        console.log("Datas:")
+        console.log(amountFinishedCards)
+    };
 
     //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado
     useEffect(() => {
@@ -56,7 +59,7 @@ export const AmountFinishedCardsByUser = () => {
             <p></p>
             <div className="row">
                 <div className="col-md-8">
-                    <h2>Tarjetas pendientes por pagar: {amountFinishedCards.cantidad_tarjeta}</h2>
+                    <h2>Tarjetas pendientes por pagar: {amountFinishedCards.cantidad_tarjetas_finalizadas}</h2>
                 </div>
                 <p></p>
 
@@ -64,4 +67,3 @@ export const AmountFinishedCardsByUser = () => {
         </div >
     );
 };
-
