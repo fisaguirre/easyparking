@@ -23,7 +23,7 @@ export default function TarjetaInstancia() {
 
     const userProvisorio = 3
     const getTarjetasActivadas = async () => {
-        const res = await fetch(`${API}/tarjetas_instancia/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjeta_instancia/activar/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
         console.log(data)
