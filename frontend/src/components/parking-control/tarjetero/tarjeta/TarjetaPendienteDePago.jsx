@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { AmountCardsByUser, AmountActivateCardsByUser } from "./service/TarjetaService";
+import { AmountCardsByUser, Prueba2 } from "./service/TarjetaService";
 
 const API = process.env.REACT_APP_API_USER;
 
-export default function TarjetaInstancia() {
+export default function TarjetaPendienteDePago() {
     const [tarjetaInstanciaId, setTarjetaInstanciaId] = useState("");
     const [fecha, setFecha] = useState("");
     const [hora, setHora] = useState("");
@@ -20,56 +20,28 @@ export default function TarjetaInstancia() {
 
     let [tarjetas, setTarjetas] = useState([]);
 
-    const userProvisorio = 3
+    const userProvisorio = 1
     const getTarjetasActivadas = async () => {
         const res = await fetch(`${API}/tarjetas_instancia/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
         console.log(data)
     };
-    /*
-        const showCard = async (tarjetaId) => {
-    
-            const res = await fetch(`${API}/tarjetas`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    tarjetaId,
-                    cardsQuantity
-                }),
-            });
-    
-            setEditing(true);
-            setTarjetaInstanciaId(tarjetaInstanciaId);
-    
-        };
-    */
+
     useEffect(() => {
         getTarjetasActivadas();
     }, []);
 
     return (
         <div>
-            <div className="row">
+            <div id="form-text" className="row">
                 <h1>This is Tarjetero mode</h1>
                 <div>
                     <h3>
                         <AmountCardsByUser />
                     </h3>
                 </div>
-                <div className="col-md-6"><h3>Mis Tarjetas Activas</h3></div>
-                <div className="col-md-4">
-                    <Link id="signup-link" to="/tarjeta/disenio">
-                        <button type="button" id="signup-button" className="btn btn-info">Pendientes por pagar</button>
-                    </Link>
-                </div>
-            </div>
-            <div id="form-text" className="row">
-                <div>
-                </div>
-                <div className="col-md-6">
+                <div className="col-md-6"><h3>Mis Tarjetas Activas</h3>
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -79,12 +51,6 @@ export default function TarjetaInstancia() {
                                 <th>Minutos</th>
                                 <th>Patente</th>
                                 <th>Tiempo transcurrido</th>
-                                <th></th>
-                                <th>
-                                    <Link id="signup-link" to="/tarjeta/disenio">
-                                        <button type="button" id="signup-button" className="btn btn-info">Pendientes por pagar</button>
-                                    </Link>
-                                </th>
                             </tr>
                         </thead>
                         <tbody>

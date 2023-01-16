@@ -12,6 +12,7 @@ from controller import signin
 from controller import rol
 from controller import users
 from controller import tarjeta
+from controller import tarjetaInstancia
 
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
@@ -114,19 +115,23 @@ def countCardsByUserId(usuario_id):
     return tarjeta.countCardsByUserId(usuario_id, mysql)
 
 
+# Get all active cards from user
+@app.route('/tarjetas_instancia/<usuarioId>', methods=["GET"])
+def getAllCardsByUserId(usuarioId):
+    return tarjetaInstancia.getAllCardsByUserId(usuarioId, mysql)
+
+
 # Activar 1 tarjeta
 @app.route('/tarjeta_instancia/activar', methods=["POST"])
 def activateCard():
-    tarjeta.activateCard(request, mysql)
+    tarjetaInstancia.activateCard(request, mysql)
     return 'acreditar tarjetas'
 
 
-# Get all cards from user
-@app.route('/tarjetas_instancia/<usuarioId>', methods=["GET"])
-def getAllCardsByUserId(usuarioId):
-    print("esto:", usuarioId)
-
-    return tarjeta.getAllCardsByUserId(usuarioId, mysql)
+# Get amount active cards from user
+@app.route('/tarjetas_instancia/cantidad/<usuarioId>', methods=["GET"])
+def getAmountCardsByUserId(usuarioId):
+    return tarjetaInstancia.getAmountCardsByUserId(usuarioId, mysql)
 
 
 """
