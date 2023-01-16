@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { AmountCardsByUser, Prueba2 } from "./service/TarjetaService";
+import { AmountCardsByUser } from "./service/TarjetaService";
 
 const API = process.env.REACT_APP_API_USER;
 

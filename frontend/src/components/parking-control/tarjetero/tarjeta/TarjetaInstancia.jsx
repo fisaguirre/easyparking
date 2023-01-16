@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AmountCardsByUser, AmountActivateCardsByUser } from "./service/TarjetaService";
+import { TarjetaPendienteDePago } from "./TarjetaPendienteDePago"
 
 const API = process.env.REACT_APP_API_USER;
 
@@ -61,7 +62,7 @@ export default function TarjetaInstancia() {
                 </div>
                 <div className="col-md-6"><h3>Mis Tarjetas Activas</h3></div>
                 <div className="col-md-4">
-                    <Link id="signup-link" to="/tarjeta/disenio">
+                    <Link id="signup-link" to="/tarjeta/TarjetaPendienteDePago">
                         <button type="button" id="signup-button" className="btn btn-info">Pendientes por pagar</button>
                     </Link>
                 </div>
