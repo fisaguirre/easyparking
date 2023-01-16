@@ -54,8 +54,11 @@ export default function TarjetaPendienteDePago() {
                                 <th>Hora</th>
                                 <th>Minutos</th>
                                 <th>Patente</th>
-                                <th>Tiempo transcurrido</th>
+                                <th>Cantidad tarjetas</th>
+                                <th>Tiempo total</th>
                                 <th>Total a pagar</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,6 +69,8 @@ export default function TarjetaPendienteDePago() {
                                     <td>{tarjeta_instancia.hora}</td>
                                     <td>{tarjeta_instancia.minutos}</td>
                                     <td>{tarjeta_instancia.patente}</td>
+                                    <td></td>
+                                    <td></td>
                                     <td>
                                         <input type="text"
                                             onChange={(e) => setCardsQuantity(e.target.value)}
@@ -73,20 +78,15 @@ export default function TarjetaPendienteDePago() {
                                             className="form-control"
                                             placeholder="Ingrese cantidad de tarjetas" />
                                     </td>
-                                    <td>
-                                        <button className="btn btn-primary btn-block"
-                                        //onClick={(e) => showCard(tarjeta_instancia.tarjeta_instancia_id)}
-                                        >Mostrar tiempo
-                                        </button>
-                                    </td>
+
                                     <td>
                                         <Link id="signup-link" to="/tarjeta/disenio">
-                                            <button type="button" id="signup-button" className="btn btn-info">Finalizar tarjeta</button>
+                                            <button type="button" id="signup-button" className="btn btn-info">Generar QR</button>
                                         </Link>
                                     </td>
                                     <td>
                                         <Link id="signup-link" to="/tarjeta/disenio">
-                                            <button type="button" id="signup-button" className="btn btn-info">Desplegar tarjeta</button>
+                                            <button type="button" id="signup-button" className="btn btn-info">Limpiar tarjeta/s</button>
                                         </Link>
                                     </td>
                                 </tr>
@@ -104,6 +104,15 @@ export default function TarjetaPendienteDePago() {
                 <div className="col-md-12">
                     <Link id="signup-link" to="/tarjeta/disenio">
                         <button type="button" id="signup-button" className="btn btn-info">Usar una nueva tarjeta</button>
+                    </Link>
+                </div>
+            </div>
+            <br></br>
+            <br></br>
+            <div className="row">
+                <div className="col-md-12">
+                    <Link id="signup-link" to="/tarjeta/disenio">
+                        <button type="button" id="signup-button" className="btn btn-info">Ir a mis tarjetas activas</button>
                     </Link>
                 </div>
             </div>
