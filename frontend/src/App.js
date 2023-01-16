@@ -9,6 +9,7 @@ import Navbar from "./pages/Navbar";
 import Tarjeta from './components/parking-control/tarjetero/tarjeta/Tarjeta';
 import DisenioTarjeta from './components/parking-control/tarjetero/tarjeta/DisenioTarjeta';
 import TarjetaInstancia from './components/parking-control/tarjetero/tarjeta/TarjetaInstancia';
+import TarjetaPendienteDePago from './components/parking-control/tarjetero/tarjeta/TarjetaPendienteDePago';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/tarjeta" className="auto" element={<Tarjeta />} />
             <Route path="/tarjeta/disenio" className="auto" element={<DisenioTarjeta />} />
             <Route path="/tarjeta_instancia/" className="auto" element={<TarjetaInstancia />} />
+            <Route path="/tarjeta/tarjetaPendienteDePago" className="auto" element={<TarjetaPendienteDePago />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -91,16 +91,27 @@ def getAllActiveCardsByUserId(usuario_id, mysql):
         return 'no hay tarjetas activas'
 
 
-def getAllFinishedCardsByUserId(usuario_id, mysql):
+def getAllFinishedCardsByUserId(contar, usuario_id, mysql):
     finalizada = "si"
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if contar == "no":
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    cursor.execute(
-        'SELECT * FROM tarjeta_instancia WHERE tarjeta_instancia.finalizada = %s AND tarjeta_instancia.usuario_id = %s', (finalizada, usuario_id,))
+        cursor.execute(
+            'SELECT * FROM tarjeta_instancia WHERE tarjeta_instancia.finalizada = %s AND tarjeta_instancia.usuario_id = %s', (finalizada, usuario_id,))
+        finishedCards = cursor.fetchall()
 
-    cardsActivates = cursor.fetchall()
-    if cardsActivates:
-        cursor.close()
-        return jsonify(cardsActivates)
-    else:
-        return 'no hay tarjetas pendientes por pagar'
+        if finishedCards:
+            cursor.close()
+            return jsonify(finishedCards)
+        else:
+            return 'no hay tarjetas pendientes por pagar'
+
+    if contar == "si":
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute(
+            'SELECT COUNT(*) FROM tarjeta_instancia WHERE tarjeta_instancia.finalizada = %s AND tarjeta_instancia.usuario_id = %s', (finalizada, usuario_id,))
+        finishedCards = cursor.fetchall()
+
+        if finishedCards:
+            cursor.close()
+            return jsonify(finishedCards)

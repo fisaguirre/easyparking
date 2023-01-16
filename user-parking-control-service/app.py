@@ -122,6 +122,12 @@ def activateCard():
     return 'acreditar tarjetas'
 
 
+# Get amount active cards from user
+@app.route('/tarjeta_instancia/cantidad/<usuarioId>', methods=["GET"])
+def getAmountCardsByUserId(usuarioId):
+    return tarjetaInstancia.getAmountCardsByUserId(usuarioId, mysql)
+
+
 # Obtener todas las tarjetas activas no finalizadas del usuario
 @app.route('/tarjeta_instancia/activar/<usuario_id>', methods=["GET"])
 def getAllActiveCardsByUserId(usuario_id):
@@ -129,15 +135,9 @@ def getAllActiveCardsByUserId(usuario_id):
 
 
 # Get all finished cards from user
-@app.route('/tarjeta_instancia/finalizar/<usuarioId>', methods=["GET"])
-def getAllFinishedCardsByUserId(usuarioId):
-    return tarjetaInstancia.getAllFinishedCardsByUserId(usuarioId, mysql)
-
-
-# Get amount active cards from user
-@app.route('/tarjeta_instancia/cantidad/<usuarioId>', methods=["GET"])
-def getAmountCardsByUserId(usuarioId):
-    return tarjetaInstancia.getAmountCardsByUserId(usuarioId, mysql)
+@app.route('/tarjeta_instancia/finalizar/<contar>/<usuarioId>', methods=["GET"])
+def getAllFinishedCardsByUserId(contar, usuarioId):
+    return tarjetaInstancia.getAllFinishedCardsByUserId(contar, usuarioId, mysql)
 
 
 """

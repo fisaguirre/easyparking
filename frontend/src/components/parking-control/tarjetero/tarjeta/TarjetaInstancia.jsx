@@ -62,7 +62,7 @@ export default function TarjetaInstancia() {
                 </div>
                 <div className="col-md-6"><h3>Mis Tarjetas Activas</h3></div>
                 <div className="col-md-4">
-                    <Link id="signup-link" to="/tarjeta/TarjetaPendienteDePago">
+                    <Link id="signup-link" to="/tarjeta/tarjetaPendienteDePago">
                         <button type="button" id="signup-button" className="btn btn-info">Pendientes por pagar</button>
                     </Link>
                 </div>
@@ -82,7 +82,7 @@ export default function TarjetaInstancia() {
                                 <th>Tiempo transcurrido</th>
                                 <th></th>
                                 <th>
-                                    <Link id="signup-link" to="/tarjeta/disenio">
+                                    <Link id="signup-link" to="/tarjeta/tarjetaPendienteDePago">
                                         <button type="button" id="signup-button" className="btn btn-info">Pendientes por pagar</button>
                                     </Link>
                                 </th>

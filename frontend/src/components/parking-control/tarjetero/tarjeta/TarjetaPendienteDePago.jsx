@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { AmountCardsByUser } from "./service/TarjetaService";
+import { AmountFinishedCardsByUser } from "./service/TarjetaInstanciaService";
 
 const API = process.env.REACT_APP_API_USER;
 
@@ -20,9 +20,11 @@ export default function TarjetaPendienteDePago() {
 
     let [tarjetas, setTarjetas] = useState([]);
 
-    const userProvisorio = 1
+    const userProvisorio = 3
+    const contar = "si"
+    const noContar = "no"
     const getTarjetasActivadas = async () => {
-        const res = await fetch(`${API}/tarjetas_instancia/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${noContar}/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
         console.log(data)
@@ -38,10 +40,10 @@ export default function TarjetaPendienteDePago() {
                 <h1>This is Tarjetero mode</h1>
                 <div>
                     <h3>
-                        <AmountCardsByUser />
+                        <AmountFinishedCardsByUser />
                     </h3>
                 </div>
-                <div className="col-md-6"><h3>Mis Tarjetas Activas</h3>
+                <div className="col-md-6"><h3>Tarjetas pendientes por pagar</h3>
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -51,6 +53,7 @@ export default function TarjetaPendienteDePago() {
                                 <th>Minutos</th>
                                 <th>Patente</th>
                                 <th>Tiempo transcurrido</th>
+                                <th>Total a pagar</th>
                             </tr>
                         </thead>
                         <tbody>
