@@ -43,10 +43,32 @@ const Users = () => {
     };
     //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado
 
+
+
+    const discardCards = async (userId) => {
+        const userResponse = window.confirm("¿Seguro que quiere descartar las tarjetas?");
+        if (userResponse) {
+            const res = await fetch(`${API}/tarjeta/${userId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    cardsQuantity
+                }),
+            });
+            const data = res.json()
+
+            setEditing(true);
+            setUserId(userId);
+            console.log("data")
+            console.log(data)
+        }
+
+    };
     useEffect(() => {
         getUsers();
     }, []);
-
 
     return (
 
@@ -62,7 +84,8 @@ const Users = () => {
                             <th>LastName</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Acreditar Tarjetas</th>
+                            <th>Cards</th>
+                            <th>Acreditar/Desacreditar Tarjetas</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,6 +97,7 @@ const Users = () => {
                                 <td>{user.lastname}</td>
                                 <td>{user.email}</td>
                                 <td>{user.rol}</td>
+                                <td></td>
                                 <td>
                                     <input type="text"
                                         onChange={(e) => setCardsQuantity(e.target.value)}
@@ -85,6 +109,12 @@ const Users = () => {
                                     <button className="btn btn-primary btn-block"
                                         onClick={(e) => editUser(user.usuario_id)}
                                     >Acreditar
+                                    </button>
+                                </td>
+                                <td>
+                                    <button className="btn btn-primary btn-block"
+                                        onClick={(e) => discardCards(user.usuario_id)}
+                                    >Desacreditar
                                     </button>
                                 </td>
                             </tr>

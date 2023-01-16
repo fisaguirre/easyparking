@@ -6,9 +6,9 @@ import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import Users from "./components/parking-control/Users";
 import Navbar from "./pages/Navbar";
-import Tarjeta from './components/parking-control/tarjetero/Tarjeta';
-import DisenioTarjeta from './components/parking-control/tarjetero/DisenioTarjeta';
-import TarjetaActivada from './components/parking-control/tarjetero/TarjetaActivada';
+import Tarjeta from './components/parking-control/tarjetero/tarjeta/Tarjeta';
+import DisenioTarjeta from './components/parking-control/tarjetero/tarjeta/DisenioTarjeta';
+import TarjetaInstancia from './components/parking-control/tarjetero/tarjeta/TarjetaInstancia';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
             <Route path="/users" className="auto" element={<Users />} />
             <Route path="/tarjeta" className="auto" element={<Tarjeta />} />
             <Route path="/tarjeta/disenio" className="auto" element={<DisenioTarjeta />} />
-            <Route path="/tarjeta/activada" className="auto" element={<TarjetaActivada />} />
+            <Route path="/tarjeta_instancia/" className="auto" element={<TarjetaInstancia />} />
           </Routes>
         </div>
       </BrowserRouter>

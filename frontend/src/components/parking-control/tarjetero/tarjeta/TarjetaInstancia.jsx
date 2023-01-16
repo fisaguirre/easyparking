@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { AmountCardsByUser, Prueba2 } from "./TarjetaService";
+import { AmountCardsByUser, Prueba2 } from "./service/TarjetaService";
 
 const API = process.env.REACT_APP_API_USER;
 
-export default function TarjetaActivada() {
+export default function TarjetaInstancia() {
     const [tarjetaInstanciaId, setTarjetaInstanciaId] = useState("");
     const [fecha, setFecha] = useState("");
     const [hora, setHora] = useState("");
@@ -52,8 +52,6 @@ export default function TarjetaActivada() {
 
     return (
         <div>
-            <h1>Aca van todas las tarjetas que se encuentran activas, agendadas con datos del vehiculo, fecha, etc</h1>
-
             <div id="form-text" className="row">
                 <h1>This is Tarjetero mode</h1>
                 <div>
@@ -61,7 +59,7 @@ export default function TarjetaActivada() {
                         <AmountCardsByUser />
                     </h3>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6"><h3>Mis Tarjetas Activas</h3>
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -105,11 +103,23 @@ export default function TarjetaActivada() {
                                         </Link>
                                     </td>
                                 </tr>
+
                             ))}
+
+
                         </tbody>
                     </table>
                 </div>
+
             </div>
-        </div>
+            <p></p>
+            <div className="row">
+                <div className="col-md-12">
+                    <Link id="signup-link" to="/tarjeta/disenio">
+                        <button type="button" id="signup-button" className="btn btn-info">Usar una nueva tarjeta</button>
+                    </Link>
+                </div>
+            </div>
+        </div >
     )
 }

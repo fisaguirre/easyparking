@@ -102,6 +102,12 @@ def addCards():
     return 'acreditar tarjetas'
 
 
+# Desacreditar tarjetas
+@app.route('/tarjeta/<usuario_id>', methods=["PUT"])
+def discardCardsToUser(usuario_id):
+    return tarjeta.discardCardsToUser(usuario_id, request, mysql)
+
+
 # Count all cards from user
 @app.route('/tarjetas/<usuario_id>', methods=["GET"])
 def countCardsByUserId(usuario_id):

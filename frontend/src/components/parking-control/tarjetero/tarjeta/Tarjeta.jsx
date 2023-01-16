@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { AmountCardsByUser, Prueba2, PruebaRetornoFunction } from "./TarjetaService";
+import { AmountCardsByUser, Prueba2, PruebaRetornoFunction } from "./service/TarjetaService";
 
 const API = process.env.REACT_APP_API_USER;
 
@@ -41,7 +41,7 @@ const Tarjeta = () => {
                 <div className="col-md-3">
                 </div>
                 <div className="col-md-4">
-                    <Link id="signup-link" to="/tarjeta/activada">
+                    <Link id="signup-link" to="/tarjeta_instancia/">
                         <button type="button" id="signup-button" className="btn btn-primary btn-block">Mis tarjetas activas</button>
                     </Link>
                 </div>

@@ -65,6 +65,32 @@ def addCardsToUser(request, mysql):
         cursor.close()
 
 
+def discardCardsToUser(usuario_id, request, mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    amountDiscardCards = request.json['cardsQuantity']
+    cursor.execute(
+        'SELECT * FROM tarjeta WHERE tarjeta.usuario_id = %s', (usuario_id,))
+    cardUserExists = cursor.fetchone()
+    cursor.close()
+
+    if cardUserExists:
+        cardsSaved = cardUserExists['cantidad_tarjeta']
+        restaTarjeta = int(cardsSaved)-int(amountDiscardCards)
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute(
+            'UPDATE tarjeta set cantidad_tarjeta = %s where tarjeta.usuario_id = %s', (restaTarjeta, usuario_id,))
+        mysql.connection.commit()
+        cursor.close()
+
+        return jsonify(
+            {"message": 'User already exists. Please Log in'}
+        )
+
+    else:
+        return 'no tiene tarjetas acreditadas'
+
+
 def activateCard(request, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     usuario_id = request.json['usuario_id']
