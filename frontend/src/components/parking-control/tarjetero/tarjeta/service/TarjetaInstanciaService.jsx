@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 
 const API = process.env.REACT_APP_API_USER;
 
-export const AmountCardsByUser = () => {
-
+export const AmountActivateCardsByUser = () => {
     let [amountCards, setAmountCards] = useState([]);
 
-
-    const userProvisorio = 3
+    const userProvisorio = 1
     const getAmountCards = async () => {
-        const res = await fetch(`${API}/tarjetas/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjetas_instancia/cantidad/${userProvisorio}`);
         const data = await res.json();
         setAmountCards(data);
     };
@@ -35,10 +33,3 @@ export const AmountCardsByUser = () => {
     );
 };
 
-
-export const PruebaRetornoFunction = () => {
-
-    const fer = "fernando"
-    return (fer
-    );
-};
