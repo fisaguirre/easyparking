@@ -73,3 +73,18 @@ def getAmountCardsByUserId(usuario_id, mysql):
     cursor.close()
 
     return jsonify(cardsActivates)
+
+
+def getAllFinishedCardsByUserId(usuario_id, mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    finalizada = "si"
+
+    cursor.execute(
+        'SELECT * FROM tarjeta_instancia WHERE tarjeta_instancia.finalizada = %s AND tarjeta_instancia.usuario_id = %s', (finalizada, usuario_id,))
+
+    cardsActivates = cursor.fetchall()
+    if cardsActivates:
+        cursor.close()
+        return jsonify(cardsActivates)
+    else:
+        return 'no hay tarjetas pendientes por pagar'
