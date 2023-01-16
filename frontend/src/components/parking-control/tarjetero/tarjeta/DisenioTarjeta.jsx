@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 export default function DisenioTarjeta() {
     return (
         <div>
@@ -293,27 +293,21 @@ export default function DisenioTarjeta() {
             <div>
 
                 <p></p>
+
                 <button type="button" id="signup-button" className="btn btn-info">Activar tarjeta</button>
             </div>
             <div>
                 <p></p>
-                <button type="button" id="signup-button" className="btn btn-info">Mostar tiempo transcurrido tarjeta</button>
+                <Link id="signup-link" to="/tarjeta_instancia/">
+                    <button type="button" id="signup-button" className="btn btn-primary btn-block">Mis tarjetas activas</button>
+                </Link>
             </div>
             <div>
                 <p></p>
-                <button type="button" id="signup-button" className="btn btn-info">Finalizar tarjeta</button>
-            </div>
-            <div>
                 <p></p>
-                <button type="button" id="signup-button" className="btn btn-info">Usar otra tarjeta para el mismo vehiculo</button>
-            </div>
-            <div>
-                <p></p>
-                <button type="button" id="signup-button" className="btn btn-info">Mis tarjetas activas</button>
-            </div>
-            <div>
-                <p></p>
-                <button type="button" id="signup-button" className="btn btn-info">Volver</button>
+                <Link id="signup-link" to="/tarjeta">
+                    <button type="button" id="signup-button" className="btn btn-primary btn-block">Volver</button>
+                </Link>
             </div>
         </div >
     )
