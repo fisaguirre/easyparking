@@ -25,11 +25,24 @@ export default function TarjetaPendienteDePago() {
     const userProvisorio = 3
     const contar = "si"
     const noContar = "no"
+
+    /*
     const getTarjetasActivadas = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/${noContar}/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
         setFinishedCardId()
+    };
+    */
+
+
+    const getTarjetasActivadas = async () => {
+        const res = await fetch(`${API}/tarjeta_instancia/finalizar/pendiente/${userProvisorio}`);
+        const data = await res.json();
+        setTarjetas(data);
+        //setFinishedCardId()
+        console.log("datos")
+        console.log(data)
     };
 
     const deleteFinishedCardById = async (cardId) => {
@@ -58,26 +71,21 @@ export default function TarjetaPendienteDePago() {
                     <table className="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Minutos</th>
                                 <th>Patente</th>
                                 <th>Tarjetas acumuladas</th>
                                 <th>Tiempo total</th>
-                                <th>Total a pagar</th>
+                                <th>Pago total</th>
                                 <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {tarjetas.map((tarjeta_instancia) => (
-                                <tr key={tarjeta_instancia.tarjeta_instancia_id}>
-                                    <td>{tarjeta_instancia.tarjeta_instancia_id}</td>
-                                    <td>{tarjeta_instancia.fecha}</td>
-                                    <td>{tarjeta_instancia.hora}</td>
-                                    <td>{tarjeta_instancia.minutos}</td>
+                                <tr key={tarjeta_instancia.patente}>
                                     <td>{tarjeta_instancia.patente}</td>
+                                    <td>{tarjeta_instancia.tarjetas_acumuladas}</td>
+                                    <td>{tarjeta_instancia.tarjetas_acumuladas * 30} minutos</td>
+                                    <td>${tarjeta_instancia.tarjetas_acumuladas * 40} pesos</td>
                                     <td></td>
                                     <td></td>
                                     <td>
