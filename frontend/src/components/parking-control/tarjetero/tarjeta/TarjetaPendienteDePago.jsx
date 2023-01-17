@@ -1,30 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AmountFinishedCardsByUser } from "./service/TarjetaInstanciaService";
+import UserAbout from "../UserAbout";
 
 const API = process.env.REACT_APP_API_USER;
 
 export default function TarjetaPendienteDePago() {
-    const [tarjetaInstanciaId, setTarjetaInstanciaId] = useState("");
-    const [fecha, setFecha] = useState("");
-    const [hora, setHora] = useState("");
-    const [minutos, setMinutos] = useState("");
     const [patente, setPatente] = useState("");
     const [usuarioId, setUsuarioId] = useState("");
-    const [tarjetaId, setTarjetaId] = useState("");
+    let [id, setId] = useState("");
 
-    const [editing, setEditing] = useState(false);
     const [cardsQuantity, setCardsQuantity] = useState("")
-
-    const nameInput = useRef(null);
-
-    const [finishedCardId, setFinishedCardId] = useState("");
 
     let [tarjetas, setTarjetas] = useState([]);
 
-    const userProvisorio = 3
-    const contar = "si"
-    const noContar = "no"
+    const userProvisorio = 4
 
     /*
     const getTarjetasActivadas = async () => {
@@ -34,20 +24,26 @@ export default function TarjetaPendienteDePago() {
         setFinishedCardId()
     };
     */
-
-
     const getTarjetasActivadas = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/pendiente/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
-        //setFinishedCardId()
-        console.log("datos")
-        console.log(data)
-    };
 
+    };
+    /*
     const deleteFinishedCardById = async (cardId) => {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/${cardId}`, {
             method: "DELETE",
+        });
+        const data = await res.json();
+        await getTarjetasActivadas();
+
+    };
+    */
+
+    const deleteFinishedCardListById = async (patente, usuario_id) => {
+        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`, {
+            method: "DELETE"
         });
         const data = await res.json();
         await getTarjetasActivadas();
@@ -83,6 +79,7 @@ export default function TarjetaPendienteDePago() {
                             {tarjetas.map((tarjeta_instancia) => (
                                 <tr key={tarjeta_instancia.patente}>
                                     <td>{tarjeta_instancia.patente}</td>
+
                                     <td>{tarjeta_instancia.tarjetas_acumuladas}</td>
                                     <td>{tarjeta_instancia.tarjetas_acumuladas * 30} minutos</td>
                                     <td>${tarjeta_instancia.tarjetas_acumuladas * 40} pesos</td>
@@ -95,7 +92,6 @@ export default function TarjetaPendienteDePago() {
                                             className="form-control"
                                             placeholder="Ingrese cantidad de tarjetas" />
                                     </td>
-
                                     <td>
                                         <Link id="signup-link" to="/tarjeta/disenio">
                                             <button type="button" id="signup-button" className="btn btn-info">Generar QR</button>
@@ -104,12 +100,10 @@ export default function TarjetaPendienteDePago() {
                                     <td>
                                         <button
                                             className="btn btn-danger btn-sm btn-block"
-                                            onClick={(e) => deleteFinishedCardById(tarjeta_instancia.tarjeta_instancia_id)}
+                                            onClick={(e) => deleteFinishedCardListById(tarjeta_instancia.patente, tarjeta_instancia.usuario_id)}
                                         >
                                             Limpair tarjeta/s
                                         </button>
-
-
                                     </td>
                                 </tr>
 
