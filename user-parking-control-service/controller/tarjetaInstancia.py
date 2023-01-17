@@ -119,6 +119,20 @@ def getAllFinishedCardsByUserId(contar, usuario_id, mysql):
             return jsonify(finishedCards)
 
 
+def getAllFinishedCardListByPatente(usuario_id, mysql):
+    finalizada = "si"
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    """
+        cursor.execute('SELECT COUNT(tarjeta_instancia_id) AS "tarjetas_acumuladas", patente, mes, dia_semana, dia_fecha FROM tarjeta_instancia WHERE usuario_id = %s AND finalizada = %s GROUP BY patente, mes,dia_semana,dia_fecha', (usuario_id, finalizada,))
+        """
+    cursor.execute('SELECT COUNT(tarjeta_instancia_id) AS "tarjetas_acumuladas", patente, usuario_id FROM tarjeta_instancia WHERE usuario_id = %s AND finalizada = %s GROUP BY patente', (usuario_id, finalizada,))
+
+    finishedCards = cursor.fetchall()
+
+    cursor.close()
+    return jsonify(finishedCards)
+
+
 def deleteFinishedCard(tarjeta_instancia_id, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
