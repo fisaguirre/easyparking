@@ -50,6 +50,24 @@ export default function TarjetaPendienteDePago() {
 
     };
 
+    function getRealTime() {
+        const currentTime = Date.now();
+        console.log(new Date(Math.round(currentTime / 1000) * 1000), currentTime);
+        return (Math.floor(currentTime / 1000) + 1) * 1000 - currentTime;
+    }
+
+    (async function () {
+        let reduceTime = 0;
+        while (true) {
+            reduceTime = getRealTime();
+            await sleep(reduceTime);
+        }
+    })()
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     useEffect(() => {
         getTarjetasActivadas();
     }, []);

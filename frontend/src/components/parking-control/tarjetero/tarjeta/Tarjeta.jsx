@@ -35,7 +35,7 @@ const Tarjeta = () => {
                 </div>
                 <p></p>
                 <div className="col-md-3">
-                    <Link id="signup-link" to="/tarjeta/disenio">
+                    <Link id="signup-link" to="/tarjeta/activarTarjeta">
                         <button type="button" id="signup-button" className="btn btn-primary btn-block">Usar nueva tarjeta</button>
                     </Link>
                 </div>

@@ -7,10 +7,10 @@ import Login from "./pages/Login"
 import Users from "./components/parking-control/Users";
 import Navbar from "./pages/Navbar";
 import Tarjeta from './components/parking-control/tarjetero/tarjeta/Tarjeta';
-import DisenioTarjeta from './components/parking-control/tarjetero/tarjeta/DisenioTarjeta';
+import ActivarTarjeta from './components/parking-control/tarjetero/tarjeta/ActivarTarjeta';
 import TarjetaInstancia from './components/parking-control/tarjetero/tarjeta/TarjetaInstancia';
 import TarjetaPendienteDePago from './components/parking-control/tarjetero/tarjeta/TarjetaPendienteDePago';
-
+//import UserAbout from './components/parking-control/tarjetero/UserAbout';
 function App() {
   return (
     <div className="App">
@@ -24,7 +24,7 @@ function App() {
             <Route path="/auth/signup" element={<SignUp />} />
             <Route path="/users" className="auto" element={<Users />} />
             <Route path="/tarjeta" className="auto" element={<Tarjeta />} />
-            <Route path="/tarjeta/disenio" className="auto" element={<DisenioTarjeta />} />
+            <Route path="/tarjeta/activarTarjeta" className="auto" element={<ActivarTarjeta />} />
             <Route path="/tarjeta_instancia/" className="auto" element={<TarjetaInstancia />} />
             <Route path="/tarjeta/tarjetaPendienteDePago" className="auto" element={<TarjetaPendienteDePago />} />
           </Routes>

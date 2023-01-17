@@ -17,6 +17,7 @@ RUN npm install
 #RUN npm install --save react-toastify
 #RUN npm install react-icons --save
 #RUN npm install react-hook-form
+#RUN npm install --save react-timer-hook
 
 # add app
 COPY . ./
