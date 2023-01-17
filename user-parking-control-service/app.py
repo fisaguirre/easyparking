@@ -134,6 +134,12 @@ def getAllActiveCardsByUserId(usuario_id):
     return tarjetaInstancia.getAllActiveCardsByUserId(usuario_id, mysql)
 
 
+# Finalizar una tarjeta por tarjeta_instancia_id
+@app.route('/tarjeta_instancia/activar/<tarjeta_instancia_id>', methods=["PUT"])
+def finishCard(tarjeta_instancia_id):
+    return tarjetaInstancia.finishCard(tarjeta_instancia_id, mysql)
+
+
 # Get all finished cards from user
 @app.route('/tarjeta_instancia/finalizar/<contar>/<usuarioId>', methods=["GET"])
 def getAllFinishedCardsByUserId(contar, usuarioId):
@@ -153,9 +159,9 @@ def deleteFinishedCard(tarjeta_instancia_id):
 
 
 # Eliminar varias tarjetas por usuario y por patente
-@app.route('/tarjeta_instancia/finalizar/<array_tarjetas>', methods=["DELETE"])
-def deleteFinishedCardList(array_tarjetas, usuario_id):
-    return tarjetaInstancia.deleteFinishedCardList(array_tarjetas, usuario_id, mysql)
+@app.route('/tarjeta_instancia/finalizar/<patente>/<usuario_id>', methods=["DELETE"])
+def deleteFinishedCardList(patente, usuario_id):
+    return tarjetaInstancia.deleteFinishedCardList(patente, usuario_id, mysql)
 
 
 """

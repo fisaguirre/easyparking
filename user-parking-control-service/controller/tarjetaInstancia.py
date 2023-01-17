@@ -91,6 +91,15 @@ def getAllActiveCardsByUserId(usuario_id, mysql):
         return 'no hay tarjetas activas'
 
 
+def finishCard(tarjeta_instancia_id, mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    finalizada = "si"
+    cursor.execute(
+        'UPDATE tarjeta_instancia set finalizada = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tarjeta_instancia_id,))
+    mysql.connection.commit()
+    return 'se finalizò la tarjeta'
+
+
 def getAllFinishedCardsByUserId(contar, usuario_id, mysql):
     finalizada = "si"
     if contar == "no":
@@ -138,6 +147,18 @@ def deleteFinishedCard(tarjeta_instancia_id, mysql):
 
     cursor.execute(
         'DELETE FROM tarjeta_instancia WHERE tarjeta_instancia.tarjeta_instancia_id = %s', (tarjeta_instancia_id,))
+    mysql.connection.commit()
+    cursor.close()
+
+    return 'se elimino'
+
+
+def deleteFinishedCardList(patente, usuario_id, mysql):
+    finalizada = "si"
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute(
+        'DELETE FROM tarjeta_instancia WHERE tarjeta_instancia.patente = %s AND tarjeta_instancia.usuario_id = %s AND tarjeta_instancia.finalizada = %s', (patente, usuario_id, finalizada, ))
     mysql.connection.commit()
     cursor.close()
 
