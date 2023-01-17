@@ -18,6 +18,8 @@ export default function TarjetaPendienteDePago() {
 
     const nameInput = useRef(null);
 
+    const [finishedCardId, setFinishedCardId] = useState("");
+
     let [tarjetas, setTarjetas] = useState([]);
 
     const userProvisorio = 3
@@ -27,9 +29,16 @@ export default function TarjetaPendienteDePago() {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/${noContar}/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
-        console.log(data)
-        console.log("esto")
-        console.log(data.length)
+        setFinishedCardId()
+    };
+
+    const deleteFinishedCardById = async (cardId) => {
+        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${cardId}`, {
+            method: "DELETE",
+        });
+        const data = await res.json();
+        await getTarjetasActivadas();
+
     };
 
     useEffect(() => {
@@ -54,7 +63,7 @@ export default function TarjetaPendienteDePago() {
                                 <th>Hora</th>
                                 <th>Minutos</th>
                                 <th>Patente</th>
-                                <th>Cantidad tarjetas</th>
+                                <th>Tarjetas acumuladas</th>
                                 <th>Tiempo total</th>
                                 <th>Total a pagar</th>
                                 <th></th>
@@ -85,9 +94,14 @@ export default function TarjetaPendienteDePago() {
                                         </Link>
                                     </td>
                                     <td>
-                                        <Link id="signup-link" to="/tarjeta/disenio">
-                                            <button type="button" id="signup-button" className="btn btn-info">Limpiar tarjeta/s</button>
-                                        </Link>
+                                        <button
+                                            className="btn btn-danger btn-sm btn-block"
+                                            onClick={(e) => deleteFinishedCardById(tarjeta_instancia.tarjeta_instancia_id)}
+                                        >
+                                            Limpair tarjeta/s
+                                        </button>
+
+
                                     </td>
                                 </tr>
 

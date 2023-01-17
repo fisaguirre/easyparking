@@ -117,3 +117,14 @@ def getAllFinishedCardsByUserId(contar, usuario_id, mysql):
             print(finishedCards)
 
             return jsonify(finishedCards)
+
+
+def deleteFinishedCard(tarjeta_instancia_id, mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute(
+        'DELETE FROM tarjeta_instancia WHERE tarjeta_instancia.tarjeta_instancia_id = %s', (tarjeta_instancia_id,))
+    mysql.connection.commit()
+    cursor.close()
+
+    return 'se elimino'

@@ -140,6 +140,12 @@ def getAllFinishedCardsByUserId(contar, usuarioId):
     return tarjetaInstancia.getAllFinishedCardsByUserId(contar, usuarioId, mysql)
 
 
+# Delete finished card
+@app.route('/tarjeta_instancia/finalizar/<tarjeta_instancia_id>', methods=["DELETE"])
+def deleteFinishedCard(tarjeta_instancia_id):
+    return tarjetaInstancia.deleteFinishedCard(tarjeta_instancia_id, mysql)
+
+
 """
 
 @app.route('/user', methods=["GET"])
