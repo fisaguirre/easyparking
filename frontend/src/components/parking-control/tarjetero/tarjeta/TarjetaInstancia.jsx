@@ -47,6 +47,22 @@ export default function TarjetaInstancia() {
     
         };
     */
+
+    const finishActiveCard = async (tarjeta_instancia_id) => {
+        const userResponse = window.confirm("¿Seguro que quiere finalizar la tarjeta?");
+        if (userResponse) {
+            const res = await fetch(`${API}/tarjeta_instancia/activar/${tarjeta_instancia_id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            const data = res.json()
+            setEditing(true);
+        }
+
+    };
+
     useEffect(() => {
         getTarjetasActivadas();
     }, []);
@@ -110,10 +126,14 @@ export default function TarjetaInstancia() {
                                         </button>
                                     </td>
                                     <td>
-                                        <Link id="signup-link" to="/tarjeta/disenio">
-                                            <button type="button" id="signup-button" className="btn btn-info">Finalizar tarjeta</button>
-                                        </Link>
+                                        <button
+                                            className="btn btn-danger btn-sm btn-block"
+                                            onClick={(e) => finishActiveCard(tarjeta_instancia.tarjeta_instancia_id)}
+                                        >
+                                            Finalizar tarjeta
+                                        </button>
                                     </td>
+
                                     <td>
                                         <Link id="signup-link" to="/tarjeta/disenio">
                                             <button type="button" id="signup-button" className="btn btn-info">Desplegar tarjeta</button>
