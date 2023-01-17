@@ -36,9 +36,70 @@ export const AmountCardsByUser = () => {
 };
 
 
-export const PruebaRetornoFunction = () => {
+export const PruebaRetornoFunction = (props) => {
+    const createCard = async (patenteA, patenteB, mes, dia_semana, dia_fecha, hora, minutos) => {
+        const res = await fetch(`${API}/tarjeta_instancia/activar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                patenteA,
+                patenteB,
+                mes,
+                dia_semana,
+                dia_fecha,
+                hora,
+                minutos
+            }),
+        });
+    };
 
-    const fer = "fernando"
-    return (fer
+    return (
+        <div>
+            <div>
+                <p></p>
+                <button type="button" id="signup-button" className="btn btn-info" onClick={(e) => createCard(props.patenteA, props.patenteB, props.mes, props.nombreDia, props.numeroDia, props.hora, props.minutos)}
+                >Activar tarjeta</button>
+            </div>
+            {props.patenteA}
+            {props.patenteB}
+            {props.mes}
+            {props.nombreDia}
+            {props.numeroDia}
+            {props.hora}
+            {props.minutos}
+        </div>
+    );
+};
+
+
+export const InstanciarTarjeta = (props) => {
+    const usuario_id = 4
+    const createCard = async (patenteA, patenteB, mes, dia_semana, dia_fecha, hora, minutos) => {
+        const patente = '' + patenteA + patenteB
+        const res = await fetch(`${API}/tarjeta_instancia/activar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                mes,
+                dia_semana,
+                dia_fecha,
+                hora,
+                minutos,
+                patente,
+                usuario_id
+            }),
+        });
+    };
+
+    return (
+        <div>
+            <p></p>
+            <button type="button" id="signup-button" className="btn btn-info" onClick={(e) => createCard(props.patenteA, props.patenteB, props.mes, props.nombreDia, props.numeroDia, props.hora, props.minutos)}
+            >Activar tarjeta</button>
+        </div>
     );
 };

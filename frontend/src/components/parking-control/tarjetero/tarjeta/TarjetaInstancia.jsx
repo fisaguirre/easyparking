@@ -135,7 +135,7 @@ export default function TarjetaInstancia() {
                                     </td>
 
                                     <td>
-                                        <Link id="signup-link" to="/tarjeta/disenio">
+                                        <Link id="signup-link" to="/tarjeta/activarTarjeta">
                                             <button type="button" id="signup-button" className="btn btn-info">Desplegar tarjeta</button>
                                         </Link>
                                     </td>
@@ -152,7 +152,7 @@ export default function TarjetaInstancia() {
             <p></p>
             <div className="row">
                 <div className="col-md-12">
-                    <Link id="signup-link" to="/tarjeta/disenio">
+                    <Link id="signup-link" to="/tarjeta/activarTarjeta">
                         <button type="button" id="signup-button" className="btn btn-info">Usar una nueva tarjeta</button>
                     </Link>
                 </div>

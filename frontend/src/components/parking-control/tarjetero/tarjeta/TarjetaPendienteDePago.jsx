@@ -111,7 +111,7 @@ export default function TarjetaPendienteDePago() {
                                             placeholder="Ingrese cantidad de tarjetas" />
                                     </td>
                                     <td>
-                                        <Link id="signup-link" to="/tarjeta/disenio">
+                                        <Link id="signup-link" to="/tarjeta/activarTarjeta">
                                             <button type="button" id="signup-button" className="btn btn-info">Generar QR</button>
                                         </Link>
                                     </td>
@@ -136,7 +136,7 @@ export default function TarjetaPendienteDePago() {
             <p></p>
             <div className="row">
                 <div className="col-md-12">
-                    <Link id="signup-link" to="/tarjeta/disenio">
+                    <Link id="signup-link" to="/tarjeta/activarTarjeta">
                         <button type="button" id="signup-button" className="btn btn-info">Usar una nueva tarjeta</button>
                     </Link>
                 </div>
@@ -145,7 +145,7 @@ export default function TarjetaPendienteDePago() {
             <br></br>
             <div className="row">
                 <div className="col-md-12">
-                    <Link id="signup-link" to="/tarjeta/disenio">
+                    <Link id="signup-link" to="/tarjeta_instancia/">
                         <button type="button" id="signup-button" className="btn btn-info">Ir a mis tarjetas activas</button>
                     </Link>
                 </div>

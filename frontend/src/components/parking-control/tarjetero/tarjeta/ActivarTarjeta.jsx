@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { InstanciarTarjeta, PruebaRetornoFunction } from "./service/TarjetaService";
 export default function ActivarTarjeta() {
 
     const [numeroPatenteFirstColumn, setNumeroPatenteFirstColumn] = useState();
@@ -11,7 +11,7 @@ export default function ActivarTarjeta() {
     const [numeroDia, setNumeroDia] = useState();
     const [numeroHora, setNumeroHora] = useState();
     const [numeroMinutos, setNumeroMinutos] = useState();
-
+    const [activarTarjeta, setButtonActivarTarjeta] = useState();
 
     const saveNumeroPatenteFirstColumn = (buttonValue) => {
         // 👇 "message" stores input field value
@@ -42,6 +42,11 @@ export default function ActivarTarjeta() {
     const saveNumeroMinutos = (buttonValue) => {
         // 👇 "message" stores input field value
         setNumeroMinutos(buttonValue);
+    };
+
+    const buttonActivarTarjeta = (buttonValue) => {
+        // 👇 "message" stores input field value
+        setButtonActivarTarjeta(buttonValue);
     };
 
     return (
@@ -340,13 +345,17 @@ export default function ActivarTarjeta() {
                 </div>
             </div>
             <p></p>
-
-
             <div>
-
-                <p></p>
-
-                <button type="button" id="signup-button" className="btn btn-info">Activar tarjeta</button>
+                <InstanciarTarjeta
+                    patenteA={numeroPatenteFirstColumn}
+                    patenteB={numeroPatenteSecondColumn}
+                    mes={nombreMes}
+                    nombreDia={nombreDia}
+                    numeroDia={numeroDia}
+                    hora={numeroHora}
+                    minutos={numeroMinutos}
+                    activarTarjeta={activarTarjeta}
+                />
             </div>
             <div>
                 <p></p>

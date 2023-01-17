@@ -24,7 +24,7 @@ export const AmountActivateCardsByUser = () => {
             <p></p>
             <div className="row">
                 <div className="col-md-8">
-                    <h2>Tarjetas disponibles en su cuenta: {amountCards.cantidad_tarjeta}</h2>
+                    <h2>Tarjetas activas en su cuenta: {amountCards.cantidad_tarjeta}</h2>
                 </div>
                 <p></p>
 

@@ -22,11 +22,8 @@ const Tarjeta = () => {
     }, []);
 
 */
-    const otraF = <PruebaRetornoFunction.toString />
-    console.log(otraF)
     return (
         <div >
-            <h1><PruebaRetornoFunction /></h1>
             <h1>This is Tarjetero mode</h1>
             <p></p>
             <div className="row">

@@ -118,6 +118,7 @@ def countCardsByUserId(usuario_id):
 # Activar 1 tarjeta del usuario
 @app.route('/tarjeta_instancia/activar', methods=["POST"])
 def activateCard():
+    print(request.json)
     tarjetaInstancia.activateCard(request, mysql)
     return 'acreditar tarjetas'
 
