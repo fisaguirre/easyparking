@@ -8,6 +8,8 @@ const API = process.env.REACT_APP_API_USER;
 export default function TarjetaPendienteDePago() {
     const [patente, setPatente] = useState("");
     const [usuarioId, setUsuarioId] = useState("");
+    const [editing, setEditing] = useState(false);
+
     let [id, setId] = useState("");
 
     const [cardsQuantity, setCardsQuantity] = useState("")
@@ -16,57 +18,25 @@ export default function TarjetaPendienteDePago() {
 
     const userProvisorio = 4
 
-    /*
-    const getTarjetasActivadas = async () => {
-        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${noContar}/${userProvisorio}`);
-        const data = await res.json();
-        setTarjetas(data);
-        setFinishedCardId()
-    };
-    */
     const getTarjetasActivadas = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/pendiente/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
 
     };
-    /*
-    const deleteFinishedCardById = async (cardId) => {
-        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${cardId}`, {
-            method: "DELETE",
-        });
-        const data = await res.json();
-        await getTarjetasActivadas();
-
-    };
-    */
 
     const deleteFinishedCardListById = async (patente, usuario_id) => {
-        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`, {
-            method: "DELETE"
-        });
-        const data = await res.json();
-        await getTarjetasActivadas();
+        const userResponse = window.confirm("¿Seguro que quiere limpiar las tarjetas?");
+        if (userResponse) {
+            const res = await fetch(`${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`, {
+                method: "DELETE"
+            });
+            const data = await res.json();
+            setEditing(true);
 
-    };
-
-    function getRealTime() {
-        const currentTime = Date.now();
-        console.log(new Date(Math.round(currentTime / 1000) * 1000), currentTime);
-        return (Math.floor(currentTime / 1000) + 1) * 1000 - currentTime;
-    }
-
-    (async function () {
-        let reduceTime = 0;
-        while (true) {
-            reduceTime = getRealTime();
-            await sleep(reduceTime);
         }
-    })()
-
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+        await getTarjetasActivadas();
+    };
 
     useEffect(() => {
         getTarjetasActivadas();

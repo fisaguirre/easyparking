@@ -21,32 +21,13 @@ export default function TarjetaInstancia() {
 
     let [tarjetas, setTarjetas] = useState([]);
 
-    const userProvisorio = 3
+    const userProvisorio = 4
     const getTarjetasActivadas = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/activar/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
         console.log(data)
     };
-    /*
-        const showCard = async (tarjetaId) => {
-    
-            const res = await fetch(`${API}/tarjetas`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    tarjetaId,
-                    cardsQuantity
-                }),
-            });
-    
-            setEditing(true);
-            setTarjetaInstanciaId(tarjetaInstanciaId);
-    
-        };
-    */
 
     const finishActiveCard = async (tarjeta_instancia_id) => {
         const userResponse = window.confirm("¿Seguro que quiere finalizar la tarjeta?");
@@ -60,6 +41,7 @@ export default function TarjetaInstancia() {
             const data = res.json()
             setEditing(true);
         }
+        await getTarjetasActivadas();
 
     };
 
@@ -97,11 +79,7 @@ export default function TarjetaInstancia() {
                                 <th>Patente</th>
                                 <th>Tiempo transcurrido</th>
                                 <th></th>
-                                <th>
-                                    <Link id="signup-link" to="/tarjeta/tarjetaPendienteDePago">
-                                        <button type="button" id="signup-button" className="btn btn-info">Pendientes por pagar</button>
-                                    </Link>
-                                </th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -113,11 +91,6 @@ export default function TarjetaInstancia() {
                                     <td>{tarjeta_instancia.minutos}</td>
                                     <td>{tarjeta_instancia.patente}</td>
                                     <td>
-                                        <input type="text"
-                                            onChange={(e) => setCardsQuantity(e.target.value)}
-                                            value={cardsQuantity}
-                                            className="form-control"
-                                            placeholder="Ingrese cantidad de tarjetas" />
                                     </td>
                                     <td>
                                         <button className="btn btn-primary btn-block"
@@ -133,17 +106,8 @@ export default function TarjetaInstancia() {
                                             Finalizar tarjeta
                                         </button>
                                     </td>
-
-                                    <td>
-                                        <Link id="signup-link" to="/tarjeta/activarTarjeta">
-                                            <button type="button" id="signup-button" className="btn btn-info">Desplegar tarjeta</button>
-                                        </Link>
-                                    </td>
                                 </tr>
-
                             ))}
-
-
                         </tbody>
                     </table>
                 </div>
@@ -151,12 +115,18 @@ export default function TarjetaInstancia() {
             </div>
             <p></p>
             <div className="row">
-                <div className="col-md-12">
+                <div className="col-md-6">
                     <Link id="signup-link" to="/tarjeta/activarTarjeta">
                         <button type="button" id="signup-button" className="btn btn-info">Usar una nueva tarjeta</button>
                     </Link>
                 </div>
+                <div className="col-md-6">
+                    <Link id="signup-link" to="/tarjeta/tarjetaPendienteDePago">
+                        <button type="button" id="signup-button" className="btn btn-info">Pendientes por pagar</button>
+                    </Link>
+                </div>
             </div>
+
         </div >
     )
 }
