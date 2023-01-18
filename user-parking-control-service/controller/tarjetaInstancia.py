@@ -24,7 +24,6 @@ def activateCard(request, mysql):
     cursor.close()
 
     if cardUserExists:
-        print("si")
 
         cantidad_tarjetas = cardUserExists['cantidad_tarjeta']
         tarjeta_id = cardUserExists['tarjeta_id']
@@ -38,15 +37,6 @@ def activateCard(request, mysql):
         cursor.close()
 
         # Instanciar 1 tarjeta con sus respectivos datos
-        """
-        patenteA
-        patenteB
-        mes
-        dia_semana
-        dia_fecha
-        hora
-        minutos
-        """
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         instanceCard = TarjetaInstancia(request.json['mes'], request.json['dia_semana'], request.json['dia_fecha'], request.json['hora'],
                                         request.json['minutos'], request.json['patente'], "no", request.json['usuario_id'], tarjeta_id)

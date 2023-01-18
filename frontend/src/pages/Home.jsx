@@ -1,9 +1,13 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { Map } from "../components/parking-location/Map";
 
 export default function Home() {
     return (
-        <div>Esto es el HOME</div>
+        <div>
+            Esto es el HOME
+            <Map />
+        </div>
     )
 }
 {/*

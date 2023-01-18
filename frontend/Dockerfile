@@ -18,6 +18,7 @@ RUN npm install
 #RUN npm install react-icons --save
 #RUN npm install react-hook-form
 #RUN npm install --save react-timer-hook
+#RUN npm i @react-google-maps/api
 
 # add app
 COPY . ./

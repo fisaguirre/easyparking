@@ -8,7 +8,7 @@ export const AmountCardsByUser = () => {
     let [amountCards, setAmountCards] = useState([]);
 
 
-    const userProvisorio = 3
+    const userProvisorio = 4
     const getAmountCards = async () => {
         const res = await fetch(`${API}/tarjetas/${userProvisorio}`);
         const data = await res.json();

@@ -10,8 +10,11 @@ import Tarjeta from './components/parking-control/tarjetero/tarjeta/Tarjeta';
 import ActivarTarjeta from './components/parking-control/tarjetero/tarjeta/ActivarTarjeta';
 import TarjetaInstancia from './components/parking-control/tarjetero/tarjeta/TarjetaInstancia';
 import TarjetaPendienteDePago from './components/parking-control/tarjetero/tarjeta/TarjetaPendienteDePago';
+
+
 //import UserAbout from './components/parking-control/tarjetero/UserAbout';
 function App() {
+
   return (
     <div className="App">
 
