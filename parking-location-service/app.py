@@ -28,10 +28,16 @@ def index():
 # Asigna la calle donde trabaja el tarjetero
 
 
-# Crear un lugar preestablecido por tarjetero por ùnica vez - zona de trabajo
 @app.route('/estacionamiento/', methods=['POST'])
 def setWorkZone():
     return estacionamiento.setWorkZone(request, mysql, app)
+
+
+# Obtener los lugares del estacionamiento del tarjetero
+@app.route('/estacionamiento/<usuario_id>', methods=['GET'])
+def getPlaces(usuario_id):
+    # creates dictionary of form data
+    return estacionamiento.getPlaces(usuario_id, mysql)
 
 
 # Cambiar la zona del tarjetero

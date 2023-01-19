@@ -37,6 +37,7 @@ def actualizarLugares(request, usuario_id, mysql):
     cursor.execute(
         'UPDATE estacionamiento set cantidad_lugares = %s where estacionamiento.usuario_id = %s', (cantidad_lugares, usuario_id,))
     mysql.connection.commit()
+    cursor.close()
     return jsonify('se actualizaron los lugares de la zona de trabajo')
 
 
@@ -45,7 +46,17 @@ def actualizarDisponibles(request, usuario_id, mysql):
     cursor.execute(
         'UPDATE estacionamiento set cantidad_disponible = %s where estacionamiento.usuario_id = %s', (request.json['cantidadDisponibles'], usuario_id,))
     mysql.connection.commit()
+    cursor.close()
     return jsonify('se actualizaron los lugares disponibles')
+
+
+def getPlaces(usuario_id, mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute(
+        'SELECT cantidad_lugares, cantidad_disponible FROM estacionamiento WHERE estacionamiento.usuario_id = %s', (usuario_id,))
+    lugares = cursor.fetchone()
+    cursor.close()
+    return jsonify(lugares)
 
 
 def actualizarZona(request, usuario_id, mysql):
@@ -54,6 +65,7 @@ def actualizarZona(request, usuario_id, mysql):
     cursor.execute(
         'UPDATE tarjeta_instancia set finalizada = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tarjeta_instancia_id,))
     mysql.connection.commit()
+    cursor.close()
     return 'se finalizò la tarjeta'
 
 
