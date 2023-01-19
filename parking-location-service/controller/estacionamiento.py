@@ -42,11 +42,10 @@ def actualizarLugares(request, usuario_id, mysql):
 
 def actualizarDisponibles(request, usuario_id, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    finalizada = "si"
     cursor.execute(
-        'UPDATE tarjeta_instancia set finalizada = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tarjeta_instancia_id,))
+        'UPDATE estacionamiento set cantidad_disponible = %s where estacionamiento.usuario_id = %s', (request.json['cantidadDisponibles'], usuario_id,))
     mysql.connection.commit()
-    return 'se finalizò la tarjeta'
+    return jsonify('se actualizaron los lugares disponibles')
 
 
 def actualizarZona(request, usuario_id, mysql):
