@@ -8,7 +8,7 @@ export const AmountCardsByUser = () => {
     let [amountCards, setAmountCards] = useState([]);
 
 
-    const userProvisorio = 4
+    const userProvisorio = 1
     const getAmountCards = async () => {
         const res = await fetch(`${API}/tarjetas/${userProvisorio}`);
         const data = await res.json();
@@ -75,7 +75,7 @@ export const PruebaRetornoFunction = (props) => {
 
 
 export const InstanciarTarjeta = (props) => {
-    const usuario_id = 4
+    const usuario_id = 1
     const createCard = async (patenteA, patenteB, mes, dia_semana, dia_fecha, hora, minutos) => {
         const patente = '' + patenteA + patenteB
         const res = await fetch(`${API}/tarjeta_instancia/activar`, {

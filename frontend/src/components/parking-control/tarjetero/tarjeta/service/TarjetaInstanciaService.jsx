@@ -6,7 +6,7 @@ const API = process.env.REACT_APP_API_USER;
 export const AmountActivateCardsByUser = () => {
     let [amountCards, setAmountCards] = useState([]);
 
-    const userProvisorio = 3
+    const userProvisorio = 1
     const getAmountCards = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/activar/${userProvisorio}`);
         const data = await res.json();
@@ -38,7 +38,7 @@ export const AmountFinishedCardsByUser = () => {
     let [amountFinishedCards, setAmountFinishedCards] = useState([]);
 
     const contar = 'si'
-    const userProvisorio = 3
+    const userProvisorio = 1
     const getAmountFinishedCards = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/${contar}/${userProvisorio}`);
         const data = await res.json();
@@ -75,7 +75,7 @@ export const DeleteFinishedCardByUser = () => {
     let [amountFinishedCards, setAmountFinishedCards] = useState([]);
 
     const contar = 'si'
-    const userProvisorio = 3
+    const userProvisorio = 1
     const getAmountFinishedCards = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/${contar}/${userProvisorio}`);
         const data = await res.json();

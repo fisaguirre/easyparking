@@ -16,7 +16,7 @@ export default function TarjetaPendienteDePago() {
 
     let [tarjetas, setTarjetas] = useState([]);
 
-    const userProvisorio = 4
+    const userProvisorio = 1
 
     const getTarjetasActivadas = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/pendiente/${userProvisorio}`);

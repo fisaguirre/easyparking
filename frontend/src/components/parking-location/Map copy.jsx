@@ -1,8 +1,7 @@
 import { GoogleMap, useLoadScript, Marker, InfoWIndow, MarkerClusterer } from "@react-google-maps/api";
-import { createRoutesFromElements, parsePath } from "react-router-dom";
+import { createRoutesFromElements } from "react-router-dom";
 import { useState } from "react";
 import React from 'react';
-const API = process.env.REACT_APP_API_USER;
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -15,7 +14,6 @@ export const Map = () => {
     const [selected, setSelected] = useState(null);
     const [latitud, setLatitud] = useState(null);
     const [longitud, setLongitud] = useState(null);
-    const [time, setTime] = useState(null);
 
 
 
@@ -36,32 +34,9 @@ export const Map = () => {
         zoomControl: true,
     };
 
+
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
-
-
-    const saveCoordinates = async (markers) => {
-        const latitud = markers[0]['lat']
-        const longitud = markers[0]['lng']
-        const time = markers[0]['time']
-        const usuario_id = 1
-
-        const res = await fetch(`${API}/location`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                latitud,
-                longitud,
-                time,
-                usuario_id
-            }),
-        });
-        await res.json();
-
-    };
-
 
 
     return (
@@ -88,29 +63,20 @@ export const Map = () => {
                         },
                     ]);
                 }}
-
-
-
             >
-
-
                 {markers.map((marker) => (
-
-                    <Marker key={marker.time.toISOString()}
-
-                        position={{ lat: marker.lat, lng: marker.lng }}
+                    <Marker key={marker.time.toISOString()} position={{ lat: marker.lat, lng: marker.lng }}
                         icon={{
                             url: '/cat.png',
                             scaledSize: new window.google.maps.Size(30, 30),
                             origin: new window.google.maps.Point(0, 0),
                             anchor: new window.google.maps.Point(15, 15),
                         }}
+
                     />
+
                 ))}
 
-            </GoogleMap>
-
-            <button type="button" onClick={(e) => saveCoordinates(markers)}>Guardar Lugar</button>
-        </div >
+            </GoogleMap></div >
     )
 }
