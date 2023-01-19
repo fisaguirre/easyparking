@@ -5,13 +5,16 @@ import React from 'react';
 
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;
+const API_GOOGLE = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+const asd = 'AIzaSyDUTbZbNn8fOZ8QXaYc_PoQqTP3HqMWsDI'
 
 const libraries = ["places"];
+
 const mapContainerStyle = {
     width: "80vw",
     height: "80vh"
 };
-
+//export default function Map() {
 export const Map = () => {
     const [markers, setMarkers] = useState([]);
     const [selected, setSelected] = useState(null);

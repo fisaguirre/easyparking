@@ -19,6 +19,8 @@ export default function Navbar() {
                 to="/tarjeta">Tarjeta</NavLink>
             <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                 to="/tarjetero/UserAbout">UserAbout</NavLink>
+            <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
+                to="/estacionamiento">Estacionamiento</NavLink>
         </nav>
     )
 }

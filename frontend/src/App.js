@@ -10,8 +10,9 @@ import Tarjeta from './components/parking-control/tarjetero/tarjeta/Tarjeta';
 import ActivarTarjeta from './components/parking-control/tarjetero/tarjeta/ActivarTarjeta';
 import TarjetaInstancia from './components/parking-control/tarjetero/tarjeta/TarjetaInstancia';
 import TarjetaPendienteDePago from './components/parking-control/tarjetero/tarjeta/TarjetaPendienteDePago';
-
+import Estacionamiento from './components/parking-location/Estacionamiento';
 //import UserAbout from './components/parking-control/tarjetero/UserAbout';
+
 function App() {
 
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/tarjeta/activarTarjeta" className="auto" element={<ActivarTarjeta />} />
             <Route path="/tarjeta_instancia/" className="auto" element={<TarjetaInstancia />} />
             <Route path="/tarjeta/tarjetaPendienteDePago" className="auto" element={<TarjetaPendienteDePago />} />
+            <Route path="/estacionamiento/" className="auto" element={<Estacionamiento />} />
           </Routes>
         </div>
       </BrowserRouter>
