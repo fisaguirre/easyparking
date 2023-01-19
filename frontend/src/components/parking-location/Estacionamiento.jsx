@@ -2,17 +2,36 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Map } from "./Map";
 const API = process.env.REACT_APP_API_USER;
+const API_LOCATION = process.env.REACT_APP_API_LOCATION
+
+const Counter = ({ cantidadDisponibles, increment, decrement }) => {
+    return (
+        <div className="row">
+            <div className="col-md-1">
+                <button onClick={decrement}>-</button>
+            </div>
+            <div className="col-md-1">
+                {cantidadDisponibles}
+            </div>
+            <div className="col-md-1">
+                <button onClick={increment}>+</button>
+            </div>
+        </div>
+    )
+}
+
 
 export default function Estacionamiento() {
 
     const [cantidadLugares, setCantidadLugares] = useState("")
+    const [cantidadDisponibles, setCantidadDisponibles] = useState(0)
+    const [counter, setCounter] = useState(0)
 
-
-    const actualizarCantidadLugares = async () => {
+    const obtenerLugares = async () => {
         const usuario_id = 1
         const tipo_update = "actualizar_lugares"
 
-        const res = await fetch(`${API}/estacionamiento/${tipo_update}/${usuario_id}`, {
+        const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -23,17 +42,59 @@ export default function Estacionamiento() {
         });
     };
 
-    const actualizarLugaresDisponibles = async () => {
+    const obtenerLugaresDisponibles = async () => {
         const usuario_id = 1
-        const tipo_update = "actualizar_disponibles"
+        const tipo_update = "actualizar_lugares"
 
-        const res = await fetch(`${API}/estacionamiento/${tipo_update}/${usuario_id}`, {
+        const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 cantidadLugares
+            }),
+        });
+    };
+
+
+    const actualizarCantidadLugares = async () => {
+        const usuario_id = 1
+        const tipo_update = "actualizar_lugares"
+
+        const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                cantidadLugares
+            }),
+        });
+    };
+
+    const increment = () => {
+        setCantidadDisponibles(cantidadDisponibles + 1)
+    }
+
+    const decrement = () => {
+        if (cantidadDisponibles === 0) {
+            return;
+        }
+        setCantidadDisponibles(cantidadDisponibles - 1)
+    }
+
+    const actualizarLugaresDisponibles = async () => {
+        const usuario_id = 1
+        const tipo_update = "actualizar_disponibles"
+
+        const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                cantidadDisponibles
             }),
         });
     };
@@ -42,7 +103,7 @@ export default function Estacionamiento() {
         const usuario_id = 1
         const tipo_update = "actualizar_zona"
 
-        const res = await fetch(`${API}/estacionamiento/${tipo_update}/${usuario_id}`, {
+        const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -56,35 +117,41 @@ export default function Estacionamiento() {
 
 
     return (
+        <div>
+            <div id="form-text" className="row">
 
-        <div id="form-text" className="row">
-
-            <div>
-                {/*<Map />*/}
-            </div>
-            <p></p>
-            <div className="col-md-4">
-                Configurar cantidad lugares estacionamiento
-                <input type="text"
-                    onChange={(e) => setCantidadLugares(e.target.value)}
-                    value={cantidadLugares}
-                    className="form-control"
-                    placeholder="Lugares para estacionar" />
-            </div>
-            <div className="col-md-4">
-                <button type="button" className="btn btn-primary btn-block"
-                    onClick={(e) => actualizarCantidadLugares()}>Actualizar</button>
-            </div>
-            <p></p>
-            <div>
-                Configurar lugares disponibles
+                <div>
+                    {/*<Map />*/}
+                </div>
                 <p></p>
-                <Link id="signup-link" to="/auth/signup">
-                    <button type="button" id="signup-button" className="btn btn-info">Actualizar</button>
-                </Link>
+                <div className="col-md-4">
+                    Configurar cantidad lugares estacionamiento
+                    <input type="text"
+                        onChange={(e) => setCantidadLugares(e.target.value)}
+                        value={cantidadLugares}
+                        className="form-control"
+                        placeholder="Lugares para estacionar" />
+                </div>
+                <div className="col-md-4">
+                    <button type="button" className="btn btn-primary btn-block"
+                        onClick={(e) => actualizarCantidadLugares()}>Actualizar</button>
+                </div>
+                <p></p>
+
             </div>
+            <div className="row">
+                <div>
+                    Configurar lugares disponibles
+                    <div><Counter cantidadDisponibles={cantidadDisponibles} increment={increment} decrement={decrement} /></div>
 
+                </div>
+            </div>
+            <p></p>
+            <div className="row">
+                <div className="col-md2">
+                    <button type="button" id="signup-button" className="btn btn-info" onClick={(e) => actualizarLugaresDisponibles()}>Actualizar</button>
+                </div>
+            </div>
         </div>
-
     );
 };

@@ -34,6 +34,17 @@ def setWorkZone():
     return estacionamiento.setWorkZone(request, mysql, app)
 
 
+# Cambiar la zona del tarjetero
+@app.route('/estacionamiento/<tipo_update>/<usuario_id>', methods=['PUT'])
+def actualizar(tipo_update, usuario_id):
+    if (tipo_update == "actualizar_lugares"):
+        return estacionamiento.actualizarLugares(request, usuario_id, mysql)
+    elif (tipo_update == "actualizar_disponibles"):
+        return estacionamiento.actualizarDisponibles(request, usuario_id, mysql)
+    elif (tipo_update == "actualizar_zona"):
+        return estacionamiento.actualizarZona(request, usuario_id, mysql)
+
+
 """
 # Obtener la zona del tarjetero (latitud y longitud)
 @app.route('/estacionamiento/', methods=['GET'])
@@ -42,14 +53,6 @@ def login():
     return estacionamiento.asignarLugares(request, mysql, app)
 
 
-#Hacer un solo PUT apra todas las request, en el que recibe un body, request como parametros (para saber que consulta SQL
-# hacer, y el ID usuario)
-#app.route('/estacionamiento/<request>/<usuario_id>', methods=['PUT'])
-# Cambiar la zona del tarjetero
-@app.route('/estacionamiento/', methods=['PUT'])
-def login():
-    # creates dictionary of form data
-    return estacionamiento.asignarLugares(request, mysql, app)
 
 
 # Aumentar en un lugar disponible la zona del tarjetero

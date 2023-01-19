@@ -38,16 +38,16 @@ CREATE TABLE IF NOT EXISTS `tarjeta` (
 
 -- Volcando estructura para tabla userparkingcontrol.usuario
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `usuario_id` int(15) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) NOT NULL AUTO_INCREMENT,
+  `public_id` varchar(150) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
+  `password` varchar(150) DEFAULT NULL,
   `nombre` varchar(50) DEFAULT NULL,
   `apellido` varchar(50) DEFAULT NULL,
-  `correo` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `rol` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 -- Volcando datos para la tabla userparkingcontrol.usuario: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
