@@ -25,7 +25,21 @@ export default function Estacionamiento() {
 
     const [cantidadLugares, setCantidadLugares] = useState("")
     const [cantidadDisponibles, setCantidadDisponibles] = useState(0)
-    const [counter, setCounter] = useState(0)
+    let [lugares, setLugares] = useState([])
+
+    const getLugares = async () => {
+        const usuario_id = 1
+        const res = await fetch(`${API_LOCATION}/estacionamiento/${usuario_id}`);
+        const data = await res.json();
+        //setLugares(data);
+        setCantidadDisponibles(data['cantidad_disponible'])
+        setCantidadLugares(data['cantidad_lugares'])
+
+        console.log("esto:")
+        console.log(data['cantidad_disponible'])
+        console.log(data['cantidad_lugares'])
+
+    };
 
     const obtenerLugares = async () => {
         const usuario_id = 1
@@ -42,20 +56,7 @@ export default function Estacionamiento() {
         });
     };
 
-    const obtenerLugaresDisponibles = async () => {
-        const usuario_id = 1
-        const tipo_update = "actualizar_lugares"
 
-        const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                cantidadLugares
-            }),
-        });
-    };
 
 
     const actualizarCantidadLugares = async () => {
@@ -113,7 +114,9 @@ export default function Estacionamiento() {
             }),
         });
     };
-
+    useEffect(() => {
+        getLugares();
+    }, []);
 
 
     return (
@@ -121,6 +124,7 @@ export default function Estacionamiento() {
             <div id="form-text" className="row">
 
                 <div>
+
                     {/*<Map />*/}
                 </div>
                 <p></p>
@@ -130,7 +134,7 @@ export default function Estacionamiento() {
                         onChange={(e) => setCantidadLugares(e.target.value)}
                         value={cantidadLugares}
                         className="form-control"
-                        placeholder="Lugares para estacionar" />
+                        placeholder={cantidadLugares} />
                 </div>
                 <div className="col-md-4">
                     <button type="button" className="btn btn-primary btn-block"
