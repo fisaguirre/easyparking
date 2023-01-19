@@ -33,6 +33,17 @@ class User:
     def get_usuario_id(self):
         return self.__usuario_id
 
+
+class User:
+
+    def __init__(self, usuario_id, public_id, username, password, nombre, apellido, email, rol):
+        self.__usuario_id = usuario_id
+        self.__public_id = public_id
+        self.__username = username
+        self.__password = password
+        self.__nombre = nombre
+        self.__apellido = apellido
+
     def get_public_id(self):
         return self.__public_id
 

@@ -166,24 +166,6 @@ def deleteFinishedCardList(patente, usuario_id):
     return tarjetaInstancia.deleteFinishedCardList(patente, usuario_id, mysql)
 
 
-# location
-# Eliminar varias tarjetas por usuario y por patente
-@app.route('/location', methods=["POST"])
-def location():
-    print(request.json)
-    print(request.json['latitud'])
-
-    """
-
-
-    print(request.json['markers'])
-    print(request.json['markers'][0])
-    print(request.json['markers'][0]['lat'])
-    """
-
-    return jsonify('hola')
-
-
 """
 
 @app.route('/user', methods=["GET"])

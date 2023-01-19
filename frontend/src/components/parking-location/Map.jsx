@@ -63,7 +63,6 @@ export const Map = () => {
     };
 
 
-
     return (
         <div>
             <h1>
@@ -89,11 +88,7 @@ export const Map = () => {
                     ]);
                 }}
 
-
-
             >
-
-
                 {markers.map((marker) => (
 
                     <Marker key={marker.time.toISOString()}
