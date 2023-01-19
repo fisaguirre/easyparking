@@ -71,7 +71,7 @@ services:
       #- ./user-parking-control-service:/app/user-parking-control-service
       #se guardarà un volumen en el host de la computadora relacionado al container user-parking, 
       #este volumen esta dentro de esta misma carpeta
-      - ./parking-location-servce:/parking-location-service
+      - ./parking-location-service:/parking-location-service
     networks:
       - parking_location
 

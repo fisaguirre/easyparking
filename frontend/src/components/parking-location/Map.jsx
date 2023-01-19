@@ -2,7 +2,9 @@ import { GoogleMap, useLoadScript, Marker, InfoWIndow, MarkerClusterer } from "@
 import { createRoutesFromElements, parsePath } from "react-router-dom";
 import { useState } from "react";
 import React from 'react';
+
 const API = process.env.REACT_APP_API_USER;
+const API_LOCATION = process.env.REACT_APP_API_LOCATION;
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -46,7 +48,7 @@ export const Map = () => {
         const time = markers[0]['time']
         const usuario_id = 1
 
-        const res = await fetch(`${API}/location`, {
+        const res = await fetch(`${API_LOCATION}/estacionamiento/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -54,7 +56,6 @@ export const Map = () => {
             body: JSON.stringify({
                 latitud,
                 longitud,
-                time,
                 usuario_id
             }),
         });

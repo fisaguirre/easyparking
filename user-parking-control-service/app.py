@@ -22,13 +22,6 @@ app = Flask(__name__)
 
 obtener_conexion(app)
 
-"""
-app.config['SECRET_KEY'] = 'your secret key'
-app.config['MYSQL_HOST'] = 'db_user_parking_control_service'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Fernandoroot2023.'
-app.config['MYSQL_DB'] = 'userparkingcontrol'
-"""
 mysql = MySQL(app)
 CORS(app)
 
