@@ -11,7 +11,6 @@ import ActivarTarjeta from './components/parking-control/tarjetero/tarjeta/Activ
 import TarjetaInstancia from './components/parking-control/tarjetero/tarjeta/TarjetaInstancia';
 import TarjetaPendienteDePago from './components/parking-control/tarjetero/tarjeta/TarjetaPendienteDePago';
 
-
 //import UserAbout from './components/parking-control/tarjetero/UserAbout';
 function App() {
 
