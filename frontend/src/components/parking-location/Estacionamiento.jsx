@@ -27,36 +27,13 @@ export default function Estacionamiento() {
     const [cantidadDisponibles, setCantidadDisponibles] = useState(0)
     let [lugares, setLugares] = useState([])
 
-    const getLugares = async () => {
+    const getPlaces = async () => {
         const usuario_id = 1
         const res = await fetch(`${API_LOCATION}/estacionamiento/${usuario_id}`);
         const data = await res.json();
-        //setLugares(data);
         setCantidadDisponibles(data['cantidad_disponible'])
         setCantidadLugares(data['cantidad_lugares'])
-
-        console.log("esto:")
-        console.log(data['cantidad_disponible'])
-        console.log(data['cantidad_lugares'])
-
     };
-
-    const obtenerLugares = async () => {
-        const usuario_id = 1
-        const tipo_update = "actualizar_lugares"
-
-        const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                cantidadLugares
-            }),
-        });
-    };
-
-
 
 
     const actualizarCantidadLugares = async () => {
@@ -115,7 +92,7 @@ export default function Estacionamiento() {
         });
     };
     useEffect(() => {
-        getLugares();
+        getPlaces();
     }, []);
 
 

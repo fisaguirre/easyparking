@@ -33,7 +33,27 @@ export const Map = () => {
         disableDefaultUI: true,
         zoomControl: true,
     };
+    const saveCoordinates = async (markers) => {
+        const latitud = markers[0]['lat']
+        const longitud = markers[0]['lng']
+        const time = markers[0]['time']
+        const usuario_id = 1
 
+        const res = await fetch(`${API}/location`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                latitud,
+                longitud,
+                time,
+                usuario_id
+            }),
+        });
+        await res.json();
+
+    };
 
     const onMapClick = React.useCallback((event) => {
         setMarkers((current) => [
@@ -88,6 +108,9 @@ export const Map = () => {
 
                 ))}
 
-            </GoogleMap></div>
+            </GoogleMap>
+
+            <button type="button" onClick={(e) => saveCoordinates(markers)}>Guardar Lugar</button>
+        </div>
     )
 }

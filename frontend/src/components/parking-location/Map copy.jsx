@@ -35,6 +35,25 @@ export const Map = () => {
     };
 
 
+    const onMapClick = React.useCallback((event) => {
+        setMarkers((current) => [
+            ...current,
+            {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng(),
+                time: new Date(),
+            },
+            //console.log("f: ")
+        ]);
+        //console.log(markers)
+        //console.log("Esto:", markers[0]['lat'])
+    }, []);
+
+    const mapRef = React.useRef();
+    const onMapLoad = React.useCallback((map) => {
+        mapRef.current = map;
+    }, []);
+
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
 
@@ -63,6 +82,7 @@ export const Map = () => {
                         },
                     ]);
                 }}
+
             >
                 {markers.map((marker) => (
                     <Marker key={marker.time.toISOString()} position={{ lat: marker.lat, lng: marker.lng }}
@@ -77,6 +97,6 @@ export const Map = () => {
 
                 ))}
 
-            </GoogleMap></div >
+            </GoogleMap></div>
     )
 }
