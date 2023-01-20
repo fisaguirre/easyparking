@@ -37,6 +37,10 @@ export const Map = () => {
         zoomControl: true,
     };
     const saveCoordinates = async (markers) => {
+        console.log(markers[0]['lat'])
+        console.log(markers[0]['lng'])
+
+        /*
         const latitud = markers[0]['lat']
         const longitud = markers[0]['lng']
         const time = markers[0]['time']
@@ -52,21 +56,23 @@ export const Map = () => {
                 longitud,
                 usuario_id
             }),
-
         });
         await res.json();
-
+        */
     };
 
+
     const onMapClick = React.useCallback((event) => {
-        setMarkers((current) => [
-            ...current,
+        //        if ("a" == "b") {
+        setMarkers(() => [
             {
                 lat: event.latLng.lat(),
                 lng: event.latLng.lng(),
                 time: new Date(),
             },
         ]);
+        //   }
+
     }, []);
 
 
