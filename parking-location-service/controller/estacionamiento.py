@@ -50,6 +50,17 @@ def actualizarDisponibles(request, usuario_id, mysql):
     return jsonify('se actualizaron los lugares disponibles')
 
 
+def getWorkZone(mysql):
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    zero = 0
+    cursor.execute(
+        'SELECT * FROM estacionamiento WHERE estacionamiento.latitud != %s AND estacionamiento.longitud != %s', (zero, zero,))
+    estacionamientos = cursor.fetchall()
+    cursor.close()
+    return jsonify(estacionamientos)
+
+
 def getPlaces(usuario_id, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(

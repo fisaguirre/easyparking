@@ -37,10 +37,6 @@ export const Map = () => {
         zoomControl: true,
     };
     const saveCoordinates = async (markers) => {
-        console.log("asd")
-        console.log(markers)
-
-        /*
         const latitud = markers[0]['lat']
         const longitud = markers[0]['lng']
         const time = markers[0]['time']
@@ -54,13 +50,12 @@ export const Map = () => {
             body: JSON.stringify({
                 latitud,
                 longitud,
-                time,
                 usuario_id
             }),
-            
+
         });
         await res.json();
-*/
+
     };
 
     const onMapClick = React.useCallback((event) => {
@@ -71,11 +66,9 @@ export const Map = () => {
                 lng: event.latLng.lng(),
                 time: new Date(),
             },
-            //console.log("f: ")
         ]);
-        //console.log(markers)
-        //console.log("Esto:", markers[0]['lat'])
     }, []);
+
 
     const mapRef = React.useRef();
     const onMapLoad = React.useCallback((map) => {
@@ -101,8 +94,11 @@ export const Map = () => {
                 center={center}
                 options={options}
                 onClick={onMapClick}
+
+
                 onLoad={onMapLoad}
             >
+
                 {markers.map((marker) => (
                     <Marker key={marker.time.toISOString()} position={{ lat: marker.lat, lng: marker.lng }}
                         icon={{

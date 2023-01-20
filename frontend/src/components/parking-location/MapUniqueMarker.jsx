@@ -3,6 +3,9 @@ import { createRoutesFromElements } from "react-router-dom";
 import { useState } from "react";
 import React from 'react';
 
+const API = process.env.REACT_APP_API_USER;
+const API_LOCATION = process.env.REACT_APP_API_LOCATION
+
 const libraries = ["places"];
 const mapContainerStyle = {
     width: "80vw",
@@ -11,6 +14,9 @@ const mapContainerStyle = {
 
 export const Map = () => {
     const [markers, setMarkers] = useState([]);
+    const [markers1, setMarkers1] = useState();
+    const [markers2, setMarkers2] = useState();
+
     const [selected, setSelected] = useState(null);
     const [latitud, setLatitud] = useState(null);
     const [longitud, setLongitud] = useState(null);
@@ -33,7 +39,12 @@ export const Map = () => {
         disableDefaultUI: true,
         zoomControl: true,
     };
-    const saveCoordinates = async (markers) => {
+    const saveCoordinates = async (markers1, markers2) => {
+        console.log("asd")
+        console.log(markers1)
+        console.log(markers2)
+
+        /*
         const latitud = markers[0]['lat']
         const longitud = markers[0]['lng']
         const time = markers[0]['time']
@@ -50,24 +61,30 @@ export const Map = () => {
                 time,
                 usuario_id
             }),
+            
         });
         await res.json();
-
+*/
+    };
+    /*
+        const onMapClick = React.useCallback((event) => {
+            setMarkers((current) => [
+                ...current,
+                {
+                    lat: event.latLng.lat(),
+                    lng: event.latLng.lng(),
+                    time: new Date(),
+                },
+            ]);
+        }, []);
+    */
+    const fer = async (marker, marker2) => {
+        console.log(marker)
+        console.log(marker2)
+        setMarkers1(marker)
+        setMarkers2(marker2)
     };
 
-    const onMapClick = React.useCallback((event) => {
-        setMarkers((current) => [
-            ...current,
-            {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
-                time: new Date(),
-            },
-            //console.log("f: ")
-        ]);
-        //console.log(markers)
-        //console.log("Esto:", markers[0]['lat'])
-    }, []);
 
     const mapRef = React.useRef();
     const onMapLoad = React.useCallback((map) => {
@@ -92,25 +109,25 @@ export const Map = () => {
                 zoom={13}
                 center={center}
                 options={options}
-                onClick={onMapClick}
+                //onClick={onMapClick}
+                /*
+                onClick={(event) => {
+                    fer(event.latLng.lat(), event.latLng.lng());
+                }}
+                
+                */
+                onClick={(event) => {
+                    fer(event.latLng.lat(), event.latLng.lng());
+                }}
+
                 onLoad={onMapLoad}
             >
-                {markers.map((marker) => (
-                    <Marker key={marker.time.toISOString()} position={{ lat: marker.lat, lng: marker.lng }}
-                        icon={{
-                            url: '/cat.png',
-                            scaledSize: new window.google.maps.Size(30, 30),
-                            origin: new window.google.maps.Point(0, 0),
-                            anchor: new window.google.maps.Point(15, 15),
-                        }}
-
-                    />
-
-                ))}
-
+                <Marker position={{ lat: -32.889894119559635, lng: -68.84615948128344 }}
+                />
             </GoogleMap>
 
-            <button type="button" onClick={(e) => saveCoordinates(markers)}>Guardar Lugar</button>
+            <button type="button" onClick={(e) => saveCoordinates(markers1, markers2)}>Guardar Lugar</button>
         </div>
     )
 }
+

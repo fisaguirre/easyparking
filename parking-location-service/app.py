@@ -33,6 +33,13 @@ def setWorkZone():
     return estacionamiento.setWorkZone(request, mysql, app)
 
 
+# Obtener zonas de trabajo tarjeteros
+@app.route('/estacionamiento', methods=['GET'])
+def getWorkZone():
+    # creates dictionary of form data
+    return estacionamiento.getWorkZone(mysql)
+
+
 # Obtener los lugares del estacionamiento del tarjetero
 @app.route('/estacionamiento/<usuario_id>', methods=['GET'])
 def getPlaces(usuario_id):
