@@ -1,7 +1,8 @@
-import { GoogleMap, useLoadScript, Marker, InfoWIndow, MarkerClusterer } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, InfoWIndow, MarkerClusterer, InfoWindow } from "@react-google-maps/api";
 import { createRoutesFromElements } from "react-router-dom";
 import { useState } from "react";
 import React from 'react';
+import { formatRelative } from "date-fns";
 
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION
@@ -112,10 +113,32 @@ export const Map = () => {
                             origin: new window.google.maps.Point(0, 0),
                             anchor: new window.google.maps.Point(15, 15),
                         }}
+                        onClick={() => {
+                            setSelected(marker);
+                        }}
 
                     />
 
                 ))}
+
+                {selected ? (
+                    <InfoWindow
+                        position={{ lat: selected.lat, lng: selected.lng }}
+                        onCloseClick={() => {
+                            setSelected(null);
+                        }}
+                    >
+                        <div>
+                            <h2>
+                                <span role="img" aria-label="bear">
+                                    🐻
+                                </span>{" "}
+                                Alert
+                            </h2>
+                            <p>Spotted {formatRelative(selected.time, new Date())}</p>
+                        </div>
+                    </InfoWindow>
+                ) : null}
 
             </GoogleMap>
 

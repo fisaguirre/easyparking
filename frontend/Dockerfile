@@ -19,6 +19,7 @@ RUN npm install
 #RUN npm install react-hook-form
 #RUN npm install --save react-timer-hook
 #RUN npm i @react-google-maps/api
+#RUN npm install @date-io/date-fns date-fns
 
 # add app
 COPY . ./

@@ -1,7 +1,8 @@
-import { GoogleMap, useLoadScript, Marker, InfoWIndow, MarkerClusterer } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, InfoWindow, MarkerClusterer } from "@react-google-maps/api";
 import { createRoutesFromElements } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from 'react';
+import { formatRelative } from "date-fns";
 
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION
@@ -18,6 +19,8 @@ export const MapHome = () => {
     const [selected, setSelected] = useState(null);
     const [latitud, setLatitud] = useState(null);
     const [longitud, setLongitud] = useState(null);
+    const [opcion, setOpcion] = useState(true);
+
 
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: 'AIzaSyDUTbZbNn8fOZ8QXaYc_PoQqTP3HqMWsDI',
@@ -157,9 +160,26 @@ export const MapHome = () => {
                             anchor: new window.google.maps.Point(15, 15),
                         }}
 
+                        onClick={() => {
+                            setSelected(marker);
+                        }}
                     />
-
                 ))}
+
+                {selected ? (
+                    <InfoWindow
+                        position={{ lat: Number(selected.latitud), lng: Number(selected.longitud) }}
+
+                        onCloseClick={() => {
+                            setSelected(null);
+                        }}
+                    >
+                        <div>
+                            <h2>Lugares disponibles: {selected.cantidad_disponible}</h2>
+                            <h3>Total lugares: {selected.cantidad_lugares}</h3>
+                        </div>
+                    </InfoWindow>
+                ) : null}
 
             </GoogleMap>
             <div id="form-text" className="row">
