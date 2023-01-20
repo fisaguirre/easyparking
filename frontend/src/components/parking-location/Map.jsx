@@ -37,14 +37,13 @@ export const Map = () => {
         zoomControl: true,
     };
     const saveCoordinates = async (markers) => {
-        console.log(markers[0]['lat'])
-        console.log(markers[0]['lng'])
-
-        /*
+        //console.log(markers)
+        //console.log(markers[0]['lat'])
+        //console.log(markers[0]['lng'])
         const latitud = markers[0]['lat']
         const longitud = markers[0]['lng']
         const time = markers[0]['time']
-        const usuario_id = 5
+        const usuario_id = 1
 
         const res = await fetch(`${API_LOCATION}/estacionamiento`, {
             method: "POST",
@@ -58,7 +57,7 @@ export const Map = () => {
             }),
         });
         await res.json();
-        */
+
     };
 
 
