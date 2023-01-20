@@ -6,7 +6,7 @@ export default function Home() {
     return (
         <div>
             Esto es el HOME
-            <Map />
+            <Map actualizar="si" />
         </div>
     )
 }

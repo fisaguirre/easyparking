@@ -148,6 +148,7 @@ export const MapHome = () => {
                 zoom={13}
                 center={center}
                 options={options}
+
                 //onClick={onMapClick}
                 onLoad={onMapLoad}
             >
@@ -176,7 +177,7 @@ export const MapHome = () => {
                     >
                         <div>
                             <h2>Lugares disponibles: {selected.cantidad_disponible}</h2>
-                            <h3>Total lugares: {selected.cantidad_lugares}</h3>
+                            <h3>Calle: {selected.calle}</h3>
                         </div>
                     </InfoWindow>
                 ) : null}

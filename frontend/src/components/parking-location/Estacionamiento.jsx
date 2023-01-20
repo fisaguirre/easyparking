@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Map } from "./Map";
+import { MapHome } from "./MapHome";
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION
 
@@ -22,7 +23,7 @@ const Counter = ({ cantidadDisponibles, increment, decrement }) => {
 
 
 export default function Estacionamiento() {
-
+    const [mostrarMapa, setMostrarMapa] = useState()
     const [cantidadLugares, setCantidadLugares] = useState("")
     const [cantidadDisponibles, setCantidadDisponibles] = useState(0)
     let [lugares, setLugares] = useState([])
@@ -95,6 +96,11 @@ export default function Estacionamiento() {
         getPlaces();
     }, []);
 
+    const showMaps = async (valor) => {
+        setMostrarMapa(valor)
+
+    };
+
 
     return (
         <div>
@@ -132,6 +138,17 @@ export default function Estacionamiento() {
                 <div className="col-md2">
                     <button type="button" id="signup-button" className="btn btn-info" onClick={(e) => actualizarLugaresDisponibles()}>Actualizar</button>
                 </div>
+            </div>
+            <p></p>
+            <p></p>
+            <div className="rol">
+                <button type="button" onClick={(e) => showMaps(true)}>Mostrar mapa</button>
+                <button type="button" onClick={(e) => showMaps(false)}>Ocultar mapa</button>
+                {mostrarMapa ? (
+                    <><button type="button">boton extra</button><div>
+                        <MapHome />
+                    </div></>
+                ) : null}
             </div>
         </div>
     );

@@ -3,6 +3,7 @@ import { createRoutesFromElements } from "react-router-dom";
 import { useState } from "react";
 import React from 'react';
 import { formatRelative } from "date-fns";
+import { MapHome } from "./MapHome";
 
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION
@@ -13,13 +14,13 @@ const mapContainerStyle = {
     height: "80vh"
 };
 
-export const Map = () => {
+export const Map = (props) => {
     const [markers, setMarkers] = useState([]);
     const [selected, setSelected] = useState(null);
     const [latitud, setLatitud] = useState(null);
     const [longitud, setLongitud] = useState(null);
-
-
+    const [userLogueado, setUserLogueado] = useState(true)
+    //const [updateWorkZone, setUpdateWorkZone] = useState(props.actualizar)
 
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: 'AIzaSyDUTbZbNn8fOZ8QXaYc_PoQqTP3HqMWsDI',
@@ -62,16 +63,20 @@ export const Map = () => {
     };
 
 
+
+
     const onMapClick = React.useCallback((event) => {
-        //        if ("a" == "b") {
-        setMarkers(() => [
-            {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
-                time: new Date(),
-            },
-        ]);
-        //   }
+        const usuario_logueado = "no"
+        if (userLogueado) {
+            //console.log(actualizar)
+            setMarkers(() => [
+                {
+                    lat: event.latLng.lat(),
+                    lng: event.latLng.lng(),
+                    time: new Date(),
+                },
+            ]);
+        }
 
     }, []);
 
@@ -87,6 +92,7 @@ export const Map = () => {
 
     return (
         <div>
+
             <h1>
                 Estacionamiento{" "}
                 <span role="img" aria-label="tent">
@@ -100,11 +106,8 @@ export const Map = () => {
                 center={center}
                 options={options}
                 onClick={onMapClick}
-
-
                 onLoad={onMapLoad}
             >
-
                 {markers.map((marker) => (
                     <Marker key={marker.time.toISOString()} position={{ lat: marker.lat, lng: marker.lng }}
                         icon={{
@@ -120,6 +123,15 @@ export const Map = () => {
                     />
 
                 ))}
+                <Marker position={{ lat: -32.889894119559635, lng: -68.84615948128344 }}
+                    icon={{
+                        url: '/cat.png',
+                        scaledSize: new window.google.maps.Size(30, 30),
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(15, 15),
+                    }}
+
+                />
 
                 {selected ? (
                     <InfoWindow
@@ -141,8 +153,10 @@ export const Map = () => {
                 ) : null}
 
             </GoogleMap>
+            {userLogueado ? (
+                <button type="button" onClick={(e) => saveCoordinates(markers)}>Guardar Lugar</button>
+            ) : null}
 
-            <button type="button" onClick={(e) => saveCoordinates(markers)}>Guardar Lugar</button>
         </div>
     )
 }
