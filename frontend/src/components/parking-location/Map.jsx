@@ -40,9 +40,9 @@ export const Map = () => {
         const latitud = markers[0]['lat']
         const longitud = markers[0]['lng']
         const time = markers[0]['time']
-        const usuario_id = 1
+        const usuario_id = 5
 
-        const res = await fetch(`${API}/location`, {
+        const res = await fetch(`${API_LOCATION}/estacionamiento`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
