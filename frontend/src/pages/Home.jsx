@@ -5,8 +5,16 @@ import { Map } from "../components/parking-location/Map";
 export default function Home() {
     return (
         <div>
-            Esto es el HOME
-            <Map updateWorkZone={false} />
+            <h1>
+                Esto es el HOME
+                <p></p>
+                <p></p>
+                Descomentar linea que muestra componente mapa cuando termine la aplicacion
+                <p></p>
+                <p></p>
+                Esta comentada para no malgastar las request de google maps
+            </h1>
+            {/*<Map updateWorkZone={false} />*/}
         </div>
     )
 }
