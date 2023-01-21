@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Map } from "./Map";
-import { MapHome } from "./MapHome";
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION
 
@@ -141,15 +140,21 @@ export default function Estacionamiento() {
             </div>
             <p></p>
             <p></p>
-            <div className="rol">
-                <button type="button" onClick={(e) => showMaps(true)}>Mostrar mapa</button>
-                <button type="button" onClick={(e) => showMaps(false)}>Ocultar mapa</button>
+            <div className="row">
+                <h2>Asignar zona de trabajo</h2>
+                <div className="col-md-2">
+                    <button type="button" onClick={(e) => showMaps(true)}>Mostrar mapa</button>
+                </div>
+                <div className="col-md-2">
+                    <button type="button" onClick={(e) => showMaps(false)}>Ocultar mapa</button>
+                </div>
                 {mostrarMapa ? (
                     <><button type="button">boton extra</button><div>
-                        <MapHome />
+                        <Map updateWorkZone={true} />
                     </div></>
                 ) : null}
             </div>
         </div>
+
     );
 };
