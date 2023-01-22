@@ -5,13 +5,14 @@ import { useState } from "react";
 
 export default function Navbar() {
     const [usuario, setUsuario] = useState(false)
-    const [usuarioLogueado, setUsuarioLogueado] = useState(false)
+    const [usuarioLogueado, setUsuarioLogueado] = useState(true)
     const [usuarioTipo, setUsuarioTipo] = useState("superadministrador")
     //const [usuarioTipo, setUsuarioTipo] = useState("administrador")
     //const [usuarioTipo, setUsuarioTipo] = useState("superadministrador")
 
     return (
         <nav className="ml-auto">
+            {/*------------------------User Logout------------------------*/}
             {usuarioLogueado == false ? (
                 <>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
@@ -21,7 +22,7 @@ export default function Navbar() {
             ) : null}
 
 
-            {/*NavBar Tarjetero*/}
+            {/*------------------------Navbar Tarjetero------------------------*/}
             {usuarioLogueado == true && usuarioTipo == "tarjetero" ? (
                 <>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
@@ -36,7 +37,7 @@ export default function Navbar() {
 
             ) : null}
 
-            {/*NavBar Admin*/}
+            {/*------------------------Navbar Admin------------------------*/}
             {usuarioLogueado == true && usuarioTipo == "administrador" ? (
                 <>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
@@ -51,7 +52,7 @@ export default function Navbar() {
 
             ) : null}
 
-            {/*NavBar Super Admin*/}
+            {/*------------------------Navbar Super Admin------------------------*/}
             {usuarioLogueado == true && usuarioTipo == "superadministrador" ? (
                 <>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}

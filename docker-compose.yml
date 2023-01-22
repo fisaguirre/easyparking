@@ -102,6 +102,57 @@ services:
     networks:
       - parking_location
 
+  payment-service:
+    image: fain1995/payment-service:back
+    #specifies the build configuration for creating container image
+    build:
+      #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
+      context: ./payment-service
+      #the "dockerfile" is necessary otherwise it will generate an error
+      #we specific the dockerfile name
+      dockerfile: Dockerfile
+    links:
+      - db_payment_service
+    #ports (running:listening)
+    ports:
+      - "5002:5002"
+    #name of image instance (container)
+    container_name: payment-service
+    volumes:
+      #- ./user-parking-control-service:/app/user-parking-control-service
+      #se guardarà un volumen en el host de la computadora relacionado al container user-parking, 
+      #este volumen esta dentro de esta misma carpeta
+      - ./payment-service:/payment-service
+    networks:
+      - payment
+
+  db_payment_service:
+    container_name: db_payment_service
+    #image: Like the FROM instruction from the Dockerfile. Instead of writing a new Dockerfile, we are using an existing image from a repository. It’s important to specify the version — if your installed mysql client is not of the same version problems may occur.
+    #this image is from dockerhub
+    #image: mysql:5.7
+    image: fain1995/db_payment_service:db
+    restart: always
+    build:
+      #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
+      context: ./db-payment
+      #the "dockerfile" is necessary otherwise it will generate an error
+      #we specific the dockerfile name
+      dockerfile: Dockerfile
+    #ports: Since I already have a running mysql instance on my host using this port, I am mapping it to a different one. Notice that the mapping is only from host to container, so our app service container will still use port 3306 to connect to the database.
+    ports:
+      - "32002:3306"
+    #environment: add environment variables. The specified variable is required for this image, and as its name suggests, configures the password for the root user of MySQL in this container. More variables are specified here.
+    environment:
+      MYSQL_ROOT_PASSWORD: Fernandoroot2023.
+      #MYSQL_DATABASE: podcast
+
+      #volumes: since we want the container to be initialized with our schema, we wire the directory containing our init.sql script to the entry point for this container, which by the image’s specification runs all .sql scripts in the given directory.
+    volumes:
+      - ./db_payment_service:/docker-entrypoint-initdb.d/:ro
+    networks:
+      - payment
+
   frontend:
     image: fain1995/frontend:front
     #specifies the build configuration for creating container image
@@ -123,6 +174,7 @@ services:
 networks:
   user_parking_control:
   parking_location:
+  payment:
 
 
 volumes:
@@ -131,4 +183,6 @@ volumes:
   db_user_parking_control_service:
   parking_location_service_app:
   db_parking_location_service:
+  payment_service_app:
+  db_payment_service:
   frontend:

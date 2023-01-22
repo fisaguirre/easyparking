@@ -11,7 +11,7 @@ COPY requirements.txt ./
 RUN pip3 install -r requirements.txt
 
 #COPY all folder and files in /app
-COPY . .
+COPY . ./
 
 # The EXPOSE instruction indicates the ports on which a container 
 # will listen for connections
@@ -19,4 +19,4 @@ COPY . .
 EXPOSE 5002
 # Run app.py when the container launches
 #CMD python3 app.py
-CMD [ "flask", "run","--host","0.0.0.0","--port","5002"]
+CMD [ "flask", "run","--host","0.0.0.0","--port","5002", "--reload"]

@@ -107,7 +107,6 @@ export const Map = (props) => {
             <h1>
                 Estacionamiento{" "}
                 <span role="img" aria-label="tent">
-                    ⛺️
                 </span>
             </h1>
             {updateWorkZone ? (
