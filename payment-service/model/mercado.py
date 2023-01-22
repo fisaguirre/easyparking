@@ -1,4 +1,4 @@
-class User:
+class Mercado:
 
     def __init__(self, cuenta_mercado_id, access_token, mercado_usuario_id, store_id, external_store_id, pos_id, external_pos_id, usuario_id):
         self.__cuenta_mercado_id = cuenta_mercado_id

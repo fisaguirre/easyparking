@@ -1,4 +1,4 @@
-class User:
+class Pago:
 
     def __init__(self, pago_id, cantidad_pago, fecha, hora, minutos, usuario_id):
         self.__pago_id = pago_id
