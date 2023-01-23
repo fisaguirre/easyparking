@@ -1,8 +1,13 @@
 import json
 import os
-from flask import Flask, render_template
+import string
+import urllib.parse
 import urllib.request
+from flask import Flask, render_template
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from urllib.error import HTTPError, URLError
+from urllib.request import urlopen, Request
 
 from model.user import User
 from model.pago import Pago
@@ -29,20 +34,24 @@ def saveAccessToken(request, mysql):
     userExists = cursor.fetchall()
 
     if userExists:
+        access_token = request.json['access_token']
+        split_access_token = request.json['access_token'].split('-')
+        mercado_usuario_id = split_access_token[-1]
+
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        hashToken = generate_password_hash(request.json['access_token'])
         cursor.execute(
-            'UPDATE cuenta_mercado set access_token = %s where usuario_id = %s', (hashToken, request.json['usuario_id'],))
+            'UPDATE cuenta_mercado set access_token = %s, mercado_usuario_id = %s WHERE usuario_id = %s', (access_token, mercado_usuario_id, request.json['usuario_id'],))
         mysql.connection.commit()
         cursor.close()
 
         return jsonify('Access token guardado')
 
     else:
-        hashToken = generate_password_hash(request.json['access_token'])
+        split_access_token = request.json['access_token'].split('-')
+        mercado_usuario_id = split_access_token[-1]
 
         mercado = Mercado(
-            hashToken, 0, 0, 0, 0, 0, request.json['usuario_id'])
+            request.json['access_token'], mercado_usuario_id, 0, 0, 0, 0, request.json['usuario_id'])
 
         data = (mercado.get_access_token(), mercado.get_mercado_usuario_id(), mercado.get_store_id(
         ), mercado.get_external_store_id(), mercado.get_pos_id(), mercado.get_external_pos_id(), mercado.get_usuario_id())
@@ -52,6 +61,40 @@ def saveAccessToken(request, mysql):
         mysql.connection.commit()
         cursor.close()
         return jsonify('access token guardado')
+
+
+def getTokenAndMercadoId(usuario_id, mysql):
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute(
+        'SELECT access_token, mercado_usuario_id FROM cuenta_mercado WHERE usuario_id = %s', (usuario_id,))
+    tokenMercadoUsuarioId = cursor.fetchone()
+
+    if tokenMercadoUsuarioId:
+        cursor.close()
+        return jsonify(tokenMercadoUsuarioId)
+
+    else:
+        cursor.close()
+        return jsonify('El usuario tarjtero no tiene un access token almacenado')
+
+
+def saveExternalsId(request, usuario_id, tipo_creacion, mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute(
+        'SELECT * FROM cuenta_mercado WHERE usuario_id = %s', (usuario_id,))
+    userExists = cursor.fetchall()
+
+    if userExists:
+        if tipo_creacion == "save_store":
+            cursor.execute(
+                'UPDATE cuenta_mercado set store_id = %s, external_store_id = %s WHERE usuario_id = %s', (request.json['store_id'], request.json['external_store_id'], usuario_id,))
+            mysql.connection.commit()
+            cursor.close()
+
+            return jsonify('Store id guardado')
 
 
 def pagar():
@@ -187,7 +230,7 @@ def getAllFinishedCardsByUserId(contar, usuario_id, mysql):
 def getAllFinishedCardListByPatente(usuario_id, mysql):
     finalizada = "si"
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    """
+    """""""""
         cursor.execute('SELECT COUNT(tarjeta_instancia_id) AS "tarjetas_acumuladas", patente, mes, dia_semana, dia_fecha FROM tarjeta_instancia WHERE usuario_id = %s AND finalizada = %s GROUP BY patente, mes,dia_semana,dia_fecha', (usuario_id, finalizada,))
         """
     cursor.execute('SELECT COUNT(tarjeta_instancia_id) AS "tarjetas_acumuladas", patente, usuario_id FROM tarjeta_instancia WHERE usuario_id = %s AND finalizada = %s GROUP BY patente', (usuario_id, finalizada,))

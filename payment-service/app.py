@@ -30,20 +30,22 @@ def index():
 # Guardar access token
 @app.route('/pago/mercado', methods=["POST"])
 def saveAccessToken():
-    print(request.json)
-    print("hola")
-
     return mercado.saveAccessToken(request, mysql)
 
 
-"""
+# Obtener access token y mercado_usuario_id
+@app.route('/pago/mercado/token/<usuario_id>', methods=["GET"])
+def getTokenAndMercadoId(usuario_id):
+    return mercado.getTokenAndMercadoId(usuario_id, mysql)
+
 
 # Crear nueva sucursal y guardarla
 @app.route('/pago/mercado/<usuario_id>/<tipo_creacion>', methods=["PUT"])
-def createNewStore():
-    return mercado.saveAccessToken(request, mysql)
+def saveExternalsId(usuario_id, tipo_creacion):
+    return mercado.saveExternalsId(request, usuario_id, tipo_creacion, mysql)
 
 
+"""
 # Crear nueva caja y guardarla
 @app.route('/pago/pos', methods=["PUT"])
 def createNewPos():
