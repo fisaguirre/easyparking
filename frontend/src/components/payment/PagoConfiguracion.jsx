@@ -14,6 +14,19 @@ export default function PagoConfiguracion() {
     const [store_id, setStoreId] = useState();
     const [external_store_id, setExternalStoreId] = useState();
 
+    const [accessTokenExists, setAccessTokenExists] = useState(false);
+    const [mostrarTextBoxStore, setMostratButtonStore] = useState(false);
+    const [mostrarTextBoxPos, setMostratButtonCaja] = useState(false);
+
+
+    const getAccessTokenExists = async (usuario_id) => {
+        const res = await fetch(`${API_PAYMENT}/pago/mercado/token/exists/${usuario_id}`)
+        const data = await res.json();
+        if (data == 'existe') {
+            setAccessTokenExists(true);
+            setMostratButtonStore(true);
+        }
+    };
 
     const saveAccessToken = async (access_token, usuario_id) => {
         const res = await fetch(`${API_PAYMENT}/pago/mercado`, {
@@ -37,7 +50,6 @@ export default function PagoConfiguracion() {
         //guardo datos Store
         const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`)
         const mercado = await getMercado.json();
-        setAccessToken(mercado['access_token']);
 
         const res = await fetch(`https://api.mercadopago.com/users/${mercado['mercado_usuario_id']}/stores?access_token=${mercado['access_token']}`, {
             method: "POST",
@@ -73,7 +85,9 @@ export default function PagoConfiguracion() {
             }),
         });
         const data = await res2.json();
-        console.log(data)
+        console.log(data);
+
+        setMostratButtonCaja(true);
 
 
     };
@@ -154,17 +168,14 @@ export default function PagoConfiguracion() {
     };
      
      
-     
+     */
     useEffect(() => {
-        getUsers();
+        getAccessTokenExists(usuario_id);
     }, []);
-     
-    */
 
 
     return (
         <div>
-            Buttuns
             <input type="password" onChange={(e) => setAccessToken(e.target.value)}
                 value={access_token}
                 className="form-control"
@@ -173,22 +184,32 @@ export default function PagoConfiguracion() {
             <button onClick={(e) => saveAccessToken(access_token, usuario_id)}>Guardar access token</button>
             <p></p>
 
-            <input type="text" onChange={(e) => setStoreName(e.target.value)}
-                value={storeName}
-                className="form-control"
-                placeholder="Ingrese el nombre de la sucursal para mercado pago" />
+            {mostrarTextBoxStore ? (
+                <><input type="text" onChange={(e) => setStoreName(e.target.value)}
+                    value={storeName}
+                    className="form-control"
+                    placeholder="Ingrese el nombre de la sucursal para mercado pago" />
+                    <p></p>
+                    <p></p>
+                    <button onClick={(e) => createStore(storeName, posName, usuario_id)}>Crear nueva sucursal</button>
+                </>
+            ) : null
+            }
+            <p></p>
+            <p></p>
 
-            <button onClick={(e) => createStore(storeName, posName, usuario_id)}>Crear nueva sucursal</button>
             <p></p>
-            <p></p>
-            <input type="text" onChange={(e) => setPosName(e.target.value)}
-                value={posName}
-                className="form-control"
-                placeholder="Ingrese el nombre de la caja para mercado pago" />
-            <p></p>
-            <p></p>
-            <button onClick={(e) => createPos(store_id, external_store_id, posName, usuario_id)}>Crear nueva caja</button>
-            <p></p>
+            {mostrarTextBoxPos ? (
+                <><input type="text" onChange={(e) => setPosName(e.target.value)}
+                    value={posName}
+                    className="form-control"
+                    placeholder="Ingrese el nombre de la caja para mercado pago" />
+                    <p></p>
+                    <p></p>
+                    <button onClick={(e) => createPos(store_id, external_store_id, posName, usuario_id)}>Crear nueva caja</button>
+                </>
+            ) : null
+            }
 
             {/*
             <p></p>
