@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AmountFinishedCardsByUser } from "./service/TarjetaInstanciaService";
-import UserAbout from "../UserAbout";
+import PagoGenerarQR from "../../../payment/PagoGenerarQR";
 
 const API = process.env.REACT_APP_API_USER;
 
@@ -33,9 +33,8 @@ export default function TarjetaPendienteDePago() {
             });
             const data = await res.json();
             setEditing(true);
-
+            await getTarjetasActivadas();
         }
-        await getTarjetasActivadas();
     };
 
     useEffect(() => {
@@ -81,16 +80,21 @@ export default function TarjetaPendienteDePago() {
                                             placeholder="Ingrese cantidad de tarjetas" />
                                     </td>
                                     <td>
-                                        <Link id="signup-link" to="/tarjeta/activarTarjeta">
-                                            <button type="button" id="signup-button" className="btn btn-info">Generar QR</button>
-                                        </Link>
+                                        <PagoGenerarQR
+                                            patente={tarjeta_instancia.patente}
+                                            cantidad_tarjetas={tarjeta_instancia.tarjetas_acumuladas}
+                                            minutos={tarjeta_instancia.tarjetas_acumuladas * 30}
+                                            precio_total={tarjeta_instancia.tarjetas_acumuladas * 40}
+                                            userId={tarjeta_instancia.usuario_id}
+                                        />
                                     </td>
                                     <td>
+
                                         <button
                                             className="btn btn-danger btn-sm btn-block"
                                             onClick={(e) => deleteFinishedCardListById(tarjeta_instancia.patente, tarjeta_instancia.usuario_id)}
                                         >
-                                            Limpair tarjeta/s
+                                            Limpiar tarjeta/s
                                         </button>
                                     </td>
                                 </tr>
@@ -119,6 +123,10 @@ export default function TarjetaPendienteDePago() {
                         <button type="button" id="signup-button" className="btn btn-info">Ir a mis tarjetas activas</button>
                     </Link>
                 </div>
+            </div>
+            <div>
+
+
             </div>
         </div >
     )
