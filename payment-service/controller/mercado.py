@@ -1,3 +1,9 @@
+import json
+import os
+from flask import Flask, render_template
+import urllib.request
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from model.user import User
 from model.pago import Pago
 from model.mercado import Mercado
@@ -7,11 +13,59 @@ import MySQLdb.cursors
 
 from flask_mysqldb import MySQL
 from model.user import User
-from flask import jsonify, make_response
+from flask import jsonify, make_response, request
 
 from database_conexion import obtener_conexion
 
 SECRET_KEY = 'your secret key'
+
+
+def saveAccessToken(request, mysql):
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute(
+        'SELECT * FROM cuenta_mercado WHERE usuario_id = %s', (request.json['usuario_id'],))
+    userExists = cursor.fetchall()
+
+    if userExists:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        hashToken = generate_password_hash(request.json['access_token'])
+        cursor.execute(
+            'UPDATE cuenta_mercado set access_token = %s where usuario_id = %s', (hashToken, request.json['usuario_id'],))
+        mysql.connection.commit()
+        cursor.close()
+
+        return jsonify('Access token guardado')
+
+    else:
+        hashToken = generate_password_hash(request.json['access_token'])
+
+        mercado = Mercado(
+            hashToken, 0, 0, 0, 0, 0, request.json['usuario_id'])
+
+        data = (mercado.get_access_token(), mercado.get_mercado_usuario_id(), mercado.get_store_id(
+        ), mercado.get_external_store_id(), mercado.get_pos_id(), mercado.get_external_pos_id(), mercado.get_usuario_id())
+
+        cursor.execute(
+            "insert into cuenta_mercado values(NULL,%s, %s, %s, %s, %s, %s, %s)", data)
+        mysql.connection.commit()
+        cursor.close()
+        return jsonify('access token guardado')
+
+
+def pagar():
+    """
+    url = "https://api.mercadopago.com/merchant_orders/search?access_token=TEST-7697609830214286-012119-9b1bcadb1aa4275a4c12f087e86f7717-1292570557".format(
+        os.environ.get("TMDB_API_KEY"))
+    """
+    url = "https://api.mercadopago.com/users/1292570557/stores/search?access_token=TEST-7697609830214286-012119-9b1bcadb1aa4275a4c12f087e86f7717-1292570557"
+
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    dict = json.loads(data)
+    print(dict)
+    return jsonify(dict)
 
 
 def ordenDePagoQR(request, mysql):

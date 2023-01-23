@@ -6,13 +6,14 @@ const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
 export default function PagoConfiguracion() {
     const [codigoQR, setCodigoQR] = useState();
     const [respuesta, setRespuesta] = useState();
-    const [accesToken, setAccessToken] = useState();
+    const [access_token, setAccessToken] = useState();
     const [mostrarTextBoxToken, setMostraTextBoxToken] = useState(false);
     const [usuario_id, setUsuarioId] = useState(1)
 
     const saveAccessToken = async (access_token, usuario_id) => {
+        console.log(access_token)
 
-        const res = await fetch(`${API_PAYMENT}/pago/`, {
+        const res = await fetch(`${API_PAYMENT}/pago/mercado`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -146,11 +147,11 @@ export default function PagoConfiguracion() {
         <div>
             Buttuns
             <input type="password" onChange={(e) => setAccessToken(e.target.value)}
-                value={accesToken}
+                value={access_token}
                 className="form-control"
                 placeholder="Ingrese su access token de mercado pago" />
             <p></p>
-            <button onClick={(e) => saveAccessToken(accesToken, usuario_id)}>Guardar access token</button>
+            <button onClick={(e) => saveAccessToken(access_token, usuario_id)}>Guardar access token</button>
             <p></p>
 
             {/*

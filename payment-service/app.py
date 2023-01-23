@@ -1,5 +1,5 @@
 # Import flask module
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template, jsonify, make_response, redirect, url_for, session
 import re
 import jwt
 from functools import wraps
@@ -20,22 +20,48 @@ mysql = MySQL(app)
 CORS(app)
 
 
+@cross_origin()
 @app.route('/')
 def index():
     return 'Hello to Flask - this is payment-service!'
 
 
-# Crear orden de pago dinàmico para obtener QR
-@app.route('/tarjeta', methods=["POST"])
-def ordenDePagoQR():
-    mercado.ordenDePagoQR(request, mysql)
-    return 'acreditar tarjetas'
-
-
-@app.route('/prueba', methods=["POST"])
-def prueba():
+@cross_origin()
+# Guardar access token
+@app.route('/pago/mercado', methods=["POST"])
+def saveAccessToken():
     print(request.json)
-    return 'acreditar tarjetas'
+    print("hola")
+
+    return mercado.saveAccessToken(request, mysql)
+
+
+"""
+
+# Crear nueva sucursal y guardarla
+@app.route('/pago/mercado/<usuario_id>/<tipo_creacion>', methods=["PUT"])
+def createNewStore():
+    return mercado.saveAccessToken(request, mysql)
+
+
+# Crear nueva caja y guardarla
+@app.route('/pago/pos', methods=["PUT"])
+def createNewPos():
+    return mercado.saveAccessToken(request, mysql)
+
+
+# Crear nueva orden y devolver codigo QR
+@app.route('/pago/pos', methods=["PUT"])
+def createNewOrder():
+    return mercado.createNewOrder(request, mysql)
+"""
+
+# Crear usuario
+
+
+@app.route('/usuario', methods=["POST"])
+def createUser():
+    return 'hola'
 
 
 # main driver function

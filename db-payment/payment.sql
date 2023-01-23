@@ -20,12 +20,12 @@ USE `payment`;
 -- Volcando estructura para tabla payment.cuenta_mercado
 CREATE TABLE IF NOT EXISTS `cuenta_mercado` (
   `cuenta_mercado_id` int(11) NOT NULL AUTO_INCREMENT,
-  `access_token` int(11) DEFAULT NULL,
-  `mercado_usuario_id` int(11) DEFAULT NULL,
-  `store_id` int(11) DEFAULT NULL,
-  `external_store_id` int(11) DEFAULT NULL,
-  `pos_id` int(11) DEFAULT NULL,
-  `external_pos_id` int(11) DEFAULT NULL,
+  `access_token` varchar(150) DEFAULT NULL,
+  `mercado_usuario_id` int(20) DEFAULT NULL,
+  `store_id` int(20) DEFAULT NULL,
+  `external_store_id` int(20) DEFAULT NULL,
+  `pos_id` int(20) DEFAULT NULL,
+  `external_pos_id` int(20) DEFAULT NULL,
   `usuario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`cuenta_mercado_id`),
   KEY `FK_cuenta_mercado_usuario_id` (`usuario_id`),
