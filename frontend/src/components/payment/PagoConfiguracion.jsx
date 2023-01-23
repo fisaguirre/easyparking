@@ -210,27 +210,6 @@ export default function PagoConfiguracion() {
                 </>
             ) : null
             }
-
-            {/*
-            <p></p>
-            <button onClick={(e) => probarMercadoPago()}>Crear sucursal</button>
-            <p></p>
-            <p></p>
-            <button onClick={(e) => probarMercadoPago()}>Crear caja</button>
-            <p></p>
-
-            Funciones que no ve el tarjetero
-            <p></p>
-            <button onClick={(e) => probarMercadoPago()}>Guardar access token</button>
-            <p></p>
-            <p></p>
-            <button onClick={(e) => createSucursal()}>crear sucursal</button>
-            <p></p>
-            <p></p>
-            <button onClick={(e) => createCaja()}>crear caja</button>
-
-            <button onClick={(e) => createOrder()}>crear orden</button>
-    */}
         </div >
 
     );

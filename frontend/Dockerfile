@@ -20,6 +20,7 @@ RUN npm install
 #RUN npm install --save react-timer-hook
 #RUN npm i @react-google-maps/api
 #RUN npm install @date-io/date-fns date-fns
+#RUN npm i react-qr-code
 
 # add app
 COPY . ./

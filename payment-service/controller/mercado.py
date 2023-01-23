@@ -63,6 +63,23 @@ def saveAccessToken(request, mysql):
         return jsonify('access token guardado')
 
 
+def getCuentaMercadoByUser(usuario_id, mysql):
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute(
+        'SELECT * FROM cuenta_mercado WHERE usuario_id = %s', (usuario_id,))
+    tokenMercadoUsuarioId = cursor.fetchone()
+
+    if tokenMercadoUsuarioId:
+        cursor.close()
+        return jsonify(tokenMercadoUsuarioId)
+
+    else:
+        cursor.close()
+        return jsonify('El usuario tarjtero no tiene un access token almacenado')
+
+
 def getAccessTokenExists(usuario_id, mysql):
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)

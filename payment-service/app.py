@@ -33,6 +33,12 @@ def saveAccessToken():
     return mercado.saveAccessToken(request, mysql)
 
 
+# Obtener registro cuenta mercado de un usuario
+@app.route('/pago/mercado/<usuario_id>', methods=["GET"])
+def getCuentaMercadoByUser(usuario_id):
+    return mercado.getCuentaMercadoByUser(usuario_id, mysql)
+
+
 # Obtener access token y mercado_usuario_id
 @app.route('/pago/mercado/token/<usuario_id>', methods=["GET"])
 def getTokenAndMercadoId(usuario_id):

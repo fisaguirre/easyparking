@@ -38,7 +38,6 @@ function App() {
             <Route path="/tarjeta/tarjetaPendienteDePago" className="auto" element={<TarjetaPendienteDePago />} />
             <Route path="/estacionamiento/" className="auto" element={<Estacionamiento />} />
             <Route path="/pago/" className="auto" element={<PagoConfiguracion />} />
-
           </Routes>
         </div>
       </BrowserRouter>

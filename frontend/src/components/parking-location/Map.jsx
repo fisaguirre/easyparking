@@ -23,7 +23,7 @@ export const Map = (props) => {
     const [updateWorkZone, setUpdateWorkZone] = useState(props.updateWorkZone)
 
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyDUTbZbNn8fOZ8QXaYc_PoQqTP3HqMWsDI',
+        googleMapsApiKey: 'AIzaSyDHs6NFoKcupwTGB14Ijh6qQcSvgcUGIhU',
         libraries,
     });
 
