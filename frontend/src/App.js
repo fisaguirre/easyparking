@@ -1,6 +1,7 @@
 import './App.css';
 import './myStyle.css'
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useState } from 'react';
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
@@ -12,7 +13,7 @@ import TarjetaInstancia from './components/parking-control/tarjetero/tarjeta/Tar
 import TarjetaPendienteDePago from './components/parking-control/tarjetero/tarjeta/TarjetaPendienteDePago';
 import Estacionamiento from './components/parking-location/Estacionamiento';
 import Logout from './components/parking-control/Logout';
-import { useState } from 'react';
+import PagoConfiguracion from './components/payment/PagoConfiguracion';
 
 //import UserAbout from './components/parking-control/tarjetero/UserAbout';
 
@@ -36,6 +37,8 @@ function App() {
             <Route path="/tarjeta_instancia/" className="auto" element={<TarjetaInstancia />} />
             <Route path="/tarjeta/tarjetaPendienteDePago" className="auto" element={<TarjetaPendienteDePago />} />
             <Route path="/estacionamiento/" className="auto" element={<Estacionamiento />} />
+            <Route path="/pago/" className="auto" element={<PagoConfiguracion />} />
+
           </Routes>
         </div>
       </BrowserRouter>

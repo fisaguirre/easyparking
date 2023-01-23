@@ -32,6 +32,8 @@ export default function Navbar() {
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/estacionamiento">Estacionamiento</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
+                        to="/pago/">PagoConfiguracion</NavLink>
+                    <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/auth/logout">Logout</NavLink>
                 </>
 
@@ -67,6 +69,8 @@ export default function Navbar() {
                         to="/tarjeta">Tarjeta</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/estacionamiento">Estacionamiento</NavLink>
+                    <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
+                        to="/pago/">PagoConfiguracion</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/auth/logout">Logout</NavLink>
                 </>
