@@ -42,7 +42,10 @@ def getTokenAndMercadoId(usuario_id):
 # Crear nueva sucursal y guardarla
 @app.route('/pago/mercado/<usuario_id>/<tipo_creacion>', methods=["PUT"])
 def saveExternalsId(usuario_id, tipo_creacion):
-    return mercado.saveExternalsId(request, usuario_id, tipo_creacion, mysql)
+    if tipo_creacion == "save_store":
+        return mercado.saveStore(request, usuario_id, mysql)
+    if tipo_creacion == "save_pos":
+        return mercado.savePos(request, usuario_id, mysql)
 
 
 """

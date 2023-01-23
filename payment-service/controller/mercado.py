@@ -80,21 +80,26 @@ def getTokenAndMercadoId(usuario_id, mysql):
         return jsonify('El usuario tarjtero no tiene un access token almacenado')
 
 
-def saveExternalsId(request, usuario_id, tipo_creacion, mysql):
+def saveStore(request, usuario_id, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
     cursor.execute(
-        'SELECT * FROM cuenta_mercado WHERE usuario_id = %s', (usuario_id,))
-    userExists = cursor.fetchall()
+        'UPDATE cuenta_mercado set store_id = %s, external_store_id = %s WHERE usuario_id = %s', (request.json['store_id'], request.json['external_store_id'], usuario_id,))
+    mysql.connection.commit()
+    cursor.close()
 
-    if userExists:
-        if tipo_creacion == "save_store":
-            cursor.execute(
-                'UPDATE cuenta_mercado set store_id = %s, external_store_id = %s WHERE usuario_id = %s', (request.json['store_id'], request.json['external_store_id'], usuario_id,))
-            mysql.connection.commit()
-            cursor.close()
+    return jsonify('Store id guardado')
 
-            return jsonify('Store id guardado')
+
+def savePos(request, usuario_id, mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute(
+        'UPDATE cuenta_mercado set pos_id = %s, external_pos_id = %s WHERE usuario_id = %s', (request.json['pos_id'], request.json['external_pos_id'], usuario_id,))
+    mysql.connection.commit()
+    cursor.close()
+
+    return jsonify('Pos id guardado')
 
 
 def pagar():
