@@ -9,95 +9,94 @@ export default function PagoConfiguracion() {
     const [access_token, setAccessToken] = useState();
     const [mostrarTextBoxToken, setMostraTextBoxToken] = useState(false);
     const [usuario_id, setUsuarioId] = useState(1)
+    const [storeName, setStoreName] = useState()
+
 
     const saveAccessToken = async (access_token, usuario_id) => {
-        console.log(access_token)
-
         const res = await fetch(`${API_PAYMENT}/pago/mercado`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 access_token,
                 usuario_id
-            }),
+            })
         });
         const data = await res.json();
         console.log(data)
 
     };
-    /*
-    const createSucursal = async () => {
 
-        const res = await fetch(`https://api.mercadopago.com/users/1292570557/stores?access_token=TEST-7697609830214286-012119-9b1bcadb1aa4275a4c12f087e86f7717-1292570557`, {
-            //const res = await fetch(`https://api.mercadopago.com`, {
+    const saveStore = async (storeName, usuario_id) => {
+        //Obtengo access token
+        //creo Store
+        //guardo datos Store
+        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`)
+        const mercado = await getMercado.json();
+        setAccessToken(mercado['access_token']);
+
+        const res = await fetch(`https://api.mercadopago.com/users/${mercado['mercado_usuario_id']}/stores?access_token=${mercado['access_token']}`, {
             method: "POST",
-            headers: {
-            },
             body: JSON.stringify({
-                "name": "Sucursal Instore 2",
-                "business_hours": {
-                    "monday": [
-                        {
-                            "open": "08:00",
-                            "close": "12:00"
-                        }
-                    ],
-                    "tuesday": [
-                        {
-                            "open": "09:00",
-                            "close": "18:00"
-                        }
-                    ]
-                },
-                "external_id": "SUC003",
+                "name": storeName,
+                "external_id": "SUC005",
                 "location": {
-                    "street_number": "3039",
-                    "street_name": "Caseros",
-                    "city_name": "Belgrano",
-                    "state_name": "Capital Federal",
-                    "latitude": -32.8897322,
-                    "longitude": -68.8443275,
-                    "reference": "3er Piso"
+                    "street_number": "902",
+                    "street_name": "Av. Bartolome Mitre",
+                    "city_name": "Mendoza",
+                    "state_name": "Mendoza",
+                    "latitude": -32.8915427561287,
+                    "longitude": -68.84501132344153
                 }
-
-
-
             }),
         });
-        const data = await res.json();
-        setCodigoQR(data);
-        console.log(data)
+        const store_response = await res.json();
+        const store_id = store_response['id']
+        const external_store_id = store_response['external_id']
+        const tipo_creacion = "save_store"
 
-    };
-
-
-    const createCaja = async () => {
-
-        const res = await fetch(`https://api.mercadopago.com/pos`, {
-            method: "POST",
+        const res2 = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}/${tipo_creacion}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Content-Length": "<calculated when request is sent>",
-                "Host": "<calculated when request is sent>"
             },
             body: JSON.stringify({
-                "name": "Caja 1 EP Tarjetero 1",
-                "fixed_amount": true,
-                "store_id": 51615272,
-                "external_store_id": "SUC001",
-                "external_id": "SUC001POS001",
-                "category": 621102
+                "store_id": store_id,
+                "external_store_id": external_store_id
+            }),
+        });
+        const data = await res2.json();
+        console.log(data)
+    };
+
+    /*
+        const createCaja = async () => {
+            const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`)
+            const mercado = await getMercado.json();
+    
+            const res3 = await fetch(`https://api.mercadopago.com/pos?access_token=${mercado['access_token']}`, {
+                method: "POST",
+                body: JSON.stringify({
+                {
+                        "name": "Caja 1 Easy-Parking Tarjetero 1",
+                        "fixed_amount": true,
+                        "store_id": 51615272,
+                        "external_store_id": "SUC001",
+                        "external_id": "SUC001POS001",
+                        "category": 621102
+                    }
             }),
         });
         const data = await res.json();
         setCodigoQR(data);
         console.log(data)
-
+    
     };
+    */
+    /*
     const createOrder = async () => {
-
+    
         const res = await fetch(`https://api.mercadopago.com/instore/orders/qr/seller/collectors/1292570557/pos/SUC001POS001/qrs?access_token=TEST-7697609830214286-012119-9b1bcadb1aa4275a4c12f087e86f7717-1292570557`, {
             method: "POST",
             headers: {
@@ -124,23 +123,23 @@ export default function PagoConfiguracion() {
                         "total_amount": 160
                     }
                 ]
-
-
+    
+    
             }),
         });
         const data = await res.json();
         setCodigoQR(data);
         console.log(data)
-
+    
     };
-
-
-
+    
+    
+    
     useEffect(() => {
         getUsers();
     }, []);
-
-*/
+    
+    */
 
 
     return (
@@ -152,6 +151,14 @@ export default function PagoConfiguracion() {
                 placeholder="Ingrese su access token de mercado pago" />
             <p></p>
             <button onClick={(e) => saveAccessToken(access_token, usuario_id)}>Guardar access token</button>
+            <p></p>
+
+            <input type="text" onChange={(e) => setStoreName(e.target.value)}
+                value={storeName}
+                className="form-control"
+                placeholder="Ingrese el nombre de la sucursal para mercado pago" />
+            <p></p>
+            <button onClick={(e) => saveStore(storeName, usuario_id)}>Crear nueva sucursal</button>
             <p></p>
 
             {/*
