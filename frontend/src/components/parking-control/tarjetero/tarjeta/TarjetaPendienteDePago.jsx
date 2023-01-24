@@ -6,16 +6,8 @@ import PagoGenerarQR from "../../../payment/PagoGenerarQR";
 const API = process.env.REACT_APP_API_USER;
 
 export default function TarjetaPendienteDePago() {
-    const [patente, setPatente] = useState("");
-    const [usuarioId, setUsuarioId] = useState("");
-    const [editing, setEditing] = useState(false);
-
-    let [id, setId] = useState("");
-
     const [cardsQuantity, setCardsQuantity] = useState("")
-
     let [tarjetas, setTarjetas] = useState([]);
-
     const userProvisorio = 1
 
     const getTarjetasActivadas = async () => {
@@ -32,7 +24,7 @@ export default function TarjetaPendienteDePago() {
                 method: "DELETE"
             });
             const data = await res.json();
-            setEditing(true);
+            console.log(data)
             await getTarjetasActivadas();
         }
     };
@@ -60,11 +52,12 @@ export default function TarjetaPendienteDePago() {
                                 <th>Pago total</th>
                                 <th></th>
                                 <th></th>
+
                             </tr>
                         </thead>
                         <tbody>
                             {tarjetas.map((tarjeta_instancia) => (
-                                <tr key={tarjeta_instancia.patente}>
+                                <tr key={tarjeta_instancia.tarjeta_instancia_id}>
                                     <td>{tarjeta_instancia.patente}</td>
 
                                     <td>{tarjeta_instancia.tarjetas_acumuladas}</td>

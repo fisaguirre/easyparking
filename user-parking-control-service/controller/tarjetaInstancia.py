@@ -99,7 +99,7 @@ def finishCard(tarjeta_instancia_id, mysql):
     cursor.execute(
         'UPDATE tarjeta_instancia set finalizada = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tarjeta_instancia_id,))
     mysql.connection.commit()
-    return 'se finalizò la tarjeta'
+    return jsonify('se finalizò la tarjeta')
 
 
 def getAllFinishedCardsByUserId(contar, usuario_id, mysql):
@@ -151,8 +151,15 @@ def deleteFinishedCard(tarjeta_instancia_id, mysql):
         'DELETE FROM tarjeta_instancia WHERE tarjeta_instancia.tarjeta_instancia_id = %s', (tarjeta_instancia_id,))
     mysql.connection.commit()
     cursor.close()
-
-    return 'se elimino'
+    response = make_response(
+        jsonify(
+            tarjeta_instancia_id
+        ),
+        200,
+    )
+    response.headers["Content-Type"] = "application/json"
+    response.headers["WWW-Authenticate"] = "Eliminado!!"
+    return response
 
 
 def deleteFinishedCardList(patente, usuario_id, mysql):
@@ -164,4 +171,12 @@ def deleteFinishedCardList(patente, usuario_id, mysql):
     mysql.connection.commit()
     cursor.close()
 
-    return 'se elimino'
+    response = make_response(
+        jsonify(
+            patente
+        ),
+        200,
+    )
+    response.headers["Content-Type"] = "application/json"
+    response.headers["WWW-Authenticate"] = "Eliminado!!"
+    return response

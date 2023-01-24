@@ -9,7 +9,6 @@ const Users = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [editing, setEditing] = useState(false);
     const [userId, setUserId] = useState("");
     const [cardsQuantity, setCardsQuantity] = useState("")
 
@@ -37,7 +36,6 @@ const Users = () => {
             }),
         });
 
-        setEditing(true);
         setUserId(userId);
 
     };
@@ -59,9 +57,7 @@ const Users = () => {
             });
             const data = res.json()
 
-            setEditing(true);
             setUserId(userId);
-            console.log("data")
             console.log(data)
         }
 
