@@ -80,9 +80,8 @@ def getAmountCardsByUserId(usuario_id, mysql):
 def getAllActiveCardsByUserId(usuario_id, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     finalizada = "no"
-
     cursor.execute(
-        'SELECT * FROM tarjeta_instancia WHERE tarjeta_instancia.finalizada = %s AND tarjeta_instancia.usuario_id = %s', (finalizada, usuario_id,))
+        'SELECT * FROM tarjeta_instancia WHERE tarjeta_instancia.finalizada = %s AND tarjeta_instancia.usuario_id = %s order by patente ASC', (finalizada, usuario_id,))
     cardsActivates = cursor.fetchall()
 
     if cardsActivates:

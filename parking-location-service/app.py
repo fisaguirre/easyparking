@@ -4,7 +4,7 @@ import re
 import jwt
 from functools import wraps
 from flask_cors import CORS, cross_origin
-
+from controller import signup
 
 from database_conexion import obtener_conexion
 from controller import estacionamiento
@@ -25,9 +25,15 @@ CORS(app)
 def index():
     return 'Hello to Flask this is parking-location-service!'
 
+
+@cross_origin()
+@app.route('/auth/signup', methods=['POST'])
+def register():
+    # print(request.json)
+    return signup.register(request, mysql, app)
+
+
 # Asigna la calle donde trabaja el tarjetero
-
-
 @app.route('/estacionamiento/', methods=['POST'])
 def setWorkZone():
     return estacionamiento.setWorkZone(request, mysql, app)

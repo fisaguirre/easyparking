@@ -5,7 +5,7 @@ import jwt
 from functools import wraps
 from flask_cors import CORS, cross_origin
 from controller import mercado
-
+from controller import signup
 from database_conexion import obtener_conexion
 
 from flask_mysqldb import MySQL
@@ -24,6 +24,13 @@ CORS(app)
 @app.route('/')
 def index():
     return 'Hello to Flask - this is payment-service!'
+
+
+@cross_origin()
+@app.route('/auth/signup', methods=['POST'])
+def register():
+    # print(request.json)
+    return signup.register(request, mysql, app)
 
 
 @cross_origin()

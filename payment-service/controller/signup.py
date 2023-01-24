@@ -24,7 +24,6 @@ from flask import make_response
 def register(request, mysql, app):
     if request.method == 'POST' and request.json['username'] and request.json['password'] and request.json['email']:
         user_signup_data = request.json
-        print(user_signup_data)
 
         new_password = generate_password_hash(user_signup_data.get('password'))
 
