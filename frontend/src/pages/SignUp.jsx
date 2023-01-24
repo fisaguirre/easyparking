@@ -84,7 +84,7 @@ const SignUp = () => {
             </div>
             <div className="col-md-4">
                 <form onSubmit={handleSubmit} className="card card-body">
-                    <div className="form-group">
+                    <div className="form-group">Usuario
                         <input
                             type="text"
                             onChange={(e) => setUsername(e.target.value)}
@@ -96,7 +96,7 @@ const SignUp = () => {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group">Nombre
                         <input
                             type="text"
                             onChange={(e) => setName(e.target.value)}
@@ -106,7 +106,7 @@ const SignUp = () => {
                             ref={nameInput}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group">Apellido
                         <input
                             type="text"
                             onChange={(e) => setLastName(e.target.value)}
@@ -116,7 +116,7 @@ const SignUp = () => {
                             ref={lastNameInput}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group">Email
                         <input
                             type="email"
                             onChange={(e) => setEmail(e.target.value)}
@@ -125,7 +125,7 @@ const SignUp = () => {
                             placeholder="User's Email"
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group">Contraseña
                         <input
                             type="password"
                             onChange={(e) => setPassword(e.target.value)}
@@ -138,7 +138,6 @@ const SignUp = () => {
                     <div className="form-group">
                         <label>Rol </label>
                         <select value={rol} onChange={(e) => setRol(e.target.value)}>
-                            <option value="">--Choose a rol--</option>
                             <option value="sin asignar">Sin asignar</option>
                             <option value="tarjetero">Tarjetero</option>
                             <option value="administrador">Administrador</option>

@@ -82,7 +82,6 @@ export default function TarjetaInstancia() {
                         <thead>
                             <tr>
                                 <th>Patente</th>
-                                <th>Fecha</th>
                                 <th>Hora</th>
                                 <th>Minutos</th>
                                 <th></th>
@@ -95,7 +94,6 @@ export default function TarjetaInstancia() {
                             {tarjetas.map((tarjeta_instancia) => (
                                 <tr key={tarjeta_instancia.tarjeta_instancia_id}>
                                     <td>{tarjeta_instancia.patente}</td>
-                                    <td>{tarjeta_instancia.fecha}</td>
                                     <td>{tarjeta_instancia.hora}</td>
                                     <td>{tarjeta_instancia.minutos}</td>
                                     <td>

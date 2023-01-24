@@ -10,10 +10,21 @@ const Users = () => {
 
     const [userId, setUserId] = useState("");
     const [cardsQuantity, setCardsQuantity] = useState("")
+    const [rol, setRol] = useState();
+    const [cambiarRol, setCambiarRol] = useState(false)
+    const [numeroTD, setNumeroTD] = useState()
 
     const nameInput = useRef(null);
 
     let [users, setUsers] = useState([]);
+
+    const cambiarRolUsuario = (cambiarRol) => {
+        if (cambiarRol) {
+            setCambiarRol(false)
+        } else {
+            setCambiarRol(true)
+        }
+    }
 
     const getUsers = async () => {
         //const res = await fetch(`${API}/users`);
@@ -35,10 +46,8 @@ const Users = () => {
             }),
         });
         const data = await res.json();
-        await getUsers();
         console.log(data)
-        setUserId(userId);
-
+        await getUsers();
 
     };
     //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado
@@ -55,10 +64,9 @@ const Users = () => {
                     cardsQuantity
                 }),
             });
-            const data = res.json()
+            const data = await res.json()
             await getUsers();
             console.log(data)
-            setUserId(userId);
         }
 
     };
@@ -89,9 +97,30 @@ const Users = () => {
                             <tr key={user.usuario_id}>
                                 <td>{user.usuario_id}</td>
                                 <td>{user.username}</td>
-                                <td>{user.name}</td>
-                                <td>{user.lastname}</td>
+                                <td>{user.nombre}</td>
+                                <td>{user.apellido}</td>
                                 <td>{user.email}</td>
+
+                                {/*
+                                <td>
+                                    {cambiarRol ? (
+                                        <>
+                                            <select value={user.rol} onChange={(e) => setRol(e.target.value)}>
+                                                <option value="sin asignar">Sin asignar</option>
+                                                <option value="tarjetero">Tarjetero</option>
+                                                <option value="administrador">Administrador</option>
+                                                <option value="superadmin">Super Admin</option>
+                                            </select>
+                                        </>
+                                    ) :
+                                        <>
+                                            {user.rol}
+                                            &nbsp;<button type="button" onClick={(e) => cambiarRolUsuario(false)}>E</button>
+                                        </>
+                                    }
+
+                                </td>
+                                */}
                                 <td>{user.rol}</td>
                                 <td>{user.cantidad_tarjeta}</td>
                                 <td>

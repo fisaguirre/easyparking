@@ -10,8 +10,8 @@ SECRET_KEY = 'your secret key'
 
 def getAllUsers(mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute(
-        'SELECT * FROM usuario WHERE usuario.rol = "tarjetero"')
+    #cursor.execute('SELECT * FROM usuario WHERE usuario.rol = "tarjetero"')
+    cursor.execute('SELECT * FROM usuario WHERE usuario.rol!= "superadmin"')
     current_users = cursor.fetchall()
 
     cursor.close()
@@ -20,8 +20,9 @@ def getAllUsers(mysql):
 
 def getAllUsersAndCards(mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    #cursor.execute('SELECT * FROM usuario INNER JOIN tarjeta WHERE usuario.usuario_id = tarjeta.usuario_id')
     cursor.execute(
-        'SELECT * FROM usuario INNER JOIN tarjeta WHERE usuario.usuario_id = tarjeta.usuario_id')
+        'SELECT * FROM usuario LEFT JOIN tarjeta ON usuario.usuario_id = tarjeta.usuario_id')
     current_users = cursor.fetchall()
     cursor.close()
     return jsonify(current_users)

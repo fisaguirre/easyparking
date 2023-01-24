@@ -2,7 +2,7 @@ from model.tarjeta_instancia import TarjetaInstancia
 from model.user import User
 from model.tarjeta import Tarjeta
 import MySQLdb
-
+from controller import serverResponse
 import MySQLdb.cursors
 
 from flask_mysqldb import MySQL
@@ -34,14 +34,7 @@ def addCardsToUser(request, mysql):
         mysql.connection.commit()
         cursor.close()
 
-        response = make_response(
-            jsonify(
-                {"message": 'Se acreditaron las tarjetas'}
-            ),
-            200,
-        )
-        response.headers["Content-Type"] = "application/json"
-        return response
+        return serverResponse.responseWithMessage('Se acreditaron las tarjetas', 200)
 
     else:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -53,14 +46,7 @@ def addCardsToUser(request, mysql):
             "insert into tarjeta values(NULL, %s, %s)", data)
         mysql.connection.commit()
         cursor.close()
-        response = make_response(
-            jsonify(
-                {"message": 'Se acreditaron las tarjetas'}
-            ),
-            200,
-        )
-        response.headers["Content-Type"] = "application/json"
-        return response
+        return serverResponse.responseWithMessage('Se acreditaron las tarjetas', 200)
 
 
 def discardCardsToUser(usuario_id, request, mysql):
@@ -80,25 +66,10 @@ def discardCardsToUser(usuario_id, request, mysql):
             'UPDATE tarjeta set cantidad_tarjeta = %s where tarjeta.usuario_id = %s', (restaTarjeta, usuario_id,))
         mysql.connection.commit()
         cursor.close()
-
-        response = make_response(
-            jsonify(
-                {"message": 'Se desacreditaron las tarjetas'}
-            ),
-            200,
-        )
-        response.headers["Content-Type"] = "application/json"
-        return response
+        return serverResponse.responseWithMessage('Se desacreditaron las tarjetas', 200)
 
     else:
-        response = make_response(
-            jsonify(
-                {"message": 'No tiene tarjetas acreditadas'}
-            ),
-            200,
-        )
-        response.headers["Content-Type"] = "application/json"
-        return response
+        return serverResponse.responseWithMessage('No tiene tarjetas acreditadas', 400)
 
 
 def countCardsByUserId(usuario_id, mysql):
