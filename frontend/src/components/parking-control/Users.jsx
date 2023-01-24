@@ -17,13 +17,13 @@ const Users = () => {
     let [users, setUsers] = useState([]);
 
     const getUsers = async () => {
-        const res = await fetch(`${API}/users`);
+        //const res = await fetch(`${API}/users`);
+        const res = await fetch(`${API}/users/tarjeta`);
         const data = await res.json();
         setUsers(data);
-        console.log(data)
     };
 
-    const editUser = async (userId) => {
+    const addCardsToUser = async (userId) => {
 
         const res = await fetch(`${API}/tarjeta`, {
             method: "POST",
@@ -35,15 +35,16 @@ const Users = () => {
                 cardsQuantity
             }),
         });
-
+        const data = await res.json();
+        await getUsers();
+        console.log(data)
         setUserId(userId);
+
 
     };
     //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado
 
-
-
-    const discardCards = async (userId) => {
+    const discardCardsToUser = async (userId) => {
         const userResponse = window.confirm("¿Seguro que quiere descartar las tarjetas?");
         if (userResponse) {
             const res = await fetch(`${API}/tarjeta/${userId}`, {
@@ -56,9 +57,9 @@ const Users = () => {
                 }),
             });
             const data = res.json()
-
-            setUserId(userId);
+            await getUsers();
             console.log(data)
+            setUserId(userId);
         }
 
     };
@@ -93,23 +94,22 @@ const Users = () => {
                                 <td>{user.lastname}</td>
                                 <td>{user.email}</td>
                                 <td>{user.rol}</td>
-                                <td></td>
+                                <td>{user.cantidad_tarjeta}</td>
                                 <td>
                                     <input type="text"
                                         onChange={(e) => setCardsQuantity(e.target.value)}
-                                        value={cardsQuantity}
                                         className="form-control"
                                         placeholder="Ingrese cantidad de tarjetas" />
                                 </td>
                                 <td>
                                     <button className="btn btn-primary btn-block"
-                                        onClick={(e) => editUser(user.usuario_id)}
+                                        onClick={(e) => addCardsToUser(user.usuario_id)}
                                     >Acreditar
                                     </button>
                                 </td>
                                 <td>
                                     <button className="btn btn-primary btn-block"
-                                        onClick={(e) => discardCards(user.usuario_id)}
+                                        onClick={(e) => discardCardsToUser(user.usuario_id)}
                                     >Desacreditar
                                     </button>
                                 </td>

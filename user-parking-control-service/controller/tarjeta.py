@@ -15,25 +15,6 @@ SECRET_KEY = 'your secret key'
 
 
 def addCardsToUser(request, mysql):
-    """
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cantidad_tarjetas = request.json['cardsQuantity']
-    usuario_id = request.json['userId']
-
-    card = Tarjeta("null", "null", 0, 0, "null", "null", usuario_id)
-
-    data = (card.get_numero_serie(), card.get_fecha(), card.get_hora(
-    ), card.get_minutos(), card.get_patente(), card.get_activa(), card.get_usuario_id())
-
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-
-    cursor.execute(
-        "insert into tarjeta values(NULL, %s, %s, %s, %s, %s, %s, %s)", data)
-    mysql.connection.commit()
-    cursor.close()
-
-    """
-
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cantidad_tarjetas = request.json['cardsQuantity']
     usuario_id = request.json['userId']
@@ -53,6 +34,15 @@ def addCardsToUser(request, mysql):
         mysql.connection.commit()
         cursor.close()
 
+        response = make_response(
+            jsonify(
+                {"message": 'Se acreditaron las tarjetas'}
+            ),
+            200,
+        )
+        response.headers["Content-Type"] = "application/json"
+        return response
+
     else:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         card = Tarjeta(cantidad_tarjetas, usuario_id)
@@ -63,6 +53,14 @@ def addCardsToUser(request, mysql):
             "insert into tarjeta values(NULL, %s, %s)", data)
         mysql.connection.commit()
         cursor.close()
+        response = make_response(
+            jsonify(
+                {"message": 'Se acreditaron las tarjetas'}
+            ),
+            200,
+        )
+        response.headers["Content-Type"] = "application/json"
+        return response
 
 
 def discardCardsToUser(usuario_id, request, mysql):
@@ -83,12 +81,24 @@ def discardCardsToUser(usuario_id, request, mysql):
         mysql.connection.commit()
         cursor.close()
 
-        return jsonify(
-            {"message": 'User already exists. Please Log in'}
+        response = make_response(
+            jsonify(
+                {"message": 'Se desacreditaron las tarjetas'}
+            ),
+            200,
         )
+        response.headers["Content-Type"] = "application/json"
+        return response
 
     else:
-        return 'no tiene tarjetas acreditadas'
+        response = make_response(
+            jsonify(
+                {"message": 'No tiene tarjetas acreditadas'}
+            ),
+            200,
+        )
+        response.headers["Content-Type"] = "application/json"
+        return response
 
 
 def countCardsByUserId(usuario_id, mysql):

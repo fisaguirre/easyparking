@@ -16,3 +16,12 @@ def getAllUsers(mysql):
 
     cursor.close()
     return jsonify(current_users)
+
+
+def getAllUsersAndCards(mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute(
+        'SELECT * FROM usuario INNER JOIN tarjeta WHERE usuario.usuario_id = tarjeta.usuario_id')
+    current_users = cursor.fetchall()
+    cursor.close()
+    return jsonify(current_users)

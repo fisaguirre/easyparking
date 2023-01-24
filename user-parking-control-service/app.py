@@ -89,11 +89,16 @@ def getAllUsers():
     return users.getAllUsers(mysql)
 
 
+# Obtener usuarios con sus tarjetas
+@app.route('/users/tarjeta', methods=["GET"])
+def getAllUsersAndCards():
+    return users.getAllUsersAndCards(mysql)
+
+
 # Acreditar tarjetas
 @app.route('/tarjeta', methods=["POST"])
-def addCards():
-    tarjeta.addCardsToUser(request, mysql)
-    return 'acreditar tarjetas'
+def addCardsToUser():
+    return tarjeta.addCardsToUser(request, mysql)
 
 
 # Desacreditar tarjetas

@@ -66,22 +66,6 @@ def saveExternalsId(usuario_id, tipo_creacion):
         return mercado.savePos(request, usuario_id, mysql)
 
 
-"""
-# Crear nueva caja y guardarla
-@app.route('/pago/pos', methods=["PUT"])
-def createNewPos():
-    return mercado.saveAccessToken(request, mysql)
-
-
-# Crear nueva orden y devolver codigo QR
-@app.route('/pago/pos', methods=["PUT"])
-def createNewOrder():
-    return mercado.createNewOrder(request, mysql)
-"""
-
-# Crear usuario
-
-
 @app.route('/usuario', methods=["POST"])
 def createUser():
     return 'hola'
