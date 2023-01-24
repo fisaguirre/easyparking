@@ -15,6 +15,19 @@ export default function PagoGenerarQR({ patente, cantidad_tarjetas, minutos, pre
     const [modal, setModal] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [qrFinalizado, setQRFinalizado] = useState(false);
+    const [storeAndPosUserExists, setStoreAndPosUserExists] = useState(false);
+
+    const verifyStoreAndPosUserExists = async () => {
+        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/sucpos/${usuario_id}`)
+        const mercado = await getMercado.json();
+
+        if (mercado == "existe") {
+            setStoreAndPosUserExists(true);
+        } else {
+            setStoreAndPosUserExists(false);
+        }
+
+    };
 
 
     const createOrder = async () => {
@@ -78,22 +91,30 @@ export default function PagoGenerarQR({ patente, cantidad_tarjetas, minutos, pre
         }
 
     };
-
+    useEffect(() => {
+        verifyStoreAndPosUserExists();
+    }, []);
 
     return (
         <div>
-            <button id="signup-button" className="btn btn-info" onClick={(e) => createOrder()}>Generar QR</button>
-            <PagoQRPopUp
-                open={openModal}
-                codigo_qr={codigoQR}
-                onFinalizar={() => finalizarQR(false)}
-                onClose={() => setOpenModal(false)}
-                patente={patente}
-                cantidad_tarjetas={cantidad_tarjetas}
-                minutos={minutos}
-                precio_total={precio_total}
-                userId={userId}
-            />
+            {storeAndPosUserExists ? (
+                <>
+                    <button id="signup-button" className="btn btn-info" onClick={(e) => createOrder()}>Generar QR</button>
+                    <PagoQRPopUp
+                        open={openModal}
+                        codigo_qr={codigoQR}
+                        onFinalizar={() => finalizarQR(false)}
+                        onClose={() => setOpenModal(false)}
+                        patente={patente}
+                        cantidad_tarjetas={cantidad_tarjetas}
+                        minutos={minutos}
+                        precio_total={precio_total}
+                        userId={userId}
+                    />
+                </>
+            ) : null}
+
+
             {/*
             {codigoQRExists ? (
                 <>

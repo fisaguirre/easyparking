@@ -128,47 +128,6 @@ export default function PagoConfiguracion() {
 
     };
 
-    /*
-    const createOrder = async () => {
-     
-        const res = await fetch(`https://api.mercadopago.com/instore/orders/qr/seller/collectors/1292570557/pos/SUC001POS001/qrs?access_token=TEST-7697609830214286-012119-9b1bcadb1aa4275a4c12f087e86f7717-1292570557`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Content-Length": "<calculated when request is sent>",
-                "Host": "api.mercadopago.com",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "POST, GET",
-                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
-            },
-            body: JSON.stringify({
-                "external_reference": "Ferdinamico",
-                "title": "Pago Estacionamiento",
-                "description": "Estacionamiento Medido Ciudad de Mendoza",
-                "total_amount": 160,
-                "items": [
-                    {
-                        "title": "Tarjeta Estacionamiento",
-                        "category": "estacionamiento",
-                        "description": "This is the Point Mini",
-                        "unit_price": 40,
-                        "quantity": 4,
-                        "unit_measure": "unit",
-                        "total_amount": 160
-                    }
-                ]
-     
-     
-            }),
-        });
-        const data = await res.json();
-        setCodigoQR(data);
-        console.log(data)
-     
-    };
-     
-     
-     */
     useEffect(() => {
         getAccessTokenExists(usuario_id);
     }, []);
