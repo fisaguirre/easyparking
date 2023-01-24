@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 
-const API = process.env.REACT_APP_API_USER;
+const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
+const API_LOCATION = process.env.REACT_APP_API_LOCATION;
+const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
 
 const SignUp = () => {
     //Guardo los datos que se envian por handleSubmit al darle click al boton submit
@@ -26,7 +28,8 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const res = await fetch(`${API}/signup`, {
+
+        const res = await fetch(`${API_CONTROL_PARKING}/auth/signup`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -40,15 +43,31 @@ const SignUp = () => {
                 rol
             }),
         });
-        await res.json();
+        const data = await res.json();
+        console.log(data)
 
-        setUsername("");
-        setName("");
-        setLastName("");
-        setEmail("");
-        setPassword("");
-        setRol("");
         usernameInput.current.focus();
+
+        if (data['message'] == 'Successfully registered') {
+            const res2 = await fetch(`${API_PAYMENT}/auth/signup`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username,
+                    name,
+                    lastname,
+                    email,
+                    password,
+                    rol
+                }),
+            });
+            const data2 = await res2.json();
+            console.log(data2)
+
+
+        }
     };
 
     //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado

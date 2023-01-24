@@ -4,7 +4,6 @@ const API = process.env.REACT_APP_API_USER;
 
 const Users = () => {
     //Guardo los datos que se envian por handleSubmit al darle click al boton submit
-    const yo = "asd"
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

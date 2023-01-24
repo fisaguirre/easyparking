@@ -18,6 +18,7 @@ export default function TarjetaInstancia() {
     const [cardsQuantity, setCardsQuantity] = useState("")
 
     const nameInput = useRef(null);
+    const [tiempoActivo, setTiempoActivo] = useState(false)
 
     let [tarjetas, setTarjetas] = useState([]);
 
@@ -44,6 +45,14 @@ export default function TarjetaInstancia() {
         await getTarjetasActivadas();
 
     };
+
+    const changeValueTiempoActivo = (tiempoActivo) => {
+        if (tiempoActivo) {
+            setTiempoActivo(false)
+        } else {
+            setTiempoActivo(true)
+        }
+    }
 
     useEffect(() => {
         getTarjetasActivadas();
@@ -72,11 +81,11 @@ export default function TarjetaInstancia() {
                     <table className="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Patente</th>
                                 <th>Fecha</th>
                                 <th>Hora</th>
                                 <th>Minutos</th>
-                                <th>Patente</th>
+                                <th></th>
                                 <th>Tiempo transcurrido</th>
                                 <th></th>
 
@@ -85,16 +94,22 @@ export default function TarjetaInstancia() {
                         <tbody>
                             {tarjetas.map((tarjeta_instancia) => (
                                 <tr key={tarjeta_instancia.tarjeta_instancia_id}>
-                                    <td>{tarjeta_instancia.tarjeta_instancia_id}</td>
+                                    <td>{tarjeta_instancia.patente}</td>
                                     <td>{tarjeta_instancia.fecha}</td>
                                     <td>{tarjeta_instancia.hora}</td>
                                     <td>{tarjeta_instancia.minutos}</td>
-                                    <td>{tarjeta_instancia.patente}</td>
                                     <td>
                                     </td>
                                     <td>
+                                        {tiempoActivo ? (
+                                            <>
+                                                Aca debo poner el tiempo transcurrido de la tarjeta
+                                            </>
+                                        ) : "****"}
+                                    </td>
+                                    <td>
                                         <button className="btn btn-primary btn-block"
-                                        //onClick={(e) => showCard(tarjeta_instancia.tarjeta_instancia_id)}
+                                            onClick={(e) => changeValueTiempoActivo(tiempoActivo)}
                                         >Mostrar tiempo
                                         </button>
                                     </td>
