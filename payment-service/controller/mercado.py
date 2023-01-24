@@ -83,19 +83,31 @@ def getCuentaMercadoByUser(usuario_id, mysql):
 def getAccessTokenExists(usuario_id, mysql):
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    print("usuario: ", usuario_id)
     cursor.execute(
         'SELECT access_token FROM cuenta_mercado WHERE usuario_id = %s', (usuario_id,))
     tokenMercadoUsuarioId = cursor.fetchall()
 
     if tokenMercadoUsuarioId:
         cursor.close()
-        print("si")
         return jsonify('existe')
 
     else:
         cursor.close()
-        print("no")
+        return jsonify('no existe')
+
+
+def verifyStoreAndPosUserExists(usuario_id, mysql):
+    print("asd")
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute(
+        'SELECT external_pos_id FROM cuenta_mercado WHERE usuario_id = %s', (usuario_id,))
+    sucPosMercado = cursor.fetchone()
+
+    if (len(sucPosMercado['external_pos_id']) > 1):
+        cursor.close()
+        return jsonify('existe')
+    else:
+        cursor.close()
         return jsonify('no existe')
 
 

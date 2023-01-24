@@ -51,6 +51,12 @@ def getAccessTokenExists(usuario_id):
     return mercado.getAccessTokenExists(usuario_id, mysql)
 
 
+# Verificar si el usuario tiene sucursal y caja asociada
+@app.route('/pago/mercado/sucpos/<usuario_id>', methods=["GET"])
+def verifyStoreAndPosUserExists(usuario_id):
+    return mercado.verifyStoreAndPosUserExists(usuario_id, mysql)
+
+
 # Crear nueva sucursal y guardarla
 @app.route('/pago/mercado/<usuario_id>/<tipo_creacion>', methods=["PUT"])
 def saveExternalsId(usuario_id, tipo_creacion):
