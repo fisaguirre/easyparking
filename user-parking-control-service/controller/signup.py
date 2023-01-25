@@ -27,8 +27,9 @@ def register(request, mysql, app):
         print(user_signup_data)
 
         new_password = generate_password_hash(user_signup_data.get('password'))
+        new_uuid = str(uuid.uuid4())
 
-        new_user = User(str(uuid.uuid4()), user_signup_data.get('username'),  new_password,
+        new_user = User(new_uuid, user_signup_data.get('username'),  new_password,
                         user_signup_data.get('name'), user_signup_data.get('lastname'), user_signup_data.get('email'), user_signup_data.get('rol'))
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -101,7 +102,7 @@ def register(request, mysql, app):
 
             response = make_response(
                 jsonify(
-                    {"message": 'Successfully registered'}
+                    new_uuid
                 ),
                 201,
             )

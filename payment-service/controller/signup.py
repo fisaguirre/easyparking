@@ -26,8 +26,8 @@ def register(request, mysql, app):
         user_signup_data = request.json
 
         new_password = generate_password_hash(user_signup_data.get('password'))
-
-        new_user = User(str(uuid.uuid4()), user_signup_data.get('username'),  new_password,
+        # recibo uuid como parametro para que sean iguales en las 3 bases de datos sino no va a poder iniciar sesion
+        new_user = User(request.json['uuid'], user_signup_data.get('username'),  new_password,
                         user_signup_data.get('name'), user_signup_data.get('lastname'), user_signup_data.get('email'), user_signup_data.get('rol'))
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)

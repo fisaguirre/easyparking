@@ -18,7 +18,9 @@ export default function TarjetaInstancia() {
     const [cardsQuantity, setCardsQuantity] = useState("")
 
     const nameInput = useRef(null);
-    const [tiempoActivo, setTiempoActivo] = useState(false)
+    const [tiempoActivo, setTiempoActivo] = useState(true)
+    const [activarTiempo, setActivarTiempo] = useState(true);
+
 
     let [tarjetas, setTarjetas] = useState([]);
 
@@ -27,6 +29,15 @@ export default function TarjetaInstancia() {
         const res = await fetch(`${API}/tarjeta_instancia/activar/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
+        /*
+/*
+const a = new Date();
+a.setHours(hora)
+a.setMinutes(minutos)
+a.setSeconds(50)
+setInitial(+a)
+console.log(a)
+*/
     };
 
     const finishActiveCard = async (tarjeta_instancia_id) => {
@@ -44,22 +55,57 @@ export default function TarjetaInstancia() {
         await getTarjetasActivadas();
 
     };
-
-    const changeValueTiempoActivo = (tiempoActivo) => {
-        if (tiempoActivo) {
-            setTiempoActivo(false)
-        } else {
-            setTiempoActivo(true)
+    /*
+        const changeValueTiempoActivo = (hora, minutos) => {
+    
+            const a = new Date();
+            a.setHours(hora)
+            a.setMinutes(minutos)
+            a.setSeconds(50)
+            setInitial(+a)
+            console.log(a)
+            //setInitial(+new Date())
         }
-    }
-
+    */
+    /*
+ 
+     const [diff, setDiff] = useState(null)
+     const [initial, setInitial] = useState(null)
+ 
+     const tick = () => {
+         setDiff(new Date(+new Date() - initial))
+     };
+ 
+     const start = () => { setInitial(+new Date()) }
+ 
+     useEffect(() => {
+         if (initial) {
+             requestAnimationFrame(tick);
+         }
+         console.log("asd")
+     }, [initial]);
+ 
+     useEffect(() => {
+         if (diff) {
+             requestAnimationFrame(tick);
+         }
+         console.log("hola")
+     }, [diff]);
+ 
+     useEffect(() => {
+         getTarjetasActivadas();
+         changeValueTiempoActivo();
+ 
+     }, []);
+ */
     useEffect(() => {
         getTarjetasActivadas();
-    }, []);
 
+    }, []);
     return (
         <div>
             <div className="row">
+
                 <h1>This is Tarjetero mode</h1>
                 <div>
                     <h3>
@@ -84,7 +130,7 @@ export default function TarjetaInstancia() {
                                 <th>Hora</th>
                                 <th>Minutos</th>
                                 <th></th>
-                                <th>Tiempo transcurrido</th>
+                                {/*<th>Tiempo transcurrido</th>*/}
                                 <th></th>
 
                             </tr>
@@ -95,21 +141,29 @@ export default function TarjetaInstancia() {
                                     <td>{tarjeta_instancia.patente}</td>
                                     <td>{tarjeta_instancia.hora}</td>
                                     <td>{tarjeta_instancia.minutos}</td>
-                                    <td>
+                                    <td>{ }
                                     </td>
+                                    {/*
                                     <td>
                                         {tiempoActivo ? (
                                             <>
-                                                Aca debo poner el tiempo transcurrido de la tarjeta
+                                                <div className="App" onClick={start}>
+
+                                                    <h4 className="timer">{timeFormat(diff)}</h4>
+                                                </div>
+
                                             </>
                                         ) : "****"}
                                     </td>
+                                        */}
+                                    {/*
                                     <td>
                                         <button className="btn btn-primary btn-block"
-                                            onClick={(e) => changeValueTiempoActivo(tiempoActivo)}
+                                            onClick={(e) => changeValueTiempoActivo(tiempoActivo, tarjeta_instancia.hora, tarjeta_instancia.minutos)}
                                         >Mostrar tiempo
                                         </button>
                                     </td>
+                                        */}
                                     <td>
                                         <button
                                             className="btn btn-danger btn-sm btn-block"
@@ -142,3 +196,18 @@ export default function TarjetaInstancia() {
         </div >
     )
 }
+
+
+const timeFormat = (date) => {
+    if (!date) return "00:00:00";
+
+    let mm = date.getUTCMinutes();
+    let ss = date.getSeconds();
+    let cm = Math.round(date.getMilliseconds() / 10);
+
+    mm = mm < 10 ? "0" + mm : mm;
+    ss = ss < 10 ? "0" + ss : ss;
+    cm = cm < 10 ? "0" + cm : cm;
+
+    return `${mm}:${ss}:${cm}`;
+};

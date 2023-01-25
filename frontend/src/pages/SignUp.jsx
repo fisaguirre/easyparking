@@ -43,18 +43,19 @@ const SignUp = () => {
                 rol
             }),
         });
-        const data = await res.json();
-        console.log(data)
+        const uuid = await res.json();
+        console.log(uuid)
 
         usernameInput.current.focus();
 
-        if (data['message'] == 'Successfully registered') {
+        if (uuid) {
             const res2 = await fetch(`${API_PAYMENT}/auth/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+                    uuid,
                     username,
                     name,
                     lastname,
@@ -63,9 +64,28 @@ const SignUp = () => {
                     rol
                 }),
             });
+
             const data2 = await res2.json();
             console.log(data2)
-
+            /*
+            const res3 = await fetch(`${API_LOCATION}/auth/signup`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    uuid,
+                    username,
+                    name,
+                    lastname,
+                    email,
+                    password,
+                    rol
+                }),
+            });
+            const data3 = await res3.json();
+            console.log(data2)
+                */
 
         }
     };

@@ -6,6 +6,7 @@ export default function Home() {
 
     return (
         <div>
+
             <h1>
                 Esto es el HOME
                 <p></p>
@@ -22,6 +23,7 @@ export default function Home() {
         </div >
     )
 }
+
 {/*
 export default function Home() {
     return (

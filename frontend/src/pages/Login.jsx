@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
 
 {/*export = exporta el componente para llarmalo en otro script*/ }
 {/*function = const - puedo usar cualquiera de los 2 para el componente*/ }
