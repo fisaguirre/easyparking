@@ -27,7 +27,6 @@ export default function TarjetaInstancia() {
         const res = await fetch(`${API}/tarjeta_instancia/activar/${userProvisorio}`);
         const data = await res.json();
         setTarjetas(data);
-        console.log(data)
     };
 
     const finishActiveCard = async (tarjeta_instancia_id) => {

@@ -9,6 +9,7 @@ export default function TarjetaPendienteDePago() {
     const [cardsQuantity, setCardsQuantity] = useState("")
     let [tarjetas, setTarjetas] = useState([]);
     const userProvisorio = 1
+    const [qrFinalizado, setQRFinalizado] = useState();
 
     const getTarjetasActivadas = async () => {
         const res = await fetch(`${API}/tarjeta_instancia/finalizar/pendiente/${userProvisorio}`);
@@ -16,17 +17,40 @@ export default function TarjetaPendienteDePago() {
         setTarjetas(data);
 
     };
+    /*
+        const deleteFinishedCardListById = async (patente, usuario_id) => {
+            const userResponse = window.confirm("¿Seguro que quiere limpiar las tarjetas?");
+            if (userResponse) {
+                const res = await fetch(`${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`, {
+                    method: "DELETE"
+                });
+                const data = await res.json();
+                console.log(data)
+                await getTarjetasActivadas();
+            }
+        };
+        */
 
     const deleteFinishedCardListById = async (patente, usuario_id) => {
-        const userResponse = window.confirm("¿Seguro que quiere limpiar las tarjetas?");
-        if (userResponse) {
-            const res = await fetch(`${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`, {
-                method: "DELETE"
-            });
-            const data = await res.json();
-            await getTarjetasActivadas();
-        }
+        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`, {
+            method: "DELETE"
+        });
+        const data = await res.json();
+        setQRFinalizado(false);
+        console.log(data)
+        await getTarjetasActivadas();
+
+
     };
+
+    const callThisFromChildComponent = async () => {
+        setQRFinalizado(true);
+        await getTarjetasActivadas();
+
+    }
+
+
+
 
     useEffect(() => {
         getTarjetasActivadas();
@@ -78,8 +102,12 @@ export default function TarjetaPendienteDePago() {
                                             minutos={tarjeta_instancia.tarjetas_acumuladas * 30}
                                             precio_total={tarjeta_instancia.tarjetas_acumuladas * 40}
                                             userId={tarjeta_instancia.usuario_id}
+                                            //callback={callThisFromChildComponent}
+                                            callback={deleteFinishedCardListById(tarjeta_instancia.patente, tarjeta_instancia.usuario_id)}
                                         />
-
+                                        {qrFinalizado ? (
+                                            deleteFinishedCardListById(tarjeta_instancia.patente, tarjeta_instancia.usuario_id)
+                                        ) : null}
                                     </td>
                                     <td>
 
