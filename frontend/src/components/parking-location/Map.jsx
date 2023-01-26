@@ -21,6 +21,7 @@ export const Map = (props) => {
     const [users, setUsers] = useState([])
     const [userLogueado, setUserLogueado] = useState(true)
     const [updateWorkZone, setUpdateWorkZone] = useState(props.updateWorkZone)
+    const usuario_id = sessionStorage.getItem("usuario_id")
 
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: 'AIzaSyDHs6NFoKcupwTGB14Ijh6qQcSvgcUGIhU',
@@ -52,11 +53,11 @@ export const Map = (props) => {
 
     //Guardar el o los markers (zonas de trabajo) y mandarlas a la base de datos
     const saveCoordinates = async (markers) => {
-        console.log(markers)
         const latitud = markers[0]['latitud']
         const longitud = markers[0]['longitud']
         const time = markers[0]['time']
-        const usuario_id = 1
+        //const usuario_id = 1
+        const usuario_id = usuario_id
 
         const res = await fetch(`${API_LOCATION}/estacionamiento`, {
             method: "POST",
@@ -69,8 +70,8 @@ export const Map = (props) => {
                 usuario_id
             }),
         });
-        await res.json();
-
+        const resp = await res.json();
+        console.log(resp)
     };
 
 

@@ -20,16 +20,22 @@ const Counter = ({ cantidadDisponibles, increment, decrement }) => {
     )
 }
 
-
 export default function Estacionamiento() {
     const [mostrarMapa, setMostrarMapa] = useState()
     const [cantidadLugares, setCantidadLugares] = useState("")
     const [cantidadDisponibles, setCantidadDisponibles] = useState(0)
     let [lugares, setLugares] = useState([])
+    const usuario_id = sessionStorage.getItem("usuario_id")
+    const token = sessionStorage.getItem("token")
 
     const getPlaces = async () => {
-        const usuario_id = 1
-        const res = await fetch(`${API_LOCATION}/estacionamiento/${usuario_id}`);
+        const res = await fetch(`${API_LOCATION}/estacionamiento/${usuario_id}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const data = await res.json();
         setCantidadDisponibles(data['cantidad_disponible'])
         setCantidadLugares(data['cantidad_lugares'])
@@ -37,18 +43,20 @@ export default function Estacionamiento() {
 
 
     const actualizarCantidadLugares = async () => {
-        const usuario_id = 1
         const tipo_update = "actualizar_lugares"
 
         const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 cantidadLugares
             }),
         });
+        const resp = await res.json();
+        console.log(resp)
     };
 
     const increment = () => {
@@ -63,28 +71,30 @@ export default function Estacionamiento() {
     }
 
     const actualizarLugaresDisponibles = async () => {
-        const usuario_id = 1
         const tipo_update = "actualizar_disponibles"
 
         const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 cantidadDisponibles
             }),
         });
+        const resp = await res.json();
+        console.log(resp)
     };
 
     const actualizarZonaTrabajo = async () => {
-        const usuario_id = 1
         const tipo_update = "actualizar_zona"
 
         const res = await fetch(`${API_LOCATION}/estacionamiento/${tipo_update}/${usuario_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 cantidadLugares
@@ -149,7 +159,7 @@ export default function Estacionamiento() {
                     <button type="button" onClick={(e) => showMaps(false)}>Ocultar mapa</button>
                 </div>
                 {mostrarMapa ? (
-                    <><button type="button">boton extra</button><div>
+                    <><div>
                         <Map updateWorkZone={true} />
                     </div></>
                 ) : null}

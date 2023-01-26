@@ -1,5 +1,5 @@
 import React from 'react';
-import cat from './cat.png';
+//import cat from './cat.png';
 import QRCode from "react-qr-code";
 
 
