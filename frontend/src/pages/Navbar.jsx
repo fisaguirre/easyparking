@@ -5,15 +5,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 export default function Navbar() {
-    const [usuario, setUsuario] = useState(false)
     const [usuarioLogueado, setUsuarioLogueado] = useState(false)
     const [usuarioRol, setUsuarioRol] = useState()
     const [token, setToken] = useState();
     const [usuaroId, setUsuarioId] = useState();
-
-    //const [usuarioRol, setusuarioRol] = useState("tarjetero")
-    //const [usuarioRol, setusuarioRol] = useState("administrador")
-    //const [usuarioRol, setusuarioRol] = useState("superadministrador")
 
     const getUserLogueado = async () => {
         const tokenGenerado = sessionStorage.getItem("token")
@@ -31,6 +26,8 @@ export default function Navbar() {
             console.log("no hay token navbar")
         }
     }
+
+
     useEffect(() => {
         getUserLogueado();
     }, []);
@@ -39,13 +36,17 @@ export default function Navbar() {
         getUserLogueado();
     }, [usuarioLogueado]);
 */
+
+
     return (
         <nav className="ml-auto">
             {/*------------------------User Logout------------------------*/}
             {usuarioLogueado == false ? (
                 <>
+                    {/*
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/auth/login">Login</NavLink>
+            */}
                 </>
 
             ) : null}
@@ -89,8 +90,6 @@ export default function Navbar() {
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/">Home</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                        to="/auth/login">Login</NavLink>
-                    <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/auth/signup">SignUp</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/users">Users</NavLink>
@@ -108,36 +107,3 @@ export default function Navbar() {
         </nav>
     )
 }
-
-
-
-{/*
-
-export default function Navbar() {
-    const [usuario, setUsuario] = useState(false)
-    const [usuarioRol, setusuarioRol] = useState("tarjetero")
-
-    return (
-        <nav className="ml-auto">
-            {usuario ? (
-                <NavLink class="nav-text" className={
-                    ({ isActivate }) => (isActivate ? "activado" : null)}
-                    to="/">Home</NavLink>
-            ) : null}
-
-            <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                to="/auth/login">Login</NavLink>
-            <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                to="/auth/signup">SignUp</NavLink>
-            <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                to="/users">Users</NavLink>
-            <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                to="/tarjeta">Tarjeta</NavLink>
-            <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                to="/tarjetero/UserAbout">UserAbout</NavLink>
-            <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                to="/estacionamiento">Estacionamiento</NavLink>
-        </nav>
-    )
-}
-*/}

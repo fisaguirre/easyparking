@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
 const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
 
-const Login = () => {
+const LoginCopy = () => {
     //Guardo los datos que se envian por handleSubmit al darle click al boton submit
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    let navigate = useNavigate();
     const token = sessionStorage.getItem("token");
     const [rolUsuarioLogueado, setRolUsuarioLogueado] = useState();
     const [idUsuarioLogueado, setIdUsuarioLogueado] = useState();
@@ -37,10 +38,16 @@ const Login = () => {
             if (userRolId) {
                 sessionStorage.setItem("rol", userRolId['rol'])
                 sessionStorage.setItem("usuario_id", userRolId['usuario_id'])
+                if (sessionStorage.getItem("usuario_id")) {
+                    navigate('/');
+                    navigate(0);
+
+                }
+
+
             }
         }
     }
-
 
     return (
         <div id="form-text" className="row">
@@ -78,4 +85,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginCopy;

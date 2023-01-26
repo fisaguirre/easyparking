@@ -1,73 +1,54 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
+import Navbar from "./Navbar";
 
-{/*export = exporta el componente para llarmalo en otro script*/ }
-{/*function = const - puedo usar cualquiera de los 2 para el componente*/ }
-export default function Login() {
+const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
+const API_LOCATION = process.env.REACT_APP_API_LOCATION;
+const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
+
+const LoginCopy = () => {
+    //Guardo los datos que se envian por handleSubmit al darle click al boton submit
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [nombre, setNombre] = useState("");
-    const login = () => {
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                "email": email,
-                "password": password,
-                "nombre": "asd"
-            }),
-        }
-        fetch(`${API_CONTROL_PARKING}/auth/login`, options).then(resp => {
-            console.log(resp)
-            if (resp.status === 200) {
-                console.log("asda")
-                return resp.json();
-            } else {
-                alert("Algun error");
-            }
-        }).then().catch(error => {
-            console.error("Hubo un problema: ", error)
-        })
 
-    }
-    /*
- 
-    const login = () => {
-        const options = {
+    const token = sessionStorage.getItem("token");
+    const [rolUsuarioLogueado, setRolUsuarioLogueado] = useState();
+    const [idUsuarioLogueado, setIdUsuarioLogueado] = useState();
+
+    //Se coloca el mètodo como async para que no se quede colgado el navegador
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const res = await fetch(`${API_CONTROL_PARKING}/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "email": email,
-                "password": password
+                email,
+                password
             }),
-        }
-        fetch(`${API_CONTROL_PARKING}/auth/login`, options).then(resp => {
-            console.log(resp)
-            if (resp.status === 200) {
-                console.log("asda")
-                return resp.json();
-            } else {
-                alert("Algun error");
+        });
+        const response = await res.json();
+        if (response['token']) {
+            sessionStorage.setItem("token", response['token'])
+            const res2 = await fetch(`${API_CONTROL_PARKING}/users/${email}`);
+            const userRolId = await res2.json();
+            if (userRolId) {
+                sessionStorage.setItem("rol", userRolId['rol'])
+                sessionStorage.setItem("usuario_id", userRolId['usuario_id'])
             }
-        }).then().catch(error => {
-            console.error("Hubo un problema: ", error)
-        })
- 
+        }
     }
-    */
 
     return (
         <div id="form-text" className="row">
             <div className="col-md-4">
             </div>
             <div className="col-md-4">
-                <form className="card card-body">
+                <form onSubmit={handleSubmit} className="card card-body">
+
+
                     <div className="form-group">Email
                         <input
                             type="email"
@@ -75,17 +56,6 @@ export default function Login() {
                             value={email}
                             className="form-control"
                             placeholder="User's Email"
-                            required
-                        />
-                    </div>
-                    <div className="form-group">NOmbre
-                        <input
-                            type="password"
-                            onChange={(e) => setNombre(e.target.value)}
-                            value={nombre}
-                            className="form-control"
-                            placeholder="User's Password"
-                            required
                         />
                     </div>
                     <div className="form-group">Contraseña
@@ -95,10 +65,10 @@ export default function Login() {
                             value={password}
                             className="form-control"
                             placeholder="User's Password"
-                            required
                         />
                     </div>
-                    <button className="btn btn-primary btn-block" onClick={(e) => login()}>Iniciar sesion
+
+                    <button className="btn btn-primary btn-block">Login
                     </button>
                 </form>
             </div>
@@ -106,3 +76,5 @@ export default function Login() {
         </div>
     );
 };
+
+export default LoginCopy;

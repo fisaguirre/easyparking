@@ -27,7 +27,8 @@ function App() {
         <Navbar />
         <div className="container p-4">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/a" element={<Navbar />} />
+            <Route path="/" forceRefresh={true} element={<Home />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<SignUp />} />
             <Route path="/auth/logout/" className="auto" element={<Logout />} />
