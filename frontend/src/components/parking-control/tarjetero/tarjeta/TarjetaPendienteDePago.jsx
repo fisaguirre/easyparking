@@ -68,9 +68,8 @@ export default function TarjetaPendienteDePago() {
                         </thead>
                         <tbody>
                             {tarjetas.map((tarjeta_instancia) => (
-                                <tr key={tarjeta_instancia.tarjeta_instancia_id}>
+                                <tr key={tarjeta_instancia.patente}>
                                     <td>{tarjeta_instancia.patente}</td>
-
                                     <td>{tarjeta_instancia.tarjetas_acumuladas}</td>
                                     <td>{tarjeta_instancia.tarjetas_acumuladas * 30} minutos</td>
                                     <td>${tarjeta_instancia.tarjetas_acumuladas * 40} pesos</td>

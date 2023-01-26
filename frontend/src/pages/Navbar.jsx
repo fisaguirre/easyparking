@@ -20,11 +20,7 @@ export default function Navbar() {
             setUsuarioLogueado(true)
             setUsuarioRol(rolUsuario)
             setUsuarioId(usuario_id)
-            console.log("NavBar token: ", tokenGenerado)
-            console.log("NavBar rol: ", rolUsuario)
-            console.log("NavBar usuario_id: ", usuario_id)
         } else {
-            console.log("no hay token navbar")
         }
     }
 

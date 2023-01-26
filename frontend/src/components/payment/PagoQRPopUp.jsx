@@ -14,7 +14,7 @@ const PagoQRPopUp = ({ open, codigo_qr, onFinalizar, onClose, patente, cantidad_
                 className='modalContainer'
             >
                 {/*<img src={nft} alt='/' />*/}
-                <img src={cat} alt='/' />
+                {/*<img src={cat} alt='/' />*/}
                 <div className='modalRight'>
                     <p className='closeBtn' onClick={onClose}>
                         X
@@ -26,11 +26,13 @@ const PagoQRPopUp = ({ open, codigo_qr, onFinalizar, onClose, patente, cantidad_
                     </div>
                     <div className='btnContainer'>
                         <button className='btnPrimary' onClick={onFinalizar}>
-                            <span className='bold'>FINALIZAR</span>
+                            <span className='bold'>CERRAR</span>
                         </button>
+                        {/*
                         <button className='btnOutline' onClick={onClose}>
                             <span className='bold'>Volver y regenerar QR</span>
                         </button>
+            */}
                     </div>
                 </div>
             </div>
