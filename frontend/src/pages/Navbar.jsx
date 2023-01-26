@@ -91,7 +91,7 @@ export default function Navbar() {
             ) : null}
 
             {/*------------------------Navbar Super Admin------------------------*/}
-            {usuarioLogueado == true && usuarioRol == "superadministrador" ? (
+            {usuarioLogueado == true && usuarioRol == "superadmin" ? (
                 <>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/">Home</NavLink>

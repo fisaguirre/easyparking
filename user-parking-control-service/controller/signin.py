@@ -38,7 +38,6 @@ def login(auth, mysql, app):
 
 def login(auth, mysql, app):
     if not request.json['password'] or not request.json['email']:
-        print("hola")
         # if not auth.get('username') or not auth.get('email') or not auth.get('password'):
         # returns 401 if any email or / and password is missing
         response = make_response(
@@ -75,7 +74,6 @@ def login(auth, mysql, app):
     # if check_password_hash(generate_password_hash(new_user.get_password()), auth.get('password')):
     # compare whether is the database password is equal to the entered
     if check_password_hash(new_user.get_password(), request.json['password']):
-        print("si")
 
         token = jwt.encode({'public_id': new_user.get_public_id(), 'exp': datetime.utcnow(
         ) + timedelta(minutes=45)}, app.config['SECRET_KEY'], "HS256")

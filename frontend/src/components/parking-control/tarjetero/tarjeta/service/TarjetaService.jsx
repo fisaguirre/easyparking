@@ -6,11 +6,17 @@ const API = process.env.REACT_APP_API_USER;
 export const AmountCardsByUser = () => {
 
     let [amountCards, setAmountCards] = useState([]);
+    const usuario_id_logueado = sessionStorage.getItem("usuario_id")
+    let token = sessionStorage.getItem("token")
 
-
-    const userProvisorio = 1
     const getAmountCards = async () => {
-        const res = await fetch(`${API}/tarjetas/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjetas/${usuario_id_logueado}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const data = await res.json();
         setAmountCards(data);
     };
@@ -37,11 +43,14 @@ export const AmountCardsByUser = () => {
 
 
 export const PruebaRetornoFunction = (props) => {
+    let token = sessionStorage.getItem("token")
+
     const createCard = async (patenteA, patenteB, mes, dia_semana, dia_fecha, hora, minutos) => {
         const res = await fetch(`${API}/tarjeta_instancia/activar`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 patenteA,
@@ -75,13 +84,16 @@ export const PruebaRetornoFunction = (props) => {
 
 
 export const InstanciarTarjeta = (props) => {
-    const usuario_id = 1
+    let token = sessionStorage.getItem("token")
+    const usuario_id = sessionStorage.getItem("usuario_id")
+
     const createCard = async (patenteA, patenteB, mes, dia_semana, dia_fecha, hora, minutos) => {
         const patente = '' + patenteA + patenteB
         const res = await fetch(`${API}/tarjeta_instancia/activar`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 mes,

@@ -5,10 +5,17 @@ const API = process.env.REACT_APP_API_USER;
 
 export const AmountActivateCardsByUser = () => {
     let [amountCards, setAmountCards] = useState([]);
+    let usuario_id_logueado = sessionStorage.getItem("usuario_id")
+    let token = sessionStorage.getItem("token")
 
-    const userProvisorio = 1
     const getAmountCards = async () => {
-        const res = await fetch(`${API}/tarjeta_instancia/activar/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjeta_instancia/activar/${usuario_id_logueado}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const data = await res.json();
         setAmountCards(data);
     };
@@ -36,17 +43,20 @@ export const AmountActivateCardsByUser = () => {
 export const AmountFinishedCardsByUser = () => {
 
     let [amountFinishedCards, setAmountFinishedCards] = useState([]);
+    let usuario_id_logueado = sessionStorage.getItem("usuario_id")
+    let token = sessionStorage.getItem("token")
 
     const contar = 'si'
-    const userProvisorio = 1
     const getAmountFinishedCards = async () => {
-        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${contar}/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${contar}/${usuario_id_logueado}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const data = await res.json();
-
-
         setAmountFinishedCards(data);
-        console.log("Datas:")
-        console.log(amountFinishedCards)
     };
 
     //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado
@@ -73,17 +83,22 @@ export const AmountFinishedCardsByUser = () => {
 export const DeleteFinishedCardByUser = () => {
 
     let [amountFinishedCards, setAmountFinishedCards] = useState([]);
-
+    let usuario_id_logueado = sessionStorage.getItem("usuario_id")
+    let token = sessionStorage.getItem("token")
     const contar = 'si'
-    const userProvisorio = 1
+
     const getAmountFinishedCards = async () => {
-        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${contar}/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjeta_instancia/finalizar/${contar}/${usuario_id_logueado}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const data = await res.json();
 
 
         setAmountFinishedCards(data);
-        console.log("Datas:")
-        console.log(amountFinishedCards)
     };
 
     //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado

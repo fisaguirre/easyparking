@@ -13,20 +13,25 @@ export default function TarjetaInstancia() {
     const [patente, setPatente] = useState("");
     const [usuarioId, setUsuarioId] = useState("");
     const [tarjetaId, setTarjetaId] = useState("");
+    let token = sessionStorage.getItem("token")
+    const usuario_id = sessionStorage.getItem("usuario_id")
 
-    const [editing, setEditing] = useState(false);
     const [cardsQuantity, setCardsQuantity] = useState("")
 
     const nameInput = useRef(null);
     const [tiempoActivo, setTiempoActivo] = useState(true)
     const [activarTiempo, setActivarTiempo] = useState(true);
-
-
     let [tarjetas, setTarjetas] = useState([]);
 
-    const userProvisorio = 1
+
     const getTarjetasActivadas = async () => {
-        const res = await fetch(`${API}/tarjeta_instancia/activar/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjeta_instancia/activar/${usuario_id}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const data = await res.json();
         setTarjetas(data);
         /*
@@ -47,10 +52,10 @@ console.log(a)
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    "x-access-token": token
                 }
             });
             const data = res.json()
-            setEditing(true);
         }
         await getTarjetasActivadas();
 

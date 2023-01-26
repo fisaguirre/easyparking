@@ -7,6 +7,7 @@ const Users = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    let token = sessionStorage.getItem("token")
 
     const [userId, setUserId] = useState("");
     const [cardsQuantity, setCardsQuantity] = useState("")
@@ -28,7 +29,13 @@ const Users = () => {
 
     const getUsers = async () => {
         //const res = await fetch(`${API}/users`);
-        const res = await fetch(`${API}/users/tarjeta`);
+        const res = await fetch(`${API}/users/tarjeta`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const data = await res.json();
         setUsers(data);
     };
@@ -39,6 +46,7 @@ const Users = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 userId,
@@ -59,6 +67,7 @@ const Users = () => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    "x-access-token": token
                 },
                 body: JSON.stringify({
                     cardsQuantity

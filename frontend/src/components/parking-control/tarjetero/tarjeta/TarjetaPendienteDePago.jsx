@@ -8,10 +8,18 @@ const API = process.env.REACT_APP_API_USER;
 export default function TarjetaPendienteDePago() {
     const [cardsQuantity, setCardsQuantity] = useState("")
     let [tarjetas, setTarjetas] = useState([]);
-    const userProvisorio = 1
+    const usuario_id_logueado = sessionStorage.getItem("usuario_id")
+    let token = sessionStorage.getItem("token")
+
 
     const getTarjetasActivadas = async () => {
-        const res = await fetch(`${API}/tarjeta_instancia/finalizar/pendiente/${userProvisorio}`);
+        const res = await fetch(`${API}/tarjeta_instancia/finalizar/pendiente/${usuario_id_logueado}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const data = await res.json();
         setTarjetas(data);
 
@@ -21,7 +29,11 @@ export default function TarjetaPendienteDePago() {
         const userResponse = window.confirm("¿Seguro que quiere limpiar las tarjetas?");
         if (userResponse) {
             const res = await fetch(`${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": token
+                }
             });
             const data = await res.json();
             await getTarjetasActivadas();

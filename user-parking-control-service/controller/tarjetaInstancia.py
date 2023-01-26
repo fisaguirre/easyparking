@@ -16,6 +16,8 @@ SECRET_KEY = 'your secret key'
 
 def activateCard(request, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    print(request.json)
+
     usuario_id = request.json['usuario_id']
 
     cursor.execute(
@@ -50,6 +52,9 @@ def activateCard(request, mysql):
             "insert into tarjeta_instancia values(NULL,%s, %s, %s, %s, %s, %s, %s, %s, %s)", data)
         mysql.connection.commit()
         cursor.close()
+        return jsonify('Se ha activado la tarjeta')
+    else:
+        return jsonify('No posee tarjetas para utilizar')
 
 
 def getAllCardsByUserId(usuario_id, mysql):
@@ -124,7 +129,6 @@ def getAllFinishedCardsByUserId(contar, usuario_id, mysql):
 
         if finishedCards:
             cursor.close()
-            print(finishedCards)
 
             return jsonify(finishedCards)
 
