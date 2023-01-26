@@ -23,6 +23,7 @@ const SignUp = () => {
     const nameInput = useRef(null);
 
     let [users, setUsers] = useState([]);
+    const token = sessionStorage.getItem("token")
 
     //Se coloca el mètodo como async para que no se quede colgado el navegador
     const handleSubmit = async (e) => {
@@ -33,6 +34,7 @@ const SignUp = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 username,
@@ -53,6 +55,7 @@ const SignUp = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "x-access-token": token
                 },
                 body: JSON.stringify({
                     uuid,
@@ -72,6 +75,7 @@ const SignUp = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                     "x-access-token": token
                 },
                 body: JSON.stringify({
                     uuid,

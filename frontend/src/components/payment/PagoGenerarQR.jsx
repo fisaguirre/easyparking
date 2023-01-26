@@ -1,23 +1,28 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./PopUp.css";
 import PagoQRPopUp from "./PagoQRPopUp";
-const API_MERCADO_PAGO = process.env.REACT_APP_API_USER;
+const API_MERCADO_PAGO = process.env.REACT_APP_API_MERCADO_PAGO;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
 const API_USER_CONTROL = process.env.REACT_APP_API_USER;
 
-
 export default function PagoGenerarQR({ patente, cantidad_tarjetas, minutos, precio_total, userId }) {
-    const [usuario_id, setUsuarioId] = useState(2);
     const [codigoQR, setCodigoQR] = useState([]);
     const [codigoQRExists, setCodigoQRExists] = useState(false);
     const [modal, setModal] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [qrFinalizado, setQRFinalizado] = useState(false);
     const [storeAndPosUserExists, setStoreAndPosUserExists] = useState();
-
+    let usuario_id = sessionStorage.getItem("usuario_id")
+    const token = sessionStorage.getItem("token")
 
     const verifyStoreAndPosUserExists = async () => {
-        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/sucpos/${usuario_id}`)
+        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/sucpos/${usuario_id}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const mercado = await getMercado.json();
 
         if (mercado == "existe") {
@@ -30,10 +35,16 @@ export default function PagoGenerarQR({ patente, cantidad_tarjetas, minutos, pre
 
     const createOrder = async () => {
         if (storeAndPosUserExists) {
-            const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}`)
+            const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}`, {
+                mmethod: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": token
+                }
+            });
             const mercado = await getMercado.json();
 
-            const res = await fetch(`https://api.mercadopago.com/instore/orders/qr/seller/collectors/${mercado['mercado_usuario_id']}/pos/${mercado['external_pos_id']}/qrs?access_token=${mercado['access_token']}`, {
+            const res = await fetch(`${API_MERCADO_PAGO}/instore/orders/qr/seller/collectors/${mercado['mercado_usuario_id']}/pos/${mercado['external_pos_id']}/qrs?access_token=${mercado['access_token']}`, {
                 method: "POST",
                 body: JSON.stringify({
                     "external_reference": "Pago Estacionamiento",

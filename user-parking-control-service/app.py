@@ -36,11 +36,14 @@ def token_required(f):
             token = request.headers['x-access-token']
 
         if not token:
+
             return jsonify({'message': 'a valid token is missing'})
         try:
             data = jwt.decode(
                 token, app.config['SECRET_KEY'], algorithms=["HS256"])
             #current_user = Users.query.filter_by(public_id=data['public_id']).first()
+            print(data['public_id'])
+
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute(
                 'SELECT * FROM usuario WHERE usuario.public_id = %s', (data['public_id'],))
@@ -63,7 +66,8 @@ def index():
 
 @cross_origin()
 @app.route('/auth/signup', methods=['POST'])
-def register():
+@token_required
+def register(current_user):
     return signup.register(request, mysql, app)
 
 

@@ -8,19 +8,26 @@ export default function PagoConfiguracion() {
     const [respuesta, setRespuesta] = useState();
     const [access_token, setAccessToken] = useState();
     const [mostrarTextBoxToken, setMostraTextBoxToken] = useState(false);
-    const [usuario_id, setUsuarioId] = useState(1);
     const [storeName, setStoreName] = useState();
     const [posName, setPosName] = useState();
     const [store_id, setStoreId] = useState();
     const [external_store_id, setExternalStoreId] = useState();
-
     const [accessTokenExists, setAccessTokenExists] = useState(false);
     const [mostrarTextBoxStore, setMostratButtonStore] = useState(false);
     const [mostrarTextBoxPos, setMostratButtonCaja] = useState(false);
 
+    const usuario_id = sessionStorage.getItem("usuario_id")
+    const token = sessionStorage.getItem("token")
+
 
     const getAccessTokenExists = async (usuario_id) => {
-        const res = await fetch(`${API_PAYMENT}/pago/mercado/token/exists/${usuario_id}`)
+        const res = await fetch(`${API_PAYMENT}/pago/mercado/token/exists/${usuario_id}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const data = await res.json();
         if (data == 'existe') {
             setAccessTokenExists(true);
@@ -33,6 +40,7 @@ export default function PagoConfiguracion() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 access_token,
@@ -48,7 +56,13 @@ export default function PagoConfiguracion() {
         //Obtengo access token
         //creo Store
         //guardo datos Store
-        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`)
+        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const mercado = await getMercado.json();
 
         const res = await fetch(`https://api.mercadopago.com/users/${mercado['mercado_usuario_id']}/stores?access_token=${mercado['access_token']}`, {
@@ -78,6 +92,7 @@ export default function PagoConfiguracion() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 "store_id": store_id,
@@ -93,7 +108,13 @@ export default function PagoConfiguracion() {
     };
 
     const createPos = async (store_id, external_store_id, posName, usuario_id) => {
-        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`)
+        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
         const mercado = await getMercado.json();
         const number_store_id = Number(store_id)
 
@@ -117,6 +138,7 @@ export default function PagoConfiguracion() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 "pos_id": pos_id,
