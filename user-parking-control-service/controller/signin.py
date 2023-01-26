@@ -76,7 +76,7 @@ def login(auth, mysql, app):
     if check_password_hash(new_user.get_password(), request.json['password']):
 
         token = jwt.encode({'public_id': new_user.get_public_id(), 'exp': datetime.utcnow(
-        ) + timedelta(minutes=45)}, app.config['SECRET_KEY'], "HS256")
+        ) + timedelta(minutes=5)}, app.config['SECRET_KEY'], "HS256")
 
         response = make_response(
             jsonify(

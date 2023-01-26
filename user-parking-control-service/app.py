@@ -42,7 +42,6 @@ def token_required(f):
             data = jwt.decode(
                 token, app.config['SECRET_KEY'], algorithms=["HS256"])
             #current_user = Users.query.filter_by(public_id=data['public_id']).first()
-            print(data['public_id'])
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute(
@@ -78,7 +77,8 @@ def login():
 
 
 @app.route('/asignarRol/<username>/<rolAsignado>', methods=["PUT"])
-def getUsers(username, rolAsignado):
+@token_required
+def getUsers(current_user, username, rolAsignado):
     rol.asignarRolUsuario(username, rolAsignado, mysql)
     return rol.asignarRolUsuario(username, rolAsignado, mysql)
 
