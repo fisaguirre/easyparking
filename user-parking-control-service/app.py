@@ -69,9 +69,9 @@ def register():
     return signup.register(request, mysql, app)
 
 
-@app.route('/login', methods=['POST'])
+@cross_origin()
+@app.route('/auth/login', methods=['POST'])
 def login():
-    # creates dictionary of form data
     return signin.login(request.form, mysql, app)
 
 
@@ -87,6 +87,12 @@ def getUsers(username, rolAsignado):
 @app.route('/users', methods=["GET"])
 def getAllUsers():
     return users.getAllUsers(mysql)
+
+
+# Obtener usuario por email
+@app.route('/users/<email>', methods=["GET"])
+def getUserByEmail(email):
+    return users.getUserByEmail(email, mysql)
 
 
 # Obtener usuarios con sus tarjetas

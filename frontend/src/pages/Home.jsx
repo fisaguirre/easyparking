@@ -3,10 +3,14 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Map } from "../components/parking-location/Map";
 
 export default function Home() {
+    const borrar = async () => {
+        sessionStorage.clear()
+    }
 
     return (
         <div>
-
+            <button onClick={borrar} className="btn btn-primary btn-block">Clear session storage
+            </button>
             <h1>
                 Esto es el HOME
                 <p></p>

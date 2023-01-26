@@ -2,14 +2,43 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Link } from 'react-router-dom'
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Navbar() {
     const [usuario, setUsuario] = useState(false)
-    const [usuarioLogueado, setUsuarioLogueado] = useState(true)
-    const [usuarioTipo, setUsuarioTipo] = useState("superadministrador")
-    //const [usuarioTipo, setUsuarioTipo] = useState("administrador")
-    //const [usuarioTipo, setUsuarioTipo] = useState("superadministrador")
+    const [usuarioLogueado, setUsuarioLogueado] = useState(false)
+    const [usuarioRol, setUsuarioRol] = useState()
+    const [token, setToken] = useState();
+    const [usuaroId, setUsuarioId] = useState();
 
+    //const [usuarioRol, setusuarioRol] = useState("tarjetero")
+    //const [usuarioRol, setusuarioRol] = useState("administrador")
+    //const [usuarioRol, setusuarioRol] = useState("superadministrador")
+
+    const getUserLogueado = async () => {
+        const tokenGenerado = sessionStorage.getItem("token")
+        const rolUsuario = sessionStorage.getItem("rol")
+        const usuario_id = sessionStorage.getItem("usuario_id")
+        if (tokenGenerado) {
+            setToken(tokenGenerado)
+            setUsuarioLogueado(true)
+            setUsuarioRol(rolUsuario)
+            setUsuarioId(usuario_id)
+            console.log("NavBar token: ", tokenGenerado)
+            console.log("NavBar rol: ", rolUsuario)
+            console.log("NavBar usuario_id: ", usuario_id)
+        } else {
+            console.log("no hay token navbar")
+        }
+    }
+    useEffect(() => {
+        getUserLogueado();
+    }, []);
+    /*
+    useEffect(() => {
+        getUserLogueado();
+    }, [usuarioLogueado]);
+*/
     return (
         <nav className="ml-auto">
             {/*------------------------User Logout------------------------*/}
@@ -23,7 +52,7 @@ export default function Navbar() {
 
 
             {/*------------------------Navbar Tarjetero------------------------*/}
-            {usuarioLogueado == true && usuarioTipo == "tarjetero" ? (
+            {usuarioLogueado == true && usuarioRol == "tarjetero" ? (
                 <>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/">Home</NavLink>
@@ -40,7 +69,7 @@ export default function Navbar() {
             ) : null}
 
             {/*------------------------Navbar Admin------------------------*/}
-            {usuarioLogueado == true && usuarioTipo == "administrador" ? (
+            {usuarioLogueado == true && usuarioRol == "administrador" ? (
                 <>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/">Home</NavLink>
@@ -55,7 +84,7 @@ export default function Navbar() {
             ) : null}
 
             {/*------------------------Navbar Super Admin------------------------*/}
-            {usuarioLogueado == true && usuarioTipo == "superadministrador" ? (
+            {usuarioLogueado == true && usuarioRol == "superadministrador" ? (
                 <>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/">Home</NavLink>
@@ -86,7 +115,7 @@ export default function Navbar() {
 
 export default function Navbar() {
     const [usuario, setUsuario] = useState(false)
-    const [usuarioTipo, setUsuarioTipo] = useState("tarjetero")
+    const [usuarioRol, setusuarioRol] = useState("tarjetero")
 
     return (
         <nav className="ml-auto">

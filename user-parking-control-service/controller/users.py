@@ -18,6 +18,17 @@ def getAllUsers(mysql):
     return jsonify(current_users)
 
 
+def getUserByEmail(email, mysql):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    #cursor.execute('SELECT * FROM usuario WHERE usuario.rol = "tarjetero"')
+    cursor.execute(
+        'SELECT usuario_id, rol FROM usuario WHERE usuario.email = %s', (email,))
+    current_user = cursor.fetchone()
+
+    cursor.close()
+    return jsonify(current_user)
+
+
 def getAllUsersAndCards(mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     #cursor.execute('SELECT * FROM usuario INNER JOIN tarjeta WHERE usuario.usuario_id = tarjeta.usuario_id')
