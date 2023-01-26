@@ -41,16 +41,9 @@ export default function Home() {
                     <Link id="signup-link" to="/auth/login">
                         <button type="button" id="signup-button" className="btn btn-primary btn-block">Login</button>
                     </Link>
-                    {/*
-                    <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                        to="/auth/login">Login</NavLink>
-            */}
                 </>
-
             ) : null}
 
-            <button onClick={borrar} className="btn btn-primary btn-block">Clear session storage
-            </button>
             <h1>
                 Esto es el HOME
                 <p></p>

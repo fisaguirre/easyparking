@@ -3,12 +3,13 @@ import { NavLink } from "react-router-dom";
 import { Link } from 'react-router-dom'
 import { useState } from "react";
 import { useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function Navbar() {
     const [usuarioLogueado, setUsuarioLogueado] = useState(false)
     const [usuarioRol, setUsuarioRol] = useState()
     const [token, setToken] = useState();
     const [usuaroId, setUsuarioId] = useState();
+    let navigate = useNavigate();
 
     const getUserLogueado = async () => {
         const tokenGenerado = sessionStorage.getItem("token")
@@ -28,6 +29,11 @@ export default function Navbar() {
     }
 
 
+    const borrar = async () => {
+        sessionStorage.clear();
+        navigate('/');
+        navigate(0);
+    }
     useEffect(() => {
         getUserLogueado();
     }, []);
@@ -63,8 +69,8 @@ export default function Navbar() {
                         to="/estacionamiento">Estacionamiento</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/pago/">PagoConfiguracion</NavLink>
-                    <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                        to="/auth/logout">Logout</NavLink>
+                    <NavLink onClick={borrar} class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
+                        to="/">Logout</NavLink>
                 </>
 
             ) : null}
@@ -78,8 +84,8 @@ export default function Navbar() {
                         to="/auth/signup">SignUp</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/users">Users</NavLink>
-                    <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                        to="/auth/logout">Logout</NavLink>
+                    <NavLink onClick={borrar} class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
+                        to="/">Logout</NavLink>
                 </>
 
             ) : null}
@@ -99,8 +105,8 @@ export default function Navbar() {
                         to="/estacionamiento">Estacionamiento</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/pago/">PagoConfiguracion</NavLink>
-                    <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                        to="/auth/logout">Logout</NavLink>
+                    <NavLink onClick={borrar} class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
+                        to="/">Logout</NavLink>
                 </>
 
             ) : null}
