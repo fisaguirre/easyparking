@@ -111,6 +111,13 @@ def saveExternalsId(current_user, usuario_id, tipo_creacion):
         return mercado.savePos(request, usuario_id, mysql)
 
 
+# Obtener todos los pagos efectuados de un usuario
+@app.route('/pago/<usuario_id>', methods=["GET"])
+@token_required
+def verifyStoreAndPosUserExists(current_user, usuario_id):
+    return mercado.verifyStoreAndPosUserExists(usuario_id, mysql)
+
+
 # main driver function
 if __name__ == "__main__":
     app.run()

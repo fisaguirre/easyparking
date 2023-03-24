@@ -14,10 +14,12 @@ const Users = () => {
     const [rol, setRol] = useState();
     const [cambiarRol, setCambiarRol] = useState(false)
     const [numeroTD, setNumeroTD] = useState()
+    const [prueba1, setPrueba1] = useState(true)
 
     const nameInput = useRef(null);
 
     let [users, setUsers] = useState([]);
+
 
     const cambiarRolUsuario = (cambiarRol) => {
         if (cambiarRol) {
@@ -109,7 +111,6 @@ const Users = () => {
                                 <td>{user.nombre}</td>
                                 <td>{user.apellido}</td>
                                 <td>{user.email}</td>
-
                                 {/*
                                 <td>
                                     {cambiarRol ? (
@@ -130,26 +131,34 @@ const Users = () => {
 
                                 </td>
                                 */}
+
+
                                 <td>{user.rol}</td>
                                 <td>{user.cantidad_tarjeta}</td>
-                                <td>
-                                    <input type="text"
-                                        onChange={(e) => setCardsQuantity(e.target.value)}
-                                        className="form-control"
-                                        placeholder="Ingrese cantidad de tarjetas" />
-                                </td>
-                                <td>
-                                    <button className="btn btn-primary btn-block"
-                                        onClick={(e) => addCardsToUser(user.usuario_id)}
-                                    >Acreditar
-                                    </button>
-                                </td>
-                                <td>
-                                    <button className="btn btn-primary btn-block"
-                                        onClick={(e) => discardCardsToUser(user.usuario_id)}
-                                    >Desacreditar
-                                    </button>
-                                </td>
+                                {user.rol == "tarjetero" ? (
+                                    <td>
+                                        <input type="text"
+                                            onChange={(e) => setCardsQuantity(e.target.value)}
+                                            className="form-control"
+                                            placeholder="Ingrese cantidad de tarjetas" />
+                                    </td>
+                                ) : null}
+                                {user.rol == "tarjetero" ? (
+                                    <td>
+                                        <button className="btn btn-primary btn-block"
+                                            onClick={(e) => addCardsToUser(user.usuario_id)}
+                                        >Acreditar
+                                        </button>
+                                    </td>
+                                ) : null}
+                                {user.rol == "tarjetero" ? (
+                                    <td>
+                                        <button className="btn btn-primary btn-block"
+                                            onClick={(e) => discardCardsToUser(user.usuario_id)}
+                                        >Desacreditar
+                                        </button>
+                                    </td>
+                                ) : null}
                             </tr>
                         ))}
                     </tbody>
