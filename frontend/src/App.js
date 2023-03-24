@@ -13,7 +13,7 @@ import TarjetaInstancia from './components/parking-control/tarjetero/tarjeta/Tar
 import TarjetaPendienteDePago from './components/parking-control/tarjetero/tarjeta/TarjetaPendienteDePago';
 import Estacionamiento from './components/parking-location/Estacionamiento';
 import PagoConfiguracion from './components/payment/PagoConfiguracion';
-
+import PagoEfectuado from './components/payment/PagoEfectuado';
 
 function App() {
   const [userLogueado, setUserLogueado] = useState(true)
@@ -27,8 +27,8 @@ function App() {
           <Routes>
             <Route path="/a" element={<Navbar />} />
             <Route path="/" forceRefresh={true} element={<Home />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/users" className="auto" element={<Users />} />
             <Route path="/tarjeta" className="auto" element={<Tarjeta />} />
             <Route path="/tarjeta/activarTarjeta" className="auto" element={<ActivarTarjeta />} />
@@ -36,6 +36,7 @@ function App() {
             <Route path="/tarjeta/tarjetaPendienteDePago" className="auto" element={<TarjetaPendienteDePago />} />
             <Route path="/estacionamiento/" className="auto" element={<Estacionamiento />} />
             <Route path="/pago/" className="auto" element={<PagoConfiguracion />} />
+            <Route path="/pago/pagosefectuados" className="auto" element={<PagoEfectuado />} />
           </Routes>
         </div>
       </BrowserRouter>

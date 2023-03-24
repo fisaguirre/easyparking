@@ -34,7 +34,7 @@ export default function Home() {
         <div>
             {usuarioLogueado == false ? (
                 <>
-                    <Link id="signup-link" to="/auth/login">
+                    <Link id="signup-link" to="/login">
                         <button type="button" id="signup-button" className="btn btn-primary btn-block">Login</button>
                     </Link>
                 </>

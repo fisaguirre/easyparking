@@ -47,7 +47,7 @@ export default function Navbar() {
                 <>
                     {/*
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                        to="/auth/login">Login</NavLink>
+                        to="/login">Login</NavLink>
             */}
                 </>
 
@@ -65,8 +65,9 @@ export default function Navbar() {
                         to="/estacionamiento">Estacionamiento</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/pago/">PagoConfiguracion</NavLink>
-                    <NavLink onClick={borrar} class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                        to="/">Logout</NavLink>
+                    <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
+                        to="/pago/pagosefectuados">PagoEfectuado</NavLink>
+                    <NavLink onClick={borrar} class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)} to="/">Logout</NavLink>
                 </>
 
             ) : null}
@@ -77,7 +78,7 @@ export default function Navbar() {
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/">Home</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                        to="/auth/signup">SignUp</NavLink>
+                        to="/signup">SignUp</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/users">Users</NavLink>
                     <NavLink onClick={borrar} class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
@@ -92,7 +93,7 @@ export default function Navbar() {
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/">Home</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
-                        to="/auth/signup">SignUp</NavLink>
+                        to="/signup">SignUp</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}
                         to="/users">Users</NavLink>
                     <NavLink class="nav-text" className={({ isActivate }) => (isActivate ? "activado" : null)}

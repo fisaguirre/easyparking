@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { Navigate } from "react-router-dom";
 
 const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;
@@ -41,9 +42,7 @@ const LoginCopy = () => {
                 if (sessionStorage.getItem("usuario_id")) {
                     navigate('/');
                     navigate(0);
-
                 }
-
 
             }
         }
