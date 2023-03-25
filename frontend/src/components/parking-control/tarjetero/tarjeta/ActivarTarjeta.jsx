@@ -2,7 +2,24 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { InstanciarTarjeta, PruebaRetornoFunction } from "./service/TarjetaService";
+import './style.css';
+import { Button } from "./Button";
+import { Button2 } from "./Button";
+
 export default function ActivarTarjeta() {
+    const [color, setColor] = useState("red");
+    const [selectedButton, setSelectedButton] = useState(null);
+    const [selectedButton2, setSelectedButton2] = useState(null);
+    const [selectedButton3, setSelectedButton3] = useState(null);
+    const [selectedButton4, setSelectedButton4] = useState(null);
+
+    const [selectedButtonFirstPatent, setSelectedButtonFirstPatent] = useState(null);
+    const [selectedButtonSecondtPatent, setSelectedButtonSecondtPatent] = useState(null);
+    const [selectedButtonMonth, setSelectedButtonMonth] = useState(null);
+    const [selectedButtonNameDay, setSelectedButtonNameDay] = useState(null);
+    const [selectedButtonNumberDay, setSelectedButtonNumberDay] = useState(null);
+    const [selectedButtonHour, setSelectedButtonHour] = useState(null);
+    const [selectedButtonMinutes, setSelectedButtonMinutes] = useState(null);
 
     const [numeroPatenteFirstColumn, setNumeroPatenteFirstColumn] = useState();
     const [numeroPatenteSecondColumn, setNumeroPatenteSecondColumn] = useState();
@@ -49,6 +66,14 @@ export default function ActivarTarjeta() {
         setButtonActivarTarjeta(buttonValue);
     };
 
+    const handleClick = () => {
+        setColor("blue");
+    };
+
+    const handleButtonClick = (button) => {
+        setSelectedButton(button);
+    };
+
     return (
         <div>
             <div className="row">
@@ -92,17 +117,55 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
+                    <Button
+                        text="0"
+                        backgroundColor={selectedButtonFirstPatent === "0a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("0a"); saveNumeroPatenteFirstColumn(0) }}
+                    />
+                    {/*
+                    <button className="btn btn-info" type="button" onClick={() => saveNumeroDia(3)}>3</button>&nbsp;&nbsp;
+                    <button className="gray-button" type="button" onClick={() => saveNumeroDia(4)}>4</button>
+    */}
+                    &nbsp;&nbsp;
+                    <Button
+                        text="0"
+                        backgroundColor={selectedButtonSecondtPatent === "0b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("0b"); saveNumeroPatenteSecondColumn(0) }}
+                    />
+                    {/*
                     <button type="button" onClick={() => saveNumeroPatenteFirstColumn(0)}>0</button>&nbsp;&nbsp;
                     <button type="button" onClick={() => saveNumeroPatenteSecondColumn(0)}>0</button>
+    */}
                 </div>
                 <div className="col-md-2">
+                    <Button
+                        text="Enero"
+                        backgroundColor={selectedButtonMonth === "Enero" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMonth("Enero"); saveNombreMes("Enero") }}
+                    />
+                    {/*
                     <button type="button" onClick={() => saveNombreMes("Enero")}>Enero</button>&nbsp;&nbsp;
+*/}
                 </div>
                 <div className="col-md-2">
+                    <Button
+                        text="Febrero"
+                        backgroundColor={selectedButtonMonth === "Febrero" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMonth("Febrero"); saveNombreMes("Febrero") }}
+                    />
+                    {/*
                     <button type="button" onClick={() => saveNombreMes("Febrero")}>Febrero</button>&nbsp;&nbsp;
+*/}
                 </div>
                 <div className="col-md-2">
+                    <Button
+                        text="Marzo"
+                        backgroundColor={selectedButtonMonth === "Marzo" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMonth("Marzo"); saveNombreMes("Marzo") }}
+                    />
+                    {/*
                     <button type="button" onClick={() => saveNombreMes("Marzo")}>Marzo</button>&nbsp;&nbsp;
+*/}
                 </div>
                 <div className="col-md-2"></div>
             </div>
@@ -110,13 +173,29 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
+                    <Button
+                        text="1"
+                        backgroundColor={selectedButtonFirstPatent === "1a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("1a"); saveNumeroPatenteFirstColumn(1) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="1"
+                        backgroundColor={selectedButtonSecondtPatent === "1b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("1b"); saveNumeroPatenteSecondColumn(1) }}
+                    />
+                    {/*
                     <button type="button" onClick={() => saveNumeroPatenteFirstColumn(1)}>1</button>&nbsp;&nbsp;
                     <button type="button" onClick={() => saveNumeroPatenteSecondColumn(1)}>1</button>
+    */}
                 </div>
-                <div className="col-md-1">
+                <div className="col-md-2">
                 </div>
-                <div className="col-md-4">Valido hasta el 31/10/2023<br></br>Dia
+                <div className="col-md-2"><br></br><h4>Dia</h4>
                 </div>
+                {/*<div className="col-md-4">Valido hasta el 31/10/2023<br></br>Dia
+                </div>
+    */}
                 <div className="col-md-2">
                 </div>
                 <div className="col-md-2"></div>
@@ -125,17 +204,46 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
+                    <Button
+                        text="2"
+                        backgroundColor={selectedButtonFirstPatent === "2a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("2a"); saveNumeroPatenteFirstColumn(2) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="2"
+                        backgroundColor={selectedButtonSecondtPatent === "2b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("2b"); saveNumeroPatenteSecondColumn(2) }}
+                    />
+                    {/*
                     <button type="button" onClick={() => saveNumeroPatenteFirstColumn(2)}>2</button>&nbsp;&nbsp;
                     <button type="button" onClick={() => saveNumeroPatenteSecondColumn(2)}>2</button>
+*/}
                 </div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNombreDia("Lunes")}>Lunes</button>&nbsp;&nbsp;
+                    <Button
+                        text="Lunes"
+                        backgroundColor={selectedButtonNameDay === "Lunes" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNameDay("Lunes"); saveNombreDia("Lunes") }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNombreDia("Martes")}>Martes</button>&nbsp;&nbsp;
+                    <Button
+                        text="Martes"
+                        backgroundColor={selectedButtonNameDay === "Martes" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNameDay("Martes"); saveNombreDia("Martes") }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
+
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNombreDia("Miercoles")}>Miercoles</button>&nbsp;&nbsp;
+                    <Button
+                        text="Miercoles"
+                        backgroundColor={selectedButtonNameDay === "Miercoles" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNameDay("Miercoles"); saveNombreDia("Miercoles") }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
                 <div className="col-md-2"></div>
             </div>
@@ -143,17 +251,42 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroPatenteFirstColumn(3)}>3</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroPatenteSecondColumn(3)}>3</button>
+                    <Button
+                        text="3"
+                        backgroundColor={selectedButtonFirstPatent === "3a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("3a"); saveNumeroPatenteFirstColumn(3) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="3"
+                        backgroundColor={selectedButtonSecondtPatent === "3b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("3b"); saveNumeroPatenteSecondColumn(3) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNombreDia("Jueves")}>Jueves</button>&nbsp;&nbsp;
+                    <Button
+                        text="Jueves"
+                        backgroundColor={selectedButtonNameDay === "Jueves" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNameDay("Jueves"); saveNombreDia("Jueves") }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNombreDia("Viernes")}>Viernes</button>&nbsp;&nbsp;
+                    <Button
+                        text="Viernes"
+                        backgroundColor={selectedButtonNameDay === "Viernes" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNameDay("Viernes"); saveNombreDia("Viernes") }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNombreDia("Sabado")}>Sabado</button>&nbsp;&nbsp;
+                    <Button
+                        text="Sabado"
+                        backgroundColor={selectedButtonNameDay === "Sabado" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNameDay("Sabado"); saveNombreDia("Sabado") }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
                 <div className="col-md-2"></div>
             </div>
@@ -162,20 +295,63 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroPatenteFirstColumn(4)}>4</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroPatenteSecondColumn(4)}>4</button>
+                    <Button
+                        text="4"
+                        backgroundColor={selectedButtonFirstPatent === "4a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("4a"); saveNumeroPatenteFirstColumn(4) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="4"
+                        backgroundColor={selectedButtonSecondtPatent === "4b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("4b"); saveNumeroPatenteSecondColumn(4) }}
+                    />
+                    &nbsp;&nbsp;
+
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(1)}>1</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(2)}>2</button>
+                <div className="col-md-2">
+                    <Button
+                        text="1"
+                        backgroundColor={selectedButtonNumberDay === "1" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("1"); saveNumeroDia(1) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="2"
+                        backgroundColor={selectedButtonNumberDay === "2" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("2"); saveNumeroDia(2) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(3)}>3</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(4)}>4</button>
+                {/*div className="col-md-1"></div>*/}
+                <div className="col-md-2">
+                    <Button
+                        text="3"
+                        backgroundColor={selectedButtonNumberDay === "3" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("3"); saveNumeroDia(3) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="4"
+                        backgroundColor={selectedButtonNumberDay === "4" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("4"); saveNumeroDia(4) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(5)}>5</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(6)}>6</button>
+                {/*<div className="col-md-1"></div>*/}
+                <div className="col-md-2">
+                    <Button
+                        text="5"
+                        backgroundColor={selectedButtonNumberDay === "5" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("5"); saveNumeroDia(5) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="6"
+                        backgroundColor={selectedButtonNumberDay === "6" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("6"); saveNumeroDia(6) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
             </div>
             <p></p>
@@ -183,20 +359,61 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroPatenteFirstColumn(5)}>5</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroPatenteSecondColumn(5)}>5</button>
+                    <Button
+                        text="5"
+                        backgroundColor={selectedButtonFirstPatent === "5a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("5a"); saveNumeroPatenteFirstColumn(5) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="5"
+                        backgroundColor={selectedButtonSecondtPatent === "5b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("5b"); saveNumeroPatenteSecondColumn(5) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(7)}>7</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(8)}>8</button>
+                <div className="col-md-2">
+                    <Button
+                        text="7"
+                        backgroundColor={selectedButtonNumberDay === "7" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("7"); saveNumeroDia(7) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="8"
+                        backgroundColor={selectedButtonNumberDay === "8" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("8"); saveNumeroDia(8) }}
+                    />
+                    &nbsp;&nbsp;
+
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(9)}>9</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(10)}>10</button>
+                <div className="col-md-2">
+                    <Button
+                        text="9"
+                        backgroundColor={selectedButtonNumberDay === "9" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("9"); saveNumeroDia(9) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="10"
+                        backgroundColor={selectedButtonNumberDay === "10" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("10"); saveNumeroDia(10) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(11)}>11</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(12)}>12</button>
+                <div className="col-md-2">
+                    <Button
+                        text="11"
+                        backgroundColor={selectedButtonNumberDay === "11" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("11"); saveNumeroDia(11) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="12"
+                        backgroundColor={selectedButtonNumberDay === "12" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("12"); saveNumeroDia(12) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
             </div>
             <p></p>
@@ -204,20 +421,61 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroPatenteFirstColumn(6)}>6</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroPatenteSecondColumn(6)}>6</button>
+                    <Button
+                        text="6"
+                        backgroundColor={selectedButtonFirstPatent === "6a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("6a"); saveNumeroPatenteFirstColumn(6) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="6"
+                        backgroundColor={selectedButtonSecondtPatent === "6b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("6b"); saveNumeroPatenteSecondColumn(6) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(13)}>13</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(14)}>14</button>
+                <div className="col-md-2">
+                    <Button
+                        text="13"
+                        backgroundColor={selectedButtonNumberDay === "13" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("13"); saveNumeroDia(13) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="14"
+                        backgroundColor={selectedButtonNumberDay === "14" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("14"); saveNumeroDia(14) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(15)}>15</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(16)}>16</button>
+                <div className="col-md-2">
+                    <Button
+                        text="15"
+                        backgroundColor={selectedButtonNumberDay === "15" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("15"); saveNumeroDia(15) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="16"
+                        backgroundColor={selectedButtonNumberDay === "16" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("16"); saveNumeroDia(16) }}
+                    />
+                    &nbsp;&nbsp;
+
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(17)}>17</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(18)}>18</button>
+                <div className="col-md-2">
+                    <Button
+                        text="15"
+                        backgroundColor={selectedButtonNumberDay === "17" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("17"); saveNumeroDia(17) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="18"
+                        backgroundColor={selectedButtonNumberDay === "18" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("18"); saveNumeroDia(18) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
             </div>
             <p></p>
@@ -225,20 +483,58 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroPatenteFirstColumn(7)}>7</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroPatenteSecondColumn(7)}>7</button>
+                    <Button
+                        text="7"
+                        backgroundColor={selectedButtonFirstPatent === "7a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("7a"); saveNumeroPatenteFirstColumn(7) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="7"
+                        backgroundColor={selectedButtonSecondtPatent === "7b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("7b"); saveNumeroPatenteSecondColumn(7) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(19)}>19</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(20)}>20</button>
+                <div className="col-md-2">
+                    <Button
+                        text="19"
+                        backgroundColor={selectedButtonNumberDay === "19" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("19"); saveNumeroDia(19) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="20"
+                        backgroundColor={selectedButtonNumberDay === "20" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("20"); saveNumeroDia(20) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(21)}>21</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(22)}>22</button>
+                <div className="col-md-2">
+                    <Button
+                        text="21"
+                        backgroundColor={selectedButtonNumberDay === "21" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("21"); saveNumeroDia(21) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="22"
+                        backgroundColor={selectedButtonNumberDay === "22" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("22"); saveNumeroDia(22) }}
+                    />
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(23)}>23</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(24)}>24</button>
+                <div className="col-md-2">
+                    <Button
+                        text="23"
+                        backgroundColor={selectedButtonNumberDay === "23" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("23"); saveNumeroDia(23) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="24"
+                        backgroundColor={selectedButtonNumberDay === "24" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("24"); saveNumeroDia(24) }}
+                    />
                 </div>
             </div>
             <p></p>
@@ -246,20 +542,57 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroPatenteFirstColumn(8)}>8</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroPatenteSecondColumn(8)}>8</button>
+                    <Button
+                        text="8"
+                        backgroundColor={selectedButtonFirstPatent === "8a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("8a"); saveNumeroPatenteFirstColumn(8) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="8"
+                        backgroundColor={selectedButtonSecondtPatent === "8b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("8b"); saveNumeroPatenteSecondColumn(8) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(25)}>25</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(26)}>26</button>
+                <div className="col-md-2">
+                    <Button
+                        text="25"
+                        backgroundColor={selectedButtonNumberDay === "25" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("25"); saveNumeroDia(25) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="26"
+                        backgroundColor={selectedButtonNumberDay === "26" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("26"); saveNumeroDia(26) }}
+                    />
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(27)}>27</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(28)}>28</button>
+                <div className="col-md-2">
+                    <Button
+                        text="27"
+                        backgroundColor={selectedButtonNumberDay === "27" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("27"); saveNumeroDia(27) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="28"
+                        backgroundColor={selectedButtonNumberDay === "28" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("28"); saveNumeroDia(28) }}
+                    />
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(29)}>29</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroDia(30)}>30</button>
+                <div className="col-md-2">
+                    <Button
+                        text="29"
+                        backgroundColor={selectedButtonNumberDay === "29" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("29"); saveNumeroDia(29) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="30"
+                        backgroundColor={selectedButtonNumberDay === "30" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("30"); saveNumeroDia(30) }}
+                    />
                 </div>
             </div>
             <p></p>
@@ -267,11 +600,26 @@ export default function ActivarTarjeta() {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroPatenteFirstColumn(9)}>9</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroPatenteSecondColumn(9)}>9</button>
+                    <Button
+                        text="9"
+                        backgroundColor={selectedButtonFirstPatent === "9a" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonFirstPatent("9a"); saveNumeroPatenteFirstColumn(9) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="9"
+                        backgroundColor={selectedButtonSecondtPatent === "9b" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonSecondtPatent("9b"); saveNumeroPatenteSecondColumn(9) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
-                <div className="col-md-1">
-                    <button type="button" onClick={() => saveNumeroDia(31)}>31</button>&nbsp;&nbsp;
+                <div className="col-md-2">
+                    <Button
+                        text="31"
+                        backgroundColor={selectedButtonNumberDay === "31" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonNumberDay("31"); saveNumeroDia(31) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
             </div>
 
@@ -290,17 +638,56 @@ export default function ActivarTarjeta() {
             </div>
             <div className="row">
                 <div className="col-md-2"></div>
-                <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroHora(8)}>8</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroHora(9)}>9</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroHora(10)}>10</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroHora(11)}>11</button>&nbsp;&nbsp;
+                <div className="col-md-4">
+                    <Button
+                        text="8"
+                        backgroundColor={selectedButtonHour === "8" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("8"); saveNumeroHora(8) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="9"
+                        backgroundColor={selectedButtonHour === "9" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("9"); saveNumeroHora(9) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="10"
+                        backgroundColor={selectedButtonHour === "10" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("10"); saveNumeroHora(10) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="11"
+                        backgroundColor={selectedButtonHour === "11" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("11"); saveNumeroHora(11) }}
+                    />
                 </div>
                 <div className="col-md-4">
-                    <button type="button" onClick={() => saveNumeroMinutos(0)}>00</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroMinutos(5)}>05</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroMinutos(10)}>10</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroMinutos(15)}>15</button>&nbsp;&nbsp;
+                    <Button
+                        text="00"
+                        backgroundColor={selectedButtonMinutes === "0" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("0"); saveNumeroHora(0) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="05"
+                        backgroundColor={selectedButtonHour === "5" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("5"); saveNumeroHora(5) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="10"
+                        backgroundColor={selectedButtonHour === "10" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("10"); saveNumeroHora(10) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="15"
+                        backgroundColor={selectedButtonHour === "15" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("15"); saveNumeroHora(15) }}
+                    />
+
                 </div>
             </div>
             <p></p>
