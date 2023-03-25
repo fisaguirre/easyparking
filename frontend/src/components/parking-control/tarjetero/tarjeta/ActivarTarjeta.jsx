@@ -465,7 +465,7 @@ export default function ActivarTarjeta() {
                 </div>
                 <div className="col-md-2">
                     <Button
-                        text="15"
+                        text="17"
                         backgroundColor={selectedButtonNumberDay === "17" ? "gray" : "#f0f0f0"}
                         onClick={() => { setSelectedButtonNumberDay("17"); saveNumeroDia(17) }}
                     />

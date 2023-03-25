@@ -84,27 +84,34 @@ export const PruebaRetornoFunction = (props) => {
 
 
 export const InstanciarTarjeta = (props) => {
+
     let token = sessionStorage.getItem("token")
     const usuario_id = sessionStorage.getItem("usuario_id")
 
     const createCard = async (patenteA, patenteB, mes, dia_semana, dia_fecha, hora, minutos) => {
-        const patente = '' + patenteA + patenteB
-        const res = await fetch(`${API}/tarjeta_instancia/activar`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": token
-            },
-            body: JSON.stringify({
-                mes,
-                dia_semana,
-                dia_fecha,
-                hora,
-                minutos,
-                patente,
-                usuario_id
-            }),
-        });
+        if (patenteA == null || patenteB == null || mes == null || dia_semana == null || dia_fecha == null || hora == null || minutos == null) {
+            const rechazarTarjeta = window.confirm("Debe seleccionar todos los campos para activar una tarjeta");
+        }
+        else {
+
+            const patente = '' + patenteA + patenteB
+            const res = await fetch(`${API}/tarjeta_instancia/activar`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": token
+                },
+                body: JSON.stringify({
+                    mes,
+                    dia_semana,
+                    dia_fecha,
+                    hora,
+                    minutos,
+                    patente,
+                    usuario_id
+                }),
+            });
+        }
     };
 
     return (
