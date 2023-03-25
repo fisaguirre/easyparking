@@ -309,13 +309,13 @@ export default function ActivarTarjeta() {
                     &nbsp;&nbsp;
 
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-1">
                     <Button
                         text="1"
                         backgroundColor={selectedButtonNumberDay === "1" ? "gray" : "#f0f0f0"}
                         onClick={() => { setSelectedButtonNumberDay("1"); saveNumeroDia(1) }}
                     />
-                    &nbsp;&nbsp;
+                    &nbsp;
                     <Button
                         text="2"
                         backgroundColor={selectedButtonNumberDay === "2" ? "gray" : "#f0f0f0"}
@@ -324,13 +324,13 @@ export default function ActivarTarjeta() {
                     &nbsp;&nbsp;
                 </div>
                 {/*div className="col-md-1"></div>*/}
-                <div className="col-md-2">
+                <div className="col-md-1">
                     <Button
                         text="3"
                         backgroundColor={selectedButtonNumberDay === "3" ? "gray" : "#f0f0f0"}
                         onClick={() => { setSelectedButtonNumberDay("3"); saveNumeroDia(3) }}
                     />
-                    &nbsp;&nbsp;
+                    &nbsp;
                     <Button
                         text="4"
                         backgroundColor={selectedButtonNumberDay === "4" ? "gray" : "#f0f0f0"}
@@ -339,13 +339,13 @@ export default function ActivarTarjeta() {
                     &nbsp;&nbsp;
                 </div>
                 {/*<div className="col-md-1"></div>*/}
-                <div className="col-md-2">
+                <div className="col-md-1">
                     <Button
                         text="5"
                         backgroundColor={selectedButtonNumberDay === "5" ? "gray" : "#f0f0f0"}
                         onClick={() => { setSelectedButtonNumberDay("5"); saveNumeroDia(5) }}
                     />
-                    &nbsp;&nbsp;
+                    &nbsp;
                     <Button
                         text="6"
                         backgroundColor={selectedButtonNumberDay === "6" ? "gray" : "#f0f0f0"}
@@ -401,13 +401,13 @@ export default function ActivarTarjeta() {
                     />
                     &nbsp;&nbsp;
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-1">
                     <Button
                         text="11"
                         backgroundColor={selectedButtonNumberDay === "11" ? "gray" : "#f0f0f0"}
                         onClick={() => { setSelectedButtonNumberDay("11"); saveNumeroDia(11) }}
                     />
-                    &nbsp;&nbsp;
+                    &nbsp;
                     <Button
                         text="12"
                         backgroundColor={selectedButtonNumberDay === "12" ? "gray" : "#f0f0f0"}
@@ -628,9 +628,12 @@ export default function ActivarTarjeta() {
             <p></p>
             <div className="row">
                 <div className="col-md-2"></div>
+                <div className="col-md-1"></div>
                 <div className="col-md-2"><h4>Hora</h4>
                 </div>
                 <div className="col-md-2"></div>
+                <div className="col-md-1"></div>
+
                 <div className="col-md-2"><h4>Minutos</h4>
                 </div>
                 <div className="col-md-2">
@@ -667,19 +670,49 @@ export default function ActivarTarjeta() {
                     <Button
                         text="00"
                         backgroundColor={selectedButtonMinutes === "0" ? "gray" : "#f0f0f0"}
-                        onClick={() => { setSelectedButtonMinutes("0"); saveNumeroHora(0) }}
+                        onClick={() => { setSelectedButtonMinutes("0"); saveNumeroMinutos(0) }}
                     />
                     &nbsp;&nbsp;
                     <Button
                         text="05"
-                        backgroundColor={selectedButtonHour === "5" ? "gray" : "#f0f0f0"}
-                        onClick={() => { setSelectedButtonHour("5"); saveNumeroHora(5) }}
+                        backgroundColor={selectedButtonMinutes === "5" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("5"); saveNumeroMinutos(5) }}
                     />
                     &nbsp;&nbsp;
                     <Button
                         text="10"
-                        backgroundColor={selectedButtonHour === "10" ? "gray" : "#f0f0f0"}
-                        onClick={() => { setSelectedButtonHour("10"); saveNumeroHora(10) }}
+                        backgroundColor={selectedButtonMinutes === "10" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("10"); saveNumeroMinutos(10) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="15"
+                        backgroundColor={selectedButtonMinutes === "15" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("15"); saveNumeroMinutos(15) }}
+                    />
+
+                </div>
+            </div>
+            <p></p>
+            <div className="row">
+                <div className="col-md-2"></div>
+                <div className="col-md-4">
+                    <Button
+                        text="12"
+                        backgroundColor={selectedButtonHour === "12" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("12"); saveNumeroHora(12) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="13"
+                        backgroundColor={selectedButtonHour === "13" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("13"); saveNumeroHora(13) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="14"
+                        backgroundColor={selectedButtonHour === "14" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("14"); saveNumeroHora(14) }}
                     />
                     &nbsp;&nbsp;
                     <Button
@@ -689,44 +722,96 @@ export default function ActivarTarjeta() {
                     />
 
                 </div>
+                <div className="col-md-4">
+                    <Button
+                        text="20"
+                        backgroundColor={selectedButtonMinutes === "20" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("20"); saveNumeroMinutos(20) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="25"
+                        backgroundColor={selectedButtonMinutes === "25" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("25"); saveNumeroMinutos(25) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="30"
+                        backgroundColor={selectedButtonMinutes === "30" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("30"); saveNumeroMinutos(30) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="35"
+                        backgroundColor={selectedButtonMinutes === "35" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("35"); saveNumeroMinutos(35) }}
+                    />
+                </div>
             </div>
             <p></p>
             <div className="row">
                 <div className="col-md-2"></div>
-                <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroHora(12)}>12</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroHora(13)}>13</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroHora(14)}>14</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroHora(15)}>15</button>&nbsp;&nbsp;
+                <div className="col-md-4">
+                    <Button
+                        text="16"
+                        backgroundColor={selectedButtonHour === "16" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("16"); saveNumeroHora(16) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="17"
+                        backgroundColor={selectedButtonHour === "17" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("17"); saveNumeroHora(17) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="18"
+                        backgroundColor={selectedButtonHour === "18" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("18"); saveNumeroHora(18) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="19"
+                        backgroundColor={selectedButtonHour === "19" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("19"); saveNumeroHora(19) }}
+                    />
                 </div>
                 <div className="col-md-4">
-                    <button type="button" onClick={() => saveNumeroMinutos(20)}>20</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroMinutos(25)}>25</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroMinutos(30)}>30</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroMinutos(35)}>35</button>&nbsp;&nbsp;
+                    <Button
+                        text="40"
+                        backgroundColor={selectedButtonMinutes === "40" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("40"); saveNumeroMinutos(40) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="45"
+                        backgroundColor={selectedButtonMinutes === "45" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("45"); saveNumeroMinutos(45) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="50"
+                        backgroundColor={selectedButtonMinutes === "50" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("50"); saveNumeroMinutos(50) }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                        text="55"
+                        backgroundColor={selectedButtonMinutes === "5" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonMinutes("55"); saveNumeroMinutos(55) }}
+                    />
                 </div>
             </div>
             <p></p>
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroHora(16)}>16</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroHora(17)}>17</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroHora(18)}>18</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroHora(19)}>19</button>&nbsp;&nbsp;
-                </div>
-                <div className="col-md-4">
-                    <button type="button" onClick={() => saveNumeroMinutos(40)}>40</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroMinutos(45)}>45</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroMinutos(50)}>50</button>&nbsp;&nbsp;
-                    <button type="button" onClick={() => saveNumeroMinutos(55)}>55</button>&nbsp;&nbsp;
-                </div>
-            </div>
-            <p></p>
-            <div className="row">
-                <div className="col-md-2"></div>
-                <div className="col-md-2">
-                    <button type="button" onClick={() => saveNumeroHora(20)}>20</button>&nbsp;&nbsp;
+                    <Button
+                        text="20"
+                        backgroundColor={selectedButtonHour === "20" ? "gray" : "#f0f0f0"}
+                        onClick={() => { setSelectedButtonHour("20"); saveNumeroHora(20) }}
+                    />
+                    &nbsp;&nbsp;
                 </div>
                 <div className="col-md-4">
                 </div>
