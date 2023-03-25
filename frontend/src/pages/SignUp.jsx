@@ -13,6 +13,7 @@ const SignUp = () => {
     const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [dni, setDni] = useState("");
     const [rol, setRol] = useState('');
 
     const [editing, setEditing] = useState(false);
@@ -42,55 +43,61 @@ const SignUp = () => {
                 lastname,
                 email,
                 password,
+                dni,
                 rol
             }),
         });
-        const uuid = await res.json();
-        console.log(uuid)
+        const response = await res.json();
 
         usernameInput.current.focus();
+        if (response[1]["code"] == 201) {
+            const uuid = response[2]["uuid"]
+            if (uuid) {
+                const res2 = await fetch(`${API_PAYMENT}/auth/signup`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-access-token": token
+                    },
+                    body: JSON.stringify({
+                        uuid,
+                        username,
+                        name,
+                        lastname,
+                        email,
+                        password,
+                        dni,
+                        rol
+                    }),
+                });
 
-        if (uuid) {
-            const res2 = await fetch(`${API_PAYMENT}/auth/signup`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-access-token": token
-                },
-                body: JSON.stringify({
-                    uuid,
-                    username,
-                    name,
-                    lastname,
-                    email,
-                    password,
-                    rol
-                }),
-            });
+                const response2 = await res2.json();
+                console.log(response2)
 
-            const data2 = await res2.json();
-            console.log(data2)
-            /*
-            const res3 = await fetch(`${API_LOCATION}/auth/signup`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                     "x-access-token": token
-                },
-                body: JSON.stringify({
-                    uuid,
-                    username,
-                    name,
-                    lastname,
-                    email,
-                    password,
-                    rol
-                }),
-            });
-            const data3 = await res3.json();
-            console.log(data2)
-                */
+                const res3 = await fetch(`${API_LOCATION}/auth/signup`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-access-token": token
+                    },
+                    body: JSON.stringify({
+                        uuid,
+                        username,
+                        name,
+                        lastname,
+                        email,
+                        password,
+                        dni,
+                        rol
+                    }),
+                });
+                const response3 = await res3.json();
+                window.confirm(response3[0]['message'])
 
+            }
+        }
+        else {
+            window.confirm(response[0]['message']);
         }
     };
 
@@ -156,6 +163,15 @@ const SignUp = () => {
                             value={password}
                             className="form-control"
                             placeholder="User's Password"
+                        />
+                    </div>
+                    <div className="form-group">DNI
+                        <input
+                            type="text"
+                            onChange={(e) => setDni(e.target.value)}
+                            value={dni}
+                            className="form-control"
+                            placeholder="dni"
                         />
                     </div>
                     <p></p>

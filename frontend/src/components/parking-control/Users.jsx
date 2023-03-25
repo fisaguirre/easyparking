@@ -94,6 +94,7 @@ const Users = () => {
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>DNI</th>
                             <th>Username</th>
                             <th>Name</th>
                             <th>LastName</th>
@@ -107,6 +108,7 @@ const Users = () => {
                         {users.map((user) => (
                             <tr key={user.usuario_id}>
                                 <td>{user.usuario_id}</td>
+                                <td>{user.dni}</td>
                                 <td>{user.username}</td>
                                 <td>{user.nombre}</td>
                                 <td>{user.apellido}</td>
@@ -164,7 +166,7 @@ const Users = () => {
                     </tbody>
                     <p></p>
                     <div>
-                        <Link id="signup-link" to="/auth/signup">
+                        <Link id="signup-link" to="/signup">
                             <button type="button" id="signup-button" className="btn btn-info">Registrar nuevo usuario</button>
                         </Link>
                     </div>

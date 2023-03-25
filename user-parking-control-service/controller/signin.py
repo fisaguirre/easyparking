@@ -57,7 +57,7 @@ def login(auth, mysql, app):
     user = cursor.fetchone()
 
     new_user = User(user['public_id'],  user['username'], user['password'], user['nombre'],
-                    user['apellido'], user['email'], user['rol'])
+                    user['apellido'], user['email'], user['dni'], user['rol'])
 
     if not user:
         # returns 401 if user does not exist
@@ -76,7 +76,7 @@ def login(auth, mysql, app):
     if check_password_hash(new_user.get_password(), request.json['password']):
 
         token = jwt.encode({'public_id': new_user.get_public_id(), 'exp': datetime.utcnow(
-        ) + timedelta(minutes=5)}, app.config['SECRET_KEY'], "HS256")
+        ) + timedelta(minutes=20)}, app.config['SECRET_KEY'], "HS256")
 
         response = make_response(
             jsonify(

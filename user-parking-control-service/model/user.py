@@ -1,6 +1,6 @@
 class User:
 
-    def __init__(self, usuario_id, public_id, username, password, nombre, apellido, email, rol):
+    def __init__(self, usuario_id, public_id, username, password, nombre, apellido, email, dni, rol):
         self.__usuario_id = usuario_id
         self.__public_id = public_id
         self.__username = username
@@ -8,18 +8,20 @@ class User:
         self.__nombre = nombre
         self.__apellido = apellido
         self.__email = email
+        self.__dni = dni
         self.__rol = rol
 
-    def __init__(self, public_id, username, password, nombre, apellido, email, rol):
+    def __init__(self, public_id, username, password, nombre, apellido, email, dni, rol):
         self.__public_id = public_id
         self.__username = username
         self.__password = password
         self.__nombre = nombre
         self.__apellido = apellido
         self.__email = email
+        self.__dni = dni
         self.__rol = rol
 
-    def get_user(self, usuario_id, public_id, username, password, nombre, apellido, email, rol):
+    def get_user(self, usuario_id, public_id, username, password, nombre, apellido, email, dni, rol):
         return self.__usuario_id
         return self.__public_id
         return self.__username
@@ -27,6 +29,7 @@ class User:
         return self.__nombre
         return self.__apellido
         return self.__email
+        return self.__dni
         return self.__rol
 
     # getter method
@@ -50,6 +53,9 @@ class User:
 
     def get_email(self):
         return self.__email
+
+    def get_dni(self):
+        return self.__dni
 
     def get_rol(self):
         return self.__rol

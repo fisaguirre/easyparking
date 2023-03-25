@@ -56,11 +56,8 @@ export default function ActivarTarjeta() {
         setButtonActivarTarjeta(buttonValue);
     };
 
-
-
-
-
     const getAmountCards = async () => {
+        console.log(token)
         const res = await fetch(`${API}/tarjetas/${usuario_id_logueado}`, {
             mmethod: "GET",
             headers: {
@@ -115,11 +112,18 @@ export default function ActivarTarjeta() {
         <div>
             <div className="row">
                 <div className="col-md-8">
-                    <h2>Tarjetas disponibles en su cuentassss: {amountCards.cantidad_tarjeta}</h2>
                 </div>
-                <p></p>
+                <div className="col-md-2">
+                </div>
+                <div className="col-md-1">
+                    Disponibles:
+                </div>
+                <div className="col-md-1">
+                    <h5>{amountCards.cantidad_tarjeta}</h5>
+                </div>
 
             </div>
+            {/*
             <div className="row">
                 <h1>Patente A: {numeroPatenteFirstColumn}</h1>
                 <h1>Patente B: {numeroPatenteSecondColumn}</h1>
@@ -129,6 +133,7 @@ export default function ActivarTarjeta() {
                 <h1>Numero hora: {numeroHora}</h1>
                 <h1>Numero minutos: {numeroMinutos}</h1>
             </div>
+    */}
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-2"><h3>mendoza ciudad</h3>

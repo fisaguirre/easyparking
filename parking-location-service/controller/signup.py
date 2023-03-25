@@ -28,7 +28,9 @@ def register(request, mysql, app):
         new_password = generate_password_hash(user_signup_data.get('password'))
         # recibo uuid como parametro para que sean iguales en las 3 bases de datos sino no va a poder iniciar sesion
         new_user = User(request.json['uuid'], user_signup_data.get('username'),  new_password,
-                        user_signup_data.get('name'), user_signup_data.get('lastname'), user_signup_data.get('email'), user_signup_data.get('rol'))
+                        user_signup_data.get('name'), user_signup_data.get(
+                            'lastname'), user_signup_data.get('email'),
+                        user_signup_data.get('dni'), user_signup_data.get('rol'))
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
@@ -41,7 +43,8 @@ def register(request, mysql, app):
             # returns 202 if user already exists
             response = make_response(
                 jsonify(
-                    {"message": 'User already exists. Please Log in'}
+                    {"message": 'User already exists. Please Log in'},
+                    {"code": 202}
                 ),
                 202,
             )
@@ -57,7 +60,8 @@ def register(request, mysql, app):
             # returns 202 if user already exists
             response = make_response(
                 jsonify(
-                    {"message": 'User with that email already exists. Please Log in'}
+                    {"message": 'User with that email already exists. Please Log in'},
+                    {"code": 202}
                 ),
                 202,
             )
@@ -67,7 +71,8 @@ def register(request, mysql, app):
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', user_signup_data.get('email')):
             response = make_response(
                 jsonify(
-                    {"message": 'Invalid email address !'}
+                    {"message": 'Invalid email address !'},
+                    {"code": 400}
                 ),
                 400,
             )
@@ -77,7 +82,8 @@ def register(request, mysql, app):
         elif not re.match(r'[A-Za-z0-9]+', user_signup_data.get('username')):
             response = make_response(
                 jsonify(
-                    {"message": 'Username must contain only characters and numbers !'}
+                    {"message": 'Username must contain only characters and numbers !'},
+                    {"code": 400}
                 ),
                 400,
             )
@@ -91,16 +97,17 @@ def register(request, mysql, app):
             data = (new_user.get_public_id(),
                     new_user.get_username(), new_user.get_password(
             ), new_user.get_nombre(), new_user.get_apellido(),
-                new_user.get_email(), new_user.get_rol())
+                new_user.get_email(), new_user.get_dni(), new_user.get_rol())
 
             cursor.execute(
-                "insert into usuario values(NULL, %s, %s, %s, %s, %s, %s, %s)", data)
+                "insert into usuario values(NULL, %s, %s, %s, %s, %s, %s, %s, %s)", data)
             mysql.connection.commit()
             cursor.close()
 
             response = make_response(
                 jsonify(
-                    {"message": 'Successfully registered'}
+                    {"message": 'Successfully registered'},
+                    {"code": 201}
                 ),
                 201,
             )

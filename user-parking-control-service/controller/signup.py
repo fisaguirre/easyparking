@@ -29,7 +29,7 @@ def register(request, mysql, app):
         new_uuid = str(uuid.uuid4())
 
         new_user = User(new_uuid, user_signup_data.get('username'),  new_password,
-                        user_signup_data.get('name'), user_signup_data.get('lastname'), user_signup_data.get('email'), user_signup_data.get('rol'))
+                        user_signup_data.get('name'), user_signup_data.get('lastname'), user_signup_data.get('email'), user_signup_data.get('dni'), user_signup_data.get('rol'))
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
@@ -42,7 +42,8 @@ def register(request, mysql, app):
             # returns 202 if user already exists
             response = make_response(
                 jsonify(
-                    {"message": 'User already exists. Please Log in'}
+                    {"message": 'User already exists. Please Log in'},
+                    {"code": 202}
                 ),
                 202,
             )
@@ -58,7 +59,8 @@ def register(request, mysql, app):
             # returns 202 if user already exists
             response = make_response(
                 jsonify(
-                    {"message": 'User with that email already exists. Please Log in'}
+                    {"message": 'User with that email already exists. Please Log in'},
+                    {"code": 202}
                 ),
                 202,
             )
@@ -68,7 +70,8 @@ def register(request, mysql, app):
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', user_signup_data.get('email')):
             response = make_response(
                 jsonify(
-                    {"message": 'Invalid email address !'}
+                    {"message": 'Invalid email address !'},
+                    {"message": 400}
                 ),
                 400,
             )
@@ -78,7 +81,8 @@ def register(request, mysql, app):
         elif not re.match(r'[A-Za-z0-9]+', user_signup_data.get('username')):
             response = make_response(
                 jsonify(
-                    {"message": 'Username must contain only characters and numbers !'}
+                    {"message": 'Username must contain only characters and numbers !'},
+                    {"code": 400}
                 ),
                 400,
             )
@@ -92,16 +96,18 @@ def register(request, mysql, app):
             data = (new_user.get_public_id(),
                     new_user.get_username(), new_user.get_password(
             ), new_user.get_nombre(), new_user.get_apellido(),
-                new_user.get_email(), new_user.get_rol())
+                new_user.get_email(), new_user.get_dni(), new_user.get_rol())
 
             cursor.execute(
-                "insert into usuario values(NULL, %s, %s, %s, %s, %s, %s, %s)", data)
+                "insert into usuario values(NULL, %s, %s, %s, %s, %s, %s, %s, %s)", data)
             mysql.connection.commit()
             cursor.close()
 
             response = make_response(
                 jsonify(
-                    new_uuid
+                    {"message": "Se registro el usuario"},
+                    {"code": 201},
+                    {"uuid": new_uuid}
                 ),
                 201,
             )
@@ -110,7 +116,8 @@ def register(request, mysql, app):
     elif request.method == 'POST':
         response = make_response(
             jsonify(
-                {"message": 'Please fill out the form !'}
+                {"message": 'Please fill out the form !'},
+                {"code": 201}
             ),
             201,
         )
