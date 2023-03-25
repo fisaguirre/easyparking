@@ -1,18 +1,16 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { InstanciarTarjeta, PruebaRetornoFunction } from "./service/TarjetaService";
 import './style.css';
 import { Button } from "./Button";
 import { Button2 } from "./Button";
+const API = process.env.REACT_APP_API_USER;
 
 export default function ActivarTarjeta() {
-    const [color, setColor] = useState("red");
-    const [selectedButton, setSelectedButton] = useState(null);
-    const [selectedButton2, setSelectedButton2] = useState(null);
-    const [selectedButton3, setSelectedButton3] = useState(null);
-    const [selectedButton4, setSelectedButton4] = useState(null);
-
+    let [amountCards, setAmountCards] = useState([]);
+    const usuario_id_logueado = sessionStorage.getItem("usuario_id")
+    let token = sessionStorage.getItem("token")
     const [selectedButtonFirstPatent, setSelectedButtonFirstPatent] = useState(null);
     const [selectedButtonSecondtPatent, setSelectedButtonSecondtPatent] = useState(null);
     const [selectedButtonMonth, setSelectedButtonMonth] = useState(null);
@@ -31,51 +29,97 @@ export default function ActivarTarjeta() {
     const [activarTarjeta, setButtonActivarTarjeta] = useState();
 
     const saveNumeroPatenteFirstColumn = (buttonValue) => {
-        // 👇 "message" stores input field value
         setNumeroPatenteFirstColumn(buttonValue);
     };
 
     const saveNumeroPatenteSecondColumn = (buttonValue) => {
-        // 👇 "message" stores input field value
         setNumeroPatenteSecondColumn(buttonValue);
     };
 
     const saveNombreMes = (buttonValue) => {
-        // 👇 "message" stores input field value
         setNombreMes(buttonValue);
     };
     const saveNombreDia = (buttonValue) => {
-        // 👇 "message" stores input field value
         setNombreDia(buttonValue);
     };
     const saveNumeroDia = (buttonValue) => {
-        // 👇 "message" stores input field value
         setNumeroDia(buttonValue);
     };
     const saveNumeroHora = (buttonValue) => {
-        // 👇 "message" stores input field value
         setNumeroHora(buttonValue);
     };
     const saveNumeroMinutos = (buttonValue) => {
-        // 👇 "message" stores input field value
         setNumeroMinutos(buttonValue);
     };
 
     const buttonActivarTarjeta = (buttonValue) => {
-        // 👇 "message" stores input field value
         setButtonActivarTarjeta(buttonValue);
     };
 
-    const handleClick = () => {
-        setColor("blue");
+
+
+
+
+    const getAmountCards = async () => {
+        const res = await fetch(`${API}/tarjetas/${usuario_id_logueado}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
+        const data = await res.json();
+
+        setAmountCards(data);
     };
 
-    const handleButtonClick = (button) => {
-        setSelectedButton(button);
+
+    const createCard = async (patenteA, patenteB, mes, dia_semana, dia_fecha, hora, minutos, usuario_id_logueado, amountCards) => {
+        if (patenteA == null || patenteB == null || mes == null || dia_semana == null || dia_fecha == null || hora == null || minutos == null) {
+            const rechazarTarjeta = window.confirm("Debe seleccionar todos los campos para activar una tarjeta");
+        }
+        else if (amountCards.cantidad_tarjeta == 0) {
+            const rechazarTarjeta = window.confirm("No posee tarjetas disponibles en su cuenta");
+        }
+        else {
+            const usuario_id = usuario_id_logueado
+            const patente = '' + patenteA + patenteB
+            const res = await fetch(`${API}/tarjeta_instancia/activar`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": token
+                },
+                body: JSON.stringify({
+                    mes,
+                    dia_semana,
+                    dia_fecha,
+                    hora,
+                    minutos,
+                    patente,
+                    usuario_id
+                }),
+            });
+            await getAmountCards();
+            const tarjetasDisponibles = amountCards.cantidad_tarjeta - 1
+            const tarjetaCreada = window.confirm("Se activo la tarjeta, quedan disponibles en su cuenta: " + " " + tarjetasDisponibles);
+
+        }
     };
+
+    useEffect(() => {
+        getAmountCards();
+    }, []);
 
     return (
         <div>
+            <div className="row">
+                <div className="col-md-8">
+                    <h2>Tarjetas disponibles en su cuentassss: {amountCards.cantidad_tarjeta}</h2>
+                </div>
+                <p></p>
+
+            </div>
             <div className="row">
                 <h1>Patente A: {numeroPatenteFirstColumn}</h1>
                 <h1>Patente B: {numeroPatenteSecondColumn}</h1>
@@ -817,6 +861,7 @@ export default function ActivarTarjeta() {
                 </div>
             </div>
             <p></p>
+            {/*
             <div>
                 <InstanciarTarjeta
                     patenteA={numeroPatenteFirstColumn}
@@ -828,6 +873,12 @@ export default function ActivarTarjeta() {
                     minutos={numeroMinutos}
                     activarTarjeta={activarTarjeta}
                 />
+            </div>
+*/}
+            <div>
+                <p></p>
+                <button type="button" id="signup-button" className="btn btn-info" onClick={(e) => createCard(numeroPatenteFirstColumn, numeroPatenteSecondColumn, nombreMes, nombreDia, numeroDia, numeroHora, numeroMinutos, usuario_id_logueado, amountCards)}
+                >Activar tarjeta</button>
             </div>
             <div>
                 <p></p>

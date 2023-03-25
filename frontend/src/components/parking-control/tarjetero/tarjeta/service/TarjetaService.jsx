@@ -111,6 +111,8 @@ export const InstanciarTarjeta = (props) => {
                     usuario_id
                 }),
             });
+            const tarjetaCreada = window.confirm("Se activo la tarjeta");
+
         }
     };
 
