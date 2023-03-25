@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AmountCardsByUser, PruebaRetornoFunction } from "./service/TarjetaService";
 import { AmountActivateCardsByUser } from "./service/TarjetaInstanciaService";
-
+import Card from "../Card";
 const API = process.env.REACT_APP_API_USER;
 
 const Tarjeta = () => {
@@ -58,6 +58,7 @@ const Tarjeta = () => {
                     <p></p>
 
                 </div>
+
                 <p></p>
                 <div className="col-md-3">
                     <Link id="signup-link" to="/tarjeta/activarTarjeta">
@@ -72,6 +73,13 @@ const Tarjeta = () => {
                     </Link>
                 </div>
                 <AmountActivateCardsByUser />
+            </div>
+            <div>
+                <Card
+                    tittle='card tittle'
+                    imageurl='https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&quality=85&auto=format&fit=max&s=a52bbe202f57ac0f5ff7f47166906403'
+                    body='cuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpito'
+                />
             </div>
         </div >
     );
