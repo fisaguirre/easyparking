@@ -1,5 +1,5 @@
 import React from "react";
-import "./Button.css";
+import "../styles/Cards.css"
 //Componente para cambiar el color del button al presionarlo
 export const Button = (props) => {
     //function Button(props) {

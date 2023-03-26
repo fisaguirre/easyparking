@@ -31,7 +31,7 @@ export const AmountActivateCardsByUser = () => {
             <p></p>
             <div className="row">
                 <div className="col-md-8">
-                    <h2>Tarjetas activas en su cuenta: {amountCards.cantidad_tarjeta}</h2>
+                    <h2>Tarjetas activas: {amountCards.cantidad_tarjeta}</h2>
                 </div>
                 <p></p>
 
@@ -68,8 +68,8 @@ export const AmountFinishedCardsByUser = () => {
         <div >
             <p></p>
             <div className="row">
-                <div className="col-md-8">
-                    <h2>Tarjetas pendientes por pagar: {amountFinishedCards.cantidad_tarjetas_finalizadas}</h2>
+                <div className="col-md-12">
+                    <h2>Pendientes por pagar: {amountFinishedCards.cantidad_tarjetas_finalizadas}</h2>
                 </div>
                 <p></p>
 

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { InstanciarTarjeta, PruebaRetornoFunction } from "./service/TarjetaService";
 import './style.css';
 import { Button } from "./Button";
-import { Button2 } from "./Button";
 import logo_municipalidad from './logo_municipalidad.png'
 
 const API = process.env.REACT_APP_API_USER;
@@ -113,15 +112,11 @@ export default function ActivarTarjeta() {
     return (
         <div>
             <div className="row">
-                <div className="col-md-8">
-                </div>
-                <div className="col-md-2">
-                </div>
-                <div className="col-md-1">
-                    Disponibles:
+                <div className="col-md-4">
+                    <h4>Disponibles: </h4>
                 </div>
                 <div className="col-md-1">
-                    <h5>{amountCards.cantidad_tarjeta}</h5>
+                    <h4>{amountCards.cantidad_tarjeta}</h4>
                 </div>
 
             </div>
@@ -139,13 +134,13 @@ export default function ActivarTarjeta() {
 
             <div className="card-container">
 
-                <div class="container">
+                <div class="container-columns">
                     <div class="side">
                         <img alt="municipalidad" width="100%" src={logo_municipalidad} />
                     </div>
                     <div class="side side-content-center">
                         <div>
-                            <p className="estacionamientoText">Programa de<br></br>estacionamiento medido<br></br>2023</p>
+                            <p className="estacionamientoText">Programa de<br></br>estacionamiento medido<br></br><h4>2023</h4></p>
                         </div>
                     </div>
                 </div>
@@ -159,11 +154,23 @@ export default function ActivarTarjeta() {
 
                 </div>
                 */}
+                {/*
                 <div className="row">
+                    
                     <h4>Patente</h4>
                     <h4>Mes</h4>
                 </div>
-
+            */}
+                <div class="container-columns">
+                    <div class="side">
+                        <h4>Patente</h4>
+                    </div>
+                    <div class="side side-content-center">
+                        <div>
+                            <h4>Mes</h4>
+                        </div>
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-md-12">
                         <Button
@@ -176,7 +183,7 @@ export default function ActivarTarjeta() {
                             text="0"
                             backgroundColor={selectedButtonSecondtPatent === "0b" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonSecondtPatent("0b"); saveNumeroPatenteSecondColumn(0) }}
-                        />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
                         <Button
                             text="Enero"
                             backgroundColor={selectedButtonMonth === "Enero" ? "gray" : "#f0f0f0"}
@@ -197,6 +204,7 @@ export default function ActivarTarjeta() {
 
                 <p></p>
                 <div className="row">
+                    {/*
                     <div className="col-md-12">
                         <Button
                             text="1"
@@ -210,7 +218,31 @@ export default function ActivarTarjeta() {
                             onClick={() => { setSelectedButtonSecondtPatent("1b"); saveNumeroPatenteSecondColumn(1) }}
                         /> &nbsp;&nbsp;
                     </div>
-                    <h4>DIa</h4>
+            */}
+                    <div class="container-columns">
+                        <div class="side">
+                            <Button
+                                text="1"
+                                backgroundColor={selectedButtonFirstPatent === "1a" ? "gray" : "#f0f0f0"}
+                                onClick={() => { setSelectedButtonFirstPatent("1a"); saveNumeroPatenteFirstColumn(1) }}
+                            />
+                            &nbsp;&nbsp;
+                            <Button
+                                text="1"
+                                backgroundColor={selectedButtonSecondtPatent === "1b" ? "gray" : "#f0f0f0"}
+                                onClick={() => { setSelectedButtonSecondtPatent("1b"); saveNumeroPatenteSecondColumn(1) }}
+                            /> &nbsp;&nbsp;
+
+                        </div>
+                        <div class="side side-content-center">
+                            <div>
+                                <h4>Dia</h4><br></br>
+                            </div>
+                        </div>
+                    </div>
+
+
+
 
                 </div>
 
@@ -226,7 +258,7 @@ export default function ActivarTarjeta() {
                             text="2"
                             backgroundColor={selectedButtonSecondtPatent === "2b" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonSecondtPatent("2b"); saveNumeroPatenteSecondColumn(2) }}
-                        /> &nbsp;&nbsp;
+                        /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                         <Button
                             text="Lunes"
                             backgroundColor={selectedButtonNameDay === "Lunes" ? "gray" : "#f0f0f0"}
@@ -261,7 +293,7 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonSecondtPatent === "3b" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonSecondtPatent("3b"); saveNumeroPatenteSecondColumn(3) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                         <Button
                             text="Jueves"
                             backgroundColor={selectedButtonNameDay === "Jueves" ? "gray" : "#f0f0f0"}
@@ -297,7 +329,7 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonSecondtPatent === "4b" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonSecondtPatent("4b"); saveNumeroPatenteSecondColumn(4) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
 
                         <Button
                             text="1"
@@ -310,19 +342,19 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonNumberDay === "2" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("2"); saveNumeroDia(2) }}
                         />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;
                         <Button
                             text="3"
                             backgroundColor={selectedButtonNumberDay === "3" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("3"); saveNumeroDia(3) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;
                         <Button
                             text="4"
                             backgroundColor={selectedButtonNumberDay === "4" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("4"); saveNumeroDia(4) }}
                         />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;
                         <Button
                             text="5"
                             backgroundColor={selectedButtonNumberDay === "5" ? "gray" : "#f0f0f0"}
@@ -334,7 +366,7 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonNumberDay === "6" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("6"); saveNumeroDia(6) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;
                     </div>
                 </div>
                 <p></p>
@@ -352,32 +384,32 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonSecondtPatent === "5b" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonSecondtPatent("5b"); saveNumeroPatenteSecondColumn(5) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                         <Button
                             text="7"
                             backgroundColor={selectedButtonNumberDay === "7" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("7"); saveNumeroDia(7) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;
                         <Button
                             text="8"
                             backgroundColor={selectedButtonNumberDay === "8" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("8"); saveNumeroDia(8) }}
                         />
-                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;
 
                         <Button
                             text="9"
                             backgroundColor={selectedButtonNumberDay === "9" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("9"); saveNumeroDia(9) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;
                         <Button
                             text="10"
                             backgroundColor={selectedButtonNumberDay === "10" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("10"); saveNumeroDia(10) }}
                         />
-                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;
                         <Button
                             text="11"
                             backgroundColor={selectedButtonNumberDay === "11" ? "gray" : "#f0f0f0"}
@@ -389,7 +421,7 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonNumberDay === "12" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("12"); saveNumeroDia(12) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;
                     </div>
                 </div>
                 <p></p>
@@ -407,7 +439,7 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonSecondtPatent === "6b" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonSecondtPatent("6b"); saveNumeroPatenteSecondColumn(6) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                         <Button
                             text="13"
                             backgroundColor={selectedButtonNumberDay === "13" ? "gray" : "#f0f0f0"}
@@ -462,7 +494,7 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonSecondtPatent === "7b" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonSecondtPatent("7b"); saveNumeroPatenteSecondColumn(7) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                         <Button
                             text="19"
                             backgroundColor={selectedButtonNumberDay === "19" ? "gray" : "#f0f0f0"}
@@ -474,7 +506,7 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonNumberDay === "20" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonNumberDay("20"); saveNumeroDia(20) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;
                         <Button
                             text="21"
                             backgroundColor={selectedButtonNumberDay === "21" ? "gray" : "#f0f0f0"}
@@ -514,7 +546,7 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonSecondtPatent === "8b" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonSecondtPatent("8b"); saveNumeroPatenteSecondColumn(8) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                         <Button
                             text="25"
                             backgroundColor={selectedButtonNumberDay === "25" ? "gray" : "#f0f0f0"}
@@ -565,7 +597,7 @@ export default function ActivarTarjeta() {
                             backgroundColor={selectedButtonSecondtPatent === "9b" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonSecondtPatent("9b"); saveNumeroPatenteSecondColumn(9) }}
                         />
-                        &nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                         <Button
                             text="31"
                             backgroundColor={selectedButtonNumberDay === "31" ? "gray" : "#f0f0f0"}
@@ -574,13 +606,20 @@ export default function ActivarTarjeta() {
                         &nbsp;&nbsp;
                     </div>
                 </div>
-
-                <p></p>
-                <p></p>
-                <p></p>
+                <br></br><br></br>
                 <div className="row">
-                    <div className="col-md-12"><h4>Hora  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &nbsp; Minutos</h4>
+                    <div class="container-columns">
+                        <div class="side">
+                            <h4>Hora </h4>
+                        </div>
+                        <div class="side side-content-center">
+                            <div>
+                                <h4>Minutos</h4>
+                            </div>
+                        </div>
                     </div>
+
+
 
                 </div>
                 <div className="row">
@@ -607,7 +646,7 @@ export default function ActivarTarjeta() {
                             text="11"
                             backgroundColor={selectedButtonHour === "11" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonHour("11"); saveNumeroHora(11) }}
-                        /> &nbsp;&nbsp;
+                        /> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                         <Button
                             text="00"
                             backgroundColor={selectedButtonMinutes === "0" ? "gray" : "#f0f0f0"}
@@ -659,7 +698,7 @@ export default function ActivarTarjeta() {
                             text="15"
                             backgroundColor={selectedButtonHour === "15" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonHour("15"); saveNumeroHora(15) }}
-                        />&nbsp;&nbsp;
+                        />&nbsp;&nbsp; &nbsp;&nbsp;
 
                         <Button
                             text="20"
@@ -711,7 +750,7 @@ export default function ActivarTarjeta() {
                             text="19"
                             backgroundColor={selectedButtonHour === "19" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonHour("19"); saveNumeroHora(19) }}
-                        />&nbsp;&nbsp;
+                        />&nbsp;&nbsp; &nbsp;&nbsp;
                         <Button
                             text="40"
                             backgroundColor={selectedButtonMinutes === "40" ? "gray" : "#f0f0f0"}
@@ -732,7 +771,7 @@ export default function ActivarTarjeta() {
                         &nbsp;
                         <Button
                             text="55"
-                            backgroundColor={selectedButtonMinutes === "5" ? "gray" : "#f0f0f0"}
+                            backgroundColor={selectedButtonMinutes === "55" ? "gray" : "#f0f0f0"}
                             onClick={() => { setSelectedButtonMinutes("55"); saveNumeroMinutos(55) }}
                         />
                     </div>

@@ -111,7 +111,6 @@ console.log(a)
         <div>
             <div className="row">
 
-                <h1>This is Tarjetero mode</h1>
                 <div>
                     <h3>
                         <AmountCardsByUser />

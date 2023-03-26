@@ -41,9 +41,6 @@ export default function Home() {
             ) : null}
 
             <h1>
-                Esto es el HOME
-                <p></p>
-                <p></p>
                 Descomentar linea que muestra componente mapa cuando termine la aplicacion
                 <p></p>
                 <p></p>

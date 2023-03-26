@@ -47,13 +47,12 @@ const Tarjeta = () => {
 
     return (
         <div >
-            <h1>This is Tarjetero mode</h1>
-            <p></p>
             <div className="row">
                 <div className="row">
                     <div className="col-md-8">
-                        <h2>Tarjetas disponibles en su cuentassss: {amountCards.cantidad_tarjeta}</h2>
+                        <h2>Tarjetas disponibles: {amountCards.cantidad_tarjeta}</h2>
                     </div>
+                    <AmountActivateCardsByUser />
                     <p></p>
 
                 </div>
@@ -71,7 +70,7 @@ const Tarjeta = () => {
                         <button type="button" id="signup-button" className="btn btn-primary btn-block">Mis tarjetas activas</button>
                     </Link>
                 </div>
-                <AmountActivateCardsByUser />
+
             </div>
 
 
