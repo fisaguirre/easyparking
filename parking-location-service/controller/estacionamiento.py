@@ -26,7 +26,15 @@ def setWorkZone(request, mysql, app):
             'UPDATE estacionamiento set latitud = %s, longitud = %s WHERE estacionamiento.usuario_id = %s', (request.json['latitud'], request.json['longitud'], usuario_id,))
         mysql.connection.commit()
         cursor.close()
-        return jsonify('Se ha guardado la zona de trabajo en la calle: ')
+        response = make_response(
+            jsonify(
+                {"message": 'Se ha guardado la zona de trabajo en la calle: !'},
+                {"code": 201}
+            ),
+            201,
+        )
+        response.headers["Content-Type"] = "application/json"
+        return response
 
     else:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -45,7 +53,15 @@ def setWorkZone(request, mysql, app):
             "insert into estacionamiento values(NULL,%s, %s, %s, %s, %s, %s)", data)
         mysql.connection.commit()
         cursor.close()
-        return jsonify('Se ha guardado la zona de trabajo en la calle: ')
+        response = make_response(
+            jsonify(
+                {"message": 'Se ha guardado la zona de trabajo en la calle: !'},
+                {"code": 201}
+            ),
+            201,
+        )
+        response.headers["Content-Type"] = "application/json"
+        return response
 
 
 def actualizarLugares(request, usuario_id, mysql):
@@ -55,7 +71,15 @@ def actualizarLugares(request, usuario_id, mysql):
         'UPDATE estacionamiento set cantidad_lugares = %s where estacionamiento.usuario_id = %s', (cantidad_lugares, usuario_id,))
     mysql.connection.commit()
     cursor.close()
-    return jsonify('se actualizaron los lugares de la zona de trabajo')
+    response = make_response(
+        jsonify(
+            {"message": 'se actualizaron los lugares de la zona de trabajo: !'},
+            {"code": 201}
+        ),
+        201,
+    )
+    response.headers["Content-Type"] = "application/json"
+    return response
 
 
 def actualizarDisponibles(request, usuario_id, mysql):
@@ -64,7 +88,15 @@ def actualizarDisponibles(request, usuario_id, mysql):
         'UPDATE estacionamiento set cantidad_disponible = %s where estacionamiento.usuario_id = %s', (request.json['cantidadDisponibles'], usuario_id,))
     mysql.connection.commit()
     cursor.close()
-    return jsonify('se actualizaron los lugares disponibles')
+    response = make_response(
+        jsonify(
+            {"message": 'se actualizaron los lugares disponibles!'},
+            {"code": 201}
+        ),
+        201,
+    )
+    response.headers["Content-Type"] = "application/json"
+    return response
 
 
 def getWorkZone(mysql):

@@ -56,6 +56,11 @@ export default function Estacionamiento() {
             }),
         });
         const resp = await res.json();
+        if (resp && resp[1]['code'] == 201) {
+            window.confirm(resp[0]['message']);
+        } else {
+            window.confirm('No se pudo actualizar los lugares');
+        }
         console.log(resp)
     };
 
@@ -84,6 +89,11 @@ export default function Estacionamiento() {
             }),
         });
         const resp = await res.json();
+        if (resp && resp[1]['code'] == 201) {
+            window.confirm(resp[0]['message']);
+        } else {
+            window.confirm('No se pudo actualizar los lugares');
+        }
         console.log(resp)
     };
 
@@ -160,6 +170,7 @@ export default function Estacionamiento() {
                 </div>
                 {mostrarMapa ? (
                     <><div>
+                        {/*El paramaetro "false" es para indicar si es el usuario tarjetero el que esta guardando su zona de trabajo o es la secciòn del mapa que muestra todas las zonas del trabajo en el home (caso que sea true)*/}
                         <Map updateWorkZone={true} />
                     </div></>
                 ) : null}

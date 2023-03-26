@@ -21,10 +21,11 @@ export const Map = (props) => {
     const [users, setUsers] = useState([])
     const [userLogueado, setUserLogueado] = useState(true)
     const [updateWorkZone, setUpdateWorkZone] = useState(props.updateWorkZone)
-    const usuario_id = sessionStorage.getItem("usuario_id")
+    let usuario_id = sessionStorage.getItem("usuario_id")
+    const token = sessionStorage.getItem("token")
 
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyDHs6NFoKcupwTGB14Ijh6qQcSvgcUGIhU',
+        googleMapsApiKey: 'AIzaSyCoQ7TJ2P8yl36zZsXF3l6PtD64BJq77NU',
         libraries,
     });
 
@@ -56,13 +57,12 @@ export const Map = (props) => {
         const latitud = markers[0]['latitud']
         const longitud = markers[0]['longitud']
         const time = markers[0]['time']
-        //const usuario_id = 1
-        const usuario_id = usuario_id
-
+        const usuario_id = 4
         const res = await fetch(`${API_LOCATION}/estacionamiento`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "x-access-token": token
             },
             body: JSON.stringify({
                 latitud,
@@ -71,6 +71,11 @@ export const Map = (props) => {
             }),
         });
         const resp = await res.json();
+        if (resp && resp[1]['code'] == 201) {
+            window.confirm(resp[0]['message']);
+        } else {
+            window.confirm('No se pudo actualizar zona de trabajo');
+        }
         console.log(resp)
     };
 
@@ -111,7 +116,7 @@ export const Map = (props) => {
                 </span>
             </h1>
             {updateWorkZone ? (
-                <button type="button" id="signup-button" className="btn btn-info" onClick={(e) => saveCoordinates(markers)}>Guardar coordenadas</button>
+                <button type="button" id="signup-button" className="btn btn-info" onClick={(e) => saveCoordinates(markers, usuario_id)}>Guardar coordenadas</button>
 
 
             ) : null}

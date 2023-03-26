@@ -18,8 +18,8 @@ COPY . ./
 
 # The EXPOSE instruction indicates the ports on which a container will listen for connections
 #puerto de escucha del contenedor
-EXPOSE 5000
+EXPOSE 5671
 
 #con CMD le paso parametros cuando se ejecuta la aplicaciòn
 #--reload es para que se actualice la aplicaciòn cuando se modifica y se guarda el còdigo
-CMD [ "flask", "run","--host","0.0.0.0","--port","5000", "--reload"]
+CMD [ "flask", "run","--host","0.0.0.0","--port","5671", "--reload"]

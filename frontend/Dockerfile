@@ -25,5 +25,7 @@ RUN npm install
 # add app
 COPY . ./
 
+#EXPOSE 3456
+
 # start app
 CMD ["npm", "start"]

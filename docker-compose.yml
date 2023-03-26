@@ -13,7 +13,7 @@ services:
       - db_user_parking_control_service
     #ports (running:listening)
     ports:
-      - "5000:5000"
+      - "5671:5671"
     #name of image instance (container)
     container_name: user-parking-control-service
     volumes:
@@ -64,7 +64,7 @@ services:
       - db_parking_location_service
     #ports (running:listening)
     ports:
-      - "5001:5001"
+      - "5672:5672"
     #name of image instance (container)
     container_name: parking-location-service
     volumes:
@@ -115,7 +115,7 @@ services:
       - db_payment_service
     #ports (running:listening)
     ports:
-      - "5002:5002"
+      - "5673:5673"
     #name of image instance (container)
     container_name: payment-service
     volumes:
