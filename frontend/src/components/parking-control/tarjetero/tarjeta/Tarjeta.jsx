@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AmountCardsByUser, PruebaRetornoFunction } from "./service/TarjetaService";
 import { AmountActivateCardsByUser } from "./service/TarjetaInstanciaService";
-import Card from "../Card";
+
 const API = process.env.REACT_APP_API_USER;
 
 const Tarjeta = () => {
@@ -50,7 +50,6 @@ const Tarjeta = () => {
             <h1>This is Tarjetero mode</h1>
             <p></p>
             <div className="row">
-
                 <div className="row">
                     <div className="col-md-8">
                         <h2>Tarjetas disponibles en su cuentassss: {amountCards.cantidad_tarjeta}</h2>
@@ -74,13 +73,8 @@ const Tarjeta = () => {
                 </div>
                 <AmountActivateCardsByUser />
             </div>
-            <div>
-                <Card
-                    tittle='card tittle'
-                    imageurl='https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&quality=85&auto=format&fit=max&s=a52bbe202f57ac0f5ff7f47166906403'
-                    body='cuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpitocuerpito'
-                />
-            </div>
+
+
         </div >
     );
 };
