@@ -74,8 +74,7 @@ def setWorkZone(current_user):
 
 # Obtener zonas de trabajo tarjeteros
 @app.route('/estacionamiento', methods=['GET'])
-@token_required
-def getWorkZone(current_user):
+def getWorkZone():
     # creates dictionary of form data
     return estacionamiento.getWorkZone(mysql)
 

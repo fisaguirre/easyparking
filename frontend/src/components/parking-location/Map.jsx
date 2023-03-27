@@ -6,6 +6,7 @@ import { formatRelative } from "date-fns";
 
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION
+const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -21,11 +22,11 @@ export const Map = (props) => {
     const [users, setUsers] = useState([])
     const [userLogueado, setUserLogueado] = useState(true)
     const [updateWorkZone, setUpdateWorkZone] = useState(props.updateWorkZone)
-    let usuario_id = sessionStorage.getItem("usuario_id")
+    const usuario_id = sessionStorage.getItem("usuario_id")
     const token = sessionStorage.getItem("token")
 
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyCoQ7TJ2P8yl36zZsXF3l6PtD64BJq77NU',
+        googleMapsApiKey: API_KEY,
         libraries,
     });
 
@@ -57,7 +58,6 @@ export const Map = (props) => {
         const latitud = markers[0]['latitud']
         const longitud = markers[0]['longitud']
         const time = markers[0]['time']
-        const usuario_id = 4
         const res = await fetch(`${API_LOCATION}/estacionamiento`, {
             method: "POST",
             headers: {
@@ -132,7 +132,7 @@ export const Map = (props) => {
                 {markers.map((marker) => (
                     <Marker key={marker.calle + '_' + Date.now()} position={{ lat: Number(marker.latitud), lng: Number(marker.longitud) }}
                         icon={{
-                            url: '/cat.png',
+                            url: '/logo_park.PNG',
                             scaledSize: new window.google.maps.Size(30, 30),
                             origin: new window.google.maps.Point(0, 0),
                             anchor: new window.google.maps.Point(15, 15),
@@ -145,7 +145,7 @@ export const Map = (props) => {
 
                 ))}
 
-                {selected ? (
+                {updateWorkZone == false && selected ? (
                     <InfoWindow
                         position={{ lat: Number(selected.latitud), lng: Number(selected.longitud) }}
                         onCloseClick={() => {

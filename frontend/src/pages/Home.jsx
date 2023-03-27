@@ -39,20 +39,13 @@ export default function Home() {
                     </Link>
                 </>
             ) : null}
-
-            <h1>
-                Descomentar linea que muestra componente mapa cuando termine la aplicacion
-                <p></p>
-                <p></p>
-                Esta comentada para no malgastar las request de google maps
-            </h1>
             <div>
                 {/*<Map />*/}
 
             </div>
             {/*El paramaetro "false" es para indicar si es el usuario tarjetero el que esta guardando su zona de trabajo
             o es la secciòn del mapa que muestra todas las zonas del trabajo en el home (caso que sea true)*/}
-            {/*<Map updateWorkZone={false} />*/}
+            <Map updateWorkZone={false} />
         </div >
     )
 }
