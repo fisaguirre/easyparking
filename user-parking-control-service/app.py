@@ -16,7 +16,9 @@ from controller import tarjetaInstancia
 
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
-
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -25,7 +27,8 @@ obtener_conexion(app)
 mysql = MySQL(app)
 CORS(app)
 
-SECRET_KEY = 'your secret key'
+#SECRET_KEY = 'your secret key'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 def token_required(f):
@@ -59,8 +62,7 @@ def token_required(f):
 
 @app.route('/')
 def index():
-    # return 'Hello to Flask- This is user-parking-control-service!'
-    return 'a sfffss!'
+    return 'Hello to Flask- This is user-parking-control-service!'
 
 
 @cross_origin()

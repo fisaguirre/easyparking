@@ -13,6 +13,10 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 
 
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
 app = Flask(__name__)
 
 obtener_conexion(app)
@@ -20,7 +24,7 @@ obtener_conexion(app)
 mysql = MySQL(app)
 CORS(app)
 
-SECRET_KEY = 'your secret key'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 def token_required(f):

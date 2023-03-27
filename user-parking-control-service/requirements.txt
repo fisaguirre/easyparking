@@ -12,3 +12,4 @@ flask-cors
 datetime
 uuid
 flask_jwt_extended
+python-dotenv

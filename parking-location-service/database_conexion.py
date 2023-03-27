@@ -1,9 +1,12 @@
 import pymysql
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def obtener_conexion(app):
-    app.config['SECRET_KEY'] = 'your secret key'
-    app.config['MYSQL_HOST'] = 'db_parking_location_service'
-    app.config['MYSQL_USER'] = 'root'
-    app.config['MYSQL_PASSWORD'] = 'Fernandoroot2023.'
-    app.config['MYSQL_DB'] = 'parkinglocation'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
+    app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
+    app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
+    app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
