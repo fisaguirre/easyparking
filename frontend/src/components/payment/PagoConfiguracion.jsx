@@ -13,12 +13,41 @@ export default function PagoConfiguracion() {
     const [store_id, setStoreId] = useState();
     const [external_store_id, setExternalStoreId] = useState();
     const [accessTokenExists, setAccessTokenExists] = useState(false);
+    const [storeExists, setStoreExists] = useState(false);
+    const [boxExists, setBoxExists] = useState(false);
     const [mostrarTextBoxStore, setMostratButtonStore] = useState(false);
     const [mostrarTextBoxPos, setMostratButtonCaja] = useState(false);
+
+    const [mostrarCreateButtonAccessToken, setMostrarCreateButtonAccessToken] = useState(true);
+    const [mostrarCreateButtonStore, setMostrarCreateButtonStore] = useState(true);
+    const [mostrarCreateButtonBox, setMostrarCreateButtonBox] = useState(true);
+
+
 
     const usuario_id = sessionStorage.getItem("usuario_id")
     const token = sessionStorage.getItem("token")
 
+
+    const getCuentaMercado = async (usuario_id) => {
+        const res = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}`, {
+            mmethod: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            }
+        });
+        const data = await res.json();
+        //Verificar si el usuario tiene asociada una sucursal y una caja de su cuenta de Mercado Pago
+        if (data[1]["code"] == 201) {
+            if (data[2]["registro"]["store_id"] != 0) {
+                setStoreExists(true)
+            }
+
+            if (data[2]["registro"]["pos_id"] != 0) {
+                setBoxExists(true)
+            }
+        }
+    };
 
     const getAccessTokenExists = async (usuario_id) => {
         const res = await fetch(`${API_PAYMENT}/pago/mercado/token/exists/${usuario_id}`, {
@@ -32,6 +61,34 @@ export default function PagoConfiguracion() {
         if (data == 'existe') {
             setAccessTokenExists(true);
             setMostratButtonStore(true);
+        }
+    };
+
+    const verifyAccessTokenExists = async (usuario_id) => {
+        if (accessTokenExists) {
+            setMostrarCreateButtonAccessToken(false)
+
+        } else {
+            setMostrarCreateButtonAccessToken(false)
+        }
+
+    };
+
+    const verifyStoreExists = async (usuario_id) => {
+        if (storeExists) {
+            window.confirm("Ya posee una sucursal en su cuenta")
+
+        } else {
+            setMostrarCreateButtonStore(false)
+        }
+
+    };
+
+    const verifyBoxExists = async (usuario_id) => {
+        if (boxExists) {
+            window.confirm("Ya posee una caja en su cuenta")
+        } else {
+            setMostrarCreateButtonBox(false)
         }
     };
 
@@ -116,7 +173,9 @@ export default function PagoConfiguracion() {
             }
         });
         const mercado = await getMercado.json();
+        console.log(mercado)
         const number_store_id = Number(store_id)
+        console.log(number_store_id)
 
         const res3 = await fetch(`https://api.mercadopago.com/pos?access_token=${mercado['access_token']}`, {
             method: "POST",
@@ -152,19 +211,90 @@ export default function PagoConfiguracion() {
 
     useEffect(() => {
         getAccessTokenExists(usuario_id);
+        getCuentaMercado(usuario_id);
     }, []);
 
 
     return (
         <div>
-            <input type="password" onChange={(e) => setAccessToken(e.target.value)}
+            <div>
+                {setAccessTokenExists ? (
+                    <>Access-token: asignado
+                    </>
+
+                ) : <>Access-token: no asignado
+                </>
+                }
+            </div>
+            <div>
+                {storeExists ? (
+                    <>Sucursal: asignado
+                    </>
+
+                ) : <>Sucursal: no asignado
+                </>
+                }
+            </div>
+            <div>
+                {boxExists ? (
+                    <>Caja: asignado
+                    </>
+
+                ) : <>Caja: no asignado
+                </>
+                }
+            </div>
+
+            {mostrarCreateButtonAccessToken ? (
+                <>
+                    <p></p>
+                    <p></p>
+                    <button onClick={(e) => verifyAccessTokenExists()}>Guardar nuevo access token</button>
+                </>
+            ) : <><input type="password" onChange={(e) => setAccessToken(e.target.value)}
                 value={access_token}
                 className="form-control"
                 placeholder="Ingrese su access token de mercado pago" />
-            <p></p>
-            <button onClick={(e) => saveAccessToken(access_token, usuario_id)}>Guardar access token</button>
-            <p></p>
+                <p></p>
+                <button onClick={(e) => saveAccessToken(access_token, usuario_id)}>Guardar access token</button>
+                <p></p>
+            </>
+            }
 
+            {mostrarCreateButtonStore ? (
+                <>
+                    <p></p>
+                    <p></p>
+                    <button onClick={(e) => verifyStoreExists()}>Crear nueva sucursal</button>
+                </>
+            ) : <><input type="text" onChange={(e) => setStoreName(e.target.value)}
+                value={storeName}
+                className="form-control"
+                placeholder="Ingrese el nombre de la sucursal para mercado pago" />
+                <p></p>
+                <p></p>
+                <button onClick={(e) => createStore(storeName, posName, usuario_id)}>Guardar Sucursal</button>
+            </>
+            }
+
+            {mostrarCreateButtonBox ? (
+                <>
+                    <p></p>
+                    <p></p>
+                    <button onClick={(e) => verifyBoxExists()}>Crear nueva caja</button>
+                </>
+            ) : <>
+                <input type="text" onChange={(e) => setPosName(e.target.value)}
+                    value={posName}
+                    className="form-control"
+                    placeholder="Ingrese el nombre de la caja para mercado pago" />
+                <p></p>
+                <p></p>
+                <button onClick={(e) => createPos(store_id, external_store_id, posName, usuario_id)}>Guardar Caja</button>
+            </>
+            }
+
+            {/*
             {mostrarTextBoxStore ? (
                 <><input type="text" onChange={(e) => setStoreName(e.target.value)}
                     value={storeName}
@@ -191,6 +321,7 @@ export default function PagoConfiguracion() {
                 </>
             ) : null
             }
+        */}
         </div >
 
     );

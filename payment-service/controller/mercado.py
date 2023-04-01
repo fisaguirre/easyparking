@@ -72,12 +72,38 @@ def getCuentaMercadoByUser(usuario_id, mysql):
     tokenMercadoUsuarioId = cursor.fetchone()
 
     if tokenMercadoUsuarioId:
+
+        print("hola")
+        print(len(tokenMercadoUsuarioId))
+
+        print(tokenMercadoUsuarioId)
+
         cursor.close()
-        return jsonify(tokenMercadoUsuarioId)
+        # return jsonify(tokenMercadoUsuarioId)
+        response = make_response(
+            jsonify(
+                {"message": 'Existe registro'},
+                {"code": 201},
+                {"registro": tokenMercadoUsuarioId}
+            ),
+            201,
+        )
+        response.headers["Content-Type"] = "application/json"
+        response.headers["WWW-Authenticate"] = "Please fill out the form !"
+        return response
 
     else:
         cursor.close()
-        return jsonify('El usuario tarjtero no tiene un access token almacenado')
+        response = make_response(
+            jsonify(
+                {"message": 'El usuario tarjtero no tiene un access token almacenado'},
+                {"code": 401}
+            ),
+            401,
+        )
+        response.headers["Content-Type"] = "application/json"
+        response.headers["WWW-Authenticate"] = "Please fill out the form !"
+        return response
 
 
 def getAccessTokenExists(usuario_id, mysql):
