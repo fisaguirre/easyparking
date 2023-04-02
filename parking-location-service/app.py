@@ -91,7 +91,16 @@ def getPlaces(current_user, usuario_id):
     return estacionamiento.getPlaces(usuario_id, mysql)
 
 
+# Obtener zona de trabajo de un tarjetero
+@app.route('/estacionamiento/zonaTrabajo/<usuario_id>', methods=['GET'])
+@token_required
+def getWorkZoneByUser(current_user, usuario_id):
+    # creates dictionary of form data
+    return estacionamiento.getWorkZoneByUser(mysql, usuario_id)
+
 # Cambiar la zona del tarjetero
+
+
 @app.route('/estacionamiento/<tipo_update>/<usuario_id>', methods=['PUT'])
 @token_required
 def actualizar(current_user, tipo_update, usuario_id):

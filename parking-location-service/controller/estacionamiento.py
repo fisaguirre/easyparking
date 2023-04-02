@@ -110,6 +110,17 @@ def getWorkZone(mysql):
     return jsonify(estacionamientos)
 
 
+def getWorkZoneByUser(mysql, usuario_id):
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    zero = 0
+    cursor.execute(
+        'SELECT latitud, longitud, calle FROM estacionamiento WHERE usuario_id = %s', (usuario_id,))
+    workZoneByUser = cursor.fetchone()
+    cursor.close()
+    return jsonify(workZoneByUser)
+
+
 def getPlaces(usuario_id, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(
