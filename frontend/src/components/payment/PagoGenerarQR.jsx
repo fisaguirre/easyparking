@@ -44,7 +44,7 @@ export default function PagoGenerarQR({ patente, cantidad_tarjetas, minutos, pre
             });
             const mercado = await getMercado.json();
 
-            const res = await fetch(`${API_MERCADO_PAGO}/instore/orders/qr/seller/collectors/${mercado['mercado_usuario_id']}/pos/${mercado['external_pos_id']}/qrs?access_token=${mercado['access_token']}`, {
+            const res = await fetch(`${API_MERCADO_PAGO}/instore/orders/qr/seller/collectors/${mercado[2]["registro"]['mercado_usuario_id']}/pos/${mercado[2]["registro"]['external_pos_id']}/qrs?access_token=${mercado[2]["registro"]['access_token']}`, {
                 method: "POST",
                 body: JSON.stringify({
                     "external_reference": "Pago Estacionamiento",

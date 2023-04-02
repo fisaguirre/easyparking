@@ -72,12 +72,6 @@ def getCuentaMercadoByUser(usuario_id, mysql):
     tokenMercadoUsuarioId = cursor.fetchone()
 
     if tokenMercadoUsuarioId:
-
-        print("hola")
-        print(len(tokenMercadoUsuarioId))
-
-        print(tokenMercadoUsuarioId)
-
         cursor.close()
         # return jsonify(tokenMercadoUsuarioId)
         response = make_response(
