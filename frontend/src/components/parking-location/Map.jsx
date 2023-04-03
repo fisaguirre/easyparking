@@ -58,6 +58,16 @@ export const Map = (props) => {
         const latitud = markers[0]['latitud']
         const longitud = markers[0]['longitud']
         const time = markers[0]['time']
+
+        //Se utiliza la API inversa de Geocoding para convertir lat/lng a direcciòn y guardarla en la base de datos
+        const respGeocoding = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitud},${longitud}&key=${API_KEY}`, {
+            method: "GET",
+        });
+        const respGeo = await respGeocoding.json();
+        console.log(respGeo)
+        const calle = respGeo["results"][0]['formatted_address']
+
+        //Se envian las coordenadas y la direcciones al servidor
         const res = await fetch(`${API_LOCATION}/estacionamiento`, {
             method: "POST",
             headers: {
@@ -67,6 +77,7 @@ export const Map = (props) => {
             body: JSON.stringify({
                 latitud,
                 longitud,
+                calle,
                 usuario_id
             }),
         });

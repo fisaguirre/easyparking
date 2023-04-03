@@ -23,7 +23,7 @@ def setWorkZone(request, mysql, app):
 
     if estacionamiento:
         cursor.execute(
-            'UPDATE estacionamiento set latitud = %s, longitud = %s WHERE estacionamiento.usuario_id = %s', (request.json['latitud'], request.json['longitud'], usuario_id,))
+            'UPDATE estacionamiento set latitud = %s, longitud = %s, calle = %s WHERE estacionamiento.usuario_id = %s', (request.json['latitud'], request.json['longitud'], request.json['calle'], usuario_id,))
         mysql.connection.commit()
         cursor.close()
         response = make_response(
@@ -42,7 +42,7 @@ def setWorkZone(request, mysql, app):
         #estacionamiento_id, latitud, longitud, calle, cantidad_lugares, cantidad_disponible, usuario_i
 
         estacionamiento = Estacionamiento(
-            request.json['latitud'], request.json['longitud'], "NULL", 0, 0, request.json['usuario_id'])
+            request.json['latitud'], request.json['longitud'], request.json['calle'], 0, 0, request.json['usuario_id'])
 
         data = (estacionamiento.get_latitud(), estacionamiento.get_longitud(), estacionamiento.get_calle(), estacionamiento.get_cantidad_lugares(
         ), estacionamiento.get_cantidad_disponible(), estacionamiento.get_usuario_id())
