@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-const API_MERCADO_PAGO = process.env.REACT_APP_API_USER;
+const API_MERCADO_PAGO = process.env.REACT_APP_API_MERCADO_PAGO;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;
 
@@ -136,14 +136,13 @@ export default function PagoConfiguracion() {
         const calle = workZone['calle']
 
         try {
-            const res = await fetch(`https://api.mercadopago.com/users/${mercado['mercado_usuario_id']}/stores?access_token=${mercado['access_token']}`, {
+            const res = await fetch(`${API_MERCADO_PAGO}/users/${mercado['mercado_usuario_id']}/stores?access_token=${mercado['access_token']}`, {
                 method: "POST",
                 body: JSON.stringify({
                     "name": storeName,
                     "external_id": "SUC009",
                     "location": {
-                        "street_number": "902",
-                        "street_name": "Nicolás Avellaneda 155, M5500EUD Mendoza",
+                        "street_name": calle,
                         "city_name": "Mendoza",
                         "state_name": "Mendoza",
                         "latitude": latitud,
@@ -238,7 +237,7 @@ export default function PagoConfiguracion() {
 
 
         try {
-            const res3 = await fetch(`https://api.mercadopago.com/pos?access_token=${mercado['access_token']}`, {
+            const res3 = await fetch(`${API_MERCADO_PAGO}/pos?access_token=${mercado['access_token']}`, {
                 method: "POST",
                 body: JSON.stringify({
                     "name": posName,
