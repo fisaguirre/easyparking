@@ -84,6 +84,14 @@ def getUsers(current_user, username, rolAsignado):
     rol.asignarRolUsuario(username, rolAsignado, mysql)
     return rol.asignarRolUsuario(username, rolAsignado, mysql)
 
+
+# actualizar usuario
+@app.route('/users/<tipo>/<usuario_id>', methods=["PUT"])
+@token_required
+def updateUser(current_user, tipo, usuario_id):
+    return users.updateUser(request, tipo, usuario_id, mysql)
+
+
 # Obtener usuario
 
 

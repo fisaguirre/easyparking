@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 const API = process.env.REACT_APP_API_USER;
+const API_PAYMENT = process.env.REACT_APP_API_PAYMENT
+const API_LOCATION = process.env.REACT_APP_API_LOCATION
 
 const Users = () => {
     //Guardo los datos que se envian por handleSubmit al darle click al boton submit
@@ -16,18 +18,65 @@ const Users = () => {
     const [numeroTD, setNumeroTD] = useState()
     const [prueba1, setPrueba1] = useState(true)
 
+    let [editUserButtonById, setEditUserButtonById] = useState(null)
+
     const nameInput = useRef(null);
 
     let [users, setUsers] = useState([]);
 
+    //Funcion que cambia el rol del usuario en las 3 bases de datos
+    const cambiarRolUsuario = async (usuario_id, rol) => {
+        setEditUserButtonById(null)
+        const tipo = 'cambiar_rol'
 
-    const cambiarRolUsuario = (cambiarRol) => {
-        if (cambiarRol) {
-            setCambiarRol(false)
-        } else {
-            setCambiarRol(true)
+        const responseEditRolParking = await fetch(`${API}/users/${tipo}/${usuario_id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            },
+            body: JSON.stringify({
+                rol
+            }),
+        });
+        const responseEditRolParkingJson = await responseEditRolParking.json();
+
+
+        if (responseEditRolParkingJson[1]["code"] == 201) {
+            const responseEditRolPayment = await fetch(`${API_PAYMENT}/users/${tipo}/${usuario_id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": token
+                },
+                body: JSON.stringify({
+                    rol
+                }),
+            });
+            const responseEditRolPaymentJson = await responseEditRolPayment.json();
+
+            const responseEditRolLocation = await fetch(`${API_LOCATION}/users/${tipo}/${usuario_id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": token
+                },
+                body: JSON.stringify({
+                    rol
+                }),
+            });
+            const responseEditRolLocationJson = await responseEditRolLocation.json();
+
+            if (responseEditRolLocationJson[1]['code'] == 201) {
+                await getUsers();
+                window.confirm(responseEditRolLocationJson[0]['message'])
+            }
+        }
+        else {
+            window.confirm(responseEditRolParkingJson[0]['message']);
         }
     }
+
 
     const getUsers = async () => {
         //const res = await fetch(`${API}/users`);
@@ -88,7 +137,6 @@ const Users = () => {
     return (
 
         <div id="form-text" className="row">
-            <h1>This is admin mode</h1>
             <div className="col-md-6">
                 <table className="table table-striped">
                     <thead>
@@ -134,9 +182,56 @@ const Users = () => {
                                 </td>
                                 */}
 
+                                {/*
+                                <td>
+                                    {user.rol}
+                                    {cambiarRol ? (
+                                        <>
+                                            <select value={user.rol} onChange={(e) => setRol(e.target.value)}>
+                                                <option value="sin asignar">Sin asignar</option>
+                                                <option value="tarjetero">Tarjetero</option>
+                                                <option value="administrador">Administrador</option>
+                                                <option value="superadmin">Super Admin</option>
+                                            </select>
 
-                                <td>{user.rol}</td>
+                                            <button>guardar</button>
+                                        </>
+                                    ) : <button
+                                        onClick={(e) => setCambiarRol(true)}
+                                    >editar
+                                    </button>
+                                    }
+                                </td>
+                        */}
+
+                                <td>
+                                    {user.rol}
+
+                                    {user.usuario_id == editUserButtonById ? (
+                                        <>
+                                            <select onChange={(e) => setRol(e.target.value)}>
+                                                <option value="sin asignar">Sin asignar</option>
+                                                <option value="tarjetero">Tarjetero</option>
+                                                <option value="administrador">Administrador</option>
+                                                <option value="superadmin">Super Admin</option>
+                                            </select>
+
+                                            <button
+                                                onClick={(e) => cambiarRolUsuario(user.usuario_id, rol)}
+                                            >s
+                                            </button>
+                                        </>
+                                    ) : <button
+                                        onClick={(e) => setEditUserButtonById(user.usuario_id)}
+                                    >e
+                                    </button>
+                                    }
+
+                                </td>
+
+
                                 <td>{user.cantidad_tarjeta}</td>
+
                                 {user.rol == "tarjetero" ? (
                                     <td>
                                         <input type="text"

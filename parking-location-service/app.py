@@ -5,6 +5,7 @@ import jwt
 from functools import wraps
 from flask_cors import CORS, cross_origin
 from controller import signup
+from controller import users
 
 from database_conexion import obtener_conexion
 from controller import estacionamiento
@@ -67,6 +68,13 @@ def index():
 def register(current_user):
     # print(request.json)
     return signup.register(request, mysql, app)
+
+
+# actualizar usuario
+@app.route('/users/<tipo>/<usuario_id>', methods=["PUT"])
+@token_required
+def updateUser(current_user, tipo, usuario_id):
+    return users.updateUser(request, tipo, usuario_id, mysql)
 
 
 # Asigna la calle donde trabaja el tarjetero

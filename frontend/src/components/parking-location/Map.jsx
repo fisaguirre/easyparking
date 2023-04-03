@@ -1,4 +1,5 @@
-import { GoogleMap, useLoadScript, Marker, InfoWIndow, MarkerClusterer, InfoWindow } from "@react-google-maps/api";
+//import { GoogleMap, useLoadScript, Marker, InfoWIndow, MarkerClusterer, InfoWindow } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, MarkerClusterer, InfoWindow } from "@react-google-maps/api";
 import { createRoutesFromElements } from "react-router-dom";
 import { useState, useEffect } from "react";
 import React from 'react';
@@ -164,8 +165,8 @@ export const Map = (props) => {
                         }}
                     >
                         <div>
-                            <h2>Lugares disponibles: {selected.cantidad_disponible}</h2>
-                            <h3>Calle: {selected.calle}</h3>
+                            <h4>Lugares disponibles: {selected.cantidad_disponible}</h4>
+                            <h5>Calle: {selected.calle}</h5>
                         </div>
                     </InfoWindow>
                 ) : null}
