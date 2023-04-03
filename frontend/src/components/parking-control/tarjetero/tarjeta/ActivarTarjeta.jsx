@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { InstanciarTarjeta, PruebaRetornoFunction } from "./service/TarjetaService";
 import './style.css';
 import { Button } from "./Button";
-import logo_municipalidad from './logo_municipalidad.png'
+//import logo from './logo.png'
 
 const API = process.env.REACT_APP_API_USER;
 
@@ -58,7 +58,6 @@ export default function ActivarTarjeta() {
     };
 
     const getAmountCards = async () => {
-        console.log(token)
         const res = await fetch(`${API}/tarjetas/${usuario_id_logueado}`, {
             mmethod: "GET",
             headers: {
@@ -136,11 +135,13 @@ export default function ActivarTarjeta() {
 
                 <div class="container-columns">
                     <div class="side">
-                        <img alt="municipalidad" width="100%" src={logo_municipalidad} />
+                        {/*img alt="logo" width="100%" src={logo} />*/}
                     </div>
                     <div class="side side-content-center">
                         <div>
-                            <p className="estacionamientoText">Programa de<br></br>estacionamiento medido<br></br><h4>2023</h4></p>
+                            {/*
+                            <p className="estacionamientoText">Programa de<br></br>estacionamiento<br></br><h4>2023</h4></p>
+                            */}
                         </div>
                     </div>
                 </div>
@@ -148,7 +149,7 @@ export default function ActivarTarjeta() {
                 <div className="row">
                     <div className="col-md-2"></div>
                     <div className="col-md-6">
-                        <h5>Pago y uso obligatorio al momento de estacionar</h5>
+                        <h5></h5>
                     </div>
                     <p></p>
 
@@ -160,7 +161,7 @@ export default function ActivarTarjeta() {
                     <h4>Patente</h4>
                     <h4>Mes</h4>
                 </div>
-            */}
+                */}
                 <div class="container-columns">
                     <div class="side">
                         <h4>Patente</h4>
@@ -185,19 +186,19 @@ export default function ActivarTarjeta() {
                             onClick={() => { setSelectedButtonSecondtPatent("0b"); saveNumeroPatenteSecondColumn(0) }}
                         />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
                         <Button
-                            text="Enero"
-                            backgroundColor={selectedButtonMonth === "Enero" ? "gray" : "#f0f0f0"}
-                            onClick={() => { setSelectedButtonMonth("Enero"); saveNombreMes("Enero") }}
+                            text="Abril"
+                            backgroundColor={selectedButtonMonth === "Abril" ? "gray" : "#f0f0f0"}
+                            onClick={() => { setSelectedButtonMonth("Abril"); saveNombreMes("Abril") }}
                         />&nbsp;&nbsp;
                         <Button
-                            text="Febrero"
-                            backgroundColor={selectedButtonMonth === "Febrero" ? "gray" : "#f0f0f0"}
-                            onClick={() => { setSelectedButtonMonth("Febrero"); saveNombreMes("Febrero") }}
+                            text="Mayo"
+                            backgroundColor={selectedButtonMonth === "Mayo" ? "gray" : "#f0f0f0"}
+                            onClick={() => { setSelectedButtonMonth("Mayo"); saveNombreMes("Mayo") }}
                         />&nbsp;&nbsp;
                         <Button
-                            text="Marzo"
-                            backgroundColor={selectedButtonMonth === "Marzo" ? "gray" : "#f0f0f0"}
-                            onClick={() => { setSelectedButtonMonth("Marzo"); saveNombreMes("Marzo") }}
+                            text="Junio"
+                            backgroundColor={selectedButtonMonth === "Junio" ? "gray" : "#f0f0f0"}
+                            onClick={() => { setSelectedButtonMonth("Junio"); saveNombreMes("Junio") }}
                         />
                     </div>
                 </div>
@@ -218,7 +219,7 @@ export default function ActivarTarjeta() {
                             onClick={() => { setSelectedButtonSecondtPatent("1b"); saveNumeroPatenteSecondColumn(1) }}
                         /> &nbsp;&nbsp;
                     </div>
-            */}
+                    */}
                     <div class="container-columns">
                         <div class="side">
                             <Button
