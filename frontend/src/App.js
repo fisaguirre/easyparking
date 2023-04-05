@@ -130,18 +130,12 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Overview from "./pages/Overview";
-import { useState } from "react";
-
-import { Reports, ReportsOne, ReportsTwo, ReportsThree } from "./pages/Reports";
-import Team from "./pages/Team";
 
 import Home from "./page/Home";
 import SignUp from "./page/SignUp";
 import Login from "./page/Login";
 
 import Users from "./components/parking-control/Users";
-import Navbar from "./page/Navbar";
 import Tarjeta from "./components/parking-control/tarjetero/tarjeta/Tarjeta";
 import ActivarTarjeta from "./components/parking-control/tarjetero/tarjeta/ActivarTarjeta";
 import TarjetaInstancia from "./components/parking-control/tarjetero/tarjeta/TarjetaInstancia";
@@ -149,6 +143,7 @@ import TarjetaPendienteDePago from "./components/parking-control/tarjetero/tarje
 import Estacionamiento from "./components/parking-location/Estacionamiento";
 import PagoConfiguracion from "./components/payment/PagoConfiguracion";
 import PagoEfectuado from "./components/payment/PagoEfectuado";
+import Logout from "./page/Logout";
 function App() {
   return (
     /*
@@ -161,6 +156,7 @@ function App() {
         <Route path="/" forceRefresh={true} element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/users" className="auto" element={<Users />} />
         <Route
           path="/estacionamiento/zonadetrabajo"

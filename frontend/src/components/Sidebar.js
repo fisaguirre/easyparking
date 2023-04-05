@@ -5,7 +5,8 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
 import * as IoIcons from "react-icons/io5";
-
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   SidebarDataTarjetero,
   SidebarDataAdmin,
@@ -75,8 +76,28 @@ const Sidebar = () => {
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const [usuarioLogueado, setUsuarioLogueado] = useState(true);
-  const [usuarioRol, setUsuarioRol] = useState("tarjetero");
+  const [usuarioLogueado, setUsuarioLogueado] = useState(false);
+  const [usuarioRol, setUsuarioRol] = useState();
+
+  const [token, setToken] = useState();
+  const [usuaroId, setUsuarioId] = useState();
+  let navigate = useNavigate();
+
+  const getUserLogueado = async () => {
+    const tokenGenerado = sessionStorage.getItem("token");
+    const rolUsuario = sessionStorage.getItem("rol");
+    const usuario_id = sessionStorage.getItem("usuario_id");
+    if (tokenGenerado) {
+      setToken(tokenGenerado);
+      setUsuarioLogueado(true);
+      setUsuarioRol(rolUsuario);
+      setUsuarioId(usuario_id);
+    }
+  };
+
+  useEffect(() => {
+    getUserLogueado();
+  }, []);
 
   return (
     <>

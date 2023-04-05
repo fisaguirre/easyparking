@@ -6,6 +6,8 @@ const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
 
 export default function Home() {
   const [usuarioLogueado, setUsuarioLogueado] = useState(false);
+  const [username, setUserName] = useState();
+
   //const [usuarioRol, setUsuarioRol] = useState()
   //const [token, setToken] = useState();
   //const [usuaroId, setUsuarioId] = useState();
@@ -17,6 +19,7 @@ export default function Home() {
     if (tokenGenerado) {
       //setToken(tokenGenerado)
       setUsuarioLogueado(true);
+      setUserName(sessionStorage.getItem("username"));
       //setUsuarioRol(rolUsuario)
       //setUsuarioId(usuario_id)
     }
@@ -32,7 +35,12 @@ export default function Home() {
 
   return (
     <div>
-      <h1>asd</h1>
+      {usuarioLogueado ? (
+        <>
+          <h1>Hola {username}</h1>
+        </>
+      ) : null}
+      {/*
       {usuarioLogueado === false ? (
         <>
           <Link id="signup-link" to="/login">
@@ -46,10 +54,11 @@ export default function Home() {
           </Link>
         </>
       ) : null}
+      */}
       <div>{/*<Map />*/}</div>
       {/*El paramaetro "false" es para indicar si es el usuario tarjetero el que esta guardando su zona de trabajo
             o es la secciòn del mapa que muestra todas las zonas del trabajo en el home (caso que sea true)*/}
-      {/*<Map updateWorkZone={false} />*/}
+      <Map updateWorkZone={false} />
     </div>
   );
 }

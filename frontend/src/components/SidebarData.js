@@ -9,11 +9,29 @@ import * as SlIcons from "react-icons/sl";
 import * as GrIcons from "react-icons/gr";
 
 import { useState } from "react";
-
+const username = sessionStorage.getItem("username");
+/*
+const [usuarioRol, setUsuarioRol] = useState();
+const [username, setUserName] = useState();
+const getUserLogueado = async () => {
+  const tokenGenerado = sessionStorage.getItem("token");
+  if (tokenGenerado) {
+    setUserName(sessionStorage.getItem("username"));
+  }
+};
+useEffect(() => {
+  getUserLogueado();
+}, []);
+*/
 export const SidebarDataAdmin = [
   {
+    title: "Hola " + username + "!",
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
     title: "Home",
-    path: "/home",
+    path: "/",
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -54,8 +72,13 @@ export const SidebarDataAdmin = [
 
 export const SidebarDataTarjetero = [
   {
+    title: "Hola " + username + "!",
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
     title: "Home",
-    path: "/home",
+    path: "/",
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -146,7 +169,7 @@ export const SidebarDataTarjetero = [
 export const SidebarDataLogin = [
   {
     title: "Home",
-    path: "/home",
+    path: "/",
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,

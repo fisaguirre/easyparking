@@ -32,6 +32,9 @@ const LoginCopy = () => {
       if (userRolId) {
         sessionStorage.setItem("rol", userRolId["rol"]);
         sessionStorage.setItem("usuario_id", userRolId["usuario_id"]);
+        sessionStorage.setItem("username", userRolId["username"]);
+        console.log("hola");
+        console.log(sessionStorage.getItem("username"));
         if (sessionStorage.getItem("usuario_id")) {
           navigate("/");
           navigate(0);
