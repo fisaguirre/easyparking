@@ -4,8 +4,13 @@ import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
+import * as IoIcons from "react-icons/io5";
 
-import { SidebarData, SidebarDataAdmin } from "./SidebarData";
+import {
+  SidebarDataTarjetero,
+  SidebarDataAdmin,
+  SidebarDataLogin,
+} from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
 
@@ -46,9 +51,12 @@ const NavIconApp = styled(Link)`
   align-items: center;
 `;
 const SidebarNav = styled.nav`
-  background: #15171c;
+  //background: #15171c;
+  background: blue;
   width: 250px;
-  height: 80vh;
+  //height: 80vh;
+  height: ${({ usuarioLogueado }) =>
+    usuarioLogueado === true ? "100vh" : "30vh"};
   display: flex;
   justify-content: center;
   position: fixed;
@@ -82,23 +90,20 @@ const Sidebar = () => {
             </>
           ) : (
             <NavIconLogin to="#">
-              Login
-              {/*
-              <BiIcons.BiLogIn onClick={showSidebar} />
-          */}
+              <IoIcons.IoPersonCircle onClick={showSidebar} />
             </NavIconLogin>
           )}
           <NavIconApp to="#">Easy-Parking</NavIconApp>
         </Nav>
 
-        <SidebarNav sidebar={sidebar}>
+        <SidebarNav sidebar={sidebar} usuarioLogueado={usuarioLogueado}>
           <SidebarWrap>
             <NavIcon to="#">
               <AiIcons.AiOutlineClose onClick={showSidebar} />
             </NavIcon>
             {usuarioLogueado === true && usuarioRol == "tarjetero" ? (
               <>
-                {SidebarData.map((item, index) => {
+                {SidebarDataTarjetero.map((item, index) => {
                   return <SubMenu item={item} key={index} />;
                 })}
               </>
@@ -106,6 +111,13 @@ const Sidebar = () => {
             {usuarioLogueado === true && usuarioRol == "administrador" ? (
               <>
                 {SidebarDataAdmin.map((item, index) => {
+                  return <SubMenu item={item} key={index} />;
+                })}
+              </>
+            ) : null}
+            {usuarioLogueado === false ? (
+              <>
+                {SidebarDataLogin.map((item, index) => {
                   return <SubMenu item={item} key={index} />;
                 })}
               </>

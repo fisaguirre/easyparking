@@ -136,9 +136,20 @@ import { useState } from "react";
 import { Reports, ReportsOne, ReportsTwo, ReportsThree } from "./pages/Reports";
 import Team from "./pages/Team";
 
-function App() {
-  const [rolMode, setRolMode] = useState(true);
+import Home from "./page/Home";
+import SignUp from "./page/SignUp";
+import Login from "./page/Login";
 
+import Users from "./components/parking-control/Users";
+import Navbar from "./page/Navbar";
+import Tarjeta from "./components/parking-control/tarjetero/tarjeta/Tarjeta";
+import ActivarTarjeta from "./components/parking-control/tarjetero/tarjeta/ActivarTarjeta";
+import TarjetaInstancia from "./components/parking-control/tarjetero/tarjeta/TarjetaInstancia";
+import TarjetaPendienteDePago from "./components/parking-control/tarjetero/tarjeta/TarjetaPendienteDePago";
+import Estacionamiento from "./components/parking-location/Estacionamiento";
+import PagoConfiguracion from "./components/payment/PagoConfiguracion";
+import PagoEfectuado from "./components/payment/PagoEfectuado";
+function App() {
   return (
     /*
       aca pongo el sidebar modo admin/tarjetero
@@ -147,12 +158,41 @@ function App() {
     <Router>
       <Sidebar />
       <Routes>
-        <Route path="/overview" exact component={Overview} />
-        <Route path="/reports" exact component={Reports} />
-        <Route path="/reports/reports1" exact component={ReportsOne} />
-        <Route path="/reports/reports2" exact component={ReportsTwo} />
-        <Route path="/reports/reports3" exact component={ReportsThree} />
-        <Route path="/team" exact component={Team} />
+        <Route path="/" forceRefresh={true} element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/users" className="auto" element={<Users />} />
+        <Route
+          path="/estacionamiento/zonadetrabajo"
+          className="auto"
+          element={<Estacionamiento />}
+        />
+        <Route path="/tarjeta" className="auto" element={<Tarjeta />} />
+        <Route
+          path="/tarjeta/activarTarjeta"
+          className="auto"
+          element={<ActivarTarjeta />}
+        />
+        <Route
+          path="/tarjeta_instancia/"
+          className="auto"
+          element={<TarjetaInstancia />}
+        />
+        <Route
+          path="/tarjeta/tarjetaPendienteDePago"
+          className="auto"
+          element={<TarjetaPendienteDePago />}
+        />
+        <Route
+          path="/pago/configuracion"
+          className="auto"
+          element={<PagoConfiguracion />}
+        />
+        <Route
+          path="/pago/pagosefectuados"
+          className="auto"
+          element={<PagoEfectuado />}
+        />
       </Routes>
     </Router>
   );

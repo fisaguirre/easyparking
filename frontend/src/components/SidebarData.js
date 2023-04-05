@@ -3,7 +3,164 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
+import * as BiIcons from "react-icons/bi";
+import * as MdIcons from "react-icons/md";
+import * as SlIcons from "react-icons/sl";
+import * as GrIcons from "react-icons/gr";
+
 import { useState } from "react";
+
+export const SidebarDataAdmin = [
+  {
+    title: "Home",
+    path: "/home",
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
+    title: "Usuarios",
+    //path: "/users",
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: "Ver usuarios",
+        path: "/users",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Registrar usuario",
+        path: "/signup",
+        icon: <MdIcons.MdPersonAddAlt1 />,
+        cName: "sub-nav",
+      },
+    ],
+  },
+  {
+    title: "Configuraciòn de perfil",
+    //path: "/logout",
+    icon: <GrIcons.GrUserSettings />,
+  },
+  {
+    title: "Cerrar sesión",
+    path: "/logout",
+    icon: <SlIcons.SlLogout />,
+  },
+];
+
+export const SidebarDataTarjetero = [
+  {
+    title: "Home",
+    path: "/home",
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
+    title: "Estacionamiento",
+    //path: "/reports",
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: "Actualizar lugares",
+        path: "/estacionamiento/zonadetrabajo",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Zona de trabajo",
+        path: "/reports/reports2",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+    ],
+  },
+  {
+    title: "Tarjetas",
+    //path: "/reports",
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: "Nueva tarjeta",
+        path: "/tarjeta/activarTarjeta",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Tarjetas activas",
+        path: "/tarjeta_instancia/",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Pendientes por pagar",
+        path: "/tarjeta/tarjetaPendienteDePago",
+        icon: <IoIcons.IoIosPaper />,
+      },
+    ],
+  },
+  {
+    title: "Pagos",
+    //path: "/reports",
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: "Efectuados",
+        path: "/pago/configuracion",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Configurar pagos",
+        path: "/pago/pagosefectuados",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+    ],
+  },
+  {
+    title: "Configuraciòn de perfil",
+    //path: "/logout",
+    icon: <GrIcons.GrUserSettings />,
+  },
+  {
+    title: "Cerrar sesión",
+    path: "/logout",
+    icon: <SlIcons.SlLogout />,
+  },
+];
+
+export const SidebarDataLogin = [
+  {
+    title: "Home",
+    path: "/home",
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
+    title: "Login",
+    path: "/login",
+    icon: <BiIcons.BiLogIn />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+];
+
+/*
 
 export const SidebarData = [
   {
@@ -90,84 +247,4 @@ export const SidebarData = [
     icon: <IoIcons.IoMdHelpCircle />,
   },
 ];
-
-export const SidebarDataAdmin = [
-  {
-    title: "Overview",
-    path: "/overview",
-    icon: <AiIcons.AiFillHome />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: "Users",
-        path: "/overview/users",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Revenue",
-        path: "/overview/revenue",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
-  },
-  {
-    title: "Reports",
-    path: "/reports",
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: "Reports",
-        path: "/reports/reports1",
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "Reports 2",
-        path: "/reports/reports2",
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "Reports 3",
-        path: "/reports/reports3",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
-  },
-  {
-    title: "Products",
-    path: "/products",
-    icon: <FaIcons.FaCartPlus />,
-  },
-  {
-    title: "Team",
-    path: "/team",
-    icon: <IoIcons.IoMdPeople />,
-  },
-  {
-    title: "Messages",
-    path: "/messages",
-    icon: <FaIcons.FaEnvelopeOpenText />,
-
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: "Message 1",
-        path: "/messages/message1",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Message 2",
-        path: "/messages/message2",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
-  },
-];
+*/
