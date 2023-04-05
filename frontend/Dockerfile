@@ -21,7 +21,8 @@ RUN npm install
 #RUN npm i @react-google-maps/api
 #RUN npm install @date-io/date-fns date-fns
 #RUN npm i react-qr-code
-
+#RUN npm i styled-components
+#RUN npm i react-icons
 # add app
 COPY . ./
 

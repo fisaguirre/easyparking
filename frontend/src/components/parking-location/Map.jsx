@@ -11,7 +11,8 @@ const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 
 const libraries = ["places"];
 const mapContainerStyle = {
-    width: "80vw",
+    //width: "80vw",
+    width: "100%",
     height: "80vh"
 };
 
