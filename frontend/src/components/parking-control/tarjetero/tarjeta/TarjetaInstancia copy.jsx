@@ -114,46 +114,45 @@ console.log(a)
   }, []);
   return (
     <div>
-      {/*
-             <div className="row">
-        <h3>
-          <AmountCardsByUser />
-        </h3>
-      </div>
-        */}
       <div className="row">
-        <h3>Mis Tarjetas Activas</h3>
+        <div>
+          <h3>
+            <AmountCardsByUser />
+          </h3>
+        </div>
+        <div className="col-md-6">
+          <h3>Mis Tarjetas Activas</h3>
+        </div>
+        <div className="col-md-4">
+          <Link id="signup-link" to="/tarjeta/tarjetaPendienteDePago">
+            <button type="button" id="signup-button" className="btn btn-info">
+              Pendientes por pagar
+            </button>
+          </Link>
+        </div>
       </div>
-      {/*
-      <div className="row">
-        <Link id="signup-link" to="/tarjeta/tarjetaPendienteDePago">
-          <button type="button" id="signup-button" className="btn btn-info">
-            Pendientes por pagar
-          </button>
-        </Link>
-      </div>
-        */}
       <div id="form-text" className="row">
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Patente</th>
-              <th>Hora</th>
-              {/*<th>Tiempo transcurrido</th>*/}
-            </tr>
-          </thead>
-          <tbody>
-            {tarjetas.map((tarjeta_instancia) => (
-              <tr key={tarjeta_instancia.tarjeta_instancia_id}>
-                <td>{tarjeta_instancia.patente}</td>
-                {tarjeta_instancia.minutos == 0 ? (
-                  <td>{tarjeta_instancia.hora}:00</td>
-                ) : (
-                  <td>
-                    {tarjeta_instancia.hora}:{tarjeta_instancia.minutos}
-                  </td>
-                )}
-                {/*
+        <div></div>
+        <div className="col-md-6">
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Patente</th>
+                <th>Hora</th>
+                <th>Minutos</th>
+                <th></th>
+                {/*<th>Tiempo transcurrido</th>*/}
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {tarjetas.map((tarjeta_instancia) => (
+                <tr key={tarjeta_instancia.tarjeta_instancia_id}>
+                  <td>{tarjeta_instancia.patente}</td>
+                  <td>{tarjeta_instancia.hora}</td>
+                  <td>{tarjeta_instancia.minutos}</td>
+                  <td>{}</td>
+                  {/*
                                     <td>
                                         {tiempoActivo ? (
                                             <>
@@ -166,7 +165,7 @@ console.log(a)
                                         ) : "****"}
                                     </td>
                                         */}
-                {/*
+                  {/*
                                     <td>
                                         <button className="btn btn-primary btn-block"
                                             onClick={(e) => changeValueTiempoActivo(tiempoActivo, tarjeta_instancia.hora, tarjeta_instancia.minutos)}
@@ -174,35 +173,38 @@ console.log(a)
                                         </button>
                                     </td>
                                         */}
-                <td>
-                  <button
-                    className="btn btn-danger btn-sm btn-block"
-                    onClick={(e) =>
-                      finishActiveCard(tarjeta_instancia.tarjeta_instancia_id)
-                    }
-                  >
-                    Finalizar tarjeta
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="row">
-        <Link id="signup-link" to="/tarjeta/activarTarjeta">
-          <button type="button" id="signup-button" className="btn btn-info">
-            Usar una nueva tarjeta
-          </button>
-        </Link>
+                  <td>
+                    <button
+                      className="btn btn-danger btn-sm btn-block"
+                      onClick={(e) =>
+                        finishActiveCard(tarjeta_instancia.tarjeta_instancia_id)
+                      }
+                    >
+                      Finalizar tarjeta
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <p></p>
       <div className="row">
-        <Link id="signup-link" to="/tarjeta/tarjetaPendienteDePago">
-          <button type="button" id="signup-button" className="btn btn-info">
-            Pendientes por pagar
-          </button>
-        </Link>
+        <div className="col-md-6">
+          <Link id="signup-link" to="/tarjeta/activarTarjeta">
+            <button type="button" id="signup-button" className="btn btn-info">
+              Usar una nueva tarjeta
+            </button>
+          </Link>
+        </div>
+        <div className="col-md-6">
+          <Link id="signup-link" to="/tarjeta/tarjetaPendienteDePago">
+            <button type="button" id="signup-button" className="btn btn-info">
+              Pendientes por pagar
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

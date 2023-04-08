@@ -8,8 +8,6 @@ import * as MdIcons from "react-icons/md";
 import * as SlIcons from "react-icons/sl";
 import * as GrIcons from "react-icons/gr";
 
-import { useState } from "react";
-const username = sessionStorage.getItem("username");
 /*
 const [usuarioRol, setUsuarioRol] = useState();
 const [username, setUserName] = useState();
@@ -24,11 +22,6 @@ useEffect(() => {
 }, []);
 */
 export const SidebarDataAdmin = [
-  {
-    title: "Hola " + username + "!",
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-  },
   {
     title: "Home",
     path: "/",
@@ -71,11 +64,6 @@ export const SidebarDataAdmin = [
 ];
 
 export const SidebarDataTarjetero = [
-  {
-    title: "Hola " + username + "!",
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-  },
   {
     title: "Home",
     path: "/",

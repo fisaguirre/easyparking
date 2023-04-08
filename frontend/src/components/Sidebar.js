@@ -73,32 +73,38 @@ const SidebarWrap = styled.div`
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
-
   const showSidebar = () => setSidebar(!sidebar);
 
   const [usuarioLogueado, setUsuarioLogueado] = useState(false);
   const [usuarioRol, setUsuarioRol] = useState();
+  const [username, setUsername] = useState();
 
   const [token, setToken] = useState();
   const [usuaroId, setUsuarioId] = useState();
-  let navigate = useNavigate();
 
   const getUserLogueado = async () => {
     const tokenGenerado = sessionStorage.getItem("token");
     const rolUsuario = sessionStorage.getItem("rol");
     const usuario_id = sessionStorage.getItem("usuario_id");
+    const username = sessionStorage.getItem("username");
     if (tokenGenerado) {
       setToken(tokenGenerado);
       setUsuarioLogueado(true);
       setUsuarioRol(rolUsuario);
       setUsuarioId(usuario_id);
+      setUsername(username);
     }
+  };
+  const hiUser = {
+    color: "white",
+    fontSize: "22px",
+    marginLeft: "4vh",
+    fontWeight: "bold",
   };
 
   useEffect(() => {
     getUserLogueado();
   }, []);
-
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
@@ -124,6 +130,7 @@ const Sidebar = () => {
             </NavIcon>
             {usuarioLogueado === true && usuarioRol == "tarjetero" ? (
               <>
+                <p style={hiUser}>Hola {username}.</p>
                 {SidebarDataTarjetero.map((item, index) => {
                   return <SubMenu item={item} key={index} />;
                 })}
@@ -131,6 +138,7 @@ const Sidebar = () => {
             ) : null}
             {usuarioLogueado === true && usuarioRol == "administrador" ? (
               <>
+                <p style={hiUser}>Hola {username}.</p>
                 {SidebarDataAdmin.map((item, index) => {
                   return <SubMenu item={item} key={index} />;
                 })}
