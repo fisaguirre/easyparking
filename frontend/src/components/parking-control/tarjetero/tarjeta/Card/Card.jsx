@@ -22,32 +22,34 @@ const Card = (props) => {
 };
 
 function CompactCard({ param, setExpanded }) {
-  const Png = param.png;
-  const [tipoTarjeta, setTipoTarjeta] = useState("pendiente");
+  //const Png = param.png;
+  const [tipoTarjeta, setTipoTarjeta] = useState("activa");
   return (
     <motion.div
       className="CompactCard"
       style={{
-        background: param.color.backGround,
-        boxShadow: param.color.boxShadow,
+        background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
+        boxShadow: "0px 10px 20px 0px #e0c6f5",
       }}
-      layoutId="expandableCard"
+      //layoutId="expandableCard"
       onClick={setExpanded}
     >
       {tipoTarjeta === "activa" ? (
         <>
           <div className="patenteBar">
-            <span>OHZ-298</span>
+            <span>{param.patente}</span>
           </div>
           <div className="horaBar">
-            <span>8:31-9:01</span>
+            <span>
+              {param.hora}:{param.minutos}
+            </span>
           </div>
         </>
       ) : (
         <>
           {/*<div className="radialBar">*/}
           <div className="patenteBar">
-            <span>OHZ-298</span>
+            <span>{param.patente}</span>
             {/*<span>{param.title}</span>*/}
           </div>
           <div className="tiempoBar">
@@ -150,6 +152,7 @@ function ExpandedCard({ param, setExpanded }) {
     },
   };
 
+  /*
   return (
     <motion.div
       className="ExpandedCard"
@@ -171,5 +174,26 @@ function ExpandedCard({ param, setExpanded }) {
     </motion.div>
   );
 }
+*/
+  return (
+    <motion.div
+      className="ExpandedCard"
+      style={{
+        background: param.color.backGround,
+        boxShadow: param.color.boxShadow,
+      }}
+      //layoutId="expandableCard"
+    >
+      <div style={{ alignSelf: "flex-end", cursor: "pointer", color: "white" }}>
+        <UilTimes onClick={setExpanded} />
+      </div>
+      <span></span>
+      <div className="chartContainer">
+        <Chart options={data.options} type="area" />
+      </div>
 
+      <span>Last 24 hours</span>
+    </motion.div>
+  );
+}
 export default Card;

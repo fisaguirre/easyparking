@@ -58,3 +58,81 @@
     }
   }
   
+
+
+
+  @media screen and (max-width: 2500px) {
+    .Cards{
+      flex-direction: column;
+    }
+    .parentContainer{
+      height: 9rem;
+    }
+  }
+  
+  @media screen and (max-width: 2000px)
+  {
+    .Cards{
+      width: 90%;
+    }
+  }
+  
+
+
+  .CompactCard {
+    /*display: flex;*/
+    /*flex: 1;*/
+    height: 8rem !important;
+    border-radius: 0.7rem;
+    color: white;
+    /*padding: 1rem;*/
+    position: relative;
+  }
+  .CompactCard:hover {
+    box-shadow: none !important;
+  }
+  
+  .patenteBar {
+    text-align: center;
+  }
+  .patenteBar > span {
+    font-size: 40px;
+    font-weight: bold;
+  }
+  
+  .tiempoBar {
+    text-align: left;
+  }
+  .tiempoBar > span {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 2%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .horaBar {
+    text-align: center;
+  }
+  .horaBar > span {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 2%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  
+  .precioBar {
+    text-align: right;
+  }
+  .precioBar > span {
+    font-size: 35px;
+    font-weight: bold;
+    margin-right: 2%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
