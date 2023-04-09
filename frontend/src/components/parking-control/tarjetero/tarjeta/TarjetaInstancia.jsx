@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import "./MainDash.css";
+import Cards from "./Cards/Cards";
 import {
   AmountCardsByUser,
   AmountActivateCardsByUser,
@@ -36,17 +38,8 @@ export default function TarjetaInstancia() {
     });
     const data = await res.json();
     setTarjetas(data);
-    /*
-/*
-const a = new Date();
-a.setHours(hora)
-a.setMinutes(minutos)
-a.setSeconds(50)
-setInitial(+a)
-console.log(a)
-*/
   };
-
+  /*
   const finishActiveCard = async (tarjeta_instancia_id) => {
     const userResponse = window.confirm(
       "¿Seguro que quiere finalizar la tarjeta?"
@@ -66,129 +59,37 @@ console.log(a)
     }
     await getTarjetasActivadas();
   };
-  /*
-        const changeValueTiempoActivo = (hora, minutos) => {
-    
-            const a = new Date();
-            a.setHours(hora)
-            a.setMinutes(minutos)
-            a.setSeconds(50)
-            setInitial(+a)
-            console.log(a)
-            //setInitial(+new Date())
-        }
-    */
-  /*
- 
-     const [diff, setDiff] = useState(null)
-     const [initial, setInitial] = useState(null)
- 
-     const tick = () => {
-         setDiff(new Date(+new Date() - initial))
-     };
- 
-     const start = () => { setInitial(+new Date()) }
- 
-     useEffect(() => {
-         if (initial) {
-             requestAnimationFrame(tick);
-         }
-         console.log("asd")
-     }, [initial]);
- 
-     useEffect(() => {
-         if (diff) {
-             requestAnimationFrame(tick);
-         }
-         console.log("hola")
-     }, [diff]);
- 
-     useEffect(() => {
-         getTarjetasActivadas();
-         changeValueTiempoActivo();
- 
-     }, []);
- */
+  */
+
   useEffect(() => {
     getTarjetasActivadas();
   }, []);
   return (
-    <div>
-      {/*
-             <div className="row">
-        <h3>
-          <AmountCardsByUser />
-        </h3>
+    <div className="App">
+      <div className="AppGlass">
+        <div className="MainDash">
+          {tarjetas.map((tarjeta_instancia) => (
+            <div key={tarjeta_instancia.tarjeta_instancia_id}>
+              <Cards
+                mes={tarjeta_instancia.mes}
+                dia_semana={tarjeta_instancia.dia_semana}
+                dia_fecha={tarjeta_instancia.dia_fecha}
+                hora={tarjeta_instancia.hora}
+                minutos={tarjeta_instancia.minutos}
+                patente={tarjeta_instancia.patente}
+                tarjeta_id={tarjeta_instancia.tarjeta_id}
+                tarjeta_instancia_id={tarjeta_instancia.tarjeta_instancia_id}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-        */}
+    </div>
+    /*
       <div className="row">
         <h3>Mis Tarjetas Activas</h3>
       </div>
-      {/*
-      <div className="row">
-        <Link id="signup-link" to="/tarjeta/tarjetaPendienteDePago">
-          <button type="button" id="signup-button" className="btn btn-info">
-            Pendientes por pagar
-          </button>
-        </Link>
-      </div>
-        */}
-      <div id="form-text" className="row">
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Patente</th>
-              <th>Hora</th>
-              {/*<th>Tiempo transcurrido</th>*/}
-            </tr>
-          </thead>
-          <tbody>
-            {tarjetas.map((tarjeta_instancia) => (
-              <tr key={tarjeta_instancia.tarjeta_instancia_id}>
-                <td>{tarjeta_instancia.patente}</td>
-                {tarjeta_instancia.minutos == 0 ? (
-                  <td>{tarjeta_instancia.hora}:00</td>
-                ) : (
-                  <td>
-                    {tarjeta_instancia.hora}:{tarjeta_instancia.minutos}
-                  </td>
-                )}
-                {/*
-                                    <td>
-                                        {tiempoActivo ? (
-                                            <>
-                                                <div className="App" onClick={start}>
 
-                                                    <h4 className="timer">{timeFormat(diff)}</h4>
-                                                </div>
-
-                                            </>
-                                        ) : "****"}
-                                    </td>
-                                        */}
-                {/*
-                                    <td>
-                                        <button className="btn btn-primary btn-block"
-                                            onClick={(e) => changeValueTiempoActivo(tiempoActivo, tarjeta_instancia.hora, tarjeta_instancia.minutos)}
-                                        >Mostrar tiempo
-                                        </button>
-                                    </td>
-                                        */}
-                <td>
-                  <button
-                    className="btn btn-danger btn-sm btn-block"
-                    onClick={(e) =>
-                      finishActiveCard(tarjeta_instancia.tarjeta_instancia_id)
-                    }
-                  >
-                    Finalizar tarjeta
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
       <div className="row">
         <Link id="signup-link" to="/tarjeta/activarTarjeta">
           <button type="button" id="signup-button" className="btn btn-info">
@@ -204,22 +105,6 @@ console.log(a)
           </button>
         </Link>
       </div>
-    </div>
+                  */
   );
 }
-
-/*
-const timeFormat = (date) => {
-    if (!date) return "00:00:00";
-
-    let mm = date.getUTCMinutes();
-    let ss = date.getSeconds();
-    let cm = Math.round(date.getMilliseconds() / 10);
-
-    mm = mm < 10 ? "0" + mm : mm;
-    ss = ss < 10 ? "0" + ss : ss;
-    cm = cm < 10 ? "0" + cm : cm;
-
-    return `${mm}:${ss}:${cm}`;
-};
-*/

@@ -144,11 +144,16 @@ import Estacionamiento from "./components/parking-location/Estacionamiento";
 import PagoConfiguracion from "./components/payment/PagoConfiguracion";
 import PagoEfectuado from "./components/payment/PagoEfectuado";
 import Logout from "./page/Logout";
+import MainDash from "./components/parking-control/tarjetero/tarjeta/Main/MainDash";
 function App() {
   return (
     /*
       aca pongo el sidebar modo admin/tarjetero
       sino pongo la condicion if or not, dentro el sidebar y afuera las routes y asi no repito
+      */
+    /*
+    <div className="App">
+      <div className="AppGlass">
       */
     <Router>
       <Sidebar />
@@ -157,6 +162,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/main" element={<MainDash />} />
         <Route path="/users" className="auto" element={<Users />} />
         <Route
           path="/estacionamiento/zonadetrabajo"

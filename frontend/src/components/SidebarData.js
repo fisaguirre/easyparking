@@ -109,7 +109,7 @@ export const SidebarDataTarjetero = [
       },
       {
         title: "Tarjetas activas",
-        path: "/tarjeta_instancia/",
+        path: "/main",
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
