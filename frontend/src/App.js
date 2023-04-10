@@ -162,7 +162,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/main" element={<MainDash />} />
         <Route path="/users" className="auto" element={<Users />} />
         <Route
           path="/estacionamiento/zonadetrabajo"

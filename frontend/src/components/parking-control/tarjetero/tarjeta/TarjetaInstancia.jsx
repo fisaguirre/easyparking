@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import "./MainDash.css";
-import Cards from "./Cards/Cards";
-import Card from "./Card/Card";
 import { cardsData } from "./Data/Data";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { UilTimes } from "@iconscout/react-unicons";
 import Chart from "react-apexcharts";
 import { CircularProgressbar } from "react-circular-progressbar";
+import "./MainDash.css";
 import "react-circular-progressbar/dist/styles.css";
 import {
   AmountCardsByUser,
   AmountActivateCardsByUser,
 } from "./service/TarjetaService";
-import { TarjetaPendienteDePago } from "./TarjetaPendienteDePago";
 import * as IoIcons from "react-icons/io5";
 
 const API = process.env.REACT_APP_API_USER;
@@ -37,7 +34,6 @@ const TarjetaInstancia = () => {
     setTarjetas(data);
   };
 
-  /*
   const finishActiveCard = async (tarjeta_instancia_id) => {
     const userResponse = window.confirm(
       "¿Seguro que quiere finalizar la tarjeta?"
@@ -57,7 +53,6 @@ const TarjetaInstancia = () => {
     }
     await getTarjetasActivadas();
   };
-  */
 
   useEffect(() => {
     getTarjetasActivadas();
@@ -70,6 +65,7 @@ const TarjetaInstancia = () => {
   const eliminarTarjeta = (cardInstanceId) => {
     //aca voy a meter para finalizar tarjeta
     //generar ccodigo qr o limpiar tarjetas dependiendo lo que envie por probando
+    finishActiveCard(cardInstanceId);
     setExpanded(false);
   };
 
@@ -172,10 +168,10 @@ function CompactCard(props) {
                   right: "0",
                 }}
               >
-                <IoIcons.IoExpandSharp size={50} />
+                <IoIcons.IoExpandSharp size={45} />
               </div>
               <div className="patenteBar">
-                <span>{tarjeta_instancia.patente}</span>
+                <span className="spancito">{tarjeta_instancia.patente}</span>
               </div>
               <div className="horaBar">
                 {tarjeta_instancia.minutos === 0 ? (
@@ -206,56 +202,6 @@ function CompactCard(props) {
 
 // Expanded Card
 function ExpandedCard(props) {
-  const data = {
-    options: {
-      chart: {
-        type: "area",
-        height: "auto",
-      },
-
-      dropShadow: {
-        enabled: false,
-        enabledOnSeries: undefined,
-        top: 0,
-        left: 0,
-        blur: 3,
-        color: "#000",
-        opacity: 0.35,
-      },
-
-      fill: {
-        colors: ["#fff"],
-        type: "gradient",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-        colors: ["white"],
-      },
-      tooltip: {
-        x: {
-          format: "dd/MM/yy HH:mm",
-        },
-      },
-      grid: {
-        show: true,
-      },
-      xaxis: {
-        type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00.000Z",
-          "2018-09-19T01:30:00.000Z",
-          "2018-09-19T02:30:00.000Z",
-          "2018-09-19T03:30:00.000Z",
-          "2018-09-19T04:30:00.000Z",
-          "2018-09-19T05:30:00.000Z",
-          "2018-09-19T06:30:00.000Z",
-        ],
-      },
-    },
-  };
   function devolver(par) {
     props.devolverParametro(par);
   }
@@ -270,24 +216,8 @@ function ExpandedCard(props) {
         background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
         boxShadow: "0px 10px 20px 0px #e0c6f5",
       }}
-      layoutId="expandableCard"
+      //layoutId="expandableCard"
     >
-      {/*
-          <div
-        style={{
-          alignSelf: "flex-end",
-          cursor: "pointer",
-          color: "white",
-        }}
-      >
-        <UilTimes
-          size={60}
-          onClick={() => {
-            devolver("fer");
-          }}
-        />
-      </div>
-        */}
       <div
         style={{
           alignSelf: "flex-end",
@@ -305,12 +235,17 @@ function ExpandedCard(props) {
           }}
         />
       </div>
-      <span></span>
-      <div className="chartContainer">
-        <Chart options={data.options} type="area" />
+      <div className="patenteExpanded">
+        <span>Patente: {props.card.patente}</span>
       </div>
-      <span>{props.card.dia_fecha}</span>
+      <div className="horaExpanded">
+        Hora inicial:
+        <span>
+          {props.card.hora}:{props.card.minutos}
+        </span>
+      </div>
       <button
+        className="buttonFinalizarTarjeta"
         onClick={() => {
           returnCardIdForEndCard(props.card.tarjeta_instancia_id);
         }}

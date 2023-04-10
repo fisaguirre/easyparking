@@ -1,149 +1,178 @@
 .MainDash {
-    /* padding-top: 1rem; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-  }
-  
-  @media screen and (max-width: 2500px) {
-    .MainDash {
-      justify-content: flex-start;
-      margin-top: 2rem;
-    }
-  }
-  
-  @media screen and (max-width: 2000px) {
-    .MainDash {
-      align-items: center;
-    }
-  }
-  
+  /* padding-top: 1rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
 
-  .App {
-    color: var(--black);
-    background: linear-gradient(
-      106.37deg,
-      #ffe1bc 29.63%,
-      #ffcfd1 51.55%,
-      #f3c6f1 90.85%
-    );
-    height: 100vh;
-    display: flex;
+@media screen and (max-width: 2500px) {
+  .MainDash {
+    justify-content: flex-start;
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 2000px) {
+  .MainDash {
     align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
   }
-  
+}
+
+.App {
+  color: var(--black);
+  background: linear-gradient(
+    106.37deg,
+    #ffe1bc 29.63%,
+    #ffcfd1 51.55%,
+    #f3c6f1 90.85%
+  );
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+}
+
+.AppGlass {
+  display: grid;
+  height: 97%;
+  width: 97%;
+  background: var(--glass);
+  border-radius: 2rem;
+  gap: 16px;
+  grid-template-columns: 11rem auto 20rem;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 2500px) {
   .AppGlass {
-    display: grid;
-    height: 97%;
-    width: 97%;
-    background: var(--glass);
-    border-radius: 2rem;
-    gap: 16px;
-    grid-template-columns: 11rem auto 20rem;
-    overflow: hidden;
+    grid-template-columns: 10% 50% auto;
+    overflow-y: scroll;
   }
-  
-  @media screen and (max-width: 2500px) {
-    .AppGlass {
-      grid-template-columns: 10% 50% auto;
-      overflow-y: scroll;
-    }
-  }
-  
-  @media screen and (max-width: 2000px) {
-    .AppGlass {
-      grid-template-columns: 1fr;
-    }
-  }
-  
+}
 
+@media screen and (max-width: 2000px) {
+  .AppGlass {
+    grid-template-columns: 1fr;
+  }
+}
 
+@media screen and (max-width: 2500px) {
+  .Cards {
+    flex-direction: column;
+  }
+  .parentContainer {
+    height: 9rem;
+  }
+}
 
-  @media screen and (max-width: 2500px) {
-    .Cards{
-      flex-direction: column;
-    }
-    .parentContainer{
-      height: 9rem;
-    }
+@media screen and (max-width: 2000px) {
+  .Cards {
+    width: 90%;
   }
-  
-  @media screen and (max-width: 2000px)
-  {
-    .Cards{
-      width: 90%;
-    }
-  }
-  
+}
 
+.CompactCard {
+  /*display: flex;*/
+  /*flex: 1;*/
+  height: 8rem !important;
+  border-radius: 0.7rem;
+  color: white;
+  /*padding: 1rem;*/
+  position: relative;
+}
+.CompactCard:hover {
+  box-shadow: none !important;
+}
 
-  .CompactCard {
-    /*display: flex;*/
-    /*flex: 1;*/
-    height: 8rem !important;
-    border-radius: 0.7rem;
-    color: white;
-    /*padding: 1rem;*/
-    position: relative;
-  }
-  .CompactCard:hover {
-    box-shadow: none !important;
-  }
-  
-  .patenteBar {
-    text-align: center;
-  }
-  .patenteBar > span {
-    font-size: 25px;
-    font-weight: bold;
-  }
-  
-  .horaBar {
-    text-align: center;
-  }
-  .horaBar > span {
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 2%;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .tarjetasBar {
-    text-align: left;
-    justify-content: 'flex-start';
-    margin-left: 2%;
-  }
-  .tiempoBar {
-    text-align: left;
-  }
-  .tiempoBar > span {
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 2%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
-  .precioBar {
-    text-align: right;
-  }
-  .precioBar > span {
-    font-size: 30px;
-    font-weight: bold;
-    margin-right: 2%;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
+.patenteBar {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.spancito {
+  font-size: 40px;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+}
+.horaBar {
+  text-align: center;
+}
+.horaBar > span {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 2%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
+.tarjetasBar {
+  text-align: left;
+  justify-content: "flex-start";
+  margin-left: 2%;
+}
+.tiempoBar {
+  text-align: left;
+}
+.tiempoBar > span {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 2%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.precioBar {
+  text-align: right;
+}
+.precioBar > span {
+  font-size: 30px;
+  font-weight: bold;
+  margin-right: 2%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 
+.patenteExpanded {
+  display: "block";
+  color: white;
 
+  margin-bottom: "10px";
+}
 
+.patenteExpanded > span {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+}
+.horaExpanded {
+  font-size: 30px;
+  color: white;
+
+  display: "block";
+  margin-bottom: "10px";
+}
+
+.horaExpanded > span {
+  font-size: 35px;
+  font-weight: bold;
+  color: white;
+}
+.buttonFinalizarTarjeta {
+  padding: 20px 15px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+}
 .ExpandedCard {
   position: absolute;
   width: 60%;

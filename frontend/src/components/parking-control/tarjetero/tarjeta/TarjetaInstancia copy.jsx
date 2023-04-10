@@ -8,7 +8,7 @@ import { TarjetaPendienteDePago } from "./TarjetaPendienteDePago";
 
 const API = process.env.REACT_APP_API_USER;
 
-export default function TarjetaInstancia() {
+export default function TarjetaInstancia2() {
   const [tarjetaInstanciaId, setTarjetaInstanciaId] = useState("");
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");

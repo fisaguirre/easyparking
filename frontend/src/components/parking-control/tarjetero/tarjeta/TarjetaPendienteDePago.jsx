@@ -4,7 +4,6 @@ import { AmountFinishedCardsByUser } from "./service/TarjetaInstanciaService";
 import PagoGenerarQR from "../../../payment/PagoGenerarQR";
 import * as IoIcons from "react-icons/io5";
 
-import "./MainDash.css";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { UilTimes } from "@iconscout/react-unicons";
 import Chart from "react-apexcharts";
@@ -13,10 +12,6 @@ import {
   AmountActivateCardsByUser,
 } from "./service/TarjetaService";
 
-import Cards from "./Cards/Cards";
-import Card from "./Card/Card";
-import { cardsData } from "./Data/Data";
-import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 const API = process.env.REACT_APP_API_USER;
