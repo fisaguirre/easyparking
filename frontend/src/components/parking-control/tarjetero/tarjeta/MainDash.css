@@ -100,17 +100,6 @@
     font-weight: bold;
   }
   
-  .tiempoBar {
-    text-align: left;
-  }
-  .tiempoBar > span {
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 2%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
   .horaBar {
     text-align: center;
   }
@@ -124,12 +113,27 @@
     transform: translateX(-50%);
   }
   
-  
+  .tarjetasBar {
+    text-align: left;
+    justify-content: 'flex-start';
+    margin-left: 2%;
+  }
+  .tiempoBar {
+    text-align: left;
+  }
+  .tiempoBar > span {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 2%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
   .precioBar {
     text-align: right;
   }
   .precioBar > span {
-    font-size: 35px;
+    font-size: 30px;
     font-weight: bold;
     margin-right: 2%;
     position: absolute;

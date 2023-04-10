@@ -24,8 +24,6 @@ const TarjetaInstancia = () => {
 
   let [tarjetas, setTarjetas] = useState([]);
 
-  const [prueba, setPrueba] = useState(true);
-
   const getTarjetasActivadas = async () => {
     const res = await fetch(`${API}/tarjeta_instancia/activar/${usuario_id}`, {
       mmethod: "GET",
@@ -36,23 +34,6 @@ const TarjetaInstancia = () => {
     });
     const data = await res.json();
     setTarjetas(data);
-  };
-  const calcularHoraFinal = (horaInicial, minutosInicial) => {
-    let hora = horaInicial.toString() + ":" + minutosInicial.toString();
-    const [horaActual, minutosActual] = hora.split(":"); // dividir la hora y los minutos actuales en un array
-    const fechaHoraActual = new Date(); // crear un nuevo objeto Date con la hora y fecha actuales
-    fechaHoraActual.setHours(horaActual); // establecer la hora actual
-    fechaHoraActual.setMinutes(minutosActual); // establecer los minutos actuales
-    fechaHoraActual.setMinutes(fechaHoraActual.getMinutes() + 30); // sumar 30 minutos al objeto de fecha
-    const nuevaHora = `${fechaHoraActual
-      .getHours()
-      .toString()
-      .padStart(2, "0")}:${fechaHoraActual
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`; // convertir la nueva hora y minutos en una cadena con formato de hora
-    const horaFinal = nuevaHora;
-    return horaFinal;
   };
 
   /*
@@ -80,143 +61,6 @@ const TarjetaInstancia = () => {
   useEffect(() => {
     getTarjetasActivadas();
   }, []);
-
-  /*
-  return (
-    <div className="App">
-      <div className="AppGlass">
-        <div className="MainDash">
-          <div className="Cards">
-            {tarjetas.map((tarjeta_instancia) => {
-              return (
-                <div
-                  className="parentContainer"
-                  key={tarjeta_instancia.tarjeta_instancia_id}
-                >
-                  <motion.div
-                    className="CompactCard"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
-                      boxShadow: "0px 10px 20px 0px #e0c6f5",
-                    }}
-                    //layoutId="expandableCard"
-                  >
-                    <div className="patenteBar">
-                      <span>{tarjeta_instancia.patente}</span>
-                    </div>
-                    <div className="horaBar">
-                      {tarjeta_instancia.minutos === 0 ? (
-                        <span>
-                          {tarjeta_instancia.hora}:{tarjeta_instancia.minutos}0
-                          -
-                          {calcularHoraFinal(
-                            tarjeta_instancia.hora,
-                            tarjeta_instancia.minutos
-                          )}
-                        </span>
-                      ) : (
-                        <span>
-                          {tarjeta_instancia.hora}:{tarjeta_instancia.minutos} -
-                          {calcularHoraFinal(
-                            tarjeta_instancia.hora,
-                            tarjeta_instancia.minutos
-                          )}
-                        </span>
-                      )}
-                    </div>
-                  </motion.div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-  */
-  /*
-  return (
-    <div className="App">
-      <div className="AppGlass">
-        <div className="MainDash">
-          <div className="Cards">
-            {tarjetas.map((tarjeta_instancia) => {
-              return (
-                <div
-                  className="parentContainer"
-                  key={tarjeta_instancia.tarjeta_instancia_id}
-                >
-                  <motion.div
-                    className="CompactCard"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
-                      boxShadow: "0px 10px 20px 0px #e0c6f5",
-                    }}
-                    //layoutId="expandableCard"
-                    //onClick={setPrueba(false)}
-                  >
-                    <div className="patenteBar">
-                      <span>{tarjeta_instancia.patente}</span>
-                    </div>
-                    <div className="horaBar">
-                      {tarjeta_instancia.minutos === 0 ? (
-                        <span>
-                          {tarjeta_instancia.hora}:{tarjeta_instancia.minutos}0
-                          -
-                          {calcularHoraFinal(
-                            tarjeta_instancia.hora,
-                            tarjeta_instancia.minutos
-                          )}
-                        </span>
-                      ) : (
-                        <span>
-                          {tarjeta_instancia.hora}:{tarjeta_instancia.minutos} -
-                          {calcularHoraFinal(
-                            tarjeta_instancia.hora,
-                            tarjeta_instancia.minutos
-                          )}
-                        </span>
-                      )}
-                    </div>
-                  </motion.div>
-                </div>
-              );
-            })}
-            {prueba === false ? (
-              <>
-                <motion.div
-                  className="ExpandedCard"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
-                    boxShadow: "0px 10px 20px 0px #e0c6f5",
-                  }}
-                  layoutId="expandableCard"
-                >
-                  <div
-                    style={{
-                      alignSelf: "flex-end",
-                      cursor: "pointer",
-                      color: "white",
-                    }}
-                  >
-                    <UilTimes onClick={setPrueba(true)} />
-                  </div>
-                  <span></span>
-                  <div className="chartContainer"></div>
-
-                  <span>24 hours</span>
-                </motion.div>
-              </>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-  */
 
   const [expanded, setExpanded] = useState(false);
   const [cardSelected, setCardSelected] = useState();
