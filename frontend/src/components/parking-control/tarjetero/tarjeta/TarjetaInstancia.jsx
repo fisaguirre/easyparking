@@ -14,6 +14,7 @@ import {
   AmountActivateCardsByUser,
 } from "./service/TarjetaService";
 import { TarjetaPendienteDePago } from "./TarjetaPendienteDePago";
+import * as IoIcons from "react-icons/io5";
 
 const API = process.env.REACT_APP_API_USER;
 
@@ -105,6 +106,7 @@ const TarjetaInstancia = () => {
                   /*tarjeta-> se envia el array de todas las tarjetas activas
                 devolverTarjeta-> se devuelve la tarjeta seleccionada para setearla y enviarla a la expandida
                 */
+
                   tarjeta={tarjetas}
                   devolverTarjeta={(expandedCard) =>
                     expandedCardAndSetCard(expandedCard)
@@ -160,6 +162,18 @@ function CompactCard(props) {
                 devolverTarjeta(tarjeta_instancia);
               }}
             >
+              <div
+                style={{
+                  alignSelf: "flex-end",
+                  cursor: "pointer",
+                  color: "white",
+                  position: "absolute",
+                  top: "0",
+                  right: "0",
+                }}
+              >
+                <IoIcons.IoExpandSharp size={50} />
+              </div>
               <div className="patenteBar">
                 <span>{tarjeta_instancia.patente}</span>
               </div>
@@ -258,19 +272,43 @@ function ExpandedCard(props) {
       }}
       layoutId="expandableCard"
     >
-      <div style={{ alignSelf: "flex-end", cursor: "pointer", color: "white" }}>
+      {/*
+          <div
+        style={{
+          alignSelf: "flex-end",
+          cursor: "pointer",
+          color: "white",
+        }}
+      >
         <UilTimes
+          size={60}
           onClick={() => {
             devolver("fer");
           }}
         />
       </div>
-
+        */}
+      <div
+        style={{
+          alignSelf: "flex-end",
+          cursor: "pointer",
+          color: "white",
+          position: "absolute",
+          top: "0",
+          right: "0",
+        }}
+      >
+        <UilTimes
+          size={80}
+          onClick={() => {
+            devolver("fer");
+          }}
+        />
+      </div>
       <span></span>
       <div className="chartContainer">
         <Chart options={data.options} type="area" />
       </div>
-
       <span>{props.card.dia_fecha}</span>
       <button
         onClick={() => {

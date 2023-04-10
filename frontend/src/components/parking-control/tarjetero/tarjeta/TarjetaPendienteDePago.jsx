@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AmountFinishedCardsByUser } from "./service/TarjetaInstanciaService";
 import PagoGenerarQR from "../../../payment/PagoGenerarQR";
+import * as IoIcons from "react-icons/io5";
 
 import "./MainDash.css";
 import { motion, AnimateSharedLayout } from "framer-motion";
@@ -238,6 +239,18 @@ function CompactCard(props) {
                 devolverTarjeta(tarjeta_instancia);
               }}
             >
+              <div
+                style={{
+                  alignSelf: "flex-end",
+                  cursor: "pointer",
+                  color: "white",
+                  position: "absolute",
+                  top: "0",
+                  right: "0",
+                }}
+              >
+                <IoIcons.IoExpandSharp size={50} />
+              </div>
               <div className="patenteBar">
                 <span>{tarjeta_instancia.patente}</span>
               </div>
@@ -328,8 +341,18 @@ function ExpandedCard(props) {
       }}
       layoutId="expandableCard"
     >
-      <div style={{ alignSelf: "flex-end", cursor: "pointer", color: "white" }}>
+      <div
+        style={{
+          alignSelf: "flex-end",
+          cursor: "pointer",
+          color: "white",
+          position: "absolute",
+          top: "0",
+          right: "0",
+        }}
+      >
         <UilTimes
+          size={80}
           onClick={() => {
             devolver("fer");
           }}
