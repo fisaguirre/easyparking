@@ -179,6 +179,8 @@ const TarjetaPendienteDePago = () => {
     <div className="App">
       <div className="AppGlass">
         <div className="MainDash">
+          <h1>A pagar</h1>
+          <br></br>
           <div className="Cards">
             <motion>
               {expanded ? (
@@ -219,6 +221,10 @@ function CompactCard(props) {
   function devolverTarjeta(card) {
     props.devolverTarjeta(card);
   }
+  const styleCard = {
+    backGround: "linear-gradient(180deg, #953B21 0%, #FF0000 100%)",
+    boxShadow: "0px 10px 20px 0px #e0c6f5",
+  };
   return (
     <div>
       {props.tarjeta.map((tarjeta_instancia) => {
@@ -229,10 +235,13 @@ function CompactCard(props) {
           >
             <motion.div
               className="CompactCard"
+              style={styleCard}
+              /*
               style={{
                 backGround: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
                 boxShadow: "0px 10px 20px 0px #e0c6f5",
               }}
+              */
               //layoutId="expandableCard"
               onClick={() => {
                 devolverTarjeta(tarjeta_instancia);
@@ -284,14 +293,20 @@ function ExpandedCard(props) {
   function returnPatenteAndUserIdForEndCard(patente, usuario_id) {
     props.returnPatenteAndUserIdForEndCard(patente, usuario_id);
   }
-
+  const styleExtendedCard = {
+    background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
+    boxShadow: "0px 10px 20px 0px #e0c6f5",
+  };
   return (
     <motion.div
       className="ExpandedCard"
+      //style={styleExtendedCard}
+      /*
       style={{
         background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
         boxShadow: "0px 10px 20px 0px #e0c6f5",
       }}
+      */
       layoutId="expandableCard"
     >
       <div

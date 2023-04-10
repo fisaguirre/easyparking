@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
@@ -28,6 +28,12 @@ const Nav = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  transition: transform 0.3s ease-in-out;
 `;
 
 const NavIcon = styled(Link)`
@@ -49,10 +55,11 @@ const NavIconLogin = styled(Link)`
 `;
 
 const NavIconApp = styled(Link)`
-  margin-left: auto;
+  //margin-left: auto;
+  margin-left: 2rem;
   margin-right: 2rem;
-  font-size: 2rem;
-  height: 80px;
+  font-size: 1.8rem;
+  height: 50px;
   display: flex;
   //justify-content: flex-start;
   align-items: center;
@@ -104,18 +111,57 @@ const Sidebar = () => {
   };
   const hiUser = {
     color: "white",
-    fontSize: "22px",
+    fontSize: "20px",
     marginLeft: "4vh",
     fontWeight: "bold",
   };
+  const appName = {
+    color: "white",
+    fontSize: "25px",
+    marginLeft: "4vh",
+    fontWeight: "bold",
+  };
+  const appNavName = {
+    color: "black",
+    fontSize: "25px",
+    marginLeft: "4vh",
+    fontWeight: "bold",
+    marginLeft: "2.2rem",
+    marginRight: "2rem",
+    //fontSize: "1.8rem",
+    fontSize: "1.8rem",
 
+    marginTop: "0.7rem",
+    height: "25px",
+    display: "flex",
+    alignItems: "center",
+    fontFamily: "'Helvetica Neue', 'sans-serif'",
+    letterSpacing: "2px",
+    color: "#2b2b2b",
+    textShadow: "1px 1px 1px rgba(0, 0, 0, 0.1)",
+    textTransform: "uppercase",
+    margin: "1rem 0",
+  };
+
+  //Para arrastrar el navbar
+  const navbarRef = useRef(null);
+
+  const handleScroll = () => {
+    const navbar = navbarRef.current;
+    if (navbar) {
+      navbar.style.transform = `translateY(${window.scrollY}px)`;
+    }
+  };
   useEffect(() => {
     getUserLogueado();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
-        <Nav>
+        <Nav ref={navbarRef}>
           {usuarioLogueado ? (
             <>
               <NavIcon to="#">
@@ -127,7 +173,9 @@ const Sidebar = () => {
               <IoIcons.IoPersonCircle onClick={showSidebar} />
             </NavIconLogin>
           )}
-          <NavIconApp to="#">Easy-Parking</NavIconApp>
+          {/*       <NavIconApp to="#">Easy-Parking</NavIconApp>
+           */}
+          <p style={appNavName}>EasyParking</p>
         </Nav>
 
         <SidebarNav sidebar={sidebar} usuarioLogueado={usuarioLogueado}>
@@ -135,6 +183,7 @@ const Sidebar = () => {
             <NavIcon to="#">
               <AiIcons.AiOutlineClose onClick={showSidebar} />
             </NavIcon>
+            <p style={appName}>EasyParking</p>
             {usuarioLogueado === true && usuarioRol == "tarjetero" ? (
               <>
                 <p style={hiUser}>Hola {username}.</p>

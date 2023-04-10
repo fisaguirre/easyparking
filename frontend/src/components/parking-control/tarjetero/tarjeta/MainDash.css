@@ -80,6 +80,13 @@
   color: white;
   /*padding: 1rem;*/
   position: relative;
+  /*estos colores son para las pendientes por pagar*/
+  background: linear-gradient(180deg, #953b21 0%, #ff0000 100%);
+  box-shadow: 0px 10px 20px 0px #e0c6f5;
+  /*
+  background: linear-gradient(180deg, #bcc629 0%, #15e53e 100%);
+  box-shadow: 0px 10px 20px 0px #e0c6f5;
+*/
 }
 .CompactCard:hover {
   box-shadow: none !important;
@@ -254,6 +261,9 @@
   align-items: center;
   justify-content: space-around;
   padding: 1rem;
+  /*estos colores son para las expandidas en pendientes por pagar*/
+  background: linear-gradient(180deg, #953b21 0%, #ff0000 100%);
+  box-shadow: 0px 10px 20px 0px #e0c6f5;
 }
 .ExpandedCard > span:nth-of-type(1) {
   color: white;

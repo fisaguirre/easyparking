@@ -51,11 +51,13 @@ export const SidebarDataAdmin = [
       },
     ],
   },
+  /*
   {
-    title: "Configuraciòn de perfil",
+    title: "Configuración de perfil",
     //path: "/logout",
     icon: <GrIcons.GrUserSettings />,
   },
+  */
   {
     title: "Cerrar sesión",
     path: "/logout",
@@ -71,6 +73,7 @@ export const SidebarDataTarjetero = [
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
+  /*
   {
     title: "Estacionamiento",
     //path: "/reports",
@@ -92,6 +95,14 @@ export const SidebarDataTarjetero = [
         cName: "sub-nav",
       },
     ],
+  },
+  */
+  {
+    title: "Estacionamiento",
+    path: "/estacionamiento/zonadetrabajo",
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
     title: "Tarjetas",
@@ -120,6 +131,7 @@ export const SidebarDataTarjetero = [
       },
     ],
   },
+  /*
   {
     title: "Pagos",
     //path: "/reports",
@@ -142,11 +154,21 @@ export const SidebarDataTarjetero = [
       },
     ],
   },
+  */
+  {
+    title: "Configuración de Facturación",
+    path: "/pago/configuracion",
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  /*
   {
     title: "Configuraciòn de perfil",
     //path: "/logout",
     icon: <GrIcons.GrUserSettings />,
   },
+  */
   {
     title: "Cerrar sesión",
     path: "/logout",

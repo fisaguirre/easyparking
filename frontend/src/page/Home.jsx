@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Map } from "../components/parking-location/Map";
 import { Link } from "react-router-dom";
+import "../components/parking-control/tarjetero/tarjeta/MainDash.css";
 const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
 
 export default function Home() {
@@ -35,11 +36,6 @@ export default function Home() {
 
   return (
     <div>
-      {usuarioLogueado ? (
-        <>
-          <h1>Hola {username}</h1>
-        </>
-      ) : null}
       {/*
       {usuarioLogueado === false ? (
         <>
@@ -55,9 +51,10 @@ export default function Home() {
         </>
       ) : null}
       */}
-      <div>{/*<Map />*/}</div>
+      {/*<Map />*/}
       {/*El paramaetro "false" es para indicar si es el usuario tarjetero el que esta guardando su zona de trabajo
             o es la secciòn del mapa que muestra todas las zonas del trabajo en el home (caso que sea true)*/}
+
       <Map updateWorkZone={false} />
     </div>
   );

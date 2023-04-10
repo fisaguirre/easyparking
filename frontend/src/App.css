@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .home,
@@ -19,7 +19,6 @@
   font-size: 3rem;
 }
 
-/*
 :root {
   --yellow: linear-gradient(180deg, #f8d49a -146.42%, #fad79d -46.42%);
   --orange: #fca61f;
@@ -32,8 +31,7 @@
   --smboxShadow: -79px 51px 60px rgba(0, 0, 0, 0.08);
   --activeItem: #f799a354;
 }
-
-.App {
+.MainApp {
   color: var(--black);
   background: linear-gradient(
     106.37deg,
@@ -41,34 +39,5 @@
     #ffcfd1 51.55%,
     #f3c6f1 90.85%
   );
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter', sans-serif;
+  height: 150vh;
 }
-
-.AppGlass {
-  display: grid;
-  height: 97%;
-  width: 97%;
-  background: var(--glass);
-  border-radius: 2rem;
-  gap: 16px;
-  grid-template-columns: 11rem auto 20rem;
-  overflow: hidden;
-}
-
-@media screen and (max-width: 1200px) {
-  .AppGlass {
-    grid-template-columns: 10% 50% auto;
-    overflow-y: scroll;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .AppGlass {
-    grid-template-columns: 1fr;
-  }
-}
-*/
