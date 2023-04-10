@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AmountFinishedCardsByUser } from "./service/TarjetaInstanciaService";
 import PagoGenerarQR from "../../../payment/PagoGenerarQR";
 import * as IoIcons from "react-icons/io5";
+import "./MainDash.css";
 
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { UilTimes } from "@iconscout/react-unicons";
@@ -157,14 +158,16 @@ const TarjetaPendienteDePago = () => {
   const [expanded, setExpanded] = useState(false);
   const [cardSelected, setCardSelected] = useState();
 
-  //Finaliza la tarjeta seleccionada
-  const eliminarTarjeta = (cardInstanceId) => {
-    //aca voy a meter para finalizar tarjeta
-    //generar ccodigo qr o limpiar tarjetas dependiendo lo que envie por probando
+  const cerrarTarjetaExpandida = () => {
+    setExpanded(false);
+  };
+  const lanzarQR = (card) => {
+    deleteFinishedCardListById(card);
     setExpanded(false);
   };
 
-  const cerrarTarjetaExpandida = () => {
+  const limpiarTarjetas = (patente, usuario_id) => {
+    deleteFinishedCardListById(patente, usuario_id);
     setExpanded(false);
   };
   //setea la tarjeta seleccionada y expande la tarjeta
@@ -188,8 +191,9 @@ const TarjetaPendienteDePago = () => {
                   devolverParametro={(parametro) =>
                     cerrarTarjetaExpandida(parametro)
                   }
-                  devolverCardInstanceId={(cardInstanceId) =>
-                    eliminarTarjeta(cardInstanceId)
+                  devolverDatosTarjetaParaQR={(card) => lanzarQR(card)}
+                  returnPatenteAndUserIdForEndCard={(patente, usuario_id) =>
+                    limpiarTarjetas(patente, usuario_id)
                   }
                 />
               ) : (
@@ -270,61 +274,15 @@ function CompactCard(props) {
 
 // Expanded Card
 function ExpandedCard(props) {
-  const data = {
-    options: {
-      chart: {
-        type: "area",
-        height: "auto",
-      },
-
-      dropShadow: {
-        enabled: false,
-        enabledOnSeries: undefined,
-        top: 0,
-        left: 0,
-        blur: 3,
-        color: "#000",
-        opacity: 0.35,
-      },
-
-      fill: {
-        colors: ["#fff"],
-        type: "gradient",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-        colors: ["white"],
-      },
-      tooltip: {
-        x: {
-          format: "dd/MM/yy HH:mm",
-        },
-      },
-      grid: {
-        show: true,
-      },
-      xaxis: {
-        type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00.000Z",
-          "2018-09-19T01:30:00.000Z",
-          "2018-09-19T02:30:00.000Z",
-          "2018-09-19T03:30:00.000Z",
-          "2018-09-19T04:30:00.000Z",
-          "2018-09-19T05:30:00.000Z",
-          "2018-09-19T06:30:00.000Z",
-        ],
-      },
-    },
-  };
   function devolver(par) {
     props.devolverParametro(par);
   }
-  function returnCardIdForEndCard(cardId) {
-    props.devolverCardInstanceId(cardId);
+  function devolverDatosTarjetaParaQR(card) {
+    props.devolverDatosTarjetaParaQR(card);
+  }
+
+  function returnPatenteAndUserIdForEndCard(patente, usuario_id) {
+    props.returnPatenteAndUserIdForEndCard(patente, usuario_id);
   }
 
   return (
@@ -353,19 +311,51 @@ function ExpandedCard(props) {
           }}
         />
       </div>
-
-      <span></span>
-      <div className="chartContainer">
-        <Chart options={data.options} type="area" />
+      <div className="patentePendienteExpanded">
+        Patente:
+        <span>{props.card.patente}</span>
       </div>
+      <div className="tiempoPendienteExpanded">
+        Tiempo:
+        <span>{props.card.tarjetas_acumuladas * 30}</span>
+      </div>
+      <div className="precioPendienteExpanded">
+        Precio:
+        <span>{props.card.tarjetas_acumuladas * 40}</span>
+      </div>
+      <div className="cantidadTarjetasPendienteExpanded">
+        Tarjetas:
+        <span>{props.card.tarjetas_acumuladas}</span>
+      </div>
+      <PagoGenerarQR
+        patente={props.card.patente}
+        cantidad_tarjetas={props.card.tarjetas_acumuladas}
+        minutos={props.card.tarjetas_acumuladas * 30}
+        precio_total={props.card.tarjetas_acumuladas * 40}
+        userId={props.card.usuario_id}
+      />
 
-      <span>{props.card.dia_fecha}</span>
+      {/*
       <button
+        className="buttonGenerarQR"
         onClick={() => {
-          returnCardIdForEndCard(props.card.tarjeta_instancia_id);
+          devolverDatosTarjetaParaQR(props.card);
         }}
       >
-        Finalizar tarjeta
+        Generar QR
+      </button>
+      */}
+
+      <button
+        className="buttonLimpiarTarjetas"
+        onClick={() => {
+          returnPatenteAndUserIdForEndCard(
+            props.card.patente,
+            props.card.usuario_id
+          );
+        }}
+      >
+        Limpiar tarjetas
       </button>
     </motion.div>
   );
