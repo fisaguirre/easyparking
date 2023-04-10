@@ -124,9 +124,8 @@ const Sidebar = () => {
   const appNavName = {
     color: "black",
     fontSize: "25px",
-    marginLeft: "4vh",
     fontWeight: "bold",
-    marginLeft: "2.2rem",
+    marginLeft: "1.5rem",
     marginRight: "2rem",
     //fontSize: "1.8rem",
     fontSize: "1.8rem",
