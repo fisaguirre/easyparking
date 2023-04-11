@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import * as CiIcons from "react-icons/ci";
+import * as TfIcons from "react-icons/tfi";
+
 const API = process.env.REACT_APP_API_USER;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT
 const API_LOCATION = process.env.REACT_APP_API_LOCATION
@@ -141,110 +144,63 @@ const Users = () => {
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>DNI</th>
-                            <th>Username</th>
-                            <th>Name</th>
-                            <th>LastName</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Cards</th>
-                            <th>Acreditar/Desacreditar Tarjetas</th>
+                            {/*<th style={{ fontSize: '20px', fontWeight: 'bold' }}>ID</th>*/}
+                            <th style={{ fontSize: '20px', fontWeight: 'bold' }}>DNI</th>
+                            <th style={{ fontSize: '20px', fontWeight: 'bold' }}>Usuario</th>
+                            <th style={{ fontSize: '20px', fontWeight: 'bold' }}>Nombre</th>
+                            <th style={{ fontSize: '20px', fontWeight: 'bold' }}>Apellido</th>
+                            <th style={{ fontSize: '20px', fontWeight: 'bold' }}>Email</th>
+                            <th style={{ fontSize: '20px', fontWeight: 'bold' }}>Rol</th>
+                            <th style={{ fontSize: '20px', fontWeight: 'bold' }}>Tarjetas</th>
+                            <th style={{ fontSize: '20px', fontWeight: 'bold' }}>Agregar/Eliminar Tarjetas</th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.map((user) => (
                             <tr key={user.usuario_id}>
-                                <td style={{ fontSize: '16px' }}>{user.usuario_id}</td>
-                                <td style={{ fontSize: '16px' }}>{user.dni}</td>
-                                <td>{user.username}</td>
-                                <td>{user.nombre}</td>
-                                <td>{user.apellido}</td>
-                                <td>{user.email}</td>
-                                {/*
-                                            <td>
-                                                {cambiarRol ? (
-                                                    <>
-                                                        <select value={user.rol} onChange={(e) => setRol(e.target.value)}>
-                                                            <option value="sin asignar">Sin asignar</option>
-                                                            <option value="tarjetero">Tarjetero</option>
-                                                            <option value="administrador">Administrador</option>
-                                                            <option value="superadmin">Super Admin</option>
-                                                        </select>
-                                                    </>
-                                                ) :
-                                                    <>
-                                                        {user.rol}
-                                                        &nbsp;<button type="button" onClick={(e) => cambiarRolUsuario(false)}>E</button>
-                                                    </>
-                                                }
-
-                                            </td>
-                                            */}
-
-                                {/*
-                                            <td>
-                                                {user.rol}
-                                                {cambiarRol ? (
-                                                    <>
-                                                        <select value={user.rol} onChange={(e) => setRol(e.target.value)}>
-                                                            <option value="sin asignar">Sin asignar</option>
-                                                            <option value="tarjetero">Tarjetero</option>
-                                                            <option value="administrador">Administrador</option>
-                                                            <option value="superadmin">Super Admin</option>
-                                                        </select>
-
-                                                        <button>guardar</button>
-                                                    </>
-                                                ) : <button
-                                                    onClick={(e) => setCambiarRol(true)}
-                                                >editar
-                                                </button>
-                                                }
-                                            </td>
-                                    */}
-
-                                <td>
-                                    {user.rol}
+                                {/* <td style={{ fontSize: '25px' }}>{user.usuario_id}</td>*/}
+                                <td style={{ fontSize: '20px' }}>{user.dni}</td>
+                                <td style={{ fontSize: '20px' }}>{user.username}</td>
+                                <td style={{ fontSize: '20px' }}>{user.nombre}</td>
+                                <td style={{ fontSize: '20px' }}>{user.apellido}</td>
+                                <td style={{ fontSize: '20px' }}>{user.email}</td>
+                                <td style={{ fontSize: '20px' }}>{user.rol}
 
                                     {user.usuario_id == editUserButtonById ? (
                                         <>
+                                            &nbsp;&nbsp;
+
+                                            <TfIcons.TfiSave size={25} onClick={(e) => cambiarRolUsuario(user.usuario_id, rol)} />
                                             <select onChange={(e) => setRol(e.target.value)}>
                                                 <option value="sin asignar">Sin asignar</option>
                                                 <option value="tarjetero">Tarjetero</option>
-                                                <option value="administrador">Administrador</option>
-                                                <option value="superadmin">Super Admin</option>
+                                                <option value="admin">Admin</option>
+                                                {/*<option value="superadmin">Super Admin</option>*/}
                                             </select>
-
-                                            <button
-                                                onClick={(e) => cambiarRolUsuario(user.usuario_id, rol)}
-                                            >s
-                                            </button>
                                         </>
-                                    ) : <button
-                                        onClick={(e) => setEditUserButtonById(user.usuario_id)}
-                                    >e
-                                    </button>
+                                    ) :
+                                        <CiIcons.CiEdit size={30} onClick={(e) => setEditUserButtonById(user.usuario_id)} />
                                     }
-
                                 </td>
-
-
-                                <td>{user.cantidad_tarjeta}</td>
+                                <td style={{ fontSize: '20px' }}>{user.cantidad_tarjeta}</td>
 
                                 {user.rol == "tarjetero" ? (
                                     <td>
                                         <input type="text"
                                             onChange={(e) => setCardsQuantity(e.target.value)}
                                             className="form-control"
-                                            placeholder="Ingrese cantidad de tarjetas" />
+                                            placeholder="Cantidad a modificar"
+                                            style={{ fontSize: '15px', width: '11.5rem', marginLeft: '0rem' }} />
                                     </td>
                                 ) : null}
+
+
                                 {user.rol == "tarjetero" ? (
                                     <td>
                                         <button className="btn btn-primary btn-block"
                                             onClick={(e) => addCardsToUser(user.usuario_id)}
-                                        >Acreditar
+                                            style={{ fontSize: '15px', width: '8rem', marginLeft: '-3rem' }}
+                                        >Agregar
                                         </button>
                                     </td>
                                 ) : null}
@@ -252,19 +208,22 @@ const Users = () => {
                                     <td>
                                         <button className="btn btn-primary btn-block"
                                             onClick={(e) => discardCardsToUser(user.usuario_id)}
-                                        >Desacreditar
+                                            style={{ fontSize: '15px', width: '8rem', marginLeft: '-1rem' }}
+                                        >Eliminar
                                         </button>
                                     </td>
                                 ) : null}
                             </tr>
                         ))}
                     </tbody>
-                    <p></p>
+                    {/*
+                                        <p></p>
                     <div>
                         <Link id="signup-link" to="/signup">
                             <button type="button" id="signup-button" className="btn btn-info">Registrar nuevo usuario</button>
                         </Link>
                     </div>
+                                */}
 
                 </table>
             </div>

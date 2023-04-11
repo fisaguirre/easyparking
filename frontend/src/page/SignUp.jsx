@@ -120,7 +120,7 @@ const SignUp = () => {
                             onChange={(e) => setUsername(e.target.value)}
                             value={username}
                             className="form-control"
-                            placeholder="Username"
+                            placeholder="Usuario"
                             ref={usernameInput}
                             autoFocus
                             required
@@ -132,7 +132,7 @@ const SignUp = () => {
                             onChange={(e) => setName(e.target.value)}
                             value={name}
                             className="form-control"
-                            placeholder="name"
+                            placeholder="Nombre"
                             ref={nameInput}
                         />
                     </div>
@@ -142,7 +142,7 @@ const SignUp = () => {
                             onChange={(e) => setLastName(e.target.value)}
                             value={lastname}
                             className="form-control"
-                            placeholder="lastname"
+                            placeholder="Apellido"
                             ref={lastNameInput}
                         />
                     </div>
@@ -152,7 +152,7 @@ const SignUp = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                             className="form-control"
-                            placeholder="User's Email"
+                            placeholder="Email"
                         />
                     </div>
                     <div className="form-group">Contraseña
@@ -161,7 +161,7 @@ const SignUp = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
                             className="form-control"
-                            placeholder="User's Password"
+                            placeholder="Contraseña"
                         />
                     </div>
                     <div className="form-group">DNI
@@ -170,7 +170,7 @@ const SignUp = () => {
                             onChange={(e) => setDni(e.target.value)}
                             value={dni}
                             className="form-control"
-                            placeholder="dni"
+                            placeholder="DNI"
                         />
                     </div>
                     <p></p>
@@ -179,7 +179,7 @@ const SignUp = () => {
                         <select value={rol} onChange={(e) => setRol(e.target.value)}>
                             <option value="sin asignar">Sin asignar</option>
                             <option value="tarjetero">Tarjetero</option>
-                            <option value="administrador">Administrador</option>
+                            <option value="admin">Admin</option>
                         </select>
                     </div>
                     <p>

@@ -71,7 +71,7 @@ const SidebarNav = styled.nav`
   width: 250px;
   //height: 80vh;
   height: ${({ usuarioLogueado }) =>
-    usuarioLogueado === true ? "100vh" : "30vh"};
+    usuarioLogueado === true ? "100vh" : "37vh"};
   display: flex;
   justify-content: center;
   position: fixed;
@@ -191,7 +191,7 @@ const Sidebar = () => {
                 })}
               </>
             ) : null}
-            {usuarioLogueado === true && usuarioRol == "administrador" ? (
+            {usuarioLogueado === true && usuarioRol == "admin" ? (
               <>
                 <p style={hiUser}>Hola {username}.</p>
                 {SidebarDataAdmin.map((item, index) => {

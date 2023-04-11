@@ -29,7 +29,6 @@ export default function PagoEfectuado() {
     return (
 
         <div id="form-text" className="row">
-            <h1>This is admin mode</h1>
             <div className="col-md-6">
                 <table className="table table-striped">
                     <thead>

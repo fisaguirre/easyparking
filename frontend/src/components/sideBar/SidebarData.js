@@ -7,6 +7,7 @@ import * as BiIcons from "react-icons/bi";
 import * as MdIcons from "react-icons/md";
 import * as SlIcons from "react-icons/sl";
 import * as GrIcons from "react-icons/gr";
+import * as TbIcons from "react-icons/tb";
 
 /*
 const [usuarioRol, setUsuarioRol] = useState();
@@ -32,7 +33,7 @@ export const SidebarDataAdmin = [
   {
     title: "Usuarios",
     //path: "/users",
-    icon: <IoIcons.IoIosPaper />,
+    icon: <TbIcons.TbUsers />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
 
@@ -40,7 +41,7 @@ export const SidebarDataAdmin = [
       {
         title: "Ver usuarios",
         path: "/users",
-        icon: <IoIcons.IoIosPaper />,
+        icon: <RiIcons.RiUserSearchLine />,
         cName: "sub-nav",
       },
       {
@@ -100,7 +101,7 @@ export const SidebarDataTarjetero = [
   {
     title: "Estacionamiento",
     path: "/estacionamiento/zonadetrabajo",
-    icon: <IoIcons.IoIosPaper />,
+    icon: <TbIcons.TbParking />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
@@ -155,10 +156,11 @@ export const SidebarDataTarjetero = [
     ],
   },
   */
+
   {
     title: "Configuración de Facturación",
     path: "/pago/configuracion",
-    icon: <IoIcons.IoIosPaper />,
+    icon: <MdIcons.MdPayment />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
