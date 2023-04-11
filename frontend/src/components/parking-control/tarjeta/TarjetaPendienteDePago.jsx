@@ -5,6 +5,8 @@ import PagoGenerarQR from "../../payment/PagoGenerarQR";
 import * as IoIcons from "react-icons/io5";
 import "./styles/Cards.css";
 
+import { useNavigate } from "react-router-dom";
+import { FaPlus } from 'react-icons/fa';
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { UilTimes } from "@iconscout/react-unicons";
 import Chart from "react-apexcharts";
@@ -22,6 +24,7 @@ const TarjetaPendienteDePago = () => {
   let [tarjetas, setTarjetas] = useState([]);
   const usuario_id_logueado = sessionStorage.getItem("usuario_id");
   let token = sessionStorage.getItem("token");
+  let navigate = useNavigate();
 
   const getTarjetasActivadas = async () => {
     const res = await fetch(
@@ -58,6 +61,9 @@ const TarjetaPendienteDePago = () => {
     }
   };
 
+  const redirigirCrearNuevaTarjeta = () => {
+    navigate("/tarjeta/activar");
+  }
   useEffect(() => {
     getTarjetasActivadas();
   }, []);
@@ -83,40 +89,47 @@ const TarjetaPendienteDePago = () => {
     setExpanded(true);
   };
   return (
-    <div className="App">
-      <div className="AppGlass">
-        <div className="MainDash">
-          <h1>A pagar</h1>
-          <br></br>
-          <div className="Cards">
-            <motion>
-              {expanded ? (
-                <ExpandedCard
-                  /*Card-> se envia la tarjeta para mostrar sus atributos expandidos
-                devolverParametro-> para cerrar tarjeta expandida
-                devolverCardInstanceId-> devuelve el id de la card para finalizarla
-                */
-                  card={cardSelected}
-                  devolverParametro={(parametro) =>
-                    cerrarTarjetaExpandida(parametro)
-                  }
-                  devolverDatosTarjetaParaQR={(card) => lanzarQR(card)}
-                  returnPatenteAndUserIdForEndCard={(patente, usuario_id) =>
-                    limpiarTarjetas(patente, usuario_id)
-                  }
-                />
-              ) : (
-                <CompactCard
-                  /*tarjeta-> se envia el array de todas las tarjetas activas
-                devolverTarjeta-> se devuelve la tarjeta seleccionada para setearla y enviarla a la expandida
-                */
-                  tarjeta={tarjetas}
-                  devolverTarjeta={(expandedCard) =>
-                    expandedCardAndSetCard(expandedCard)
-                  }
-                />
-              )}
-            </motion>
+    <div>
+      <div className="icon-container">
+        <div className="icon">
+          <FaPlus onClick={redirigirCrearNuevaTarjeta} />
+        </div>
+      </div>
+      <div className="App">
+        <div className="AppGlass">
+          <div className="MainDash">
+            <h1>A pagar</h1>
+            <br></br>
+            <div className="Cards">
+              <motion>
+                {expanded ? (
+                  <ExpandedCard
+                    /*Card-> se envia la tarjeta para mostrar sus atributos expandidos
+                  devolverParametro-> para cerrar tarjeta expandida
+                  devolverCardInstanceId-> devuelve el id de la card para finalizarla
+                  */
+                    card={cardSelected}
+                    devolverParametro={(parametro) =>
+                      cerrarTarjetaExpandida(parametro)
+                    }
+                    devolverDatosTarjetaParaQR={(card) => lanzarQR(card)}
+                    returnPatenteAndUserIdForEndCard={(patente, usuario_id) =>
+                      limpiarTarjetas(patente, usuario_id)
+                    }
+                  />
+                ) : (
+                  <CompactCard
+                    /*tarjeta-> se envia el array de todas las tarjetas activas
+                  devolverTarjeta-> se devuelve la tarjeta seleccionada para setearla y enviarla a la expandida
+                  */
+                    tarjeta={tarjetas}
+                    devolverTarjeta={(expandedCard) =>
+                      expandedCardAndSetCard(expandedCard)
+                    }
+                  />
+                )}
+              </motion>
+            </div>
           </div>
         </div>
       </div>

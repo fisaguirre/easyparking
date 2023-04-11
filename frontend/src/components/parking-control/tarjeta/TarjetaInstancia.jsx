@@ -6,18 +6,22 @@ import Chart from "react-apexcharts";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "./styles/Cards.css";
 import "react-circular-progressbar/dist/styles.css";
+import { useNavigate } from "react-router-dom";
+import { FaPlus } from 'react-icons/fa';
+
 import {
   AmountCardsByUser,
   AmountActivateCardsByUser,
 } from "./service/TarjetaService";
 import * as IoIcons from "react-icons/io5";
-
+//import * as FaPlus from 'react-icons/fa'; // Importa el ícono que deseas mostrar
 const API = process.env.REACT_APP_API_USER;
 
 const TarjetaInstancia = () => {
   const [tarjetaInstanciaId, setTarjetaInstanciaId] = useState("");
   let token = sessionStorage.getItem("token");
   const usuario_id = sessionStorage.getItem("usuario_id");
+  let navigate = useNavigate();
 
   let [tarjetas, setTarjetas] = useState([]);
 
@@ -67,7 +71,9 @@ const TarjetaInstancia = () => {
     finishActiveCard(cardInstanceId);
     setExpanded(false);
   };
-
+  const redirigirCrearNuevaTarjeta = () => {
+    navigate("/tarjeta/activar");
+  }
   const cerrarTarjetaExpandida = () => {
     setExpanded(false);
   };
@@ -77,40 +83,47 @@ const TarjetaInstancia = () => {
     setExpanded(true);
   };
   return (
-    <div className="App">
-      <div className="AppGlass">
-        <div className="MainDash">
-          <h1>Mis tarjetas activas</h1>
+    <div>
+      <div className="icon-container">
+        <div className="icon">
+          <FaPlus onClick={redirigirCrearNuevaTarjeta} />
+        </div>
+      </div>
+      <div className="App">
+        <div className="AppGlass">
+          <div className="MainDash">
+            <h1>Mis tarjetas activas</h1>
 
-          <div className="Cards">
-            <motion>
-              {expanded ? (
-                <ExpandedCard
-                  /*Card-> se envia la tarjeta para mostrar sus atributos expandidos
-                devolverParametro-> para cerrar tarjeta expandida
-                devolverCardInstanceId-> devuelve el id de la card para finalizarla
-                */
-                  card={cardSelected}
-                  devolverParametro={(parametro) =>
-                    cerrarTarjetaExpandida(parametro)
-                  }
-                  devolverCardInstanceId={(cardInstanceId) =>
-                    eliminarTarjeta(cardInstanceId)
-                  }
-                />
-              ) : (
-                <CompactCard
-                  /*tarjeta-> se envia el array de todas las tarjetas activas
-                devolverTarjeta-> se devuelve la tarjeta seleccionada para setearla y enviarla a la expandida
-                */
+            <div className="Cards">
+              <motion>
+                {expanded ? (
+                  <ExpandedCard
+                    /*Card-> se envia la tarjeta para mostrar sus atributos expandidos
+                  devolverParametro-> para cerrar tarjeta expandida
+                  devolverCardInstanceId-> devuelve el id de la card para finalizarla
+                  */
+                    card={cardSelected}
+                    devolverParametro={(parametro) =>
+                      cerrarTarjetaExpandida(parametro)
+                    }
+                    devolverCardInstanceId={(cardInstanceId) =>
+                      eliminarTarjeta(cardInstanceId)
+                    }
+                  />
+                ) : (
+                  <CompactCard
+                    /*tarjeta-> se envia el array de todas las tarjetas activas
+                  devolverTarjeta-> se devuelve la tarjeta seleccionada para setearla y enviarla a la expandida
+                  */
 
-                  tarjeta={tarjetas}
-                  devolverTarjeta={(expandedCard) =>
-                    expandedCardAndSetCard(expandedCard)
-                  }
-                />
-              )}
-            </motion>
+                    tarjeta={tarjetas}
+                    devolverTarjeta={(expandedCard) =>
+                      expandedCardAndSetCard(expandedCard)
+                    }
+                  />
+                )}
+              </motion>
+            </div>
           </div>
         </div>
       </div>
@@ -130,9 +143,9 @@ function CompactCard(props) {
       .getHours()
       .toString()
       .padStart(2, "0")}:${fechaHoraActual
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`; // convertir la nueva hora y minutos en una cadena con formato de hora
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`; // convertir la nueva hora y minutos en una cadena con formato de hora
     const horaFinal = nuevaHora;
     return horaFinal;
   };
@@ -224,13 +237,13 @@ function ExpandedCard(props) {
     <motion.div
       className="ExpandedCard"
       style={styleExpandedCard}
-      /*
-      style={{
-        background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
-        boxShadow: "0px 10px 20px 0px #e0c6f5",
-      }}
-      */
-      //layoutId="expandableCard"
+    /*
+    style={{
+      background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
+      boxShadow: "0px 10px 20px 0px #e0c6f5",
+    }}
+    */
+    //layoutId="expandableCard"
     >
       <div
         style={{
