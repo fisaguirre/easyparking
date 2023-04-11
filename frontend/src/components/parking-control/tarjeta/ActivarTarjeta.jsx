@@ -1,30 +1,24 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./styles/ActivarCard.css";
 import {
   InstanciarTarjeta,
   PruebaRetornoFunction,
 } from "./service/TarjetaService";
-
+import Modal from 'react-modal';
 const API = process.env.REACT_APP_API_USER;
 
 export default function ActivarTarjeta() {
   let [amountCards, setAmountCards] = useState([]);
   const usuario_id_logueado = sessionStorage.getItem("usuario_id");
   let token = sessionStorage.getItem("token");
-
-  const [numeroPatenteFirstColumn, setNumeroPatenteFirstColumn] = useState();
-  const [numeroPatenteSecondColumn, setNumeroPatenteSecondColumn] = useState();
-  const [nombreMes, setNombreMes] = useState();
-  const [nombreDia, setNombreDia] = useState();
-  const [numeroDia, setNumeroDia] = useState();
-  const [numeroHora, setNumeroHora] = useState();
-  const [numeroMinutos, setNumeroMinutos] = useState();
   const [activarTarjeta, setButtonActivarTarjeta] = useState();
 
   const [selectedRadioPatente, setSelectedRadioPatente] = useState(null);
   const [textBoxPatenteValue, setTextBoxPatenteValue] = useState(null);
-
+  const [arrayTiempoCard, setArrayTiempoCard] = useState([])
+  const [modalOpen, setModalOpen] = useState(false);
 
   const buttonActivarTarjeta = (buttonValue) => {
     setButtonActivarTarjeta(buttonValue);
@@ -68,11 +62,19 @@ export default function ActivarTarjeta() {
     }
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const mostrarInformacionModal = () => {
+    generarFechaActual();
+    setModalOpen(true);
+  }
+
   const generarFechaActual = () => {
     const date = new Date();
     const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
     const tiempoObject = {};
     tiempoObject["year"] = date.getFullYear();
     tiempoObject["month"] = months[date.getMonth()];
@@ -80,14 +82,18 @@ export default function ActivarTarjeta() {
     tiempoObject["dayOfMonth"] = date.getDate();
     tiempoObject["hour"] = date.getHours();
     tiempoObject["minute"] = date.getMinutes() + 1;
+
+    setArrayTiempoCard([
+      { year: tiempoObject["year"], month: tiempoObject["month"], dayOfWeek: tiempoObject["dayOfWeek"], dayOfMonth: tiempoObject["dayOfMonth"], hour: tiempoObject["hour"], minute: tiempoObject["minute"] }
+    ]);
     return tiempoObject;
   }
   //Activar una nueva tarjeta
   const createCard = async (
-    patente,
-    usuario_id_logueado,
-    amountCards
   ) => {
+    setModalOpen(false);
+    const patente = textBoxPatenteValue;
+    console.log("esto: " + patente)
     if (
       patente == null
     ) {
@@ -99,13 +105,12 @@ export default function ActivarTarjeta() {
         "No posee tarjetas disponibles en su cuenta"
       );
     } else {
-      const tiempoObject = generarFechaActual();
       const usuario_id = usuario_id_logueado;
-      const mes = tiempoObject["month"];
-      const dia_semana = tiempoObject["dayOfWeek"];
-      const dia_fecha = tiempoObject["dayOfMonth"];
-      const hora = tiempoObject["hour"];
-      const minutos = tiempoObject["minute"];
+      const mes = arrayTiempoCard[0]["month"];
+      const dia_semana = arrayTiempoCard[0]["dayOfWeek"];
+      const dia_fecha = arrayTiempoCard[0]["dayOfMonth"];
+      const hora = arrayTiempoCard[0]["hour"];
+      const minutos = arrayTiempoCard[0]["minute"];
       const res = await fetch(`${API}/tarjeta_instancia/activar`, {
         method: "POST",
         headers: {
@@ -195,24 +200,45 @@ export default function ActivarTarjeta() {
       </div>
       <br></br>
       <p style={{ fontWeight: 'bold', fontSize: '20px', marginLeft: '0.5rem' }}>
-        Mes-dia-hora-minutos se generaràn automáticamente por la aplicación.
+        Mes-dia-hora-minutos se generarán automáticamente.
       </p>
+
+
       <div>
         <button
           type="button"
-          id="signup-button"
-          className="btn btn-info"
-          onClick={(e) =>
-            createCard(
-              textBoxPatenteValue,
-              usuario_id_logueado,
-              amountCards
-            )
-          }
+          //id="signup-button"
+          //className="btn btn-info"
+          className="buttonCrearNuevaTarjeta"
+          onClick={mostrarInformacionModal}
         >
           Crear tarjeta
         </button>
+        <div >
+          <Modal
+            arrayTiempoCard={arrayTiempoCard}
+            textBoxPatenteValue={textBoxPatenteValue}
+            isOpen={modalOpen}
+            onRequestClose={handleCloseModal}
+            className="custom-modal"
+          >
+            <div className="datosCardModal">
+              {arrayTiempoCard.map((elemento, index) => (
+                <div key={index}>
+                  <p>Mes: {elemento.month}</p>
+                  <p>Dia: {elemento.dayOfWeek}</p>
+                  <p>Dia mes: {elemento.dayOfMonth}</p>
+                  <p>Hora: {elemento.hour}:{elemento.minute}</p>
+                  <p>Patente: {textBoxPatenteValue}</p>
+                </div>
+              ))}
+            </div>
+            <button className="buttonCancelarTarjetaModal" onClick={handleCloseModal}>Cancelar</button>
+            <button className="buttonCrearTarjetaModal" onClick={(e) => createCard()}>Crear tarjeta</button>
+          </Modal>
+        </div>
       </div>
+      {/*
       <div>
         <p></p>
         <Link id="signup-link" to="/tarjeta/instancia">
@@ -225,7 +251,7 @@ export default function ActivarTarjeta() {
           </button>
         </Link>
       </div>
-
+              */}
     </div>
   );
 }

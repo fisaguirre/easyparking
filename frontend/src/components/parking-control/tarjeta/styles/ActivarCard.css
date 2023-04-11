@@ -1,0 +1,71 @@
+.custom-modal {
+  color: var(--black);
+  background: linear-gradient(
+    106.37deg,
+    #ffe1bc 29.63%,
+    #ffcfd1 51.55%,
+    #f3c6f1 90.85%
+  );
+  width: 300px;
+  height: 400px;
+  margin-left: 1rem;
+  margin-top: 2rem;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 20px;
+}
+.datosCardModal {
+  margin-left: 1rem;
+  font-size: 25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.custom-modal > p {
+  margin-left: 2rem;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.activarTarjetaModal {
+  margin-left: 1rem;
+  font-size: 25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.buttonCancelarTarjetaModal {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  margin-left: 2.5rem;
+}
+.buttonCrearTarjetaModal {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  margin-left: 2.5rem;
+  margin-top: 2rem;
+  background: linear-gradient(180deg, #bcc629 0%, #15e53e 100%);
+  box-shadow: 0px 10px 20px 0px #e0c6f5;
+}
+.custom-modal button:hover {
+  background-color: darkblue;
+  cursor: pointer;
+}
+.buttonCrearNuevaTarjeta {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 2.5vh 10vh;
+  font-size: 25px;
+  margin-right: 10px;
+  margin-left: 2rem;
+  background: linear-gradient(180deg, #bcc629 0%, #15e53e 100%);
+  box-shadow: 0px 10px 20px 0px #e0c6f5;
+}

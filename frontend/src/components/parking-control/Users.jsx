@@ -162,47 +162,47 @@ const Users = () => {
                                 <td>{user.apellido}</td>
                                 <td>{user.email}</td>
                                 {/*
-                                <td>
-                                    {cambiarRol ? (
-                                        <>
-                                            <select value={user.rol} onChange={(e) => setRol(e.target.value)}>
-                                                <option value="sin asignar">Sin asignar</option>
-                                                <option value="tarjetero">Tarjetero</option>
-                                                <option value="administrador">Administrador</option>
-                                                <option value="superadmin">Super Admin</option>
-                                            </select>
-                                        </>
-                                    ) :
-                                        <>
-                                            {user.rol}
-                                            &nbsp;<button type="button" onClick={(e) => cambiarRolUsuario(false)}>E</button>
-                                        </>
-                                    }
+                                            <td>
+                                                {cambiarRol ? (
+                                                    <>
+                                                        <select value={user.rol} onChange={(e) => setRol(e.target.value)}>
+                                                            <option value="sin asignar">Sin asignar</option>
+                                                            <option value="tarjetero">Tarjetero</option>
+                                                            <option value="administrador">Administrador</option>
+                                                            <option value="superadmin">Super Admin</option>
+                                                        </select>
+                                                    </>
+                                                ) :
+                                                    <>
+                                                        {user.rol}
+                                                        &nbsp;<button type="button" onClick={(e) => cambiarRolUsuario(false)}>E</button>
+                                                    </>
+                                                }
 
-                                </td>
-                                */}
+                                            </td>
+                                            */}
 
                                 {/*
-                                <td>
-                                    {user.rol}
-                                    {cambiarRol ? (
-                                        <>
-                                            <select value={user.rol} onChange={(e) => setRol(e.target.value)}>
-                                                <option value="sin asignar">Sin asignar</option>
-                                                <option value="tarjetero">Tarjetero</option>
-                                                <option value="administrador">Administrador</option>
-                                                <option value="superadmin">Super Admin</option>
-                                            </select>
+                                            <td>
+                                                {user.rol}
+                                                {cambiarRol ? (
+                                                    <>
+                                                        <select value={user.rol} onChange={(e) => setRol(e.target.value)}>
+                                                            <option value="sin asignar">Sin asignar</option>
+                                                            <option value="tarjetero">Tarjetero</option>
+                                                            <option value="administrador">Administrador</option>
+                                                            <option value="superadmin">Super Admin</option>
+                                                        </select>
 
-                                            <button>guardar</button>
-                                        </>
-                                    ) : <button
-                                        onClick={(e) => setCambiarRol(true)}
-                                    >editar
-                                    </button>
-                                    }
-                                </td>
-                        */}
+                                                        <button>guardar</button>
+                                                    </>
+                                                ) : <button
+                                                    onClick={(e) => setCambiarRol(true)}
+                                                >editar
+                                                </button>
+                                                }
+                                            </td>
+                                    */}
 
                                 <td>
                                     {user.rol}
