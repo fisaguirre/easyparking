@@ -180,11 +180,13 @@ function CompactCard(props) {
                 <IoIcons.IoExpandSharp size={50} />
               </div>
               <div className="patenteBar">
-                <span>{tarjeta_instancia.patente}</span>
+                <span className="patenteBarPendiente">{tarjeta_instancia.patente}</span>
               </div>
+              {/*
               <div className="tarjetasBar">
                 <span>{tarjeta_instancia.tarjetas_acumuladas} tarjetas</span>
               </div>
+              */}
               <div className="tiempoBar">
                 <span>
                   {tarjeta_instancia.tarjetas_acumuladas * 30} minutos
@@ -247,20 +249,20 @@ function ExpandedCard(props) {
         />
       </div>
       <div className="patentePendienteExpanded">
-        Patente:
-        <span>{props.card.patente}</span>
+
+        <span>Patente: {props.card.patente}</span>
       </div>
       <div className="tiempoPendienteExpanded">
-        Tiempo:
-        <span>{props.card.tarjetas_acumuladas * 30}</span>
+
+        <span>Tiempo: {props.card.tarjetas_acumuladas * 30} minutos</span>
       </div>
       <div className="precioPendienteExpanded">
-        Precio:
-        <span>{props.card.tarjetas_acumuladas * 40}</span>
+
+        <span>Precio: ${props.card.tarjetas_acumuladas * 40}</span>
       </div>
       <div className="cantidadTarjetasPendienteExpanded">
-        Tarjetas:
-        <span>{props.card.tarjetas_acumuladas}</span>
+
+        <span>Tarjetas: {props.card.tarjetas_acumuladas}</span>
       </div>
       <PagoGenerarQR
         patente={props.card.patente}

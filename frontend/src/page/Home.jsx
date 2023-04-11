@@ -9,7 +9,7 @@ export default function Home() {
   const [username, setUserName] = useState();
 
   //const [usuarioRol, setUsuarioRol] = useState()
-  //const [token, setToken] = useState();
+  const [token, setToken] = useState();
   //const [usuaroId, setUsuarioId] = useState();
 
   const getUserLogueado = async () => {
@@ -17,17 +17,35 @@ export default function Home() {
     //const rolUsuario = sessionStorage.getItem("rol")
     //const usuario_id = sessionStorage.getItem("usuario_id")
     if (tokenGenerado) {
-      //setToken(tokenGenerado)
+      setToken(tokenGenerado)
       setUsuarioLogueado(true);
       setUserName(sessionStorage.getItem("username"));
       //setUsuarioRol(rolUsuario)
       //setUsuarioId(usuario_id)
     }
   };
-
+  /*
+    //Funciòn que verifica si el token ha expirado o no
+    const verificarSesionExpirada = async () => {
+  
+      if (!token) {
+        console.log("no hay token")
+        return true; // Si no hay un token almacenado, entonces se considera como expirado
+      }
+  
+      const tokenData = JSON.parse(atob(token.split('.')[1])); // Decodifica el token para obtener la fecha de expiración
+      const expirationDate = new Date(tokenData.exp * 1000); // Crea una instancia de Date a partir de la fecha de expiración del token
+      const currentDate = new Date(); // Crea una instancia de Date con la fecha actual
+      console.log(currentDate);
+      console.log(expirationDate)
+      console.log(currentDate > expirationDate);
+      return currentDate > expirationDate; // Compara la fecha actual con la fecha de expiración del token
+    }
+  */
   useEffect(() => {
     getUserLogueado();
   }, []);
+
 
   const borrar = async () => {
     sessionStorage.clear();

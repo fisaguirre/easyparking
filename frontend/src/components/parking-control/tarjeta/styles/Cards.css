@@ -104,6 +104,13 @@
   display: inline-block;
   vertical-align: middle;
 }
+.patenteBarPendiente {
+  font-size: 40px;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: -2rem;
+}
 .horaBar {
   text-align: center;
 }
@@ -182,53 +189,47 @@
 }
 
 .patentePendienteExpanded {
-  display: "block";
+  margin-left: 0rem;
+  margin-top: 2rem;
   color: white;
-
-  margin-bottom: "10px";
+  margin-top: -0.5rem;
 }
 
 .patentePendienteExpanded > span {
-  font-size: 40px;
+  font-size: 25px;
   font-weight: bold;
   color: white;
 }
 
 .tiempoPendienteExpanded {
-  display: "block";
   color: white;
-
-  margin-bottom: "10px";
+  margin-top: -7rem;
 }
 
 .tiempoPendienteExpanded > span {
-  font-size: 40px;
+  font-size: 25px;
   font-weight: bold;
   color: white;
 }
 
 .precioPendienteExpanded {
-  display: "block";
   color: white;
-
-  margin-bottom: "10px";
+  margin-top: -7rem;
 }
 
 .precioPendienteExpanded > span {
-  font-size: 40px;
+  font-size: 25px;
   font-weight: bold;
   color: white;
 }
 
 .cantidadTarjetasPendienteExpanded {
-  display: "block";
   color: white;
-
-  margin-bottom: "10px";
+  margin-top: -7rem;
 }
 
 .cantidadTarjetasPendienteExpanded > span {
-  font-size: 40px;
+  font-size: 25px;
   font-weight: bold;
   color: white;
 }
@@ -251,20 +252,23 @@
 
 .ExpandedCard {
   position: absolute;
-  width: 60%;
+  width: 70%;
   height: 70vh;
   z-index: 9;
   left: 13rem;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
+  /*
   align-items: center;
+  */
   justify-content: space-around;
   padding: 1rem;
   /*estos colores son para las expandidas en pendientes por pagar*/
   background: linear-gradient(180deg, #953b21 0%, #ff0000 100%);
   box-shadow: 0px 10px 20px 0px #e0c6f5;
 }
+/*
 .ExpandedCard > span:nth-of-type(1) {
   color: white;
   font-size: 26px;
@@ -275,11 +279,12 @@
   color: rgb(236, 236, 236);
   font-size: 15px;
 }
-
+*/
+/*
 .chartContainer {
   width: 70%;
 }
-
+*/
 @media screen and (max-width: 1200px) {
   .ExpandedCard {
     top: 2rem;
@@ -291,9 +296,9 @@
 @media screen and (max-width: 768px) {
   .ExpandedCard {
     top: 8rem;
-    height: 50%;
-    left: 25px;
-    width: 80%;
+    height: 60%;
+    left: 17px;
+    width: 90%;
   }
 }
 
