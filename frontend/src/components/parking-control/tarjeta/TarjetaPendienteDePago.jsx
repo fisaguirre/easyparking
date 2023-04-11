@@ -1,56 +1,61 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { AmountFinishedCardsByUser } from "./service/TarjetaInstanciaService";
+import PagoGenerarQR from "../../payment/PagoGenerarQR";
+import * as IoIcons from "react-icons/io5";
+import "./styles/Cards.css";
+
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { UilTimes } from "@iconscout/react-unicons";
 import Chart from "react-apexcharts";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "./MainDash.css";
-import "react-circular-progressbar/dist/styles.css";
 import {
   AmountCardsByUser,
   AmountActivateCardsByUser,
 } from "./service/TarjetaService";
-import * as IoIcons from "react-icons/io5";
+
+import "react-circular-progressbar/dist/styles.css";
 
 const API = process.env.REACT_APP_API_USER;
 
-const TarjetaInstancia = () => {
-  const [tarjetaInstanciaId, setTarjetaInstanciaId] = useState("");
-  let token = sessionStorage.getItem("token");
-  const usuario_id = sessionStorage.getItem("usuario_id");
-
+const TarjetaPendienteDePago = () => {
+  const [cardsQuantity, setCardsQuantity] = useState("");
   let [tarjetas, setTarjetas] = useState([]);
+  const usuario_id_logueado = sessionStorage.getItem("usuario_id");
+  let token = sessionStorage.getItem("token");
 
   const getTarjetasActivadas = async () => {
-    const res = await fetch(`${API}/tarjeta_instancia/activar/${usuario_id}`, {
-      mmethod: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token,
-      },
-    });
+    const res = await fetch(
+      `${API}/tarjeta_instancia/finalizar/pendiente/${usuario_id_logueado}`,
+      {
+        mmethod: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      }
+    );
     const data = await res.json();
     setTarjetas(data);
   };
 
-  const finishActiveCard = async (tarjeta_instancia_id) => {
+  const deleteFinishedCardListById = async (patente, usuario_id) => {
     const userResponse = window.confirm(
-      "¿Seguro que quiere finalizar la tarjeta?"
+      "¿Seguro que quiere limpiar las tarjetas?"
     );
     if (userResponse) {
       const res = await fetch(
-        `${API}/tarjeta_instancia/activar/${tarjeta_instancia_id}`,
+        `${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`,
         {
-          method: "PUT",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             "x-access-token": token,
           },
         }
       );
-      const data = res.json();
+      const data = await res.json();
+      await getTarjetasActivadas();
     }
-    await getTarjetasActivadas();
   };
 
   useEffect(() => {
@@ -60,15 +65,16 @@ const TarjetaInstancia = () => {
   const [expanded, setExpanded] = useState(false);
   const [cardSelected, setCardSelected] = useState();
 
-  //Finaliza la tarjeta seleccionada
-  const eliminarTarjeta = (cardInstanceId) => {
-    //aca voy a meter para finalizar tarjeta
-    //generar ccodigo qr o limpiar tarjetas dependiendo lo que envie por probando
-    finishActiveCard(cardInstanceId);
+  const cerrarTarjetaExpandida = () => {
+    setExpanded(false);
+  };
+  const lanzarQR = (card) => {
+    deleteFinishedCardListById(card);
     setExpanded(false);
   };
 
-  const cerrarTarjetaExpandida = () => {
+  const limpiarTarjetas = (patente, usuario_id) => {
+    deleteFinishedCardListById(patente, usuario_id);
     setExpanded(false);
   };
   //setea la tarjeta seleccionada y expande la tarjeta
@@ -80,8 +86,8 @@ const TarjetaInstancia = () => {
     <div className="App">
       <div className="AppGlass">
         <div className="MainDash">
-          <h1>Mis tarjetas activas</h1>
-
+          <h1>A pagar</h1>
+          <br></br>
           <div className="Cards">
             <motion>
               {expanded ? (
@@ -94,8 +100,9 @@ const TarjetaInstancia = () => {
                   devolverParametro={(parametro) =>
                     cerrarTarjetaExpandida(parametro)
                   }
-                  devolverCardInstanceId={(cardInstanceId) =>
-                    eliminarTarjeta(cardInstanceId)
+                  devolverDatosTarjetaParaQR={(card) => lanzarQR(card)}
+                  returnPatenteAndUserIdForEndCard={(patente, usuario_id) =>
+                    limpiarTarjetas(patente, usuario_id)
                   }
                 />
               ) : (
@@ -103,7 +110,6 @@ const TarjetaInstancia = () => {
                   /*tarjeta-> se envia el array de todas las tarjetas activas
                 devolverTarjeta-> se devuelve la tarjeta seleccionada para setearla y enviarla a la expandida
                 */
-
                   tarjeta={tarjetas}
                   devolverTarjeta={(expandedCard) =>
                     expandedCardAndSetCard(expandedCard)
@@ -119,29 +125,11 @@ const TarjetaInstancia = () => {
 };
 
 function CompactCard(props) {
-  const calcularHoraFinal = (horaInicial, minutosInicial) => {
-    let hora = horaInicial.toString() + ":" + minutosInicial.toString();
-    const [horaActual, minutosActual] = hora.split(":"); // dividir la hora y los minutos actuales en un array
-    const fechaHoraActual = new Date(); // crear un nuevo objeto Date con la hora y fecha actuales
-    fechaHoraActual.setHours(horaActual); // establecer la hora actual
-    fechaHoraActual.setMinutes(minutosActual); // establecer los minutos actuales
-    fechaHoraActual.setMinutes(fechaHoraActual.getMinutes() + 30); // sumar 30 minutos al objeto de fecha
-    const nuevaHora = `${fechaHoraActual
-      .getHours()
-      .toString()
-      .padStart(2, "0")}:${fechaHoraActual
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`; // convertir la nueva hora y minutos en una cadena con formato de hora
-    const horaFinal = nuevaHora;
-    return horaFinal;
-  };
-
   function devolverTarjeta(card) {
     props.devolverTarjeta(card);
   }
   const styleCard = {
-    background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
+    backGround: "linear-gradient(180deg, #953B21 0%, #FF0000 100%)",
     boxShadow: "0px 10px 20px 0px #e0c6f5",
   };
   return (
@@ -157,7 +145,7 @@ function CompactCard(props) {
               style={styleCard}
               /*
               style={{
-                background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
+                backGround: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
                 boxShadow: "0px 10px 20px 0px #e0c6f5",
               }}
               */
@@ -176,29 +164,21 @@ function CompactCard(props) {
                   right: "0",
                 }}
               >
-                <IoIcons.IoExpandSharp size={45} />
+                <IoIcons.IoExpandSharp size={50} />
               </div>
               <div className="patenteBar">
-                <span className="spancito">{tarjeta_instancia.patente}</span>
+                <span>{tarjeta_instancia.patente}</span>
               </div>
-              <div className="horaBar">
-                {tarjeta_instancia.minutos === 0 ? (
-                  <span>
-                    {tarjeta_instancia.hora}:{tarjeta_instancia.minutos}0 -
-                    {calcularHoraFinal(
-                      tarjeta_instancia.hora,
-                      tarjeta_instancia.minutos
-                    )}
-                  </span>
-                ) : (
-                  <span>
-                    {tarjeta_instancia.hora}:{tarjeta_instancia.minutos} -
-                    {calcularHoraFinal(
-                      tarjeta_instancia.hora,
-                      tarjeta_instancia.minutos
-                    )}
-                  </span>
-                )}
+              <div className="tarjetasBar">
+                <span>{tarjeta_instancia.tarjetas_acumuladas} tarjetas</span>
+              </div>
+              <div className="tiempoBar">
+                <span>
+                  {tarjeta_instancia.tarjetas_acumuladas * 30} minutos
+                </span>
+              </div>
+              <div className="precioBar">
+                <span>${tarjeta_instancia.tarjetas_acumuladas * 40}</span>
               </div>
             </motion.div>
           </div>
@@ -213,24 +193,28 @@ function ExpandedCard(props) {
   function devolver(par) {
     props.devolverParametro(par);
   }
-  function returnCardIdForEndCard(cardId) {
-    props.devolverCardInstanceId(cardId);
+  function devolverDatosTarjetaParaQR(card) {
+    props.devolverDatosTarjetaParaQR(card);
   }
-  const styleExpandedCard = {
+
+  function returnPatenteAndUserIdForEndCard(patente, usuario_id) {
+    props.returnPatenteAndUserIdForEndCard(patente, usuario_id);
+  }
+  const styleExtendedCard = {
     background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
     boxShadow: "0px 10px 20px 0px #e0c6f5",
   };
   return (
     <motion.div
       className="ExpandedCard"
-      style={styleExpandedCard}
+      //style={styleExtendedCard}
       /*
       style={{
         background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
         boxShadow: "0px 10px 20px 0px #e0c6f5",
       }}
       */
-      //layoutId="expandableCard"
+      layoutId="expandableCard"
     >
       <div
         style={{
@@ -249,25 +233,53 @@ function ExpandedCard(props) {
           }}
         />
       </div>
-      <div className="patenteExpanded">
-        <span>Patente: {props.card.patente}</span>
+      <div className="patentePendienteExpanded">
+        Patente:
+        <span>{props.card.patente}</span>
       </div>
-      <div className="horaExpanded">
-        Hora inicial:
-        <span>
-          {props.card.hora}:{props.card.minutos}
-        </span>
+      <div className="tiempoPendienteExpanded">
+        Tiempo:
+        <span>{props.card.tarjetas_acumuladas * 30}</span>
       </div>
+      <div className="precioPendienteExpanded">
+        Precio:
+        <span>{props.card.tarjetas_acumuladas * 40}</span>
+      </div>
+      <div className="cantidadTarjetasPendienteExpanded">
+        Tarjetas:
+        <span>{props.card.tarjetas_acumuladas}</span>
+      </div>
+      <PagoGenerarQR
+        patente={props.card.patente}
+        cantidad_tarjetas={props.card.tarjetas_acumuladas}
+        minutos={props.card.tarjetas_acumuladas * 30}
+        precio_total={props.card.tarjetas_acumuladas * 40}
+        userId={props.card.usuario_id}
+      />
+
+      {/*
       <button
-        className="buttonFinalizarTarjeta"
+        className="buttonGenerarQR"
         onClick={() => {
-          returnCardIdForEndCard(props.card.tarjeta_instancia_id);
+          devolverDatosTarjetaParaQR(props.card);
         }}
       >
-        Finalizar tarjeta
+        Generar QR
+      </button>
+      */}
+
+      <button
+        className="buttonLimpiarTarjetas"
+        onClick={() => {
+          returnPatenteAndUserIdForEndCard(
+            props.card.patente,
+            props.card.usuario_id
+          );
+        }}
+      >
+        Limpiar tarjetas
       </button>
     </motion.div>
   );
 }
-
-export default TarjetaInstancia;
+export default TarjetaPendienteDePago;

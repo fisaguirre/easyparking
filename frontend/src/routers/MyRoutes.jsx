@@ -6,9 +6,9 @@ import SignUp from "../page/SignUp";
 import Login from "../page/Login";
 
 import Users from "../components/parking-control/Users";
-import ActivarTarjeta from "../components/parking-control/tarjetero/tarjeta/ActivarTarjeta";
-import TarjetaInstancia from "../components/parking-control/tarjetero/tarjeta/TarjetaInstancia";
-import TarjetaPendienteDePago from "../components/parking-control/tarjetero/tarjeta/TarjetaPendienteDePago";
+import ActivarTarjeta from "../components/parking-control/tarjeta/ActivarTarjeta";
+import TarjetaInstancia from "../components/parking-control/tarjeta/TarjetaInstancia";
+import TarjetaPendienteDePago from "../components/parking-control/tarjeta/TarjetaPendienteDePago";
 import Estacionamiento from "../components/parking-location/Estacionamiento";
 import PagoConfiguracion from "../components/payment/PagoConfiguracion";
 import Logout from "../page/Logout";
@@ -26,17 +26,17 @@ export function MyRoutes() {
         element={<Estacionamiento />}
       />
       <Route
-        path="/tarjeta/activarTarjeta"
+        path="/tarjeta/activar"
         className="auto"
         element={<ActivarTarjeta />}
       />
       <Route
-        path="/tarjeta_instancia/"
+        path="/tarjeta/instancia"
         className="auto"
         element={<TarjetaInstancia />}
       />
       <Route
-        path="/tarjeta/tarjetaPendienteDePago"
+        path="/tarjeta/pendienteDePago"
         className="auto"
         element={<TarjetaPendienteDePago />}
       />

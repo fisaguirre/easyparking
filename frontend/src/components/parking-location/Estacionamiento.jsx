@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Map } from "./Map";
-import "../parking-control/tarjetero/tarjeta/MainDash.css";
+import "../parking-control/tarjeta/styles/Cards.css";
 
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;

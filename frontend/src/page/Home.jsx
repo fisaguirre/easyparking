@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Map } from "../components/parking-location/Map";
 import { Link } from "react-router-dom";
-import "../components/parking-control/tarjetero/tarjeta/MainDash.css";
 const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
 
 export default function Home() {

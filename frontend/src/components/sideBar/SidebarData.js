@@ -114,19 +114,19 @@ export const SidebarDataTarjetero = [
     subNav: [
       {
         title: "Nueva tarjeta",
-        path: "/tarjeta/activarTarjeta",
+        path: "/tarjeta/activar",
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
       {
         title: "Tarjetas activas",
-        path: "/tarjeta_instancia/",
+        path: "/tarjeta/instancia",
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
       {
         title: "Pendientes por pagar",
-        path: "/tarjeta/tarjetaPendienteDePago",
+        path: "/tarjeta/pendienteDePago",
         icon: <IoIcons.IoIosPaper />,
       },
     ],
