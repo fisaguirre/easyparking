@@ -11,6 +11,10 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { formatRelative } from "date-fns";
 
+import { toast } from 'react-toastify';
+import { propertyA } from "../messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../messages/MessageStyles.css";
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -91,9 +95,11 @@ export const Map = (props) => {
     });
     const resp = await res.json();
     if (resp && resp[1]["code"] == 201) {
-      window.confirm(resp[0]["message"]);
+      toast.success(resp[0]["message"], propertyA);
+      //window.confirm(resp[0]["message"]);
     } else {
-      window.confirm("No se pudo actualizar zona de trabajo");
+      toast.error("No se pudo actualizar zona de trabajo", propertyA);
+      //window.confirm("No se pudo actualizar zona de trabajo");
     }
     console.log(resp);
   };

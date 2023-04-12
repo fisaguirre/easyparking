@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 
+import { toast } from 'react-toastify';
+import { propertyA } from "../components/messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../components/messages/MessageStyles.css";
 const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
@@ -91,12 +95,14 @@ const SignUp = () => {
                     }),
                 });
                 const response3 = await res3.json();
-                window.confirm(response3[0]['message'])
+                toast.success(response3[0]['message'], propertyA);
+                //window.confirm(response3[0]['message'])
 
             }
         }
         else {
-            window.confirm(response[0]['message']);
+            toast.error(response[0]['message'], propertyA);
+            //window.confirm(response[0]['message']);
         }
     };
 

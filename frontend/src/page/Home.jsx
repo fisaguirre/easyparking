@@ -22,6 +22,7 @@ export default function Home() {
       setUserName(sessionStorage.getItem("username"));
       //setUsuarioRol(rolUsuario)
       //setUsuarioId(usuario_id)
+
     }
   };
   /*

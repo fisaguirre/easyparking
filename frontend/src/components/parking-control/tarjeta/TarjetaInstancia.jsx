@@ -9,6 +9,10 @@ import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from 'react-icons/fa';
 
+import { toast } from 'react-toastify';
+import { propertyA } from "../../messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../../messages/MessageStyles.css";
 import {
   AmountCardsByUser,
   AmountActivateCardsByUser,
@@ -53,6 +57,8 @@ const TarjetaInstancia = () => {
         }
       );
       const data = res.json();
+      toast.success("Tarjeta Finalizada - ver en sección pendientes", propertyA);
+
     }
     await getTarjetasActivadas();
   };

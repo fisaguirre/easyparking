@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { Map } from "./Map";
 import "../parking-control/tarjeta/styles/Cards.css";
 
+import { toast } from 'react-toastify';
+import { propertyA } from "../messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../messages/MessageStyles.css";
 const API = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;
 
@@ -59,9 +63,10 @@ export default function Estacionamiento() {
     );
     const resp = await res.json();
     if (resp && resp[1]["code"] == 201) {
-      window.confirm(resp[0]["message"]);
+      //window.confirm(resp[0]["message"]);
+      toast.success(resp[0]["message"], propertyA);
     } else {
-      window.confirm("No se pudo actualizar los lugares");
+      toast.error("No se pudieron actualizar los lugares", propertyA);
     }
     console.log(resp);
   };
@@ -95,9 +100,12 @@ export default function Estacionamiento() {
     );
     const resp = await res.json();
     if (resp && resp[1]["code"] == 201) {
-      window.confirm(resp[0]["message"]);
+      //window.confirm(resp[0]["message"]);
+      toast.success(resp[0]["message"], propertyA);
+
     } else {
-      window.confirm("No se pudo actualizar los lugares");
+      toast.error("No se pudo actualizar los lugares", propertyA);
+      //window.confirm("No se pudo actualizar los lugares");
     }
     console.log(resp);
   };

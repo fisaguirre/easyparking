@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./PopUp.css";
 import PagoQRPopUp from "./PagoQRPopUp";
+
+import { toast } from 'react-toastify';
+import { propertyA } from "../messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../messages/MessageStyles.css";
 const API_MERCADO_PAGO = process.env.REACT_APP_API_MERCADO_PAGO;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
 const API_USER_CONTROL = process.env.REACT_APP_API_USER;
@@ -87,9 +92,7 @@ export default function PagoGenerarQR({
         setOpenModal(true);
       }
     } else {
-      const userResponse = window.confirm(
-        "Necesita asociar su cuenta de mercado pago para utilizar esta funcion"
-      );
+      toast.info("Necesita asociar su cuenta de mercado pago para utilizar esta funcion", propertyA);
     }
   };
 

@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import * as CiIcons from "react-icons/ci";
 import * as TfIcons from "react-icons/tfi";
 
+import { toast } from 'react-toastify';
+import { propertyA } from "../messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../messages/MessageStyles.css";
 const API = process.env.REACT_APP_API_USER;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT
 const API_LOCATION = process.env.REACT_APP_API_LOCATION
@@ -72,11 +76,13 @@ const Users = () => {
 
             if (responseEditRolLocationJson[1]['code'] == 201) {
                 await getUsers();
-                window.confirm(responseEditRolLocationJson[0]['message'])
+                toast.success(responseEditRolLocationJson[0]['message'], propertyA);
+                //window.confirm(responseEditRolLocationJson[0]['message'])
             }
         }
         else {
-            window.confirm(responseEditRolParkingJson[0]['message']);
+            toast.error(responseEditRolParkingJson[0]['message'], propertyA);
+            //window.confirm(responseEditRolParkingJson[0]['message']);
         }
     }
 
@@ -108,9 +114,8 @@ const Users = () => {
             }),
         });
         const data = await res.json();
-        console.log(data)
         await getUsers();
-
+        toast.success("Tarjetas acreditadas", propertyA);
     };
     //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado
 
@@ -129,9 +134,8 @@ const Users = () => {
             });
             const data = await res.json()
             await getUsers();
-            console.log(data)
+            toast.success("Tarjetas descartadas", propertyA);
         }
-
     };
     useEffect(() => {
         getUsers();

@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+
+import { toast } from 'react-toastify';
+import { propertyA } from "../messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../messages/MessageStyles.css";
 const API_MERCADO_PAGO = process.env.REACT_APP_API_MERCADO_PAGO;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;
@@ -76,8 +81,7 @@ export default function PagoConfiguracion() {
 
     const verifyStoreExists = async (usuario_id) => {
         if (storeExists) {
-            window.confirm("Ya posee una sucursal en su cuenta")
-
+            toast.info("Ya posee una sucursal en su cuenta", propertyA);
         } else {
             setMostrarButtonCreateStore(false)
         }
@@ -86,7 +90,7 @@ export default function PagoConfiguracion() {
 
     const verifyBoxExists = async (usuario_id) => {
         if (boxExists) {
-            window.confirm("Ya posee una caja en su cuenta")
+            toast.info("Ya posee una caja en su cuenta", propertyA);
         } else {
             setMostrarButtonCreateBox(false)
         }
@@ -106,6 +110,8 @@ export default function PagoConfiguracion() {
         });
         const data = await res.json();
         console.log(data)
+        toast.success("Se ha guardado el token ingresado", propertyA);
+
 
     };
 
@@ -151,7 +157,6 @@ export default function PagoConfiguracion() {
                 }),
             });
             const store_response = await res.json();
-            console.log(store_response)
             /*
             if (store_response['message'].includes('is already assigned')) {
                 throw new Error("Ya tiene una sucursal asignada a su cuenta")
@@ -176,12 +181,10 @@ export default function PagoConfiguracion() {
                 }),
             });
             const data = await res2.json();
-            console.log(data);
-
             if (store_response['name'] == storeName) {
                 setMostrarButtonCreateStore(true);
                 setStoreExists(true)
-                window.alert("Se ha guardado la sucursal ingresada")
+                toast.success("Se ha guardado la sucursal ingresada", propertyA);
             } else {
                 throw new Error("No se pudo crear la sucursal ingreasda")
             }
@@ -190,7 +193,7 @@ export default function PagoConfiguracion() {
             console.log(e.message);
             //console.log(e.description);
             //console.log(e.stack);
-            window.alert(e.message)
+            toast.error(e.message, propertyA);
         }
 
 
@@ -220,7 +223,7 @@ export default function PagoConfiguracion() {
                 console.log(e.message);
                 //console.log(e.description);
                 //console.log(e.stack);
-                window.alert(e.message)
+                toast.error(e.message, propertyA);
             }
         }
         */
@@ -270,13 +273,13 @@ export default function PagoConfiguracion() {
             if (pos_response['name'] == posName) {
                 setMostrarButtonCreateBox(true);
                 setBoxExists(true)
-                window.alert("Se ha guardado la caja ingresada")
+                toast.success("Se ha guardado la caja ingresada", propertyA);
             } else {
                 throw new Error("No se pudo crear la caja ingreasda")
             }
         } catch (e) {
             console.log(e.message);
-            window.alert(e.message)
+            toast.error(e.message, propertyA);
         }
 
     };

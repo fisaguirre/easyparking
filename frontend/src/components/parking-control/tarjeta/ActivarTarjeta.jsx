@@ -7,9 +7,16 @@ import {
   PruebaRetornoFunction,
 } from "./service/TarjetaService";
 import Modal from 'react-modal';
+
+import { toast } from 'react-toastify';
+import { propertyA } from "../../messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../../messages/MessageStyles.css";
+
 const API = process.env.REACT_APP_API_USER;
 
 export default function ActivarTarjeta() {
+
   let [amountCards, setAmountCards] = useState([]);
   const usuario_id_logueado = sessionStorage.getItem("usuario_id");
   let token = sessionStorage.getItem("token");
@@ -93,13 +100,15 @@ export default function ActivarTarjeta() {
   ) => {
     setModalOpen(false);
     const patente = textBoxPatenteValue;
-    console.log("esto: " + patente)
     if (
       patente == null
     ) {
+      toast.info("Debe completar todos los campos para activar una tarjeta", propertyA);
+      /*
       const rechazarTarjeta = window.confirm(
         "Debe seleccionar todos los campos para activar una tarjeta"
       );
+      */
     } else if (amountCards.cantidad_tarjeta <= 0) {
       const rechazarTarjeta = window.confirm(
         "No posee tarjetas disponibles en su cuenta"
@@ -129,11 +138,15 @@ export default function ActivarTarjeta() {
       });
       await getAmountCards();
       const tarjetasDisponibles = amountCards.cantidad_tarjeta - 1;
+
+      toast.success('Tarjeta creada! Quedan:' + " " + tarjetasDisponibles + " tarjetas en su cuenta", propertyA);
+      /*
       const tarjetaCreada = window.confirm(
         "Se activo la tarjeta, quedan disponibles en su cuenta: " +
         " " +
         tarjetasDisponibles
       );
+      */
     }
   };
 

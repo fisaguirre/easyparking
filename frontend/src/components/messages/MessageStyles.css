@@ -1,0 +1,29 @@
+/*
+.custom-toast {
+  font-size: 20px;
+  width: 50%;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+*/
+.custom-toast {
+  font-size: 20px;
+  width: 40%;
+  font-weight: bold;
+}
+
+/*
+  .custom-toast {
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .custom-toast .Toastify__toast-body {
+    display: inline-block;
+  }
+  */

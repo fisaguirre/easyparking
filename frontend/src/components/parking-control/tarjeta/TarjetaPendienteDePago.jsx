@@ -5,6 +5,10 @@ import PagoGenerarQR from "../../payment/PagoGenerarQR";
 import * as IoIcons from "react-icons/io5";
 import "./styles/Cards.css";
 
+import { toast } from 'react-toastify';
+import { propertyA } from "../../messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../../messages/MessageStyles.css";
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from 'react-icons/fa';
 import { motion, AnimateSharedLayout } from "framer-motion";
@@ -57,6 +61,8 @@ const TarjetaPendienteDePago = () => {
         }
       );
       const data = await res.json();
+      toast.success("Tarjetas eliminadas", propertyA);
+
       await getTarjetasActivadas();
     }
   };
