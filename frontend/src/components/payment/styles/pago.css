@@ -1,0 +1,64 @@
+.buttonAgregarCuenta {
+  width: 60%;
+  height: 35px;
+  margin-left: 0rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #7d5ba6;
+  color: white;
+}
+
+.infoCuenta {
+  color: #333; /* Color de texto oscuro para mayor contraste */
+  padding: 15px; /* Agregar espacio adicional alrededor del contenido de párrafo */
+  border-radius: 5px; /* Agregar esquinas redondeadas para un aspecto más atractivo */
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: -1rem;
+}
+
+/*
+  Probar estos estilos de buttons para el mapa y demas
+  */
+.buttonInfo {
+  background-color: #2e8b57;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+.buttonOcultarInfo {
+  background-color: #a52a2a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.buttonMostrarMapaNuevo {
+  background-color: #008b8b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+.buttonOcultarMapaNuevo {
+  background-color: #696969;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+#buttonMostrarMapa {
+  background-color: #8b0000;
+  color: white;
+  margin-right: 10px;
+}
+
+#buttonOcultarMapa {
+  background-color: #f9a7b0;
+  color: white;
+  margin-left: 2rem;
+  filter: saturate(150%);
+}

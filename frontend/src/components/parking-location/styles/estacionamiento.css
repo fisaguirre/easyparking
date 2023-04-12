@@ -5,7 +5,6 @@
   font-weight: bold;
   font-size: 35px;
 }
-
 .counterButton {
   font-size: 18px;
   font-weight: bold;
@@ -19,6 +18,7 @@
   background-color: #8b0000;
   color: white;
   margin-right: 10px;
+  margin-left: 10%;
 }
 
 .buttonPlus {
@@ -28,6 +28,15 @@
   filter: saturate(150%);
 }
 
+.buttonLugaresDisponiblesSucces {
+  width: 60%;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 3rem;
+  background-color: #7d5ba6;
+  color: white;
+}
 .containerWorkZone {
   display: flex;
   align-items: center; /* Centrar verticalmente */
@@ -82,10 +91,9 @@ Probar estos estilos de buttons para el mapa y demas
   filter: saturate(150%);
 }
 
-.buttonsSucces {
-  background-color: #7d5ba6;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+.infoWorkZone {
+  color: #333; /* Color de texto oscuro para mayor contraste */
+  padding: 15px; /* Agregar espacio adicional alrededor del contenido de párrafo */
+  border-radius: 5px; /* Agregar esquinas redondeadas para un aspecto más atractivo */
+  font-weight: bold;
 }

@@ -96,7 +96,7 @@ export const Map = (props) => {
     });
     const resp = await res.json();
     if (resp && resp[1]["code"] == 201) {
-      toast.success(resp[0]["message"], propertyA);
+      toast.success(resp[0]["message"] + calle, propertyA);
       //window.confirm(resp[0]["message"]);
     } else {
       toast.error("No se pudo actualizar zona de trabajo", propertyA);
@@ -133,19 +133,27 @@ export const Map = (props) => {
   return (
     <div>
       <br></br>
-      <h1>
-        Estacionamiento <span role="img" aria-label="tent"></span>
-      </h1>
+
       {updateWorkZone ? (
-        <button
-          type="button"
-          id="signup-button"
-          className="btn btn-info"
-          onClick={(e) => saveCoordinates(markers, usuario_id)}
-        >
-          Guardar coordenadas
-        </button>
-      ) : null}
+        <>
+          <p className="infoWorkZone">Presione en el mapa donde este ubicada su zona de trabajo y oprima guardar.</p>
+          <button
+            type="button"
+            id="signup-button"
+            /*className="btn btn-info"*/
+            className="buttonLugaresDisponiblesSucces"
+            onClick={(e) => saveCoordinates(markers, usuario_id)}
+          >
+            Guardar coordenadas
+          </button>
+          <br></br>
+          <p></p>
+        </>
+      ) :
+        <h1>
+          Estacionamiento <span role="img" aria-label="tent"></span>
+        </h1>
+      }
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}

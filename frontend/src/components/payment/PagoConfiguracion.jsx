@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { toast } from 'react-toastify';
 import { propertyA } from "../messages/Messages";
 import 'react-toastify/dist/ReactToastify.css';
+import "./styles/pago.css";
 import "../messages/MessageStyles.css";
 const API_MERCADO_PAGO = process.env.REACT_APP_API_MERCADO_PAGO;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
@@ -24,8 +25,6 @@ export default function PagoConfiguracion() {
     const [mostrarButtonCreateAccessToken, setMostrarButtonCreateAccessToken] = useState(true);
     const [mostrarButtonCreateStore, setMostrarButtonCreateStore] = useState(true);
     const [mostrarButtonCreateBox, setMostrarButtonCreateBox] = useState(true);
-
-
 
 
     const usuario_id = sessionStorage.getItem("usuario_id")
@@ -97,107 +96,116 @@ export default function PagoConfiguracion() {
     };
 
     const saveAccessToken = async (access_token, usuario_id) => {
-        const res = await fetch(`${API_PAYMENT}/pago/mercado`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": token
-            },
-            body: JSON.stringify({
-                access_token,
-                usuario_id
-            })
-        });
-        const data = await res.json();
-        console.log(data)
-        toast.success("Se ha guardado el token ingresado", propertyA);
-
-
-    };
-
-
-    const createStore = async (storeName, posName, usuario_id) => {
-        //Obtengo access token
-        //creo Store
-        //guardo datos Store
-        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": token
-            }
-        });
-        const mercado = await getMercado.json();
-
-        const getLocation = await fetch(`${API_LOCATION}/estacionamiento/zonaTrabajo/${usuario_id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": token
-            }
-        });
-        const workZone = await getLocation.json();
-        const latitud = Number(workZone['latitud'])
-        const longitud = Number(workZone['longitud'])
-        const calle = workZone['calle']
-
-        try {
-            const res = await fetch(`${API_MERCADO_PAGO}/users/${mercado['mercado_usuario_id']}/stores?access_token=${mercado['access_token']}`, {
+        if (access_token === undefined) {
+            toast.info("Debe ingresar un token en el campo de texto", propertyA);
+        }
+        if (access_token.length < 70) {
+            toast.error("Debe ingresar un token vàlido", propertyA);
+        }
+        else {
+            const res = await fetch(`${API_PAYMENT}/pago/mercado`, {
                 method: "POST",
-                body: JSON.stringify({
-                    "name": storeName,
-                    "external_id": "SUC009",
-                    "location": {
-                        "street_name": calle,
-                        "city_name": "Mendoza",
-                        "state_name": "Mendoza",
-                        "latitude": latitud,
-                        "longitude": longitud
-                    }
-                }),
-            });
-            const store_response = await res.json();
-            /*
-            if (store_response['message'].includes('is already assigned')) {
-                throw new Error("Ya tiene una sucursal asignada a su cuenta")
-            }
-            */
-            const store_id = store_response['id']
-            const external_store_id = store_response['external_id']
-            const tipo_creacion = "save_store"
-
-            setStoreId(store_id)
-            setExternalStoreId(external_store_id)
-
-            const res2 = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}/${tipo_creacion}`, {
-                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     "x-access-token": token
                 },
                 body: JSON.stringify({
-                    "store_id": store_id,
-                    "external_store_id": external_store_id
-                }),
+                    access_token,
+                    usuario_id
+                })
             });
-            const data = await res2.json();
-            if (store_response['name'] == storeName) {
-                setMostrarButtonCreateStore(true);
-                setStoreExists(true)
-                toast.success("Se ha guardado la sucursal ingresada", propertyA);
-            } else {
-                throw new Error("No se pudo crear la sucursal ingreasda")
-            }
-        } catch (e) {
-            //console.log(e)
-            console.log(e.message);
-            //console.log(e.description);
-            //console.log(e.stack);
-            toast.error(e.message, propertyA);
+            const data = await res.json();
+            toast.success("Se ha guardado el token ingresado", propertyA);
         }
+    };
 
 
+    const createStore = async (storeName, posName, usuario_id) => {
+        if (storeName === undefined) {
+            toast.info("Debe ingresar un nombre para la sucursal", propertyA);
+        }
+        if (storeName.length < 5) {
+            toast.info("Debe ingresar un nombre mas largo para la sucursal", propertyA);
+        } else {
+            //Obtengo access token
+            //creo Store
+            //guardo datos Store
+            const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": token
+                }
+            });
+            const mercado = await getMercado.json();
 
+            const getLocation = await fetch(`${API_LOCATION}/estacionamiento/zonaTrabajo/${usuario_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": token
+                }
+            });
+            const workZone = await getLocation.json();
+            const latitud = Number(workZone['latitud'])
+            const longitud = Number(workZone['longitud'])
+            const calle = workZone['calle']
+
+            try {
+                const res = await fetch(`${API_MERCADO_PAGO}/users/${mercado['mercado_usuario_id']}/stores?access_token=${mercado['access_token']}`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        "name": storeName,
+                        "external_id": "SUC009",
+                        "location": {
+                            "street_name": calle,
+                            "city_name": "Mendoza",
+                            "state_name": "Mendoza",
+                            "latitude": latitud,
+                            "longitude": longitud
+                        }
+                    }),
+                });
+                const store_response = await res.json();
+                /*
+                if (store_response['message'].includes('is already assigned')) {
+                    throw new Error("Ya tiene una sucursal asignada a su cuenta")
+                }
+                */
+                const store_id = store_response['id']
+                const external_store_id = store_response['external_id']
+                const tipo_creacion = "save_store"
+
+                setStoreId(store_id)
+                setExternalStoreId(external_store_id)
+
+                const res2 = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}/${tipo_creacion}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-access-token": token
+                    },
+                    body: JSON.stringify({
+                        "store_id": store_id,
+                        "external_store_id": external_store_id
+                    }),
+                });
+                const data = await res2.json();
+                if (store_response['name'] == storeName) {
+                    setMostrarButtonCreateStore(true);
+                    setStoreExists(true)
+                    toast.success("Se ha guardado la sucursal ingresada", propertyA);
+                } else {
+                    throw new Error("No se pudo crear la sucursal ingreasda")
+                }
+            } catch (e) {
+                //console.log(e)
+                console.log(e.message);
+                //console.log(e.description);
+                //console.log(e.stack);
+                toast.error(e.message, propertyA);
+            }
+        }
     };
     /*
         const deleteStore = async () => {
@@ -228,60 +236,65 @@ export default function PagoConfiguracion() {
         }
         */
     const createPos = async (store_id, external_store_id, posName, usuario_id) => {
-        const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`, {
-            mmethod: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": token
-            }
-        });
-        const mercado = await getMercado.json();
-        const number_store_id = Number(store_id)
-
-
-        try {
-            const res3 = await fetch(`${API_MERCADO_PAGO}/pos?access_token=${mercado['access_token']}`, {
-                method: "POST",
-                body: JSON.stringify({
-                    "name": posName,
-                    "fixed_amount": true,
-                    "store_id": number_store_id,
-                    "external_store_id": external_store_id,
-                    "external_id": "SUC009POS009",
-                    "category": 621102
-                }),
-            });
-            const pos_response = await res3.json();
-            const pos_id = pos_response['id']
-            const external_pos_id = pos_response['external_id']
-            const tipo_creacion_2 = "save_pos"
-
-            const res4 = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}/${tipo_creacion_2}`, {
-                method: "PUT",
+        if (posName === undefined) {
+            toast.info("Debe ingresar un nombre para la caja", propertyA);
+        }
+        if (posName.length < 5) {
+            toast.info("Debe ingresar un nombre mas largo para la caja", propertyA);
+        } else {
+            const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`, {
+                mmethod: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "x-access-token": token
-                },
-                body: JSON.stringify({
-                    "pos_id": pos_id,
-                    "external_pos_id": external_pos_id
-                }),
+                }
             });
-            const response_save_pos = await res4.json();
-            console.log(response_save_pos)
+            const mercado = await getMercado.json();
+            const number_store_id = Number(store_id)
 
-            if (pos_response['name'] == posName) {
-                setMostrarButtonCreateBox(true);
-                setBoxExists(true)
-                toast.success("Se ha guardado la caja ingresada", propertyA);
-            } else {
-                throw new Error("No se pudo crear la caja ingreasda")
+            try {
+                const res3 = await fetch(`${API_MERCADO_PAGO}/pos?access_token=${mercado['access_token']}`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        "name": posName,
+                        "fixed_amount": true,
+                        "store_id": number_store_id,
+                        "external_store_id": external_store_id,
+                        "external_id": "SUC009POS009",
+                        "category": 621102
+                    }),
+                });
+                const pos_response = await res3.json();
+                const pos_id = pos_response['id']
+                const external_pos_id = pos_response['external_id']
+                const tipo_creacion_2 = "save_pos"
+
+                const res4 = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}/${tipo_creacion_2}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-access-token": token
+                    },
+                    body: JSON.stringify({
+                        "pos_id": pos_id,
+                        "external_pos_id": external_pos_id
+                    }),
+                });
+                const response_save_pos = await res4.json();
+                console.log(response_save_pos)
+
+                if (pos_response['name'] == posName) {
+                    setMostrarButtonCreateBox(true);
+                    setBoxExists(true)
+                    toast.success("Se ha guardado la caja ingresada", propertyA);
+                } else {
+                    throw new Error("No se pudo crear la caja ingreasda")
+                }
+            } catch (e) {
+                console.log(e.message);
+                toast.error(e.message, propertyA);
             }
-        } catch (e) {
-            console.log(e.message);
-            toast.error(e.message, propertyA);
         }
-
     };
 
     useEffect(() => {
@@ -294,10 +307,10 @@ export default function PagoConfiguracion() {
         <div>
             <div>
                 {accessTokenExists ? (
-                    <>Access-token: asignado
+                    <><p className="infoCuenta">Access-token: asignado</p>
                     </>
 
-                ) : <>Access-token: no asignado
+                ) : <><p className="infoCuenta">Access-token: no asignado</p>
                 </>
                 }
 
@@ -305,31 +318,29 @@ export default function PagoConfiguracion() {
                     <>
                         <p></p>
                         <p></p>
-                        <button onClick={(e) => verifyAccessTokenExists()}>Guardar nuevo access token</button>
+                        <button className="buttonAgregarCuenta" onClick={(e) => verifyAccessTokenExists()}>Guardar nuevo access token</button>
                     </>
                 ) : <><input type="password" onChange={(e) => setAccessToken(e.target.value)}
                     value={access_token}
                     className="form-control"
                     placeholder="Ingrese su access token de mercado pago" />
                     <p></p>
-                    <button onClick={(e) => saveAccessToken(access_token, usuario_id)}>Guardar access token</button>
-                    <p></p>
+                    <button className="buttonAgregarCuenta" onClick={(e) => saveAccessToken(access_token, usuario_id)}>Guardar access token</button>
                 </>
                 }
             </div>
             <div>
                 {storeExists ? (
-                    <>Sucursal: asignado
+                    <><p className="infoCuenta">Sucursal: asignado</p>
                     </>
 
-                ) : <>Sucursal: no asignado
+                ) : <><p className="infoCuenta">Sucursal: no asignado</p>
                 </>
                 }
                 {mostrarButtonCreateStore ? (
                     <>
-                        <p></p>
-                        <p></p>
-                        <button onClick={(e) => verifyStoreExists()}>Crear nueva sucursal</button>
+
+                        <button className="buttonAgregarCuenta" onClick={(e) => verifyStoreExists()}>Crear nueva sucursal</button>
                     </>
                 ) : <>
                     <input type="text" onChange={(e) => setStoreName(e.target.value)}
@@ -337,25 +348,23 @@ export default function PagoConfiguracion() {
                         className="form-control"
                         placeholder="Ingrese el nombre de la sucursal para mercado pago" />
                     <p></p>
-                    <p></p>
-                    <button onClick={(e) => createStore(storeName, posName, usuario_id)}>Guardar Sucursal</button>
+                    <button className="buttonAgregarCuenta" onClick={(e) => createStore(storeName, posName, usuario_id)}>Guardar Sucursal</button>
                 </>
                 }
             </div>
 
             <div>
                 {boxExists ? (
-                    <>Caja: asignado
+                    <>
+                        <p className="infoCuenta">Caja: asignado</p>
                     </>
 
-                ) : <>Caja: no asignado
+                ) : <><p className="infoCuenta">Caja: no asignado</p>
                 </>
                 }
                 {mostrarButtonCreateBox ? (
                     <>
-                        <p></p>
-                        <p></p>
-                        <button onClick={(e) => verifyBoxExists()}>Crear nueva caja</button>
+                        <button className="buttonAgregarCuenta" onClick={(e) => verifyBoxExists()}>Crear nueva caja</button>
                     </>
                 ) : <>
                     <input type="text" onChange={(e) => setPosName(e.target.value)}
@@ -363,8 +372,7 @@ export default function PagoConfiguracion() {
                         className="form-control"
                         placeholder="Ingrese el nombre de la caja para mercado pago" />
                     <p></p>
-                    <p></p>
-                    <button onClick={(e) => createPos(store_id, external_store_id, posName, usuario_id)}>Guardar Caja</button>
+                    <button className="buttonAgregarCuenta" onClick={(e) => createPos(store_id, external_store_id, posName, usuario_id)}>Guardar Caja</button>
                 </>
                 }
             </div>

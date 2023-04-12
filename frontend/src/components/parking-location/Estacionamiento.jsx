@@ -134,8 +134,8 @@ export default function Estacionamiento() {
 
   return (
     <div>
+      {/*
       <div id="form-text" className="row">
-        <div>{/*<Map />*/}</div>
         <p></p>
         <div className="col-md-4">
           Configurar cantidad lugares estacionamiento
@@ -158,7 +158,9 @@ export default function Estacionamiento() {
         </div>
         <p></p>
       </div>
-      Configurar lugares disponibles
+  */}
+      <br></br>
+      <h4>Lugares disponibles</h4>
 
       <div className="row">
         <div>
@@ -171,18 +173,20 @@ export default function Estacionamiento() {
       </div>
       <p></p>
       <div className="row">
-        <div className="col-md2">
+        <div className="col">
           <button
             type="button"
-            className="buttonsSucces"
+            className="buttonLugaresDisponiblesSucces"
             onClick={(e) => actualizarLugaresDisponibles()}
           >
             Actualizar
           </button>
         </div>
+
       </div>
       <p></p>
       <p></p>
+      <br></br>
       <div className="row">
         <h2>Asignar zona de trabajo</h2>
         {/*
