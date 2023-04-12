@@ -1,0 +1,91 @@
+.containerCounter {
+  display: flex;
+  align-items: center; /* Centrar verticalmente */
+  margin-left: 3rem;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.counterButton {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttonMinus {
+  background-color: #8b0000;
+  color: white;
+  margin-right: 10px;
+}
+
+.buttonPlus {
+  background-color: #f9a7b0;
+  color: white;
+  margin-left: 10px;
+  filter: saturate(150%);
+}
+
+.containerWorkZone {
+  display: flex;
+  align-items: center; /* Centrar verticalmente */
+  margin-left: 1rem;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/*
+Probar estos estilos de buttons para el mapa y demas
+*/
+.buttonInfo {
+  background-color: #2e8b57;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+.buttonOcultarInfo {
+  background-color: #a52a2a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.buttonMostrarMapaNuevo {
+  background-color: #008b8b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+.buttonOcultarMapaNuevo {
+  background-color: #696969;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+#buttonMostrarMapa {
+  background-color: #8b0000;
+  color: white;
+  margin-right: 10px;
+}
+
+#buttonOcultarMapa {
+  background-color: #f9a7b0;
+  color: white;
+  margin-left: 2rem;
+  filter: saturate(150%);
+}
+
+.buttonsSucces {
+  background-color: #7d5ba6;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}

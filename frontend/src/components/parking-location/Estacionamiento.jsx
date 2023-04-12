@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Map } from "./Map";
 import "../parking-control/tarjeta/styles/Cards.css";
-
+import "./styles/estacionamiento.css";
 import { toast } from 'react-toastify';
 import { propertyA } from "../messages/Messages";
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,15 +12,12 @@ const API_LOCATION = process.env.REACT_APP_API_LOCATION;
 
 const Counter = ({ cantidadDisponibles, increment, decrement }) => {
   return (
-    <div className="row">
-      <div className="col-md-1">
-        <button onClick={decrement}>-</button>
-      </div>
-      <div className="col-md-1">{cantidadDisponibles}</div>
-      <div className="col-md-1">
-        <button onClick={increment}>+</button>
-      </div>
+    <div className="containerCounter">
+      <button onClick={decrement} className="counterButton buttonMinus">-</button>
+      <p>{cantidadDisponibles} </p>
+      <button onClick={increment} className="counterButton buttonPlus">+</button>
     </div>
+
   );
 };
 
@@ -153,7 +150,7 @@ export default function Estacionamiento() {
         <div className="col-md-4">
           <button
             type="button"
-            className="btn btn-primary btn-block"
+            className="buttonsSucces"
             onClick={(e) => actualizarCantidadLugares()}
           >
             Actualizar
@@ -161,16 +158,15 @@ export default function Estacionamiento() {
         </div>
         <p></p>
       </div>
+      Configurar lugares disponibles
+
       <div className="row">
         <div>
-          Configurar lugares disponibles
-          <div>
-            <Counter
-              cantidadDisponibles={cantidadDisponibles}
-              increment={increment}
-              decrement={decrement}
-            />
-          </div>
+          <Counter
+            cantidadDisponibles={cantidadDisponibles}
+            increment={increment}
+            decrement={decrement}
+          />
         </div>
       </div>
       <p></p>
@@ -178,8 +174,7 @@ export default function Estacionamiento() {
         <div className="col-md2">
           <button
             type="button"
-            id="signup-button"
-            className="btn btn-info"
+            className="buttonsSucces"
             onClick={(e) => actualizarLugaresDisponibles()}
           >
             Actualizar
@@ -190,16 +185,34 @@ export default function Estacionamiento() {
       <p></p>
       <div className="row">
         <h2>Asignar zona de trabajo</h2>
+        {/*
         <div className="col-md-2">
-          <button type="button" onClick={(e) => showMaps(true)}>
+          <button type="button" className="btn btn-info" onClick={(e) => showMaps(true)}>
             Mostrar mapa
           </button>
         </div>
         <div className="col-md-2">
-          <button type="button" onClick={(e) => showMaps(false)}>
+          <button type="button" className="btn btn-info" onClick={(e) => showMaps(false)}>
             Ocultar mapa
           </button>
         </div>
+  */}
+        {/*
+   <div className="containerCounter">
+      <button onClick={decrement} className="counterButton buttonMinus">-</button>
+      <p>{cantidadDisponibles} </p>
+      <button onClick={increment} className="counterButton buttonPlus">+</button>
+    </div>
+*/}
+        <div className="containerWorkZone">
+          <button type="button" id="buttonMostrarMapa" className="btn btn-info" onClick={(e) => showMaps(true)}>
+            Mostrar mapa
+          </button>
+          <button type="button" id="buttonOcultarMapa" className="btn btn-info" onClick={(e) => showMaps(false)}>
+            Ocultar mapa
+          </button>
+        </div>
+
         {mostrarMapa ? (
           <>
             <div>

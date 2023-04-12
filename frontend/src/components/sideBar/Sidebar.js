@@ -27,6 +27,8 @@ const Nav = styled.div`
   height: 80px;
   display: flex;
   justify-content: flex-start;
+  //justify-content: space-between;
+
   align-items: center;
 
   top: 0;
@@ -46,7 +48,9 @@ const NavIcon = styled(Link)`
 `;
 
 const NavIconLogin = styled(Link)`
-  margin-left: 2rem;
+  //margin-left: 2rem;
+  margin-right: 1.2rem;
+  margin-left: auto;
   font-size: 2rem;
   height: 80px;
   display: flex;
@@ -64,10 +68,10 @@ const NavIconApp = styled(Link)`
   //justify-content: flex-start;
   align-items: center;
 `;
+
 const SidebarNav = styled.nav`
   //background: #15171c;
   background: #d02987;
-
   width: 250px;
   //height: 80vh;
   height: ${({ usuarioLogueado }) =>
@@ -76,10 +80,25 @@ const SidebarNav = styled.nav`
   justify-content: center;
   position: fixed;
   top: 0;
-  left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
+  //Utilizamos la prop sidebar y usuarioLogueado.
+  //Si user log es false, deslizamos el sidebar desde el extremo derecho
+  //Si el user ha iniciado sesiòn deslizamos el sidebar desde el extremo izquierdo
+  ${(props) =>
+    props.sidebar === true && props.usuarioLogueado === false
+      ? "right: 0;"
+      : props.sidebar === false && props.usuarioLogueado === false
+      ? "right: -100%;"
+      : props.sidebar === true && props.usuarioLogueado === true
+      ? "left: 0;"
+      : props.sidebar === false && props.usuarioLogueado === true
+      ? "left: -100%;"
+      : null}
   transition: 350ms;
   z-index: 10;
 `;
+
+//left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
+//right: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
 
 const SidebarWrap = styled.div`
   width: 100%;
@@ -88,6 +107,8 @@ const SidebarWrap = styled.div`
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+
+  const [extremo, setExtremo] = useState("right");
 
   const [usuarioLogueado, setUsuarioLogueado] = useState(false);
   const [usuarioRol, setUsuarioRol] = useState();
@@ -107,6 +128,7 @@ const Sidebar = () => {
       setUsuarioRol(rolUsuario);
       setUsuarioId(usuario_id);
       setUsername(username);
+      setExtremo("left");
     }
   };
   const hiUser = {
@@ -125,11 +147,10 @@ const Sidebar = () => {
     color: "black",
     fontSize: "25px",
     fontWeight: "bold",
-    marginLeft: "1.5rem",
+    //marginLeft: "3rem",
     marginRight: "2rem",
     //fontSize: "1.8rem",
     fontSize: "1.8rem",
-
     marginTop: "0.7rem",
     height: "25px",
     display: "flex",
@@ -166,15 +187,23 @@ const Sidebar = () => {
               <NavIcon to="#">
                 <FaIcons.FaBars onClick={showSidebar} />
               </NavIcon>
+              <p style={{ ...appNavName, marginLeft: "2.3rem" }}>EasyParking</p>
+
+              {/*<p style={appNavName}>EasyParking</p>*/}
             </>
           ) : (
-            <NavIconLogin to="#">
-              <IoIcons.IoPersonCircle onClick={showSidebar} />
-            </NavIconLogin>
+            <>
+              {" "}
+              {/*<p style={appNavName}>EasyParking</p>*/}
+              <p style={{ ...appNavName, marginLeft: "2.5rem" }}>EasyParking</p>
+              <NavIconLogin to="#">
+                <IoIcons.IoPersonCircle onClick={showSidebar} />
+              </NavIconLogin>
+            </>
           )}
           {/*       <NavIconApp to="#">Easy-Parking</NavIconApp>
            */}
-          <p style={appNavName}>EasyParking</p>
+          {/*<p style={appNavName}>EasyParking</p>*/}
         </Nav>
 
         <SidebarNav sidebar={sidebar} usuarioLogueado={usuarioLogueado}>

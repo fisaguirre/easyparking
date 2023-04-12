@@ -24,7 +24,7 @@ useEffect(() => {
 */
 export const SidebarDataAdmin = [
   {
-    title: "Home",
+    title: "Inicio",
     path: "/",
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
@@ -68,7 +68,7 @@ export const SidebarDataAdmin = [
 
 export const SidebarDataTarjetero = [
   {
-    title: "Home",
+    title: "Inicio",
     path: "/",
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
@@ -180,14 +180,14 @@ export const SidebarDataTarjetero = [
 
 export const SidebarDataLogin = [
   {
-    title: "Home",
+    title: "Inicio",
     path: "/",
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
-    title: "Login",
+    title: "Ingresar",
     path: "/login",
     icon: <BiIcons.BiLogIn />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
