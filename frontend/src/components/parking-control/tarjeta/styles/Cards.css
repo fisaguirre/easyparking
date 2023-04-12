@@ -188,6 +188,37 @@
   border: none;
 }
 
+.patenteActivaExpanded {
+  margin-left: 0rem;
+  margin-top: 2rem;
+  color: white;
+  margin-top: -0.5rem;
+}
+
+.patenteActivaExpanded > span {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+
+.horaActivaExpanded {
+  color: white;
+  margin-top: -7rem;
+}
+
+.horaActivaExpanded > span {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+
+.spanPendienteExpanded {
+  font-size: 27px;
+  font-weight: bold;
+  color: white;
+  display: block;
+}
+
 .patentePendienteExpanded {
   margin-left: 0rem;
   margin-top: 2rem;
@@ -233,23 +264,36 @@
   font-weight: bold;
   color: white;
 }
+
+.buttonLimpiarTarjetas {
+  padding: 15px 10px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  border-radius: 10px;
+  border: none;
+  margin-top: -10rem;
+  margin-bottom: -4rem;
+}
+
+/*
 .buttonLimpiarTarjetas {
   padding: 20px 15px;
   background-color: red;
   color: white;
   font-weight: bold;
   font-size: 30px;
-  cursor: pointer;
   border-radius: 5px;
   border: none;
   bottom: 0;
   margin-bottom: 0.5vh;
-  left: 50%;
 
   position: absolute;
   transform: translateX(-50%);
-}
 
+}
+*/
 .ExpandedCard {
   position: absolute;
   width: 70%;
@@ -296,7 +340,7 @@
 @media screen and (max-width: 768px) {
   .ExpandedCard {
     top: 8rem;
-    height: 60%;
+    height: 75%;
     left: 17px;
     width: 90%;
   }

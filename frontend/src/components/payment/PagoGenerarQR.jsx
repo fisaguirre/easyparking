@@ -98,6 +98,7 @@ export default function PagoGenerarQR({
   } else {
     document.body.classList.remove("active-modal");
   }
+  /*
   const buttonStyle = {
     padding: "20px 15px",
     backgroundColor: "blueviolet",
@@ -113,6 +114,20 @@ export default function PagoGenerarQR({
     left: "50%",
     transform: "translateX(-50%)",
   };
+*/ const buttonStyle = {
+    //padding: '15px 15px',
+    backgroundColor: 'blue',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '30px',
+    borderRadius: '10px',
+    border: 'none',
+    marginTop: '-10rem',
+    marginBottom: '-2rem',
+    width: '100%',
+    height: '9vh',
+  };
+
 
   useEffect(() => {
     verifyStoreAndPosUserExists();

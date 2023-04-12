@@ -200,7 +200,7 @@ export default function ActivarTarjeta() {
       </div>
       <br></br>
       <p style={{ fontWeight: 'bold', fontSize: '20px', marginLeft: '0.5rem' }}>
-        Mes-dia-hora-minutos se generarán automáticamente.
+        "Fecha y hora se generarán automáticamente."
       </p>
 
 

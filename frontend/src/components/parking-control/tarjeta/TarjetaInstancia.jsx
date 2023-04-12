@@ -262,13 +262,12 @@ function ExpandedCard(props) {
           }}
         />
       </div>
-      <div className="patenteExpanded">
+      <div className="patenteActivaExpanded">
         <span>Patente: {props.card.patente}</span>
       </div>
-      <div className="horaExpanded">
-        Hora inicial:
-        <span>
-          {props.card.hora}:{props.card.minutos}
+      <div className="horaActivaExpanded">
+
+        <span> Hora inicial: {props.card.hora}:{props.card.minutos}
         </span>
       </div>
       <button

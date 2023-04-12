@@ -248,6 +248,7 @@ function ExpandedCard(props) {
           }}
         />
       </div>
+      {/*
       <div className="patentePendienteExpanded">
 
         <span>Patente: {props.card.patente}</span>
@@ -260,10 +261,19 @@ function ExpandedCard(props) {
 
         <span>Precio: ${props.card.tarjetas_acumuladas * 40}</span>
       </div>
-      <div className="cantidadTarjetasPendienteExpanded">
 
+      <div className="cantidadTarjetasPendienteExpanded">
         <span>Tarjetas: {props.card.tarjetas_acumuladas}</span>
       </div>
+        */}
+      <div>
+        <span className="spanPendienteExpanded">Patente: {props.card.patente}</span>
+        <span className="spanPendienteExpanded">Tiempo: {props.card.tarjetas_acumuladas * 30} minutos</span>
+        <span className="spanPendienteExpanded">Precio: ${props.card.tarjetas_acumuladas * 40}</span>
+        <span className="spanPendienteExpanded">Tarjetas: {props.card.tarjetas_acumuladas}</span>
+      </div>
+
+
       <PagoGenerarQR
         patente={props.card.patente}
         cantidad_tarjetas={props.card.tarjetas_acumuladas}
