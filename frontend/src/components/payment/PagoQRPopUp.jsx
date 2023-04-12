@@ -59,7 +59,7 @@ const PagoQRPopUp = ({
         {/*<img src={nft} alt='/' />*/}
         {/*<img src={cat} alt='/' />*/}
         <div className="modalRight">
-          <p className="closeBtn" onClick={onClose} size={40}>
+          <p className="closeBtn" onClick={onClose} size={60}>
             X
           </p>
           <div className="content">

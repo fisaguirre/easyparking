@@ -201,12 +201,32 @@
   color: white;
 }
 
-.horaActivaExpanded {
+.fechaActivaExpanded {
   color: white;
   margin-top: -7rem;
 }
 
-.horaActivaExpanded > span {
+.fechaActivaExpanded > span {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+.horaInicialActivaExpanded {
+  color: white;
+  margin-top: -7rem;
+}
+
+.horaInicialActivaExpanded > span {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+.horaFinalActivaExpanded {
+  color: white;
+  margin-top: -7rem;
+}
+
+.horaFinalActivaExpanded > span {
   font-size: 25px;
   font-weight: bold;
   color: white;

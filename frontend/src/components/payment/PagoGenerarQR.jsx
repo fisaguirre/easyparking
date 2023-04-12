@@ -74,7 +74,7 @@ export default function PagoGenerarQR({
                 title: "Tarjeta Estacionamiento",
                 category: "estacionamiento",
                 description: "Tiempo total",
-                unit_price: 40,
+                unit_price: 60,
                 quantity: cantidad_tarjetas,
                 unit_measure: "unit",
                 total_amount: precio_total,

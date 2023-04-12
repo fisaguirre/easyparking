@@ -119,6 +119,7 @@ const Users = () => {
     };
     //La funciòn useEffect() sirve para llamar/ hacer algo luego de que el componente de React ya haya sido llamado
 
+    /*
     const discardCardsToUser = async (userId) => {
         const userResponse = window.confirm("¿Seguro que quiere descartar las tarjetas?");
         if (userResponse) {
@@ -136,6 +137,22 @@ const Users = () => {
             await getUsers();
             toast.success("Tarjetas descartadas", propertyA);
         }
+    };
+    */
+    const discardCardsToUser = async (userId) => {
+        const res = await fetch(`${API}/tarjeta/${userId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token
+            },
+            body: JSON.stringify({
+                cardsQuantity
+            }),
+        });
+        const data = await res.json()
+        await getUsers();
+        toast.success("Tarjetas descartadas", propertyA);
     };
     useEffect(() => {
         getUsers();

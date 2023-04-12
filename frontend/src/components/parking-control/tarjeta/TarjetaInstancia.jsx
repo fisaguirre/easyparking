@@ -40,29 +40,45 @@ const TarjetaInstancia = () => {
     const data = await res.json();
     setTarjetas(data);
   };
-
-  const finishActiveCard = async (tarjeta_instancia_id) => {
-    const userResponse = window.confirm(
-      "¿Seguro que quiere finalizar la tarjeta?"
-    );
-    if (userResponse) {
-      const res = await fetch(
-        `${API}/tarjeta_instancia/activar/${tarjeta_instancia_id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": token,
-          },
-        }
+  /*
+    const finishActiveCard = async (tarjeta_instancia_id) => {
+      const userResponse = window.confirm(
+        "¿Seguro que quiere finalizar la tarjeta?"
       );
-      const data = res.json();
-      toast.success("Tarjeta Finalizada - ver en sección pendientes", propertyA);
+      if (userResponse) {
+        const res = await fetch(
+          `${API}/tarjeta_instancia/activar/${tarjeta_instancia_id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": token,
+            },
+          }
+        );
+        const data = res.json();
+        toast.success("Tarjeta Finalizada - ver en sección pendientes", propertyA);
+  
+      }
+      await getTarjetasActivadas();
+    };
+    */
+  const finishActiveCard = async (tarjeta_instancia_id) => {
+    const res = await fetch(
+      `${API}/tarjeta_instancia/activar/${tarjeta_instancia_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      }
+    );
+    const data = res.json();
+    toast.success("Tarjeta Finalizada - ver en sección pendientes", propertyA);
 
-    }
     await getTarjetasActivadas();
   };
-
   useEffect(() => {
     getTarjetasActivadas();
   }, []);
@@ -201,23 +217,35 @@ function CompactCard(props) {
                 <span className="spancito">{tarjeta_instancia.patente}</span>
               </div>
               <div className="horaBar">
-                {tarjeta_instancia.minutos === 0 ? (
+                {tarjeta_instancia.minutos < 10 ? (
                   <span>
-                    {tarjeta_instancia.hora}:{tarjeta_instancia.minutos}0 -
-                    {calcularHoraFinal(
+                    {tarjeta_instancia.hora}:0{tarjeta_instancia.minutos} - {calcularHoraFinal(
                       tarjeta_instancia.hora,
                       tarjeta_instancia.minutos
                     )}
                   </span>
-                ) : (
+                ) : tarjeta_instancia.hora < 10 ? (
                   <span>
-                    {tarjeta_instancia.hora}:{tarjeta_instancia.minutos} -
-                    {calcularHoraFinal(
+                    0{tarjeta_instancia.hora}:{tarjeta_instancia.minutos} - {calcularHoraFinal(
                       tarjeta_instancia.hora,
                       tarjeta_instancia.minutos
                     )}
                   </span>
-                )}
+                ) : tarjeta_instancia.hora < 10 && tarjeta_instancia.minutos < 10 ? (
+                  <span>
+                    0{tarjeta_instancia.hora}:0{tarjeta_instancia.minutos} - {calcularHoraFinal(
+                      tarjeta_instancia.hora,
+                      tarjeta_instancia.minutos
+                    )}
+                  </span>
+                ) :
+                  <span>
+                    {tarjeta_instancia.hora}:{tarjeta_instancia.minutos} - {calcularHoraFinal(
+                      tarjeta_instancia.hora,
+                      tarjeta_instancia.minutos
+                    )}
+                  </span>
+                }
               </div>
             </motion.div>
           </div>
@@ -229,6 +257,24 @@ function CompactCard(props) {
 
 // Expanded Card
 function ExpandedCard(props) {
+  const calcularHoraFinal = (horaInicial, minutosInicial) => {
+    let hora = horaInicial.toString() + ":" + minutosInicial.toString();
+    const [horaActual, minutosActual] = hora.split(":"); // dividir la hora y los minutos actuales en un array
+    const fechaHoraActual = new Date(); // crear un nuevo objeto Date con la hora y fecha actuales
+    fechaHoraActual.setHours(horaActual); // establecer la hora actual
+    fechaHoraActual.setMinutes(minutosActual); // establecer los minutos actuales
+    fechaHoraActual.setMinutes(fechaHoraActual.getMinutes() + 30); // sumar 30 minutos al objeto de fecha
+    const nuevaHora = `${fechaHoraActual
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${fechaHoraActual
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`; // convertir la nueva hora y minutos en una cadena con formato de hora
+    const horaFinal = nuevaHora;
+    return horaFinal;
+  };
+
   function devolver(par) {
     props.devolverParametro(par);
   }
@@ -271,9 +317,31 @@ function ExpandedCard(props) {
       <div className="patenteActivaExpanded">
         <span>Patente: {props.card.patente}</span>
       </div>
-      <div className="horaActivaExpanded">
+      <div className="fechaActivaExpanded">
+        <span>Fecha: {props.card.dia_fecha} de {props.card.mes}
+        </span>
+      </div>
+      <div className="horaInicialActivaExpanded">
+        {props.card.hora < 10 && props.card.minutos < 10 ? (
+          <span> Hora inicial: 0{props.card.hora}:0{props.card.minutos}
+          </span>
+        ) : props.card.minutos < 10 ? (
+          <span> Hora inicial: {props.card.hora}:0{props.card.minutos}
+          </span>
+        ) :
+          props.card.hora < 10 ? (
+            <span> Hora inicial: 0{props.card.hora}:{props.card.minutos}
+            </span>
+          ) :
+            <span> Hora inicial: {props.card.hora}:{props.card.minutos}
+            </span>
+        }
 
-        <span> Hora inicial: {props.card.hora}:{props.card.minutos}
+      </div>
+      <div className="horaFinalActivaExpanded">
+        <span> Hora final: {calcularHoraFinal(
+          props.card.hora,
+          props.card.minutos)}
         </span>
       </div>
       <button

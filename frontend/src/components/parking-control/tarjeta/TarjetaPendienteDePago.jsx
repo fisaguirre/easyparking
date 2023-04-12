@@ -44,29 +44,44 @@ const TarjetaPendienteDePago = () => {
     const data = await res.json();
     setTarjetas(data);
   };
-
-  const deleteFinishedCardListById = async (patente, usuario_id) => {
-    const userResponse = window.confirm(
-      "¿Seguro que quiere limpiar las tarjetas?"
-    );
-    if (userResponse) {
-      const res = await fetch(
-        `${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": token,
-          },
-        }
+  /*
+    const deleteFinishedCardListById = async (patente, usuario_id) => {
+      const userResponse = window.confirm(
+        "¿Seguro que quiere limpiar las tarjetas?"
       );
-      const data = await res.json();
-      toast.success("Tarjetas eliminadas", propertyA);
-
-      await getTarjetasActivadas();
-    }
+      if (userResponse) {
+        const res = await fetch(
+          `${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": token,
+            },
+          }
+        );
+        const data = await res.json();
+        toast.success("Tarjetas eliminadas", propertyA);
+  
+        await getTarjetasActivadas();
+      }
+    };
+  */
+  const deleteFinishedCardListById = async (patente, usuario_id) => {
+    const res = await fetch(
+      `${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      }
+    );
+    const data = await res.json();
+    toast.success("Tarjetas eliminadas", propertyA);
+    await getTarjetasActivadas();
   };
-
   const redirigirCrearNuevaTarjeta = () => {
     navigate("/tarjeta/activar");
   }
@@ -199,7 +214,7 @@ function CompactCard(props) {
                 </span>
               </div>
               <div className="precioBar">
-                <span>${tarjeta_instancia.tarjetas_acumuladas * 40}</span>
+                <span>${tarjeta_instancia.tarjetas_acumuladas * 60}</span>
               </div>
             </motion.div>
           </div>
@@ -265,7 +280,7 @@ function ExpandedCard(props) {
       </div>
       <div className="precioPendienteExpanded">
 
-        <span>Precio: ${props.card.tarjetas_acumuladas * 40}</span>
+        <span>Precio: ${props.card.tarjetas_acumuladas * 60}</span>
       </div>
 
       <div className="cantidadTarjetasPendienteExpanded">
@@ -275,7 +290,7 @@ function ExpandedCard(props) {
       <div>
         <span className="spanPendienteExpanded">Patente: {props.card.patente}</span>
         <span className="spanPendienteExpanded">Tiempo: {props.card.tarjetas_acumuladas * 30} minutos</span>
-        <span className="spanPendienteExpanded">Precio: ${props.card.tarjetas_acumuladas * 40}</span>
+        <span className="spanPendienteExpanded">Precio: ${props.card.tarjetas_acumuladas * 60}</span>
         <span className="spanPendienteExpanded">Tarjetas: {props.card.tarjetas_acumuladas}</span>
       </div>
 
@@ -284,7 +299,7 @@ function ExpandedCard(props) {
         patente={props.card.patente}
         cantidad_tarjetas={props.card.tarjetas_acumuladas}
         minutos={props.card.tarjetas_acumuladas * 30}
-        precio_total={props.card.tarjetas_acumuladas * 40}
+        precio_total={props.card.tarjetas_acumuladas * 60}
         userId={props.card.usuario_id}
       />
 
