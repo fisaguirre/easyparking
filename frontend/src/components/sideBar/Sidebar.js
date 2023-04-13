@@ -75,7 +75,7 @@ const SidebarNav = styled.nav`
   width: 250px;
   //height: 80vh;
   height: ${({ usuarioLogueado }) =>
-    usuarioLogueado === true ? "100vh" : "37vh"};
+    usuarioLogueado === true ? "100vh" : "40vh"};
   display: flex;
   justify-content: center;
   position: fixed;

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { propertyA } from "../components/messages/Messages";
 import 'react-toastify/dist/ReactToastify.css';
 import "../components/messages/MessageStyles.css";
+import './styles.css';
 const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
 const API_LOCATION = process.env.REACT_APP_API_LOCATION;
 const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
@@ -112,91 +113,173 @@ const SignUp = () => {
             getUsers();
         }, []);
     */
+    /*
+        return (
+            <div id="form-text" className="row">
+                <div className="col-md-4">
+    
+                </div>
+                <div className="col-md-4">
+                    <form onSubmit={handleSubmit} className="card card-body">
+                        <div className="form-group">Usuario
+                            <input
+                                type="text"
+                                onChange={(e) => setUsername(e.target.value)}
+                                value={username}
+                                className="form-control"
+                                placeholder="Usuario"
+                                ref={usernameInput}
+                                autoFocus
+                                required
+                            />
+                        </div>
+                        <div className="form-group">Nombre
+                            <input
+                                type="text"
+                                onChange={(e) => setName(e.target.value)}
+                                value={name}
+                                className="form-control"
+                                placeholder="Nombre"
+                                ref={nameInput}
+                            />
+                        </div>
+                        <div className="form-group">Apellido
+                            <input
+                                type="text"
+                                onChange={(e) => setLastName(e.target.value)}
+                                value={lastname}
+                                className="form-control"
+                                placeholder="Apellido"
+                                ref={lastNameInput}
+                            />
+                        </div>
+                        <div className="form-group">Email
+                            <input
+                                type="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                className="form-control"
+                                placeholder="Email"
+                            />
+                        </div>
+                        <div className="form-group">Contraseña
+                            <input
+                                type="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                                className="form-control"
+                                placeholder="Contraseña"
+                            />
+                        </div>
+                        <div className="form-group">DNI
+                            <input
+                                type="text"
+                                onChange={(e) => setDni(e.target.value)}
+                                value={dni}
+                                className="form-control"
+                                placeholder="DNI"
+                            />
+                        </div>
+                        <p></p>
+                        <div className="form-group">
+                            <label>Rol </label>
+                            <select value={rol} onChange={(e) => setRol(e.target.value)}>
+                                <option value="sin asignar">Sin asignar</option>
+                                <option value="tarjetero">Tarjetero</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <p>
+                        </p>
+                        <button className="btn btn-primary btn-block">Sign Up
+                        </button>
+                    </form>
+                </div>
+                <div className="col-md-4"></div>
+            </div>
+        );
+    };
+    */
 
     return (
-        <div id="form-text" className="row">
-            <div className="col-md-4">
-
-            </div>
-            <div className="col-md-4">
-                <form onSubmit={handleSubmit} className="card card-body">
-                    <div className="form-group">Usuario
-                        <input
-                            type="text"
-                            onChange={(e) => setUsername(e.target.value)}
-                            value={username}
-                            className="form-control"
-                            placeholder="Usuario"
-                            ref={usernameInput}
-                            autoFocus
-                            required
-                        />
-                    </div>
-                    <div className="form-group">Nombre
-                        <input
-                            type="text"
-                            onChange={(e) => setName(e.target.value)}
-                            value={name}
-                            className="form-control"
-                            placeholder="Nombre"
-                            ref={nameInput}
-                        />
-                    </div>
-                    <div className="form-group">Apellido
-                        <input
-                            type="text"
-                            onChange={(e) => setLastName(e.target.value)}
-                            value={lastname}
-                            className="form-control"
-                            placeholder="Apellido"
-                            ref={lastNameInput}
-                        />
-                    </div>
-                    <div className="form-group">Email
-                        <input
-                            type="email"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            className="form-control"
-                            placeholder="Email"
-                        />
-                    </div>
-                    <div className="form-group">Contraseña
-                        <input
-                            type="password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={password}
-                            className="form-control"
-                            placeholder="Contraseña"
-                        />
-                    </div>
-                    <div className="form-group">DNI
-                        <input
-                            type="text"
-                            onChange={(e) => setDni(e.target.value)}
-                            value={dni}
-                            className="form-control"
-                            placeholder="DNI"
-                        />
-                    </div>
-                    <p></p>
-                    <div className="form-group">
-                        <label>Rol </label>
-                        <select value={rol} onChange={(e) => setRol(e.target.value)}>
-                            <option value="sin asignar">Sin asignar</option>
-                            <option value="tarjetero">Tarjetero</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
-                    <p>
-                    </p>
-                    <button className="btn btn-primary btn-block">Sign Up
+        <div className="signUp-form">
+            <form onSubmit={handleSubmit}>
+                <h2>Registro de usuario</h2>
+                <div>
+                    <input
+                        type="text"
+                        onChange={(e) => setUsername(e.target.value)}
+                        value={username}
+                        placeholder="Usuario"
+                        ref={usernameInput}
+                        autoFocus
+                        required
+                        className="login-signUp-form__input"
+                    />
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
+                        placeholder="Nombre"
+                        ref={nameInput}
+                        className="login-signUp-form__input"
+                    />
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        onChange={(e) => setLastName(e.target.value)}
+                        value={lastname}
+                        placeholder="Apellido"
+                        ref={lastNameInput}
+                        className="login-signUp-form__input"
+                    />
+                </div>
+                <div>
+                    <input
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        placeholder="Email"
+                        className="login-signUp-form__input"
+                    />
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        placeholder="DNI"
+                        onChange={(e) => setDni(e.target.value)}
+                        value={dni}
+                        className="login-signUp-form__input"
+                    />
+                </div>
+                <div>
+                    <input
+                        type="password"
+                        className="login-signUp-form__input"
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                        placeholder="Contraseña"
+                    />
+                </div>
+                <div>
+                    <label>Rol </label>
+                    <select id="selectito" className="login-signUp-form__input"
+                        value={rol} onChange={(e) => setRol(e.target.value)}>
+                        <option value="sin asignar">Sin asignar</option>
+                        <option value="tarjetero">Tarjetero</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" className="login-signUp-form__button">
+                        Registrar
                     </button>
-                </form>
-            </div>
-            <div className="col-md-4"></div>
+                </div>
+            </form>
         </div>
     );
 };
-
 export default SignUp;
