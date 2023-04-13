@@ -2,45 +2,69 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 //import { Navigate } from "react-router-dom";
 import './styles.css';
+
+import { toast } from 'react-toastify';
+import { propertyA } from "../components/messages/Messages";
+import 'react-toastify/dist/ReactToastify.css';
+import "../components/messages/MessageStyles.css";
 const API_CONTROL_PARKING = process.env.REACT_APP_API_USER;
 
 const LoginCopy = () => {
   //Guardo los datos que se envian por handleSubmit al darle click al boton submit
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailUsername, setEmailUsername] = useState();
   let navigate = useNavigate();
+
+  // Patrón para verificar si es un correo electrónico
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Patrón para verificar si es un nombre de usuario
+  const usernamePattern = /^[a-zA-Z0-9]+$/;
 
   //Se coloca el mètodo como async para que no se quede colgado el navegador
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const res = await fetch(`${API_CONTROL_PARKING}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-    const response = await res.json();
-    if (response["token"]) {
-      sessionStorage.setItem("token", response["token"]);
-      const res2 = await fetch(`${API_CONTROL_PARKING}/users/${email}`);
-      const userRolId = await res2.json();
-      if (userRolId) {
-        sessionStorage.setItem("rol", userRolId["rol"]);
-        sessionStorage.setItem("usuario_id", userRolId["usuario_id"]);
-        sessionStorage.setItem("username", userRolId["username"]);
-        console.log("hola");
-        console.log(sessionStorage.getItem("username"));
-        if (sessionStorage.getItem("usuario_id")) {
-          navigate("/");
-          navigate(0);
-        }
-      }
+    if (password === "") {
+      toast.info("Debe ingresar una contraseña", propertyA);
+      return false;
     }
+    if (emailPattern.test(emailUsername) || usernamePattern.test(emailUsername)) {
+      const res = await fetch(`${API_CONTROL_PARKING}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          emailUsername,
+          password,
+        }),
+      });
+      const response = await res.json();
+      const email = response['email']
+      if (response["token"]) {
+        sessionStorage.setItem("token", response["token"]);
+        const res2 = await fetch(`${API_CONTROL_PARKING}/users/${email}`);
+        const userRolId = await res2.json();
+        if (userRolId) {
+          sessionStorage.setItem("rol", userRolId["rol"]);
+          sessionStorage.setItem("usuario_id", userRolId["usuario_id"]);
+          sessionStorage.setItem("username", userRolId["username"]);
+          if (sessionStorage.getItem("usuario_id")) {
+            navigate("/");
+
+            navigate(0);
+          }
+        }
+      } else {
+        toast.error(response["message"], propertyA);
+      }
+    } else {
+      toast.info("Debe ingresar un nombre de usuario o correo válido", propertyA);
+      return false;
+
+    }
+
+
   };
   /*
     return (
@@ -82,14 +106,27 @@ const LoginCopy = () => {
     <div className="login-form">
       <form onSubmit={handleSubmit}>
         <h2>Inicio de sesión</h2>
+        {/*
         <div>
           Email
+          
           <input
             type="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             className="login-signUp-form__input"
             placeholder="Ingrese el email"
+          />
+        </div>
+  */}
+        <div>
+          Usuario-email
+          <input
+            type="text"
+            onChange={(e) => setEmailUsername(e.target.value)}
+            value={emailUsername}
+            className="login-signUp-form__input"
+            placeholder="Ingrese el usuario o email."
           />
         </div>
         <div>

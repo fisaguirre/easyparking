@@ -37,7 +37,8 @@ def login(auth, mysql, app):
 
 
 def login(auth, mysql, app):
-    if not request.json['password'] or not request.json['email']:
+    # if not request.json['password'] and (not request.json['email'] or not request.json['usuario']):
+    if not request.json['password'] and not request.json['emailUsername']:
         # if not auth.get('username') or not auth.get('email') or not auth.get('password'):
         # returns 401 if any email or / and password is missing
         response = make_response(
@@ -53,17 +54,21 @@ def login(auth, mysql, app):
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(
-        'SELECT * FROM usuario WHERE usuario.email = %s', (request.json['email'],))
+        'SELECT * FROM usuario WHERE usuario.username = %s OR usuario.email = %s', (request.json['emailUsername'], request.json['emailUsername']))
     user = cursor.fetchone()
 
-    new_user = User(user['public_id'],  user['username'], user['password'], user['nombre'],
-                    user['apellido'], user['email'], user['dni'], user['rol'])
+    """
+    cursor.execute(
+        'SELECT * FROM usuario WHERE usuario.email = %s', (request.json['email'],))
+    user = cursor.fetchone()
+    """
 
     if not user:
+
         # returns 401 if user does not exist
         response = make_response(
             jsonify(
-                {"message": 'User doesnt exist with that email'}
+                {"message": 'No hay registro de ese nombre de usuario o email'}
             ),
             401,
         )
@@ -71,6 +76,8 @@ def login(auth, mysql, app):
         response.headers["WWW-Authenticate"] = "User does not exist !!"
         return response
 
+    new_user = User(user['public_id'],  user['username'], user['password'], user['nombre'],
+                    user['apellido'], user['email'], user['dni'], user['rol'])
     # if check_password_hash(generate_password_hash(new_user.get_password()), auth.get('password')):
     # compare whether is the database password is equal to the entered
     if check_password_hash(new_user.get_password(), request.json['password']):
@@ -82,7 +89,8 @@ def login(auth, mysql, app):
             jsonify(
                 {
                     "message": 'Sign in successful',
-                    "token": token
+                    "token": token,
+                    "email": new_user.get_email(),
                 }
             ),
             201,
@@ -94,7 +102,7 @@ def login(auth, mysql, app):
     # returns 403 if password is wrong
     response = make_response(
         jsonify(
-            {"message": 'Password is wrong'}
+            {"message": 'Contraseña incorrecta'}
         ),
         401,
     )

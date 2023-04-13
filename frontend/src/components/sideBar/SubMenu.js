@@ -43,8 +43,14 @@ const DropdownLink = styled(Link)`
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
 
-  const showSubnav = () => setSubnav(!subnav);
+  const showSubnav = () => {
+    console.log("se queire cerrar");
 
+    setSubnav(!subnav);
+  };
+  const cerrar = () => {
+    console.log("cerrar");
+  };
   return (
     <>
       <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>

@@ -34,7 +34,14 @@ const SignUp = () => {
     //Se coloca el mètodo como async para que no se quede colgado el navegador
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        if (username === "" || email === "") {
+            toast.info("Debe ingresar un usuario o email", propertyA);
+            return false;
+        }
+        if (password === "") {
+            toast.info("Debe ingresar una contraseña", propertyA);
+            return false;
+        }
 
         const res = await fetch(`${API_CONTROL_PARKING}/auth/signup`, {
             method: "POST",
@@ -261,12 +268,13 @@ const SignUp = () => {
                         className="login-signUp-form__input"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
+                        required
                         placeholder="Contraseña"
                     />
                 </div>
                 <div>
                     <label>Rol </label>
-                    <select id="selectito" className="login-signUp-form__input"
+                    <select className="login-signUp-form__input"
                         value={rol} onChange={(e) => setRol(e.target.value)}>
                         <option value="sin asignar">Sin asignar</option>
                         <option value="tarjetero">Tarjetero</option>

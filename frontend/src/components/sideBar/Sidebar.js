@@ -14,10 +14,21 @@ import {
 } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
-
+/*
+ background: linear-gradient(
+    106.37deg,
+    #ffe1bc 29.63%,
+    #ffcfd1 51.55%,
+    #f3c6f1 90.85%
+     );
+    */
 const Nav = styled.div`
   //background: #15171c;
   //background: #ef088a;
+  //background: #f7b7a3;
+  //background: #fcb5e6;
+  //background: #d4b9da;
+  //background: #c8a8e1;
   background: linear-gradient(
     106.37deg,
     #ffe1bc 29.63%,
@@ -71,7 +82,14 @@ const NavIconApp = styled(Link)`
 
 const SidebarNav = styled.nav`
   //background: #15171c;
-  background: #d02987;
+  //background: #d02987;
+  background-color: rgba(0, 0, 0, 0.7);
+  //background-color: 0F0000;
+  //background-color: #f7b7a3;
+  //background-color: #fcb5e6;
+  //background-color: #c8a8e1;
+  //background-color: #d4b9da;
+
   width: 250px;
   //height: 80vh;
   height: ${({ usuarioLogueado }) =>
@@ -93,8 +111,9 @@ const SidebarNav = styled.nav`
       : props.sidebar === false && props.usuarioLogueado === true
       ? "left: -100%;"
       : null}
-  transition: 350ms;
   z-index: 10;
+  transition: all 0.3s ease-in-out;
+  //transition: 350ms;
 `;
 
 //left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
@@ -171,6 +190,9 @@ const Sidebar = () => {
     if (navbar) {
       navbar.style.transform = `translateY(${window.scrollY}px)`;
     }
+  };
+  const tirar = () => {
+    console.log("se queire cerrar");
   };
   useEffect(() => {
     getUserLogueado();
