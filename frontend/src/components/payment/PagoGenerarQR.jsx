@@ -144,7 +144,7 @@ export default function PagoGenerarQR({
         onClick={(e) => createOrder()}
         style={buttonStyle}
       >
-        Generar QR
+        Generar QR MP
       </button>
       <PagoQRPopUp
         open={openModal}

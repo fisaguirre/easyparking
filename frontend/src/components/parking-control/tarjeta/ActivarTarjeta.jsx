@@ -84,7 +84,7 @@ export default function ActivarTarjeta() {
     const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     const tiempoObject = {};
     tiempoObject["year"] = date.getFullYear();
-    tiempoObject["month"] = date.getMonth();
+    tiempoObject["month"] = (date.getMonth()) + 1;
     tiempoObject["dayOfWeek"] = days[date.getDay()];
     tiempoObject["dayOfMonth"] = date.getDate();
     tiempoObject["hour"] = date.getHours();

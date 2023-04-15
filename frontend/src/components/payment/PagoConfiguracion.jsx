@@ -306,6 +306,7 @@ export default function PagoConfiguracion() {
     return (
         <div>
             <div>
+                <h4>Configuración para cobrar a través de Mercado Pago</h4>
                 {accessTokenExists ? (
                     <><p className="infoCuenta">Access-token: asignado</p>
                     </>

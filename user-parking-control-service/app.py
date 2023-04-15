@@ -29,6 +29,7 @@ CORS(app)
 
 #SECRET_KEY = 'your secret key'
 SECRET_KEY = os.getenv('SECRET_KEY')
+app.config['TIMEZONE'] = os.getenv('TZ', 'UTC')
 
 
 def token_required(f):
