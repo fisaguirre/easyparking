@@ -39,7 +39,32 @@ const TarjetaInstancia = () => {
     });
     const data = await res.json();
     setTarjetas(data);
+    console.log("Estas son las tarjetas: ", tarjetas)
+    verificarTarjetaTiempoLimite();
   };
+
+  const verificarTarjetaTiempoLimite = () => {
+    const horaInicial = new Date();
+    horaInicial.setHours(12);
+    horaInicial.setMinutes(30);
+
+    const horaFinal = new Date();
+    horaFinal.setHours(13);
+    horaFinal.setMinutes(5);
+
+    // Convertimos las horas a minutos y restamos para obtener la diferencia
+    const minutosInicial = horaInicial.getHours() * 60 + horaInicial.getMinutes();
+    const minutosFinal = horaFinal.getHours() * 60 + horaFinal.getMinutes();
+    const diferenciaMinutos = minutosFinal - minutosInicial;
+
+    if (diferenciaMinutos >= 30) {
+      console.log("Han pasado 30 minutos o más");
+      console.log("Esto es: " + diferenciaMinutos)
+    } else {
+      console.log("No han pasado 30 minutos");
+      console.log(" esto no es: " + diferenciaMinutos)
+    }
+  }
   /*
     const finishActiveCard = async (tarjeta_instancia_id) => {
       const userResponse = window.confirm(

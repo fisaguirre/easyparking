@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
-
+import BackToHome from './BackToHome';
 import { toast } from 'react-toastify';
 import { propertyA } from "../components/messages/Messages";
 import 'react-toastify/dist/ReactToastify.css';
@@ -209,84 +208,88 @@ const SignUp = () => {
     */
 
     return (
-        <div className="signUp-form">
-            <form onSubmit={handleSubmit}>
-                <h2>Registro de usuario</h2>
-                <div>
-                    <input
-                        type="text"
-                        onChange={(e) => setUsername(e.target.value)}
-                        value={username}
-                        placeholder="Usuario"
-                        ref={usernameInput}
-                        autoFocus
-                        required
-                        className="login-signUp-form__input"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                        placeholder="Nombre"
-                        ref={nameInput}
-                        className="login-signUp-form__input"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        onChange={(e) => setLastName(e.target.value)}
-                        value={lastname}
-                        placeholder="Apellido"
-                        ref={lastNameInput}
-                        className="login-signUp-form__input"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        placeholder="Email"
-                        className="login-signUp-form__input"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="DNI"
-                        onChange={(e) => setDni(e.target.value)}
-                        value={dni}
-                        className="login-signUp-form__input"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="password"
-                        className="login-signUp-form__input"
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        required
-                        placeholder="Contraseña"
-                    />
-                </div>
-                <div>
-                    <label>Rol </label>
-                    <select className="login-signUp-form__input"
-                        value={rol} onChange={(e) => setRol(e.target.value)}>
-                        <option value="sin asignar">Sin asignar</option>
-                        <option value="tarjetero">Tarjetero</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-                <div>
-                    <button type="submit" className="login-signUp-form__button">
-                        Registrar
-                    </button>
-                </div>
-            </form>
+        <div>
+            {/* <BackToHome />*/}
+
+            <div className="signUp-form">
+                <form onSubmit={handleSubmit}>
+                    <h2>Registro de usuario</h2>
+                    <div>
+                        <input
+                            type="text"
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
+                            placeholder="Usuario"
+                            ref={usernameInput}
+                            autoFocus
+                            required
+                            className="login-signUp-form__input"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                            placeholder="Nombre"
+                            ref={nameInput}
+                            className="login-signUp-form__input"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            onChange={(e) => setLastName(e.target.value)}
+                            value={lastname}
+                            placeholder="Apellido"
+                            ref={lastNameInput}
+                            className="login-signUp-form__input"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            placeholder="Email"
+                            className="login-signUp-form__input"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="DNI"
+                            onChange={(e) => setDni(e.target.value)}
+                            value={dni}
+                            className="login-signUp-form__input"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="password"
+                            className="login-signUp-form__input"
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            required
+                            placeholder="Contraseña"
+                        />
+                    </div>
+                    <div>
+                        <label>Rol </label>
+                        <select className="login-signUp-form__input"
+                            value={rol} onChange={(e) => setRol(e.target.value)}>
+                            <option value="sin asignar">Sin asignar</option>
+                            <option value="tarjetero">Tarjetero</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" className="login-signUp-form__button">
+                            Registrar
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

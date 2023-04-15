@@ -23,9 +23,10 @@ export default function Logout() {
   }, []);
 */
   const borrar = async () => {
+    navigate(0);
     sessionStorage.clear();
     navigate("/");
-    navigate(0);
+
   };
   useEffect(() => {
     borrar();

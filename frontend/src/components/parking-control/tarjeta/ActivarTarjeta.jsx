@@ -84,14 +84,16 @@ export default function ActivarTarjeta() {
     const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     const tiempoObject = {};
     tiempoObject["year"] = date.getFullYear();
-    tiempoObject["month"] = months[date.getMonth()];
+    tiempoObject["month"] = date.getMonth();
     tiempoObject["dayOfWeek"] = days[date.getDay()];
     tiempoObject["dayOfMonth"] = date.getDate();
     tiempoObject["hour"] = date.getHours();
     tiempoObject["minute"] = date.getMinutes() + 1;
+    tiempoObject["seconds"] = date.getSeconds();
+
 
     setArrayTiempoCard([
-      { year: tiempoObject["year"], month: tiempoObject["month"], dayOfWeek: tiempoObject["dayOfWeek"], dayOfMonth: tiempoObject["dayOfMonth"], hour: tiempoObject["hour"], minute: tiempoObject["minute"] }
+      { year: tiempoObject["year"], month: tiempoObject["month"], dayOfWeek: tiempoObject["dayOfWeek"], dayOfMonth: tiempoObject["dayOfMonth"], hour: tiempoObject["hour"], minute: tiempoObject["minute"], seconds: tiempoObject["seconds"] }
     ]);
     return tiempoObject;
   }
@@ -115,11 +117,14 @@ export default function ActivarTarjeta() {
       );
     } else {
       const usuario_id = usuario_id_logueado;
+      const anio = arrayTiempoCard[0]["year"];
       const mes = arrayTiempoCard[0]["month"];
       const dia_semana = arrayTiempoCard[0]["dayOfWeek"];
       const dia_fecha = arrayTiempoCard[0]["dayOfMonth"];
       const hora = arrayTiempoCard[0]["hour"];
       const minutos = arrayTiempoCard[0]["minute"];
+      const segundos = arrayTiempoCard[0]["seconds"];
+      const tiempo_tarjeta = 30;
       const res = await fetch(`${API}/tarjeta_instancia/activar`, {
         method: "POST",
         headers: {
@@ -127,11 +132,14 @@ export default function ActivarTarjeta() {
           "x-access-token": token,
         },
         body: JSON.stringify({
+          anio,
           mes,
-          dia_semana,
           dia_fecha,
+          dia_semana,
           hora,
           minutos,
+          segundos,
+          tiempo_tarjeta,
           patente,
           usuario_id,
         }),

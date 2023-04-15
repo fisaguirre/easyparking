@@ -66,6 +66,14 @@ def index():
 
 
 @cross_origin()
+@app.route('/prueba', methods=['GET'])
+@token_required
+def prueba(current_user):
+    print("sisisi")
+    return tarjetaInstancia.prueba(mysql, app)
+
+
+@cross_origin()
 @app.route('/auth/signup', methods=['POST'])
 @token_required
 def register(current_user):

@@ -16,6 +16,7 @@ const LoginCopy = () => {
   const [emailUsername, setEmailUsername] = useState();
   let navigate = useNavigate();
 
+
   // Patrón para verificar si es un correo electrónico
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // Patrón para verificar si es un nombre de usuario
@@ -46,12 +47,11 @@ const LoginCopy = () => {
         const res2 = await fetch(`${API_CONTROL_PARKING}/users/${email}`);
         const userRolId = await res2.json();
         if (userRolId) {
+          navigate("/");
           sessionStorage.setItem("rol", userRolId["rol"]);
           sessionStorage.setItem("usuario_id", userRolId["usuario_id"]);
           sessionStorage.setItem("username", userRolId["username"]);
           if (sessionStorage.getItem("usuario_id")) {
-            navigate("/");
-
             navigate(0);
           }
         }

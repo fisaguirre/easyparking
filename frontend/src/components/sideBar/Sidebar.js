@@ -82,8 +82,10 @@ const NavIconApp = styled(Link)`
 
 const SidebarNav = styled.nav`
   //background: #15171c;
-  //background: #d02987;
-  background-color: rgba(0, 0, 0, 0.7);
+  background: #d02987;
+
+  //background-color: rgba(0, 0, 0, 0.7);
+
   //background-color: 0F0000;
   //background-color: #f7b7a3;
   //background-color: #fcb5e6;
