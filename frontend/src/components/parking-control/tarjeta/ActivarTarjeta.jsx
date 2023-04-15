@@ -88,9 +88,9 @@ export default function ActivarTarjeta() {
     tiempoObject["dayOfWeek"] = days[date.getDay()];
     tiempoObject["dayOfMonth"] = date.getDate();
     tiempoObject["hour"] = date.getHours();
-    tiempoObject["minute"] = date.getMinutes() + 1;
+    //tiempoObject["minute"] = date.getMinutes() + 1;
+    tiempoObject["minute"] = date.getMinutes();
     tiempoObject["seconds"] = date.getSeconds();
-
 
     setArrayTiempoCard([
       { year: tiempoObject["year"], month: tiempoObject["month"], dayOfWeek: tiempoObject["dayOfWeek"], dayOfMonth: tiempoObject["dayOfMonth"], hour: tiempoObject["hour"], minute: tiempoObject["minute"], seconds: tiempoObject["seconds"] }

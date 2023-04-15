@@ -63,7 +63,7 @@ const PagoQRPopUp = ({
             X
           </p>
           <div className="content">
-            <p style={tituloStyle}>Muestre el QR al conductor</p>
+            <p style={tituloStyle}>Escanear QR con Mercado Pago</p>
             <p style={datosStyle}>Tarjetas: {cantidad_tarjetas}</p>
             <p style={datosStyle}>Tiempo: {minutos} minutos</p>
             <p style={datosStyle}>Precio: $ {precio_total}</p>

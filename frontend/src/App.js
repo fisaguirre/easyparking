@@ -10,7 +10,7 @@ function App() {
     <div className="MainApp">
       <Router>
         <ToastContainer
-          limit={3}
+          limit={4}
           rtl={false}
           pauseOnFocusLoss={true}
           pauseOnHover={false}

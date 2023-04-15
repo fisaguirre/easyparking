@@ -98,100 +98,85 @@ def getAmountCardsByUserId(usuario_id, mysql):
 
 
 def getAllActiveCardsByUserId(usuario_id, mysql):
+    # Primero se verifica si no hay tarjetas excedidas de tiempo
+    lista_patentes = finalizarAutomaticamente(usuario_id, mysql)
+
+    # Ahora se buscan las tarjetas que no han alcanzado su tiempo limite
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     finalizada = "no"
+
     cursor.execute(
         'SELECT * FROM tarjeta_instancia WHERE tarjeta_instancia.finalizada = %s AND tarjeta_instancia.usuario_id = %s order by tiempo_inicio ASC', (finalizada, usuario_id,))
 
     cardsActivates = cursor.fetchall()
-    print("antes: ", cardsActivates)
-    resultados_strings = []
-    """
-    resultados_strings = []
-    for i in range(len(cardsActivates)):
-        a = cardsActivates[i]['fecha'].strftime("%Y-%m-%d")
-        cardsActivates[i]['fecha'] = a
-        b = str(cardsActivates[i]['tiempo_inicio'])
-        cardsActivates[i]['tiempo_inicio'] = b
-        c = str(cardsActivates[i]['tiempo_fin'])
-        cardsActivates[i]['tiempo_fin'] = c
-    """
 
     for i in range(len(cardsActivates)):
-        tarjeta_instancia_id = cardsActivates[i]['tarjeta_instancia_id']
-        dia_semana = cardsActivates[i]['dia_semana']
-        patente = cardsActivates[i]['patente']
-        finalizada = cardsActivates[i]['finalizada']
-        usuario_id = cardsActivates[i]['usuario_id']
-        tarjeta_id = cardsActivates[i]['tarjeta_id']
-        fecha = cardsActivates[i]['fecha'].strftime("%Y-%m-%d")
-        tiempo_inicio = str(cardsActivates[i]['tiempo_inicio'])
-        tiempo_fin = str(cardsActivates[i]['tiempo_fin'])
-        resultados_strings.append((tarjeta_instancia_id, fecha, dia_semana,
-                                  tiempo_inicio, tiempo_fin, patente, finalizada, usuario_id, tarjeta_id))
-    print("quedo: ", resultados_strings)
-    # Imprimir los resultados en formato string
-    for resultado_str in resultados_strings:
-        print("estos son: ", resultado_str)
+        cardsActivates[i]['fecha'] = cardsActivates[i]['fecha'].strftime(
+            "%Y-%m-%d")
+        cardsActivates[i]['tiempo_inicio'] = str(
+            cardsActivates[i]['tiempo_inicio'])
+        cardsActivates[i]['tiempo_fin'] = str(
+            cardsActivates[i]['tiempo_fin'])
 
-    datitos = json.dumps(resultados_strings)
-    print("Ahora: ", datitos)
     if cardsActivates:
         cursor.close()
-        return jsonify(datitos)
+        response = make_response(
+            jsonify(
+                {
+                    "code": 201,
+                    "finalizadas": True,
+                    "cards": cardsActivates,
+                    "patentes": lista_patentes,
+                }
+            ),
+            201,
+        )
+        response.headers["Content-Type"] = "application/json"
+        response.headers["WWW-Authenticate"] = "Sign in successful"
+        return response
     else:
         amountCards = 0
         return 'no hay tarjetas activas'
 
 
-def prueba(mysql, app):
-    print("hola")
-
+# Funcion que finaliza automaticamente las patentes que han excedido su tiempo limite
+def finalizarAutomaticamente(usuario_id, mysql):
+    # Primero se buscan las tarjetas excedidas y se guardan sus patentes
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    """
+    finalizada = "no"
     cursor.execute(
-        'SELECT * FROM tiempo_fecha WHERE fecha_final > fecha_inicial')
-    cardsActivates = cursor.fetchall()
-    print("despues")
-    print(cardsActivates[0]['fecha_inicial'])
-    print(type(cardsActivates[0]['fecha_inicial']))
-    print((cardsActivates[0]['fecha_inicial']).split())
-    a = ((cardsActivates[0]['fecha_inicial']).split())[0]
-    print(a)
-    fecha_hora = datetime.now()
-    print("si: ", fecha_hora)
-    """
-    nuevo = "2023-04-15 07:10:59"
+        'SELECT patente FROM tarjeta_instancia WHERE usuario_id = %s AND finalizada = %s AND tiempo_fin <= CURTIME() AND fecha <= CURDATE()', (usuario_id, finalizada))
+    patentes_fetch = cursor.fetchall()
 
-    fecha_hora_str = "15/04/2023 10:30:00"
-    formato = "%Y-%m-%d %H:%M:%S"
-    fecha_hora2 = datetime.strptime(nuevo, formato)
+    lista_patentes = []
+    # Se recorre el dictionary del sql obtenido y se guardan las patentes en una lista
+    for i in range(len(patentes_fetch)):
+        lista_patentes.append(patentes_fetch[i]['patente'])
 
-    print("nueva fecha: ", fecha_hora2)
-    print("adasdas")
-
-    fecha_inicio = "2023-06-15"
-    hora_inicio = "15:05:14"
-    hora_fin = "15:35:14"
-
-    data = ('fer', fecha_inicio, hora_inicio, hora_fin)
+    # Ahora se finalizan esas tarjetas y luego se retorna las patentes para mostrarlas al usuario
+    finalizar = "si"
 
     cursor.execute(
-        "insert into tiempo_fecha values(NULL,%s,%s, %s,%s)", data)
-
+        'UPDATE tarjeta_instancia SET finalizada = %s WHERE usuario_id = %s AND tiempo_fin <= CURTIME() AND fecha <= CURDATE()', (finalizar, usuario_id,))
     mysql.connection.commit()
 
-    # return jsonify(a)
-    return 'hola'
+    return lista_patentes
 
 
-def finishCard(tarjeta_instancia_id, mysql):
+def finishCard(tarjeta_instancia_id, request, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     finalizada = "si"
-    cursor.execute(
-        'UPDATE tarjeta_instancia set finalizada = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tarjeta_instancia_id,))
-    mysql.connection.commit()
-    return jsonify('se finalizò la tarjeta')
+    tiempo_fin = request.json['tiempo_fin']
+    if (request.json['automatica']):
+        cursor.execute(
+            'UPDATE tarjeta_instancia set finalizada = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tarjeta_instancia_id,))
+        mysql.connection.commit()
+        return jsonify('se finalizò la tarjeta manualmente')
+    else:
+        cursor.execute(
+            'UPDATE tarjeta_instancia set finalizada = %s, tiempo_fin = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tiempo_fin, tarjeta_instancia_id,))
+        mysql.connection.commit()
+        return jsonify('se finalizò la tarjeta automaticamente')
 
 
 def getAllFinishedCardsByUserId(contar, usuario_id, mysql):

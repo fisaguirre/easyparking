@@ -170,7 +170,7 @@ def getAllActiveCardsByUserId(current_user, usuario_id):
 @app.route('/tarjeta_instancia/activar/<tarjeta_instancia_id>', methods=["PUT"])
 @token_required
 def finishCard(current_user, tarjeta_instancia_id):
-    return tarjetaInstancia.finishCard(tarjeta_instancia_id, mysql)
+    return tarjetaInstancia.finishCard(tarjeta_instancia_id, request, mysql)
 
 
 # Get all finished cards from user

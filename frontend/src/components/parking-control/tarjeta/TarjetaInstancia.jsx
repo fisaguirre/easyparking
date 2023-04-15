@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { UilTimes } from "@iconscout/react-unicons";
-import Chart from "react-apexcharts";
-import { CircularProgressbar } from "react-circular-progressbar";
 import "./styles/Cards.css";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -38,10 +35,18 @@ const TarjetaInstancia = () => {
       },
     });
     const data = await res.json();
-    setTarjetas(data);
-    console.log("Estas son las tarjetas: ", tarjetas)
-    verificarTarjetaTiempoLimite();
+    if (data['code'] === 201) {
+      setTarjetas(data['cards']);
+      //console.dir(data['patentes'][0])
+
+      if (data['finalizadas']) {
+        console.log("hola")
+        toast.success("Tarjetas finalizadas:\n" + data['patentes'], propertyA);
+      }
+    }
+    //verificarTarjetaTiempoLimite();
   };
+
 
   const verificarTarjetaTiempoLimite = () => {
     const horaInicial = new Date();
@@ -65,30 +70,18 @@ const TarjetaInstancia = () => {
       console.log(" esto no es: " + diferenciaMinutos)
     }
   }
-  /*
-    const finishActiveCard = async (tarjeta_instancia_id) => {
-      const userResponse = window.confirm(
-        "¿Seguro que quiere finalizar la tarjeta?"
-      );
-      if (userResponse) {
-        const res = await fetch(
-          `${API}/tarjeta_instancia/activar/${tarjeta_instancia_id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              "x-access-token": token,
-            },
-          }
-        );
-        const data = res.json();
-        toast.success("Tarjeta Finalizada - ver en sección pendientes", propertyA);
-  
-      }
-      await getTarjetasActivadas();
-    };
-    */
+  const devolverTiempoActual = () => {
+    const fechaActual = new Date();
+    const hora = fechaActual.getHours();
+    const minutos = fechaActual.getMinutes();
+    const segundos = fechaActual.getSeconds();
+    const tiempo_fin = hora.toString() + ':' + minutos.toString() + ':' + segundos.toString()
+    return tiempo_fin;
+  };
   const finishActiveCard = async (tarjeta_instancia_id) => {
+    const tiempo_fin = devolverTiempoActual();
+    const automatica = false;
+    console.log("esto essssss: ", tiempo_fin);
     const res = await fetch(
       `${API}/tarjeta_instancia/activar/${tarjeta_instancia_id}`,
       {
@@ -97,11 +90,14 @@ const TarjetaInstancia = () => {
           "Content-Type": "application/json",
           "x-access-token": token,
         },
+        body: JSON.stringify({
+          tiempo_fin,
+          automatica
+        }),
       }
     );
     const data = res.json();
     toast.success("Tarjeta Finalizada - ver en sección pendientes", propertyA);
-
     await getTarjetasActivadas();
   };
   useEffect(() => {
@@ -113,14 +109,9 @@ const TarjetaInstancia = () => {
 
   //Finaliza la tarjeta seleccionada
   const eliminarTarjeta = (cardInstanceId) => {
-    //aca voy a meter para finalizar tarjeta
-    //generar ccodigo qr o limpiar tarjetas dependiendo lo que envie por probando
     finishActiveCard(cardInstanceId);
     setExpanded(false);
   };
-  const redirigirCrearNuevaTarjeta = () => {
-    navigate("/tarjeta/activar");
-  }
   const cerrarTarjetaExpandida = () => {
     setExpanded(false);
   };
@@ -129,8 +120,12 @@ const TarjetaInstancia = () => {
     setCardSelected(expandedCard);
     setExpanded(true);
   };
+  const redirigirCrearNuevaTarjeta = () => {
+    navigate("/tarjeta/activar");
+  }
   return (
     <div>
+
       <div className="icon-container">
         <div className="icon">
           <FaPlus onClick={redirigirCrearNuevaTarjeta} />
@@ -145,10 +140,11 @@ const TarjetaInstancia = () => {
               <motion>
                 {expanded ? (
                   <ExpandedCard
-                    /*Card-> se envia la tarjeta para mostrar sus atributos expandidos
-                  devolverParametro-> para cerrar tarjeta expandida
-                  devolverCardInstanceId-> devuelve el id de la card para finalizarla
-                  */
+                    /*
+                       Card-> se envia la tarjeta para mostrar sus atributos expandidos
+                     devolverParametro-> para cerrar tarjeta expandida
+                     devolverCardInstanceId-> devuelve el id de la card para finalizarla
+                     */
                     card={cardSelected}
                     devolverParametro={(parametro) =>
                       cerrarTarjetaExpandida(parametro)
@@ -159,9 +155,10 @@ const TarjetaInstancia = () => {
                   />
                 ) : (
                   <CompactCard
-                    /*tarjeta-> se envia el array de todas las tarjetas activas
-                  devolverTarjeta-> se devuelve la tarjeta seleccionada para setearla y enviarla a la expandida
-                  */
+                    /*
+                       tarjeta-> se envia el array de todas las tarjetas activas
+                   devolverTarjeta-> se devuelve la tarjeta seleccionada para setearla y enviarla a la expandida
+                      */
 
                     tarjeta={tarjetas}
                     devolverTarjeta={(expandedCard) =>
@@ -174,6 +171,8 @@ const TarjetaInstancia = () => {
           </div>
         </div>
       </div>
+
+
     </div>
   );
 };
@@ -215,12 +214,6 @@ function CompactCard(props) {
             <motion.div
               className="CompactCard"
               style={styleCard}
-              /*
-              style={{
-                background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
-                boxShadow: "0px 10px 20px 0px #e0c6f5",
-              }}
-              */
               //layoutId="expandableCard"
               onClick={() => {
                 devolverTarjeta(tarjeta_instancia);
@@ -242,35 +235,17 @@ function CompactCard(props) {
                 <span className="spancito">{tarjeta_instancia.patente}</span>
               </div>
               <div className="horaBar">
-                {tarjeta_instancia.minutos < 10 ? (
-                  <span>
-                    {tarjeta_instancia.hora}:0{tarjeta_instancia.minutos} - {calcularHoraFinal(
-                      tarjeta_instancia.hora,
-                      tarjeta_instancia.minutos
-                    )}
-                  </span>
-                ) : tarjeta_instancia.hora < 10 ? (
-                  <span>
-                    0{tarjeta_instancia.hora}:{tarjeta_instancia.minutos} - {calcularHoraFinal(
-                      tarjeta_instancia.hora,
-                      tarjeta_instancia.minutos
-                    )}
-                  </span>
-                ) : tarjeta_instancia.hora < 10 && tarjeta_instancia.minutos < 10 ? (
-                  <span>
-                    0{tarjeta_instancia.hora}:0{tarjeta_instancia.minutos} - {calcularHoraFinal(
-                      tarjeta_instancia.hora,
-                      tarjeta_instancia.minutos
-                    )}
-                  </span>
-                ) :
+                <span>
+                  {tarjeta_instancia.tiempo_inicio}-{tarjeta_instancia.tiempo_fin}
+                </span>
+                {/*
                   <span>
                     {tarjeta_instancia.hora}:{tarjeta_instancia.minutos} - {calcularHoraFinal(
                       tarjeta_instancia.hora,
                       tarjeta_instancia.minutos
                     )}
                   </span>
-                }
+              */}
               </div>
             </motion.div>
           </div>
@@ -314,12 +289,6 @@ function ExpandedCard(props) {
     <motion.div
       className="ExpandedCard"
       style={styleExpandedCard}
-    /*
-    style={{
-      background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
-      boxShadow: "0px 10px 20px 0px #e0c6f5",
-    }}
-    */
     //layoutId="expandableCard"
     >
       <div
@@ -343,30 +312,20 @@ function ExpandedCard(props) {
         <span>Patente: {props.card.patente}</span>
       </div>
       <div className="fechaActivaExpanded">
-        <span>Fecha: {props.card.dia_fecha} de {props.card.mes}
+        <span>Fecha: {props.card.fecha}
         </span>
       </div>
       <div className="horaInicialActivaExpanded">
-        {props.card.hora < 10 && props.card.minutos < 10 ? (
-          <span> Hora inicial: 0{props.card.hora}:0{props.card.minutos}
-          </span>
-        ) : props.card.minutos < 10 ? (
-          <span> Hora inicial: {props.card.hora}:0{props.card.minutos}
-          </span>
-        ) :
-          props.card.hora < 10 ? (
-            <span> Hora inicial: 0{props.card.hora}:{props.card.minutos}
-            </span>
-          ) :
-            <span> Hora inicial: {props.card.hora}:{props.card.minutos}
-            </span>
-        }
-
+        <span> Hora inicial: {props.card.tiempo_inicio}
+        </span>
       </div>
       <div className="horaFinalActivaExpanded">
-        <span> Hora final: {calcularHoraFinal(
+        <span> Hora final: {props.card.tiempo_fin}
+          {/*
+        {calcularHoraFinal(
           props.card.hora,
           props.card.minutos)}
+        */}
         </span>
       </div>
       <button
