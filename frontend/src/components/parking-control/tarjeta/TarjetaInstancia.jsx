@@ -80,7 +80,6 @@ const TarjetaInstancia = () => {
   };
   const finishActiveCard = async (tarjeta_instancia_id) => {
     const tiempo_fin = devolverTiempoActual();
-    const automatica = false;
     console.log("esto essssss: ", tiempo_fin);
     const res = await fetch(
       `${API}/tarjeta_instancia/activar/${tarjeta_instancia_id}`,
@@ -91,8 +90,7 @@ const TarjetaInstancia = () => {
           "x-access-token": token,
         },
         body: JSON.stringify({
-          tiempo_fin,
-          automatica
+          tiempo_fin
         }),
       }
     );

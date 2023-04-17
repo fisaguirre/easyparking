@@ -114,8 +114,14 @@ def getWorkZoneByUser(mysql, usuario_id):
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     zero = 0
+
     cursor.execute(
         'SELECT latitud, longitud, calle FROM estacionamiento WHERE usuario_id = %s', (usuario_id,))
+    # si se quiere ver el marker del usuario tarjetero que esta logueado hay que usar la de abajo, pero hay que hacer un condicional porque la query de arriba se usa para crear sucursal mercado pago
+    """
+    cursor.execute(
+        'SELECT latitud, longitud FROM estacionamiento WHERE usuario_id = %s', (usuario_id,))
+    """
     workZoneByUser = cursor.fetchone()
     cursor.close()
     return jsonify(workZoneByUser)

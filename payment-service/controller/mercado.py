@@ -40,7 +40,7 @@ def saveAccessToken(request, mysql):
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
-            'UPDATE cuenta_mercado set access_token = %s, mercado_usuario_id = %s WHERE usuario_id = %s', (access_token, mercado_usuario_id, request.json['usuario_id'],))
+            'UPDATE cuenta_mercado set access_token = %s, mercado_usuario_id = %s, username_mercado = %s WHERE usuario_id = %s', (access_token, mercado_usuario_id, request.json['username_mercado'], request.json['usuario_id'],))
         mysql.connection.commit()
         cursor.close()
 
@@ -50,14 +50,14 @@ def saveAccessToken(request, mysql):
         split_access_token = request.json['access_token'].split('-')
         mercado_usuario_id = split_access_token[-1]
 
-        mercado = Mercado(
-            request.json['access_token'], mercado_usuario_id, 0, 0, 0, 0, request.json['usuario_id'])
+        mercado = Mercado(request.json['access_token'], mercado_usuario_id,
+                          request.json['username_mercado'], 0, 0, 0, 0, 0, 0, request.json['usuario_id'])
 
-        data = (mercado.get_access_token(), mercado.get_mercado_usuario_id(), mercado.get_store_id(
-        ), mercado.get_external_store_id(), mercado.get_pos_id(), mercado.get_external_pos_id(), mercado.get_usuario_id())
+        data = (mercado.get_access_token(), mercado.get_mercado_usuario_id(), mercado.get_username_mercado(), mercado.get_store_id(), mercado.get_external_store_id(
+        ), mercado.get_store_name(), mercado.get_pos_id(), mercado.get_external_pos_id(), mercado.get_pos_name(), mercado.get_usuario_id())
 
         cursor.execute(
-            "insert into cuenta_mercado values(NULL,%s, %s, %s, %s, %s, %s, %s)", data)
+            'insert into cuenta_mercado values(NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', data)
         mysql.connection.commit()
         cursor.close()
         return jsonify('access token guardado')
@@ -149,10 +149,15 @@ def getTokenAndMercadoId(usuario_id, mysql):
 
 
 def saveStore(request, usuario_id, mysql):
+    print("Esto es: ", request.json['store_name'])
+    print("Esto es: ", request.json['store_id'])
+
+    print("Esto es: ", request.json['external_store_id'])
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
     cursor.execute(
-        'UPDATE cuenta_mercado set store_id = %s, external_store_id = %s WHERE usuario_id = %s', (request.json['store_id'], request.json['external_store_id'], usuario_id,))
+        'UPDATE cuenta_mercado SET store_id = %s, external_store_id = %s, store_name = %s WHERE usuario_id = %s', (request.json['store_id'], request.json['external_store_id'], request.json['store_name'], usuario_id,))
     mysql.connection.commit()
     cursor.close()
 
@@ -163,7 +168,7 @@ def savePos(request, usuario_id, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
     cursor.execute(
-        'UPDATE cuenta_mercado set pos_id = %s, external_pos_id = %s WHERE usuario_id = %s', (request.json['pos_id'], request.json['external_pos_id'], usuario_id,))
+        'UPDATE cuenta_mercado set pos_id = %s, external_pos_id = %s, pos_name = %s WHERE usuario_id = %s', (request.json['pos_id'], request.json['external_pos_id'], request.json['pos_name'], usuario_id,))
     mysql.connection.commit()
     cursor.close()
 

@@ -46,9 +46,7 @@ const LoginCopy = () => {
         sessionStorage.setItem("token", response["token"]);
         const res2 = await fetch(`${API_CONTROL_PARKING}/users/${email}`);
         const userRolId = await res2.json();
-        console.log("sisiasdadsa: ", res2)
 
-        console.log("sisi: ", userRolId)
         if (userRolId) {
           navigate("/");
           sessionStorage.setItem("rol", userRolId["rol"]);

@@ -172,20 +172,94 @@ def finalizarAutomaticamente(usuario_id, mysql):
     return lista_patentes, False
 
 
+"""
 def finishCard(tarjeta_instancia_id, request, mysql):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     finalizada = "si"
     tiempo_fin = request.json['tiempo_fin']
-    if (request.json['automatica']):
-        cursor.execute(
-            'UPDATE tarjeta_instancia set finalizada = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tarjeta_instancia_id,))
-        mysql.connection.commit()
-        return jsonify('se finalizò la tarjeta manualmente')
+    cursor.execute(
+        'UPDATE tarjeta_instancia set finalizada = %s, tiempo_fin = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tiempo_fin, tarjeta_instancia_id,))
+    mysql.connection.commit()
+    response = make_response(
+        jsonify(
+            {
+                "message": "se finalizò la tarjeta automaticamente",
+                "code": 201,
+
+            }
+        ),
+        201,
+    )
+    response.headers["Content-Type"] = "application/json"
+    response.headers["WWW-Authenticate"] = "Sign in successful"
+    return response
+"""
+
+
+def finishCard(tarjeta_instancia_id, request, mysql):
+    print("llego")
+    # hacer una query que verifique si el estado de finalizada es "si" antes de hacer un update
+    antes_finalizada = 'si'
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    finalizada = "si"
+    cursor.execute('SELECT COUNT(*) > 0 AS result FROM tarjeta_instancia WHERE tarjeta_instancia_id = %s AND finalizada = %s',
+                   (tarjeta_instancia_id, antes_finalizada))
+    verificar_finalizada = cursor.fetchone()
+    print("esto es: ", verificar_finalizada['result'])
+    if (int(verificar_finalizada['result']) > 0):
+        print("llego 2")
+        response = make_response(
+            jsonify(
+                {
+                    "message": "se finalizò la tarjeta",
+                    "code": 201,
+
+                }
+            ),
+            201,
+        )
+        response.headers["Content-Type"] = "application/json"
+        response.headers["WWW-Authenticate"] = "Sign in successful"
+        return response
     else:
-        cursor.execute(
-            'UPDATE tarjeta_instancia set finalizada = %s, tiempo_fin = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tiempo_fin, tarjeta_instancia_id,))
-        mysql.connection.commit()
-        return jsonify('se finalizò la tarjeta automaticamente')
+        try:
+            print("llego 3")
+
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            finalizada = "si"
+            tiempo_fin = request.json['tiempo_fin']
+            cursor.execute(
+                'UPDATE tarjeta_instancia set finalizada = %s, tiempo_fin = %s where tarjeta_instancia.tarjeta_instancia_id = %s', (finalizada, tiempo_fin, tarjeta_instancia_id,))
+            mysql.connection.commit()
+            response = make_response(
+                jsonify(
+                    {
+                        "message": "se finalizò la tarjeta",
+                        "code": 201,
+
+                    }
+                ),
+                201,
+            )
+            response.headers["Content-Type"] = "application/json"
+            response.headers["WWW-Authenticate"] = "Sign in successful"
+            return response
+        except:
+            # Si se produce un error, se cancela la transacción
+            mysql.rollback()
+            response = make_response(
+                jsonify(
+                    {
+                        "message": "No se pudo finalizar la tarjeta",
+                        "code": 500,
+
+                    }
+                ),
+                500,
+            )
+            response.headers["Content-Type"] = "application/json"
+            response.headers["WWW-Authenticate"] = "Sign in successful"
+            return response
 
 
 def getAllFinishedCardsByUserId(contar, usuario_id, mysql):
@@ -221,7 +295,12 @@ def getAllFinishedCardListByPatente(usuario_id, mysql):
     """
         cursor.execute('SELECT COUNT(tarjeta_instancia_id) AS "tarjetas_acumuladas", patente, mes, dia_semana, dia_fecha FROM tarjeta_instancia WHERE usuario_id = %s AND finalizada = %s GROUP BY patente, mes,dia_semana,dia_fecha', (usuario_id, finalizada,))
         """
+    """
     cursor.execute('SELECT COUNT(tarjeta_instancia_id) AS "tarjetas_acumuladas", patente, usuario_id FROM tarjeta_instancia WHERE usuario_id = %s AND finalizada = %s GROUP BY patente', (usuario_id, finalizada,))
+    """
+    # QUERY que trae Fecha-finalizada-patente-usuarrrio_id-minutos_totales-tarjetas_acumuladas
+    # suma la cantidad de minutos por patente
+    cursor.execute('SELECT fecha, finalizada, patente, usuario_id, SUM(TIMESTAMPDIFF(MINUTE, tiempo_inicio, tiempo_fin)) AS minutos_totales, COUNT(*) AS tarjetas_acumuladas FROM tarjeta_instancia WHERE usuario_id = %s AND finalizada = %s GROUP BY fecha, patente, finalizada, usuario_id', (usuario_id, finalizada,))
 
     finishedCards = cursor.fetchall()
 

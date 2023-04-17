@@ -20,16 +20,18 @@ export default function PagoConfiguracion() {
     const [external_store_id, setExternalStoreId] = useState();
     const [accessTokenExists, setAccessTokenExists] = useState(false);
     const [storeExists, setStoreExists] = useState(false);
+    const [storeNameExists, setStoreNameExists] = useState(false);
+
     const [boxExists, setBoxExists] = useState(false);
+    const [boxNameExists, setBoxNameExists] = useState(false);
 
     const [mostrarButtonCreateAccessToken, setMostrarButtonCreateAccessToken] = useState(true);
     const [mostrarButtonCreateStore, setMostrarButtonCreateStore] = useState(true);
     const [mostrarButtonCreateBox, setMostrarButtonCreateBox] = useState(true);
-
+    const [userNameMercado, setUserNameMercado] = useState();
 
     const usuario_id = sessionStorage.getItem("usuario_id")
     const token = sessionStorage.getItem("token")
-
 
     const getCuentaMercado = async (usuario_id) => {
         const res = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}`, {
@@ -40,14 +42,21 @@ export default function PagoConfiguracion() {
             }
         });
         const data = await res.json();
+
         //Verificar si el usuario tiene asociada una sucursal y una caja de su cuenta de Mercado Pago
         if (data[1]["code"] == 201) {
             if (data[2]["registro"]["store_id"] != 0) {
                 setStoreExists(true)
+                setStoreNameExists(data[2]['registro']['store_name']);
             }
 
             if (data[2]["registro"]["pos_id"] != 0) {
                 setBoxExists(true)
+                setBoxNameExists(data[2]['registro']['pos_name']);
+            }
+            if (data[2]['registro']['username_mercado'] != "") {
+                setUserNameMercado(data[2]['registro']['username_mercado'])
+
             }
         }
     };
@@ -64,6 +73,7 @@ export default function PagoConfiguracion() {
         if (data == "existe") {
             setAccessTokenExists(true);
             setMostrarButtonCreateStore(true);
+
         }
     };
 
@@ -103,6 +113,20 @@ export default function PagoConfiguracion() {
             toast.error("Debe ingresar un token vàlido", propertyA);
         }
         else {
+
+            const token_split = access_token.split("-"); // Dividimos la cadena por cada espacio en blanco
+            const usuario_mercado_id = token_split[token_split.length - 1]; // Obtenemos el último valor del arreglo
+            console.log("usuarioo")
+            console.log(usuario_mercado_id)
+            //request para obtener los datos del usuario mercado pago y guardamos su nombre de usuario en nuestra DB
+            const getUserMercadoPago = await fetch(`${API_MERCADO_PAGO}/users/${usuario_mercado_id}?access_token=${access_token}`, {
+                mmethod: "GET"
+            });
+            const userMP = await getUserMercadoPago.json();
+            const username_mercado = userMP['nickname']
+            //setUserNameMercado(userMP['nickname'])
+            console.log("quedo")
+            console.log(access_token)
             const res = await fetch(`${API_PAYMENT}/pago/mercado`, {
                 method: "POST",
                 headers: {
@@ -111,10 +135,13 @@ export default function PagoConfiguracion() {
                 },
                 body: JSON.stringify({
                     access_token,
-                    usuario_id
+                    usuario_id,
+                    username_mercado
                 })
             });
             const data = await res.json();
+
+
             toast.success("Se ha guardado el token ingresado", propertyA);
         }
     };
@@ -139,6 +166,7 @@ export default function PagoConfiguracion() {
             });
             const mercado = await getMercado.json();
 
+
             const getLocation = await fetch(`${API_LOCATION}/estacionamiento/zonaTrabajo/${usuario_id}`, {
                 method: "GET",
                 headers: {
@@ -152,6 +180,7 @@ export default function PagoConfiguracion() {
             const calle = workZone['calle']
 
             try {
+
                 const res = await fetch(`${API_MERCADO_PAGO}/users/${mercado['mercado_usuario_id']}/stores?access_token=${mercado['access_token']}`, {
                     method: "POST",
                     body: JSON.stringify({
@@ -175,6 +204,8 @@ export default function PagoConfiguracion() {
                 const store_id = store_response['id']
                 const external_store_id = store_response['external_id']
                 const tipo_creacion = "save_store"
+                const store_name = storeName
+
 
                 setStoreId(store_id)
                 setExternalStoreId(external_store_id)
@@ -187,7 +218,8 @@ export default function PagoConfiguracion() {
                     },
                     body: JSON.stringify({
                         "store_id": store_id,
-                        "external_store_id": external_store_id
+                        "external_store_id": external_store_id,
+                        "store_name": store_name
                     }),
                 });
                 const data = await res2.json();
@@ -200,7 +232,6 @@ export default function PagoConfiguracion() {
                 }
             } catch (e) {
                 //console.log(e)
-                console.log(e.message);
                 //console.log(e.description);
                 //console.log(e.stack);
                 toast.error(e.message, propertyA);
@@ -268,6 +299,7 @@ export default function PagoConfiguracion() {
                 const pos_id = pos_response['id']
                 const external_pos_id = pos_response['external_id']
                 const tipo_creacion_2 = "save_pos"
+                const pos_name = posName
 
                 const res4 = await fetch(`${API_PAYMENT}/pago/mercado/${usuario_id}/${tipo_creacion_2}`, {
                     method: "PUT",
@@ -277,11 +309,11 @@ export default function PagoConfiguracion() {
                     },
                     body: JSON.stringify({
                         "pos_id": pos_id,
-                        "external_pos_id": external_pos_id
+                        "external_pos_id": external_pos_id,
+                        "pos_name": pos_name
                     }),
                 });
                 const response_save_pos = await res4.json();
-                console.log(response_save_pos)
 
                 if (pos_response['name'] == posName) {
                     setMostrarButtonCreateBox(true);
@@ -297,6 +329,7 @@ export default function PagoConfiguracion() {
         }
     };
 
+
     useEffect(() => {
         getAccessTokenExists(usuario_id);
         getCuentaMercado(usuario_id);
@@ -305,8 +338,19 @@ export default function PagoConfiguracion() {
 
     return (
         <div>
+
             <div>
                 <h4>Configuración para cobrar a través de Mercado Pago</h4>
+
+                <div>
+                    {accessTokenExists ? (
+                        <><p className="infoCuenta">Cuenta: {userNameMercado}</p>
+                        </>
+
+                    ) : <></>
+                    }
+
+                </div>
                 {accessTokenExists ? (
                     <><p className="infoCuenta">Access-token: asignado</p>
                     </>
@@ -314,6 +358,8 @@ export default function PagoConfiguracion() {
                 ) : <><p className="infoCuenta">Access-token: no asignado</p>
                 </>
                 }
+
+
 
                 {mostrarButtonCreateAccessToken ? (
                     <>
@@ -332,7 +378,7 @@ export default function PagoConfiguracion() {
             </div>
             <div>
                 {storeExists ? (
-                    <><p className="infoCuenta">Sucursal: asignado</p>
+                    <><p className="infoCuenta">Sucursal: {storeNameExists}</p>
                     </>
 
                 ) : <><p className="infoCuenta">Sucursal: no asignado</p>
@@ -357,7 +403,7 @@ export default function PagoConfiguracion() {
             <div>
                 {boxExists ? (
                     <>
-                        <p className="infoCuenta">Caja: asignado</p>
+                        <p className="infoCuenta">Caja: {boxNameExists}</p>
                     </>
 
                 ) : <><p className="infoCuenta">Caja: no asignado</p>

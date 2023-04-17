@@ -37,17 +37,28 @@ export const Map = (props) => {
   const [updateWorkZone, setUpdateWorkZone] = useState(props.updateWorkZone);
   const usuario_id = sessionStorage.getItem("usuario_id");
   const token = sessionStorage.getItem("token");
+  const [variable, setVerificacion] = useState(true);
+  const [center, setCenter] = useState({
+    lat: -32.889894119559635,
+    lng: -68.84615948128344,
+  })
+
+  const [markersUserLogueado, setMarkersUserLogueado] = useState([
+
+    { latitud: "-32.89221637504666", longitud: "-68.84531745624827" }
+
+  ]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: API_KEY,
     libraries,
   });
-
-  const center = {
-    lat: -32.889894119559635,
-    lng: -68.84615948128344,
-  };
-
+  /*
+    const center = {
+      lat: -32.889894119559635,
+      lng: -68.84615948128344,
+    };
+  */
   const options = {
     disableDefaultUI: true,
     zoomControl: true,
@@ -59,8 +70,42 @@ export const Map = (props) => {
     if (!updateWorkZone) {
       const res = await fetch(`${API_LOCATION}/estacionamiento`);
       const data = await res.json();
+      console.log("antes")
+      console.dir(data)
       setMarkers(data);
     }
+    /*
+    if (updateWorkZone) {
+      console.log("entra")
+      const res2 = await fetch(`${API_LOCATION}/estacionamiento/zonaTrabajo/${usuario_id}`, {
+        mmethod: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      });
+      const data2 = await res2.json();
+      //console.dir(data['patentes'][0])
+      console.log("data tarjetaero")
+      console.dir(data2)
+      const myObject = {
+        latitud: data2['latitud'],
+        longitud: data2['longitud']
+      };
+      console.log("ahora el objeto es")
+      console.dir(myObject)
+      const jsonnn = JSON.stringify(myObject);
+      console.log("convertido a json")
+      console.dir(jsonnn)
+     
+      console.log("agregado")
+      console.dir(markersUserLogueado)
+      
+
+
+    }
+    */
+
   };
 
   //Guardar el o los markers (zonas de trabajo) y mandarlas a la base de datos
@@ -115,8 +160,13 @@ export const Map = (props) => {
           time: new Date(),
         },
       ]);
+      setCenter({
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      })
     }
   }, []);
+
 
   useEffect(() => {
     getWorkZone();
@@ -154,6 +204,7 @@ export const Map = (props) => {
           Estacionamiento <span role="img" aria-label="tent"></span>
         </h1>
       }
+
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}
@@ -163,6 +214,7 @@ export const Map = (props) => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
+
         {markers.map((marker) => (
           <Marker
             key={marker.calle + "_" + Date.now()}
@@ -182,6 +234,9 @@ export const Map = (props) => {
           />
         ))}
 
+
+
+
         {updateWorkZone == false && selected ? (
           <InfoWindow
             position={{
@@ -193,7 +248,7 @@ export const Map = (props) => {
             }}
           >
             <div>
-              <h4>Lugares disponibles: {selected.cantidad_disponible}</h4>
+              <h5>Lugares disponibles: {selected.cantidad_disponible}</h5>
               <h5>Calle: {selected.calle}</h5>
             </div>
           </InfoWindow>

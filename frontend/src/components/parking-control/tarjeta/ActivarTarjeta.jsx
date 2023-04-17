@@ -26,6 +26,7 @@ export default function ActivarTarjeta() {
   const [textBoxPatenteValue, setTextBoxPatenteValue] = useState(null);
   const [arrayTiempoCard, setArrayTiempoCard] = useState([])
   const [modalOpen, setModalOpen] = useState(false);
+  const [stateButtonCreateCard, setStateButtonCreateCard] = useState();
 
   const buttonActivarTarjeta = (buttonValue) => {
     setButtonActivarTarjeta(buttonValue);
@@ -50,6 +51,7 @@ export default function ActivarTarjeta() {
 
   const separarPatentePorGuion = (event) => {
     if (selectedRadioPatente == "option1") {
+
       // Eliminar los guiones de la cadena de texto ingresada por el usuario
       const inputValue = event.target.value.replace(/-/g, "");
       // Dividir la cadena en partes de cuatro dígitos
@@ -58,6 +60,9 @@ export default function ActivarTarjeta() {
       const newValue = parts ? parts.join("-") : "";
       // Actualizar el estado del componente
       setTextBoxPatenteValue(newValue.toUpperCase());
+
+
+
     }
     if (selectedRadioPatente == "option2") {
       const inputValue = event.target.value;
@@ -98,10 +103,12 @@ export default function ActivarTarjeta() {
     return tiempoObject;
   }
   //Activar una nueva tarjeta
-  const createCard = async (
+  const createCard = async (selectedRadioPatente
   ) => {
     setModalOpen(false);
     const patente = textBoxPatenteValue;
+    console.log("patente es: " + patente)
+    console.log("esto:" + selectedRadioPatente)
     if (
       patente == null
     ) {
@@ -111,6 +118,10 @@ export default function ActivarTarjeta() {
         "Debe seleccionar todos los campos para activar una tarjeta"
       );
       */
+    } else if (selectedRadioPatente == "option1" && patente.length < 7) {
+      toast.info("Debe ingresar la patente completa", propertyA);
+    } else if (selectedRadioPatente == "option2" && patente.length < 9) {
+      toast.info("Debe ingresar la patente completa", propertyA);
     } else if (amountCards.cantidad_tarjeta <= 0) {
       const rechazarTarjeta = window.confirm(
         "No posee tarjetas disponibles en su cuenta"
@@ -146,6 +157,9 @@ export default function ActivarTarjeta() {
       });
       await getAmountCards();
       const tarjetasDisponibles = amountCards.cantidad_tarjeta - 1;
+      setTextBoxPatenteValue(null);
+      setSelectedRadioPatente(null);
+      setStateButtonCreateCard(null);
 
       toast.success('Tarjeta creada! Quedan:' + " " + tarjetasDisponibles + " tarjetas en su cuenta", propertyA);
       /*
@@ -160,7 +174,7 @@ export default function ActivarTarjeta() {
 
   useEffect(() => {
     getAmountCards();
-  }, []);
+  }, [stateButtonCreateCard]);
 
   return (
     <div>
@@ -180,6 +194,7 @@ export default function ActivarTarjeta() {
               value="option1"
               checked={selectedRadioPatente === "option1"}
               onChange={elegirRadioPatenteButton}
+              required
               style={{ width: '20px', height: '20px', fontSize: '18px' }}
             />
             1994
@@ -251,11 +266,14 @@ export default function ActivarTarjeta() {
                   <p>Dia mes: {elemento.dayOfMonth}</p>
                   <p>Hora: {elemento.hour}:{elemento.minute}</p>
                   <p>Patente: {textBoxPatenteValue}</p>
+                  <p>Precio: $60</p>
+                  <p>Tiempo: 30 minutos</p>
+
                 </div>
               ))}
             </div>
             <button className="buttonCancelarTarjetaModal" onClick={handleCloseModal}>Cancelar</button>
-            <button className="buttonCrearTarjetaModal" onClick={(e) => createCard()}>Crear tarjeta</button>
+            <button className="buttonCrearTarjetaModal" onClick={(e) => createCard(selectedRadioPatente)}>Crear tarjeta</button>
           </Modal>
         </div>
       </div>

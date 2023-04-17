@@ -210,7 +210,7 @@ function CompactCard(props) {
               */}
               <div className="tiempoBar">
                 <span>
-                  {tarjeta_instancia.tarjetas_acumuladas * 30} minutos
+                  {tarjeta_instancia.minutos_totales} minutos
                 </span>
               </div>
               <div className="precioBar">
@@ -289,16 +289,16 @@ function ExpandedCard(props) {
         */}
       <div>
         <span className="spanPendienteExpanded">Patente: {props.card.patente}</span>
-        <span className="spanPendienteExpanded">Tiempo: {props.card.tarjetas_acumuladas * 30} minutos</span>
-        <span className="spanPendienteExpanded">Precio: ${props.card.tarjetas_acumuladas * 60}</span>
         <span className="spanPendienteExpanded">Tarjetas: {props.card.tarjetas_acumuladas}</span>
+        <span className="spanPendienteExpanded">Tiempo: {props.card.minutos_totales} minutos</span>
+        <span className="spanPendienteExpanded">Precio: ${props.card.tarjetas_acumuladas * 60}</span>
       </div>
 
 
       <PagoGenerarQR
         patente={props.card.patente}
         cantidad_tarjetas={props.card.tarjetas_acumuladas}
-        minutos={props.card.tarjetas_acumuladas * 30}
+        minutos={props.card.minutos_totales}
         precio_total={props.card.tarjetas_acumuladas * 60}
         userId={props.card.usuario_id}
       />
