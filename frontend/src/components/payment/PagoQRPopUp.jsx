@@ -19,7 +19,7 @@ const PagoQRPopUp = ({
     marginRight: "2rem",
     //fontSize: "1.8rem",
     fontSize: "1.7rem",
-    marginTop: "0.7rem",
+    marginTop: "0.4rem",
     height: "25px",
     display: "flex",
     alignItems: "center",
@@ -36,7 +36,7 @@ const PagoQRPopUp = ({
     marginLeft: "2rem",
     marginRight: "2rem",
     fontSize: "1.2rem",
-    marginTop: "0.7rem",
+    marginTop: "0.4rem",
     height: "25px",
     //display: "flex",
     alignItems: "center",
@@ -64,6 +64,7 @@ const PagoQRPopUp = ({
           </p>
           <div className="content">
             <p style={tituloStyle}>Escanear con Mercado Pago</p>
+            <p style={datosStyle}>Patente: {patente}</p>
             <p style={datosStyle}>Tarjetas: {cantidad_tarjetas}</p>
             <p style={datosStyle}>Tiempo: {minutos} minutos</p>
             <p style={datosStyle}>Precio: $ {precio_total}</p>
