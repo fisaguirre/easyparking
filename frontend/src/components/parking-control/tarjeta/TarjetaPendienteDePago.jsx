@@ -20,7 +20,7 @@ import {
 } from "./service/TarjetaService";
 
 import "react-circular-progressbar/dist/styles.css";
-
+const API_PAYMENT = process.env.REACT_APP_API_PAYMENT;
 const API = process.env.REACT_APP_API_USER;
 
 const TarjetaPendienteDePago = () => {
@@ -67,6 +67,34 @@ const TarjetaPendienteDePago = () => {
       }
     };
   */
+  const savePagosCard = async (fecha, patente, tarjetas_acumuladas, minutos_totales, usuario_id) => {
+    const cantidad_tarjetas = tarjetas_acumuladas
+    const tiempo_total = minutos_totales
+    const precio_total = tarjetas_acumuladas * 60
+    const res = await fetch(`${API_PAYMENT}/pago/pagos`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,
+      },
+      body: JSON.stringify({
+        fecha,
+        precio_total,
+        tiempo_total,
+        cantidad_tarjetas,
+        patente,
+        usuario_id,
+      }),
+    });
+    const response = await res.json();
+    if (response['code'] == 201) {
+      return true
+    } else {
+      return false
+    }
+
+    //toast.success('Tarjeta creada! Quedan:' + " " + tarjetasDisponibles + " tarjetas en su cuenta", propertyA);
+  };
   const deleteFinishedCardListById = async (patente, usuario_id) => {
     const res = await fetch(
       `${API}/tarjeta_instancia/finalizar/${patente}/${usuario_id}`,
@@ -79,7 +107,7 @@ const TarjetaPendienteDePago = () => {
       }
     );
     const data = await res.json();
-    toast.success("Tarjetas eliminadas", propertyA);
+    toast.success("Tarjetas almacenadas", propertyA);
     await getTarjetasActivadas();
   };
   const redirigirCrearNuevaTarjeta = () => {
@@ -100,8 +128,10 @@ const TarjetaPendienteDePago = () => {
     setExpanded(false);
   };
 
-  const limpiarTarjetas = (patente, usuario_id) => {
-    deleteFinishedCardListById(patente, usuario_id);
+  const limpiarTarjetas = (fecha, patente, tarjetas_acumuladas, minutos_totales, usuario_id) => {
+    if (savePagosCard(fecha, patente, tarjetas_acumuladas, minutos_totales, usuario_id)) {
+      deleteFinishedCardListById(patente, usuario_id);
+    }
     setExpanded(false);
   };
   //setea la tarjeta seleccionada y expande la tarjeta
@@ -134,8 +164,8 @@ const TarjetaPendienteDePago = () => {
                       cerrarTarjetaExpandida(parametro)
                     }
                     devolverDatosTarjetaParaQR={(card) => lanzarQR(card)}
-                    returnPatenteAndUserIdForEndCard={(patente, usuario_id) =>
-                      limpiarTarjetas(patente, usuario_id)
+                    returnPatenteAndUserIdForEndCard={(fecha, patente, tarjetas_acumuladas, minutos_totales, usuario_id) =>
+                      limpiarTarjetas(fecha, patente, tarjetas_acumuladas, minutos_totales, usuario_id)
                     }
                   />
                 ) : (
@@ -233,8 +263,8 @@ function ExpandedCard(props) {
     props.devolverDatosTarjetaParaQR(card);
   }
 
-  function returnPatenteAndUserIdForEndCard(patente, usuario_id) {
-    props.returnPatenteAndUserIdForEndCard(patente, usuario_id);
+  function returnPatenteAndUserIdForEndCard(fecha, patente, tarjetas_acumuladas, minutos_totales, usuario_id) {
+    props.returnPatenteAndUserIdForEndCard(fecha, patente, tarjetas_acumuladas, minutos_totales, usuario_id);
   }
   const styleExtendedCard = {
     background: "linear-gradient(180deg, #BCC629 0%, #15E53E 100%)",
@@ -318,12 +348,15 @@ function ExpandedCard(props) {
         className="buttonLimpiarTarjetas"
         onClick={() => {
           returnPatenteAndUserIdForEndCard(
+            props.card.fecha,
             props.card.patente,
+            props.card.tarjetas_acumuladas,
+            props.card.minutos_totales,
             props.card.usuario_id
           );
         }}
       >
-        Limpiar tarjetas
+        Almacenar tarjetas
       </button>
     </motion.div>
   );

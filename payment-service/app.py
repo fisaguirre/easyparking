@@ -6,6 +6,7 @@ from functools import wraps
 from flask_cors import CORS, cross_origin
 from controller import mercado
 from controller import signup
+from controller import pago
 from database_conexion import obtener_conexion
 from controller import users
 
@@ -122,13 +123,19 @@ def saveExternalsId(current_user, usuario_id, tipo_creacion):
         return mercado.savePos(request, usuario_id, mysql)
 
 
-"""
 # Obtener todos los pagos efectuados de un usuario
-@app.route('/pago/<usuario_id>', methods=["GET"])
+@app.route('/pago/pagos/<usuario_id>', methods=["GET"])
 @token_required
-def verifyStoreAndPosUserExists(current_user, usuario_id):
-    return mercado.verifyStoreAndPosUserExists(usuario_id, mysql)
-"""
+def getPagosByUser(current_user, usuario_id):
+    return pago.getPagosByUser(usuario_id, mysql)
+
+
+# Crear pago
+@app.route('/pago/pagos', methods=["POST"])
+@token_required
+def createPagoByUser(current_user):
+    return pago.createPagoByUser(request, mysql)
+
 
 # main driver function
 if __name__ == "__main__":

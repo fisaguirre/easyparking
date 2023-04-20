@@ -158,12 +158,37 @@ export const SidebarDataTarjetero = [
   */
 
   {
+    title: "Pagos",
+    //path: "/reports",
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: "Configuración de Facturación",
+        path: "/pago/configuracion",
+        icon: <MdIcons.MdPayment />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Pagos efectuados",
+        path: "/pago/realizado",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+    ],
+  },
+
+  /*
+  {
     title: "Configuración de Facturación",
     path: "/pago/configuracion",
     icon: <MdIcons.MdPayment />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
+  */
   /*
   {
     title: "Configuraciòn de perfil",

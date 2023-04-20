@@ -13,6 +13,8 @@ import TarjetaInstancia from "../components/parking-control/tarjeta/TarjetaInsta
 import TarjetaPendienteDePago from "../components/parking-control/tarjeta/TarjetaPendienteDePago";
 import Estacionamiento from "../components/parking-location/Estacionamiento";
 import PagoConfiguracion from "../components/payment/PagoConfiguracion";
+import PagoEfectuado from "../components/payment/PagoEfectuado";
+
 import Logout from "../page/Logout";
 import BackToHome from "../page/BackToHome";
 export function MyRoutes() {
@@ -82,6 +84,11 @@ export function MyRoutes() {
               path="/pago/configuracion"
               className="auto"
               element={<PagoConfiguracion />}
+            />
+            <Route
+              path="/pago/realizado"
+              className="auto"
+              element={<PagoEfectuado />}
             />
 
             <Route path="/logout" element={<Logout />} />
