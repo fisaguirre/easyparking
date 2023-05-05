@@ -50,10 +50,6 @@ def getAllUsersAndCards(mysql):
     cursor.execute(
         'SELECT * FROM usuario LEFT JOIN tarjeta ON usuario.usuario_id = tarjeta.usuario_id')
     current_users = cursor.fetchall()
-
-    print("usuarios: ", current_users)
-    print("y: ", json.dumps(current_users))
-    print("ultimo: ", jsonify(current_users))
     cursor.close()
     return jsonify(current_users)
 

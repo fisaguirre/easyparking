@@ -44,12 +44,12 @@ const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
 
   const showSubnav = () => {
-    console.log("se queire cerrar");
+    //console.log("se queire cerrar");
 
     setSubnav(!subnav);
   };
   const cerrar = () => {
-    console.log("cerrar");
+    //console.log("cerrar");
   };
   return (
     <>

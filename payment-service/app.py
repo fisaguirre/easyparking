@@ -108,8 +108,6 @@ def getAccessTokenExists(current_user, usuario_id):
 @app.route('/pago/mercado/sucpos/<usuario_id>', methods=["GET"])
 @token_required
 def verifyStoreAndPosUserExists(current_user, usuario_id):
-    print("hola")
-
     return mercado.verifyStoreAndPosUserExists(usuario_id, mysql)
 
 

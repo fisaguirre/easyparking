@@ -67,7 +67,7 @@ export default function PagoGenerarQR({
           body: JSON.stringify({
             external_reference: "Pago Estacionamiento",
             title: "Pago Estacionamiento",
-            description: "Estacionamiento Medido Ciudad de Mendoza",
+            description: "Estacionamiento de Mendoza",
             total_amount: precio_total,
             items: [
               {
@@ -84,6 +84,7 @@ export default function PagoGenerarQR({
         }
       );
       const data = await res.json();
+
       setCodigoQR(data["qr_data"]);
       if (data["qr_data"].length === 0) {
         setCodigoQRExists(false);

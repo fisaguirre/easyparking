@@ -194,7 +194,7 @@ const Sidebar = () => {
     }
   };
   const tirar = () => {
-    console.log("se queire cerrar");
+    // console.log("se queire cerrar");
   };
   useEffect(() => {
     getUserLogueado();

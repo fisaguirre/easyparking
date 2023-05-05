@@ -97,6 +97,7 @@ const Users = () => {
             }
         });
         const data = await res.json();
+        console.dir(data)
         setUsers(data);
     };
 

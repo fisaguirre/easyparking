@@ -149,11 +149,6 @@ def getTokenAndMercadoId(usuario_id, mysql):
 
 
 def saveStore(request, usuario_id, mysql):
-    print("Esto es: ", request.json['store_name'])
-    print("Esto es: ", request.json['store_id'])
-
-    print("Esto es: ", request.json['external_store_id'])
-
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
     cursor.execute(

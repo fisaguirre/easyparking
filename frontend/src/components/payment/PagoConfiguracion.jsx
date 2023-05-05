@@ -42,12 +42,14 @@ export default function PagoConfiguracion() {
             }
         });
         const data = await res.json();
+        console.dir(data)
 
         //Verificar si el usuario tiene asociada una sucursal y una caja de su cuenta de Mercado Pago
         if (data[1]["code"] == 201) {
             if (data[2]["registro"]["store_id"] != 0) {
                 setStoreExists(true)
                 setStoreNameExists(data[2]['registro']['store_name']);
+                setStoreId(Number(data[2]['registro']['store_id']))
             }
 
             if (data[2]["registro"]["pos_id"] != 0) {
@@ -123,6 +125,8 @@ export default function PagoConfiguracion() {
                 mmethod: "GET"
             });
             const userMP = await getUserMercadoPago.json();
+            console.log("sisii")
+            console.dir(userMP)
             const username_mercado = userMP['nickname']
             //setUserNameMercado(userMP['nickname'])
             console.log("quedo")
@@ -196,6 +200,7 @@ export default function PagoConfiguracion() {
                     }),
                 });
                 const store_response = await res.json();
+
                 /*
                 if (store_response['message'].includes('is already assigned')) {
                     throw new Error("Ya tiene una sucursal asignada a su cuenta")
@@ -273,6 +278,7 @@ export default function PagoConfiguracion() {
         if (posName.length < 5) {
             toast.info("Debe ingresar un nombre mas largo para la caja", propertyA);
         } else {
+            console.log("entra")
             const getMercado = await fetch(`${API_PAYMENT}/pago/mercado/token/${usuario_id}`, {
                 mmethod: "GET",
                 headers: {
@@ -281,7 +287,11 @@ export default function PagoConfiguracion() {
                 }
             });
             const mercado = await getMercado.json();
+            console.log("esto:")
+            console.log(store_id)
             const number_store_id = Number(store_id)
+            console.dir(mercado)
+            console.log(number_store_id)
 
             try {
                 const res3 = await fetch(`${API_MERCADO_PAGO}/pos?access_token=${mercado['access_token']}`, {
