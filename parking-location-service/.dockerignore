@@ -1,5 +1,4 @@
-# misc
-.env
+.dockerignore
 venv/
 __pycache__/
 *.pyc

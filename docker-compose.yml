@@ -1,7 +1,7 @@
 version: '3'
 services:
   user-parking-control-service:
-    image: fain1995/user-parking-control-service:back
+    image: fain1995/easy-parking:user-parking-control-service
     #specifies the build configuration for creating container image
     build:
       #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
@@ -29,7 +29,7 @@ services:
     #image: Like the FROM instruction from the Dockerfile. Instead of writing a new Dockerfile, we are using an existing image from a repository. It’s important to specify the version — if your installed mysql client is not of the same version problems may occur.
     #this image is from dockerhub
     #image: mysql:5.7
-    image: fain1995/db_user_parking_control_service:db
+    image: fain1995/easy-parking:db-user-parking-control
     restart: always
     build:
       #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
@@ -52,7 +52,7 @@ services:
       - user_parking_control
 
   parking-location-service:
-    image: fain1995/user-parking-location-service:back
+    image: fain1995/easy-parking:user-parking-location-service
     #specifies the build configuration for creating container image
     build:
       #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
@@ -80,7 +80,7 @@ services:
     #image: Like the FROM instruction from the Dockerfile. Instead of writing a new Dockerfile, we are using an existing image from a repository. It’s important to specify the version — if your installed mysql client is not of the same version problems may occur.
     #this image is from dockerhub
     #image: mysql:5.7
-    image: fain1995/db_parking_location_service:db
+    image: fain1995/easy-parking:db-parking-location
     restart: always
     build:
       #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
@@ -103,7 +103,7 @@ services:
       - parking_location
 
   payment-service:
-    image: fain1995/payment-service:back
+    image: fain1995/easy-parking:payment-service
     #specifies the build configuration for creating container image
     build:
       #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
@@ -131,7 +131,7 @@ services:
     #image: Like the FROM instruction from the Dockerfile. Instead of writing a new Dockerfile, we are using an existing image from a repository. It’s important to specify the version — if your installed mysql client is not of the same version problems may occur.
     #this image is from dockerhub
     #image: mysql:5.7
-    image: fain1995/db_payment_service:db
+    image: fain1995/easy-parking:db-payment
     restart: always
     build:
       #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
@@ -154,7 +154,8 @@ services:
       - payment
 
   frontend:
-    image: fain1995/frontend:front
+    #image: fain1995/frontend:front
+    image: fain1995/easy-parking:front
     #specifies the build configuration for creating container image
     build:
       #defines either a path to a directory containing a Dockerfile, or a url to a git repository.
