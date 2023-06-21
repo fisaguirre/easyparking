@@ -8,5 +8,5 @@ RUN pip install --upgrade pip && \
     pip3 install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn
 COPY . ./
-EXPOSE 5672
-CMD [ "gunicorn", "app:app", "--bind", "0.0.0.0:5672" ]
+EXPOSE 5002
+CMD [ "gunicorn", "app:app", "--bind", "0.0.0.0:5002" ]

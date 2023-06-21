@@ -18,7 +18,7 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [dni, setDni] = useState("");
-    const [rol, setRol] = useState('');
+    const [rol, setRol] = useState("sin asignar");
 
     const [editing, setEditing] = useState(false);
     const [id, setId] = useState("");
@@ -64,7 +64,7 @@ const SignUp = () => {
         if (response[1]["code"] == 201) {
             const uuid = response[2]["uuid"]
             if (uuid) {
-                const res2 = await fetch(`${API_PAYMENT}/auth/signup`, {
+                const res2 = await fetch(`${API_LOCATION}/auth/signup`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const SignUp = () => {
 
                 const response2 = await res2.json();
 
-                const res3 = await fetch(`${API_LOCATION}/auth/signup`, {
+                const res3 = await fetch(`${API_PAYMENT}/auth/signup`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
